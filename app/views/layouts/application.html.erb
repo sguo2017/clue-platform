@@ -18,7 +18,7 @@
   </head>
   <body>
 
-    <div class="navbar navbar-default navbar-static-top">
+    <div class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
           <span class="icon-bar"></span>
@@ -27,12 +27,38 @@
         </button>
         <a class="navbar-brand" href="#">海关情报研判系统</a>
         <% if user_signed_in? %>
-          <div class="navbar-collapse collapse navbar-responsive-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to current_user.email, '#' %></li>
-              <li><%= link_to "退出系统", destroy_user_session_path, method: :delete  %></li>
-            </ul>
-          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">个人信息</a></li>
+                <li><%= link_to '退出系统', destroy_user_session_path, method: :delete %></li>
+              </ul>
+            </li>
+            <li><a href="#" style="padding:17px 10px 13px 10px"><span class="glyphicon glyphicon-cog"></span></a></li>
+            <li><a href="#" style="padding:17px 2px 13px 10px"><span class="glyphicon glyphicon-bell"></span>
+            </a></li>
+            <li><a href="#" style="padding-left:2px"><span class="badge">42</span></a></li>
+            
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="搜索关键字">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+          </form>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#about">首页</a></li>
+            <li><a href="#contact">分析工具</a></li>
+            <li><a href="#contact">战法管理</a></li>
+            <li><a href="#contact">情报预警</a></li>
+            <li><a href="#contact">证据管理</a></li>
+          </ul>          
         <% end %>
       </div>
     </div>

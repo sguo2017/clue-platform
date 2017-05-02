@@ -14,3 +14,48 @@
  *= require bootstrap-static
  *= require_self
  */
+ body{
+ 	padding-top: 70px;
+ }
+.panel-default{
+	border-radius: 0px;
+}
+.panel-default .panel-heading{
+	background: #ffffff;
+	border-bottom: none;
+}
+.panel-default .panel-heading h3{
+	font-weight: normal;
+}
+.panel-default .panel-heading .pull-right{
+	font-size: 12px;
+	line-height: 20px;
+	vertical-align: middle;
+	color: lightgray;
+}
+.panel-default .panel-body{
+	padding-top: 0;
+}
+.panel-default .thumbnail{
+	margin-bottom: 0;
+	padding: 1px;
+	border: 0px;
+}
+.panel-default .thumbnail img{
+	width:100%;
+	border:none;
+}
+.panel-default .thumbnail .caption{
+	position: absolute;
+	bottom: 2px;
+	left: 2px;
+	right: 2px;
+	padding: 0px;
+}
+.panel-default .thumbnail .caption p{
+	margin-bottom: 0px;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.1);
+	color: white;
+	font-size: 12px;
+}
