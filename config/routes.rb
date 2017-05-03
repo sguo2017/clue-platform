@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'tools/index'
+
   get 'suspects/index'
 
   root 'dashboard#index'

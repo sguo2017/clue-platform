@@ -1,0 +1,110 @@
+// Place all the styles related to the tools controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.tools_sidebar{
+	height: 100%;
+	width: 300px;
+	margin-right: 15px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index:1;
+}
+.tools_sidebar .panel{
+	height: 33%;
+	margin-bottom: 0px;
+	padding-top: 36px;
+	padding-bottom: 0px;
+	position: relative;
+	border-bottom: 0px;
+}
+.tools_sidebar .panel-heading{
+	position: absolute;
+	top: 0;
+	width: 100%;
+    z-index: 1;
+}
+.tools_sidebar .panel-heading .panel-title{
+	font-size: 14px;
+}
+.tools_sidebar .panel-default .panel-heading{
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+.tools_sidebar .panel-body{	
+	height: 100%;
+	overflow: auto;
+}
+
+.tools_main{
+	height: 100%;
+	padding-left: 15px;
+	padding-right: 305px;	
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.tools_main .panel{
+	height: 100%;
+	margin-bottom: 0px;
+	padding-top: 36px;
+	padding-bottom: 0px;
+	position: relative;
+	border-right: none;
+}
+.tools_main .panel-heading{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 3;
+}
+.tools_main .panel-default .panel-heading{
+    border-bottom: 1px solid #ddd;
+    height: 36px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.tools_main .panel-default .panel-heading .col-xs-7{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.tools_main .panel-default .panel-heading label{
+	padding-left: 10px;
+	font-size: 12px;
+}
+.tools_main .panel-body{
+	height: 100%;
+	overflow: auto;
+	background-color: #eee;
+}
+
+.tools_search{
+	position: absolute;
+	bottom: 0px;
+	left: 35px;
+	width: 400px;
+	z-index: 2;
+}
+.tools_search .panel{
+	position: relative;
+}
+.tools_search #pushpin{
+	position: absolute;
+	left: 5px;
+	top: -10px;
+	z-index: 3;
+}
+.tools_search .panel-body{
+	padding: 0;
+}
+.tools_search .panel-body .navbar-form{
+	margin: 0;
+	padding: 0;
+}
+.tools_search .panel-body .navbar-form .input-group{
+	width: 100%;
+}
+.tools_search .panel-body .navbar-form .input-group input{
+	border-width: 0px;
+}

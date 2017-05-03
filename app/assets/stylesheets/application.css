@@ -32,6 +32,17 @@
  h1, h2, h3, h4, h5, h6{
 	font-weight: normal;
  }
+ canvas {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
+ }
+ .btn-link:active, .btn-link:focus, .btn-link:hover{
+ 	text-decoration: none!important;
+ }
+ .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus{
+ 	outline: 0px;
+ 	outline-offset: 0px;
+ }
 .panel-default{
 	border-radius: 0px;
 }

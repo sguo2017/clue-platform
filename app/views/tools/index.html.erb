@@ -1,0 +1,93 @@
+<div class="tools_main">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="panel-title row">
+				<div class="col-xs-7">
+					  <label href="#">选取模式</label>
+					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default">框选</button>
+						  <button type="button" class="btn btn-default">平移</button>
+					  </div>
+					  <label href="#">操作方式</label>
+					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default">放大</button>
+						  <button type="button" class="btn btn-default">缩小</button>
+					  </div>
+					  <label href="#">布局方式</label>
+					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default">树形</button>
+						  <button type="button" class="btn btn-default">星形</button>
+						  <button type="button" class="btn btn-default">圆形</button>
+						  <button type="button" class="btn btn-default">自由</button>
+					  </div> 
+				</div>
+				<div class="col-xs-5 text-right">
+					<button class="btn btn-link"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> 数据导入</button>
+					<button class="btn btn-link"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 图表保存</button>
+					<button class="btn btn-link"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 图表导出</button>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body" id="tools_main_diagram" style="padding-bottom: 0px; min-height: 96px;">
+			
+		</div>
+	</div>
+</div>
+<div class="tools_sidebar">
+	<div class="panel panel-default" style="height: 40%">
+		<div class="panel-heading">
+			<h3 class="panel-title">图元对象</h3>
+		</div>
+		<div class="panel-body" id="tools_main_palette" style="padding-bottom: 0px; width:100%;">
+			
+		</div>
+	</div>
+	<div class="panel panel-default" style="height: 26%">
+		<div class="panel-heading">
+			<h3 class="panel-title">连线类型</h3>
+		</div>
+		<div class="panel-body" style="padding-bottom: 0px; min-height: 96px;">
+
+		</div>
+	</div>
+	<div class="panel panel-default" style="height:34%">
+		<div class="panel-heading">
+			<h3 class="panel-title">缩略图</h3>
+		</div>
+		<div class="panel-body" id="tools_main_overview" style="padding-bottom: 0px; width:100%;background-color:#eee">
+
+		</div>				
+	</div>
+</div>
+<div class="tools_search">
+	<div class="panel panel-default">
+		<span id="pushpin" class="glyphicon-pushpin glyphicon"></span>
+		<div class="panel-body">
+			<form class="navbar-form">
+				<div class="input-group">
+				  <input type="text" class="form-control" placeholder="搜索关键字">
+				</div>
+			</form>			
+		</div>
+		<table class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>项目标识</th>
+					<th>项目类型</th>
+					<th>上下文</th>
+				</tr>				
+			</thead>
+			<tbody>
+				<% 4.times do |index| %>
+				<tr>
+					<td><%= index %></td>
+					<td>13678987777</td>
+					<td>手机</td>
+					<td><%= index %>-(350)88987777</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>	
+</div>
