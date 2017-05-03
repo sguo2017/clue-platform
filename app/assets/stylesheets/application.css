@@ -10,12 +10,27 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- * require_tree .
  *= require bootstrap-static
+ *= require_tree .
  *= require_self
  */
+ html{
+ 	height: 100%;
+ }
  body{
- 	padding-top: 70px;
+ 	padding-top: 50px;
+ 	height: 100%;
+ 	overflow: hidden;
+ }
+ body > .main,
+ body > .main > .row,
+ body > .main > .row > .col-xs-12{
+	height: 100%!important;
+	padding-left: 0px;
+	padding-right: 0px;
+ }
+ h1, h2, h3, h4, h5, h6{
+	font-weight: normal;
  }
 .panel-default{
 	border-radius: 0px;
@@ -24,8 +39,9 @@
 	background: #ffffff;
 	border-bottom: none;
 }
-.panel-default .panel-heading h3{
-	font-weight: normal;
+.panel-default .panel-footer{
+	background: #ffffff;
+	border-top: none;
 }
 .panel-default .panel-heading .pull-right{
 	font-size: 12px;

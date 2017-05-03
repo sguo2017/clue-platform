@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'suspects/index'
+
   root 'dashboard#index'
 
   devise_for :users, controllers: {
