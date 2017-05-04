@@ -13,7 +13,7 @@
 .tools_sidebar .panel{
 	height: 33%;
 	margin-bottom: 0px;
-	padding-top: 36px;
+	padding-top: 40px;
 	padding-bottom: 0px;
 	position: relative;
 	border-bottom: 0px;
@@ -22,24 +22,29 @@
 	position: absolute;
 	top: 0;
 	width: 100%;
-    z-index: 1;
-}
-.tools_sidebar .panel-heading .panel-title{
-	font-size: 14px;
+    z-index: 3;
 }
 .tools_sidebar .panel-default .panel-heading{
     background-color: #f5f5f5;
     border-bottom: 1px solid #ddd;
 }
-.tools_sidebar .panel-body{	
+.tools_sidebar .panel-default .panel-heading .nav-tabs > li > a {
+	border-radius: 0;
+}
+.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a, 
+.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a:hover, 
+.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a:focus {
+	
+}
+.tools_sidebar .panel-body{
 	height: 100%;
 	overflow: auto;
 }
 
 .tools_main{
 	height: 100%;
-	padding-left: 15px;
-	padding-right: 305px;	
+	padding-left: 47px;
+	padding-right: 315px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -48,7 +53,7 @@
 .tools_main .panel{
 	height: 100%;
 	margin-bottom: 0px;
-	padding-top: 36px;
+	padding-top: 38px;
 	padding-bottom: 0px;
 	position: relative;
 	border-right: none;
@@ -57,17 +62,12 @@
 	position: absolute;
 	top: 0;
 	width: 100%;
-	z-index: 3;
+	z-index: 4;
 }
 .tools_main .panel-default .panel-heading{
     border-bottom: 1px solid #ddd;
-    height: 36px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-.tools_main .panel-default .panel-heading .col-xs-7{
     padding-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 6px;
 }
 .tools_main .panel-default .panel-heading label{
 	padding-left: 10px;
@@ -82,7 +82,7 @@
 .tools_search{
 	position: absolute;
 	bottom: 0px;
-	left: 35px;
+	left: 70px;
 	width: 400px;
 	z-index: 2;
 }
@@ -107,4 +107,25 @@
 }
 .tools_search .panel-body .navbar-form .input-group input{
 	border-width: 0px;
+}
+
+.tools_menus_vertical{
+	height: 100%;
+	padding-left: 15px;
+	position: absolute;
+	top: 0px;
+	left: 0;
+	bottom: 0;
+	width: 48px;
+	background-color: white;
+	border-right: 1px solid rgb(204, 204, 204);
+	z-index: 3;
+}
+.tools_menus_vertical .btn-group-vertical > .btn{
+	border-left: 0;
+	border-right: 0;
+}
+.tools_menus_vertical .btn-group-vertical > .btn:first-child,
+.tools_menus_vertical .btn-group-vertical > .btn:last-child{
+	border-radius: 0;
 }
