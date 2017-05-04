@@ -165,5 +165,8 @@ function getPaletteNodeData(type){
 	return nodeDataArray;
 }
 function changePalette(type){
+	if(!$('#tab_palette').hasClass("active")){
+		$("#tab_link_palette").tab('show');
+	}
 	tools.palette.model.nodeDataArray = getPaletteNodeData(type);
 }

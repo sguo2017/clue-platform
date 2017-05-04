@@ -114,11 +114,10 @@
 <div class="tools_sidebar">
 	<div class="panel panel-default" style="height: 66%">
 		<div class="panel-heading" style="padding:0;margin:0">
-			<ul id="myTabs" class="nav nav-tabs" role="tablist">
-		      <li role="presentation" class="active"><a href="#tab_palette" role="tab" data-toggle="tab" aria-controls="tab_palette" aria-expanded="true">图元对象</a></li>
-		      <li role="presentation"><a href="#tab_debugInspector" role="tab" data-toggle="tab" aria-controls="tab_debugInspector" aria-expanded="true">属性</a></li>
+			<ul id="myTabs" class="nav nav-tabs" role="tablist">		
+			  <li role="presentation" class="active"><a href="#tab_palette" id="tab_link_palette" role="tab" data-toggle="tab" aria-controls="tab_palette" aria-expanded="true">图元对象</a></li>      
 		      <li role="presentation" class="dropdown">
-		        <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">更多 <span class="caret"></span></a>
+		        <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">库 <span class="caret"></span></a>
 		        <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
 		          	<li><a onclick="changePalette('circuit')">电子电路</a></li>
 				    <li><a onclick="changePalette('floor')">室内平面图</a></li>
@@ -126,6 +125,7 @@
 				    <li><a onclick="changePalette('shape')">形状</a></li>
 		        </ul>
 		      </li>
+		      <li role="presentation"><a href="#tab_debugInspector" role="tab" data-toggle="tab" aria-controls="tab_debugInspector" aria-expanded="true">属性</a></li>
 		    </ul>
 		</div>
 		<div class="panel-body tab-content" style="padding-bottom: 0px;">
