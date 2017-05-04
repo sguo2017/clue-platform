@@ -13,10 +13,11 @@
 .tools_sidebar .panel{
 	height: 33%;
 	margin-bottom: 0px;
-	padding-top: 40px;
+	padding-top: 38px;
 	padding-bottom: 0px;
 	position: relative;
 	border-bottom: 0px;
+	border-right: 0px;
 }
 .tools_sidebar .panel-heading{
 	position: absolute;
@@ -28,6 +29,13 @@
     background-color: #f5f5f5;
     border-bottom: 1px solid #ddd;
 }
+.tools_sidebar .panel-default .panel-heading .dropdown-margin-top{
+	margin-top: -5px;
+}
+.tools_sidebar .panel-default .panel-heading .nav-tabs{
+	border-bottom: 0;
+	margin-top: -1px;
+}
 .tools_sidebar .panel-default .panel-heading .nav-tabs > li > a {
 	border-radius: 0;
 }
@@ -38,6 +46,12 @@
 }
 .tools_sidebar .panel-body{
 	height: 100%;
+	padding: 0;
+	overflow: auto;
+}
+.tools_sidebar .panel-body .tab-pane{
+	height: 100%;
+	width: 100%;
 	overflow: auto;
 }
 
@@ -85,6 +99,7 @@
 	left: 70px;
 	width: 400px;
 	z-index: 2;
+	display: none;
 }
 .tools_search .panel{
 	position: relative;

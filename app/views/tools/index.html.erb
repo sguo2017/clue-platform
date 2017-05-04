@@ -1,3 +1,81 @@
+<% content_for :title do %>分析工具<% end %>
+<% content_for :navbar do %>
+<ul class="nav navbar-nav">
+	<li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">文件</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="file_new()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新建</a></li>
+        <li><a onclick=""><span class="glyphicon glyphicon-open" aria-hidden="true"></span> 打开...</a></li>
+        <li><a onclick=""><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 保存</a></li>
+        <li><a onclick=""><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 另存...</a></li>
+        <li><a onclick=""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a></li>
+      </ul>
+    </li>
+   	<li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">编辑</a>
+      <ul class="dropdown-menu">
+      	<li><a onclick="">重命名</a></li>
+        <li><a onclick="tools.diagram.commandHandler.undo()">撤销</a></li>
+        <li><a onclick="tools.diagram.commandHandler.redo()">重做</a></li>
+        <li><a onclick="tools.diagram.commandHandler.cutSelection()">剪切</a></li>
+        <li><a onclick="tools.diagram.commandHandler.copySelection()">拷贝</a></li>
+        <li><a onclick="tools.diagram.commandHandler.pasteSelection()">粘贴</a></li>
+        <li><a onclick="tools.diagram.commandHandler.deleteSelection()">删除</a></li>
+        <li><a onclick="tools.diagram.commandHandler.selectAll()">全选</a></li>
+		<li role="separator" class="divider"></li>
+        <li><a onclick="tools.diagram.commandHandler.groupSelection()">合并为组</a></li>
+        <li><a onclick="tools.diagram.commandHandler.ungroupSelection()">拆散组</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">对齐</a>
+      <ul class="dropdown-menu">
+        <li><a onclick=""><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> 左对齐</a></li>
+        <li><a onclick=""><span class="glyphicon glyphicon-align-right" aria-hidden="true"></span> 右对齐</a></li>
+        <li><a onclick="">顶部对齐</a></li>
+        <li><a onclick="">底部对齐</a></li>
+        <li><a onclick="">水平对齐</a></li>
+        <li><a onclick="">垂直对齐</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">间距</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="">行间距</a></li>
+        <li><a onclick="">列间距</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">旋转</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="">45%</a></li>
+        <li><a onclick="">-45%</a></li>
+        <li><a onclick="">90%</a></li>
+        <li><a onclick="">-90%</a></li>
+        <li><a onclick="">180%</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="">显示网格</a></li>
+        <li><a onclick="">显示辅助线</a></li>
+        <li><a onclick="">粘附网格</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">演示</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="demo.color_box()">实例: Color Boxes</a></li>
+        <li><a onclick="demo.flowchart()">实例: 流程图</a></li>
+        <li><a onclick="demo.class_hierarchy()">实例: GoJS 类层次</a></li>
+        <li><a onclick="demo.dom_tree()">实例: 文档对象模型</a></li>
+        <li><a onclick="demo.circuit()">实例: 电子电路</a></li>
+      </ul>
+    </li>
+</ul>  
+<% end %>
+
 <div class="tools_main">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -15,7 +93,7 @@
 					  </div>
 					  <label href="#">布局方式</label>
 					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
-						  <button type="button" class="btn btn-default">树形</button>
+						  <button type="button" class="btn btn-default" onclick="layout.tree()">树形</button>
 						  <button type="button" class="btn btn-default">星形</button>
 						  <button type="button" class="btn btn-default">圆形</button>
 						  <button type="button" class="btn btn-default">自由</button>
@@ -34,30 +112,31 @@
 	</div>
 </div>
 <div class="tools_sidebar">
-	<div class="panel panel-default" style="height: 40%">
-		<div class="panel-heading">
-			<h3 class="panel-title">图元对象</h3>
-		</div>
-		<div class="panel-body" id="tools_main_palette" style="padding-bottom: 0px; width:100%;">
-			
-		</div>
-	</div>
-	<div class="panel panel-default" style="height: 26%">
+	<div class="panel panel-default" style="height: 66%">
 		<div class="panel-heading" style="padding:0;margin:0">
 			<ul id="myTabs" class="nav nav-tabs" role="tablist">
-		      <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">属性</a></li>
-		      <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">连线</a></li>
+		      <li role="presentation" class="active"><a href="#tab_palette" role="tab" data-toggle="tab" aria-controls="tab_palette" aria-expanded="true">图元对象</a></li>
+		      <li role="presentation"><a href="#tab_debugInspector" role="tab" data-toggle="tab" aria-controls="tab_debugInspector" aria-expanded="true">属性</a></li>
 		      <li role="presentation" class="dropdown">
 		        <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">更多 <span class="caret"></span></a>
 		        <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-		          <li><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">@fat</a></li>
-		          <li><a href="#dropdown2" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">@mdo</a></li>
+		          	<li><a onclick="changePalette('circuit')">电子电路</a></li>
+				    <li><a onclick="changePalette('floor')">室内平面图</a></li>
+				    <li><a onclick="changePalette('flowchart')">流程图</a></li>
+				    <li><a onclick="changePalette('shape')">形状</a></li>
 		        </ul>
 		      </li>
 		    </ul>
 		</div>
-		<div class="panel-body" style="padding-bottom: 0px; min-height: 96px;">
-dfadsa
+		<div class="panel-body tab-content" style="padding-bottom: 0px;">
+		    <div role="tabpanel" class="tab-pane fade in active" id="tab_palette" aria-labelledby="profile-tab">
+		    	<div id="tools_main_palette" style="width:100%;height:100%;">
+		    	</div>
+		    </div>
+		    <div role="tabpanel" class="tab-pane fade" id="tab_debugInspector" aria-labelledby="home-tab">
+		        <div class="inspector-container" id="debugInspector" style="width:100%;height:100%;overflow:auto;">
+				</div>
+		    </div>		    
 		</div>
 	</div>
 	<div class="panel panel-default" style="height:34%">
@@ -67,17 +146,17 @@ dfadsa
 					<h3 class="panel-title">缩略图</h3>
 				</div>
 				<div class="col-xs-8 text-right">
-					<div class="dropdown">
+					<div class="dropdown dropdown-margin-top">
 					  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					    Dropdown
 					    <span class="caret"></span>
 					  </button>
 					  <ul class="dropdown-menu"	 aria-labelledby="dropdownMenu1">
-					    <li><a href="#">Action</a></li>
-					    <li><a href="#">Another action</a></li>
-					    <li><a href="#">Something else here</a></li>
+					    <li><a onclick="">Action</a></li>
+					    <li><a onclick="">Another action</a></li>
+					    <li><a onclick="">Something else here</a></li>
 					    <li role="separator" class="divider"></li>
-					    <li><a href="#">Separated link</a></li>
+					    <li><a onclick="">Separated link</a></li>
 					  </ul>
 					</div>
 				</div>
@@ -128,7 +207,7 @@ dfadsa
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	  <button type="button" class="btn btn-default btn-sm" onclick="toggle_search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
