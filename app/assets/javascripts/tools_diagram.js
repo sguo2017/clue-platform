@@ -61,7 +61,7 @@ function tools_initial(){
 	      	});
 	     }
 
-		diagram_ruler();
+		//diagram_ruler();
 	}
 }
 

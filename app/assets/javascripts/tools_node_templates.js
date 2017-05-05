@@ -356,3 +356,487 @@ tools.node_templates["shape"] =
       new go.Binding("visible", "isHighlighted").ofObject(),
       new go.Binding("text", "key"))
   );
+
+
+
+// Define a simple template consisting of the icon surrounded by a filled circle
+tools.node_templates["icon"] = 
+  $$(go.Node, "Auto",
+    $$(go.Shape, "Circle",
+        { fill: "lightcoral", strokeWidth: 4, stroke: "#888", width: 40, height: 40 },
+        new go.Binding("fill", "color")),
+    $$(go.Shape,
+      { margin: 3, fill: "#F5F5F5", strokeWidth: 0 },
+      new go.Binding("geometry", "geo", function(geoname) {
+        var geo = icons[geoname];
+        if (geo === undefined) geo = "heart";  // use this for an unknown icon name
+        if (typeof geo === "string") {
+          geo = icons[geoname] = go.Geometry.parse(geo, true).scale(0.6, 0.6);  // fill each geometry
+        }
+        return geo;
+      })),
+    // Each node has a tooltip that reveals the name of its icon
+    { toolTip:
+        $$(go.Adornment, "Auto",
+          $$(go.Shape, { fill: "LightYellow", stroke: "#888", strokeWidth: 2 }),
+          $$(go.TextBlock, { margin: 8, stroke: "#888", font: "bold 16px sans-serif" },
+            new go.Binding("text", "geo")))
+    }
+  );
+
+// define the Node template, representing an entity
+tools.node_templates["entity_relationship"] = 
+  $$(go.Node, "Auto",  // the whole node panel
+    { selectionAdorned: true,
+      resizable: true,
+      layoutConditions: go.Part.LayoutStandard & ~go.Part.LayoutNodeSized,
+      fromSpot: go.Spot.AllSides,
+      toSpot: go.Spot.AllSides,
+      isShadowed: true,
+      shadowColor: "#C5C1AA" },
+    new go.Binding("location", "location").makeTwoWay(),
+    // whenever the PanelExpanderButton changes the visible property of the "LIST" panel,
+    // clear out any desiredSize set by the ResizingTool.
+    new go.Binding("desiredSize", "visible", function(v) { return new go.Size(NaN, NaN); }).ofObject("LIST"),
+    // define the node's outer shape, which will surround the Table
+    $$(go.Shape, "Rectangle",
+      { fill: tools.brushes.lightgrad, stroke: "#756875", strokeWidth: 3 }),
+    $$(go.Panel, "Table",
+      { margin: 8, stretch: go.GraphObject.Fill },
+      $$(go.RowColumnDefinition, { row: 0, sizing: go.RowColumnDefinition.None }),
+      // the table header
+      $$(go.TextBlock,
+        {
+          row: 0, alignment: go.Spot.Center,
+          margin: new go.Margin(0, 14, 0, 2),  // leave room for Button
+          font: "bold 16px sans-serif"
+        },
+        new go.Binding("text", "key")),
+      // the collapse/expand button
+      $$("PanelExpanderButton", "LIST",  // the name of the element whose visibility this button toggles
+        { row: 0, alignment: go.Spot.TopRight }),
+      // the list of Panels, each showing an attribute
+      $$(go.Panel, "Vertical",
+        {
+          name: "LIST",
+          row: 1,
+          padding: 3,
+          alignment: go.Spot.TopLeft,
+          defaultAlignment: go.Spot.Left,
+          stretch: go.GraphObject.Horizontal,
+          itemTemplate: $$(go.Panel, "Horizontal",
+            $$(go.Shape,
+              { desiredSize: new go.Size(10, 10) },
+              new go.Binding("figure", "figure"),
+              new go.Binding("fill", "color")),
+            $$(go.TextBlock,
+              { stroke: "#333333",
+                font: "bold 14px sans-serif" },
+              new go.Binding("text", "name"))
+          )
+        },
+        new go.Binding("itemArray", "items"))
+    )  // end Table Panel
+  );  // end Node
+
+// create the template for the standard nodes
+tools.node_templates["gantt"] = 
+  $$(go.Node, "Auto",
+    // links come from the right and go to the left side of the top of the node
+    { fromSpot: go.Spot.Right, toSpot: new go.Spot(0.001, 0, 11, 0) },
+    $$(go.Shape, "Rectangle",
+      { height: 15 },
+      new go.Binding("fill", "color"),
+      new go.Binding("width", "width", function (w) { return w; })),
+    $$(go.TextBlock,
+      { margin: 2, alignment: go.Spot.Left },
+      new go.Binding("text", "key")),
+    // using a function in the Binding allows the value to
+    // change when Diagram.updateAllTargetBindings is called
+    new go.Binding("location", "loc",
+                   function (l) { return new go.Point(l.x, l.y); })
+  );
+
+// create the template for the start node
+tools.node_templates["gantt_start"] = 
+  $$(go.Node,
+    { fromSpot: go.Spot.Right, toSpot: go.Spot.Top, selectable: false },
+    $$(go.Shape, "Diamond",
+      { height: 15, width: 15 }),
+    // make the location of the start node is not scalable
+    new go.Binding("location", "loc")
+  );
+
+// create the template for the end node
+tools.node_templates["gantt_end"] = 
+  $$(go.Node,
+    { fromSpot: go.Spot.Right, toSpot: go.Spot.Top, selectable: false },
+    $$(go.Shape, "Diamond",
+      { height: 15, width: 15 }),
+    // make the location of the end node (with location.x < 0) scalable
+    new go.Binding("location", "loc",
+                   function(l) {
+                     if (l.x >= 0) return new go.Point(l.x, l.y);
+                     else return l;
+                   })
+  );
+
+// create the template for the nodes displaying dates
+// no shape, only a TextBlock
+tools.node_templates["gantt_date"] = 
+  $$(go.Part,
+    { selectable: false },
+    new go.Binding("location", "loc",
+                   function (l) { return new go.Point(l.x, l.y); }),
+    $$(go.TextBlock,
+      new go.Binding("text", "key"))
+  );
+
+tools.node_templates["uml"] = 
+  // this simple template does not have any buttons to permit adding or
+  // removing properties or methods, but it could!
+  $$(go.Node, "Auto",
+    {
+      locationSpot: go.Spot.Center,
+      fromSpot: go.Spot.AllSides,
+      toSpot: go.Spot.AllSides
+    },
+    $$(go.Shape, { fill: "lightyellow" }),
+    $$(go.Panel, "Table",
+      { defaultRowSeparatorStroke: "black" },
+      // header
+      $$(go.TextBlock,
+        {
+          row: 0, columnSpan: 2, margin: 3, alignment: go.Spot.Center,
+          font: "bold 12pt sans-serif",
+          isMultiline: false, editable: true
+        },
+        new go.Binding("text", "name").makeTwoWay()),
+      // properties
+      $$(go.TextBlock, "Properties",
+        { row: 1, font: "italic 10pt sans-serif" },
+        new go.Binding("visible", "visible", function(v) { return !v; }).ofObject("PROPERTIES")),
+
+
+      $$(go.Panel, "Vertical", { name: "PROPERTIES" },
+        new go.Binding("itemArray", "properties"),
+        {
+          row: 1, margin: 3, stretch: go.GraphObject.Fill,
+          defaultAlignment: go.Spot.Left, background: "lightyellow",
+          itemTemplate: $$(go.Panel, "Horizontal",
+            // property visibility/access
+            $$(go.TextBlock,
+              { isMultiline: false, editable: false, width: 12 },
+              new go.Binding("text", "visibility", function convertVisibility(v) {
+                switch (v) {
+                  case "public": return "+";
+                  case "private": return "-";
+                  case "protected": return "#";
+                  case "package": return "~";
+                  default: return v;
+                }
+              })),
+            // property name, underlined if scope=="class" to indicate static property
+            $$(go.TextBlock,
+              { isMultiline: false, editable: true },
+              new go.Binding("text", "name").makeTwoWay(),
+              new go.Binding("isUnderline", "scope", function(s) { return s[0] === 'c' })),
+            // property type, if known
+            $$(go.TextBlock, "",
+              new go.Binding("text", "type", function(t) { return (t ? ": " : ""); })),
+            $$(go.TextBlock,
+              { isMultiline: false, editable: true },
+              new go.Binding("text", "type").makeTwoWay()),
+            // property default value, if any
+            $$(go.TextBlock,
+              { isMultiline: false, editable: false },
+              new go.Binding("text", "default", function(s) { return s ? " = " + s : ""; }))
+          )
+        }
+      ),
+      $$("PanelExpanderButton", "PROPERTIES",
+        { row: 1, column: 1, alignment: go.Spot.TopRight, visible: false },
+        new go.Binding("visible", "properties", function(arr) { return arr.length > 0; })),
+      // methods
+      $$(go.TextBlock, "Methods",
+        { row: 2, font: "italic 10pt sans-serif" },
+        new go.Binding("visible", "visible", function(v) { return !v; }).ofObject("METHODS")),
+
+
+      $$(go.Panel, "Vertical", { name: "METHODS" },
+        new go.Binding("itemArray", "methods"),
+        {
+          row: 2, margin: 3, stretch: go.GraphObject.Fill,
+          defaultAlignment: go.Spot.Left, background: "lightyellow",
+          itemTemplate: $$(go.Panel, "Horizontal",
+            // method visibility/access
+            $$(go.TextBlock,
+              { isMultiline: false, editable: false, width: 12 },
+              new go.Binding("text", "visibility", function(v) {
+                switch (v) {
+                  case "public": return "+";
+                  case "private": return "-";
+                  case "protected": return "#";
+                  case "package": return "~";
+                  default: return v;
+                }
+              })),
+            // method name, underlined if scope=="class" to indicate static method
+            $$(go.TextBlock,
+              { isMultiline: false, editable: true },
+              new go.Binding("text", "name").makeTwoWay(),
+              new go.Binding("isUnderline", "scope", function(s) { return s[0] === 'c' })),
+            // method parameters
+            $$(go.TextBlock, "()",
+              // this does not permit adding/editing/removing of parameters via inplace edits
+              new go.Binding("text", "parameters", function(parr) {
+                  var s = "(";
+                  for (var i = 0; i < parr.length; i++) {
+                    var param = parr[i];
+                    if (i > 0) s += ", ";
+                    s += param.name + ": " + param.type;
+                  }
+                  return s + ")";
+              })),
+            // method return type, if any
+            $$(go.TextBlock, "",
+              new go.Binding("text", "type", function(t) { return (t ? ": " : ""); })),
+            $$(go.TextBlock,
+              { isMultiline: false, editable: true },
+              new go.Binding("text", "type").makeTwoWay())
+          )
+        }
+      ),
+      $$("PanelExpanderButton", "METHODS",
+        { row: 2, column: 1, alignment: go.Spot.TopRight, visible: false },
+        new go.Binding("visible", "methods", function(arr) { return arr.length > 0; }))
+    )
+  );
+
+tools.node_templates["process_flow"] = 
+  $$(go.Node, "Auto",
+    { locationSpot: new go.Spot(0.5, 0.5), locationObjectName: "SHAPE",
+      resizable: true, resizeObjectName: "SHAPE" },
+    new go.Binding("location", "pos", go.Point.parse).makeTwoWay(go.Point.stringify),
+    $$(go.Shape, "Cylinder1",
+      { name: "SHAPE",
+        strokeWidth: 2,
+        fill: $$(go.Brush, "Linear",
+                { start: go.Spot.Left, end: go.Spot.Right,
+                  0: "gray", 0.5: "white", 1: "gray" }),
+        minSize: new go.Size(50, 50),
+        portId: "", fromSpot: go.Spot.AllSides, toSpot: go.Spot.AllSides
+      },
+      new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify)),
+    $$(go.TextBlock,
+      { alignment: go.Spot.Center, textAlign: "center", margin: 5,
+        editable: true },
+      new go.Binding("text").makeTwoWay())
+  );
+
+tools.node_templates["process_flow_value"] = 
+  $$(go.Node, "Vertical",
+    { locationSpot: new go.Spot(0.5, 1, 0, -21), locationObjectName: "SHAPE",
+      selectionObjectName: "SHAPE", rotatable: true },
+    new go.Binding("angle").makeTwoWay(),
+    new go.Binding("location", "pos", go.Point.parse).makeTwoWay(go.Point.stringify),
+    $$(go.TextBlock,
+      { alignment: go.Spot.Center, textAlign: "center", margin: 5, editable: true },
+      new go.Binding("text").makeTwoWay(),
+      // keep the text upright, even when the whole node has been rotated upside down
+      new go.Binding("angle", "angle", function(a) { return a === 180 ? 180 : 0; }).ofObject()),
+    $$(go.Shape,
+      { name: "SHAPE",
+        geometryString: "F1 M0 0 L40 20 40 0 0 20z M20 10 L20 30 M12 30 L28 30",
+        strokeWidth: 2,
+        fill: $$(go.Brush, "Linear", { 0: "gray", 0.35: "white", 0.7: "gray" }),
+        portId: "", fromSpot: new go.Spot(1, 0.35), toSpot: new go.Spot(0, 0.35) })
+  );
+
+tools.node_templates["state_chart"] = 
+// define the Node template
+  $$(go.Node, "Auto",
+    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+    // define the node's outer shape, which will surround the TextBlock
+    $$(go.Shape, "RoundedRectangle",
+      {
+        parameter1: 20,  // the corner has a large radius
+        fill: $$(go.Brush, "Linear", { 0: "rgb(254, 201, 0)", 1: "rgb(254, 162, 0)" }),
+        stroke: null,
+        portId: "",  // this Shape is the Node's port, not the whole Node
+        fromLinkable: true, fromLinkableSelfNode: true, fromLinkableDuplicates: true,
+        toLinkable: true, toLinkableSelfNode: true, toLinkableDuplicates: true,
+        cursor: "pointer"
+      }),
+    $$(go.TextBlock,
+      {
+        font: "bold 11pt helvetica, bold arial, sans-serif",
+        editable: true  // editing the text automatically updates the model data
+      },
+      new go.Binding("text").makeTwoWay()),
+    {
+      selectionAdornmentTemplate: 
+        $$(go.Adornment, "Spot",
+          $$(go.Panel, "Auto",
+            $$(go.Shape, { fill: null, stroke: "blue", strokeWidth: 2 }),
+            $$(go.Placeholder)  // a Placeholder sizes itself to the selected Node
+          ),
+          // the button to create a "next" node, at the top-right corner
+          $$("Button",
+            {
+              alignment: go.Spot.TopRight,
+              click: function(e, obj) {
+                var adornment = obj.part;
+                var diagram = e.diagram;
+                diagram.startTransaction("Add State");
+
+                // get the node data for which the user clicked the button
+                var fromNode = adornment.adornedPart;
+                var fromData = fromNode.data;
+                // create a new "State" data object, positioned off to the right of the adorned Node
+                var toData = { category: "state_chart", text: "new" };
+                var p = fromNode.location.copy();
+                p.x += 200;
+                toData.loc = go.Point.stringify(p);  // the "loc" property is a string, not a Point object
+                // add the new node data to the model
+                var model = diagram.model;
+                model.addNodeData(toData);
+
+                // create a link data from the old node data to the new node data
+                var linkdata = {
+                  from: model.getKeyForNodeData(fromData),  // or just: fromData.id
+                  to: model.getKeyForNodeData(toData),
+                  text: "transition",
+                  category: "state_chart"
+                };
+                // and add the link data to the model
+                model.addLinkData(linkdata);
+
+                // select the new Node
+                var newnode = diagram.findNodeForData(toData);
+                diagram.select(newnode);
+
+                diagram.commitTransaction("Add State");
+
+                // if the new node is off-screen, scroll the diagram to show the new node
+                diagram.scrollToRect(newnode.actualBounds);
+              }  // this function is defined below
+            },
+            $$(go.Shape, "PlusLine", { width: 6, height: 6 })
+          ) // end button
+        )
+    }
+  );
+
+tools.node_templates["pipe_comment"] = 
+  $$(go.Node,
+    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+    $$(go.TextBlock,
+      { stroke: "brown", font: "9pt sans-serif" },
+      new go.Binding("text"))
+  );
+
+
+// Change the angle of the parts connected with the given node
+function pipe_rotate(node, angle) {
+  var tool = node.diagram.toolManager.draggingTool;  // should be a SnappingTool
+  node.diagram.startTransaction("rotate " + angle.toString());
+  var sel = new go.Set(go.Node);
+  sel.add(node);
+  var coll = tool.computeEffectiveCollection(sel).toKeySet();
+  var bounds = node.diagram.computePartsBounds(coll);
+  var center = bounds.center;
+  coll.each(function(n) {
+    n.angle += angle;
+    n.location = n.location.copy().subtract(center).rotate(angle).add(center);
+  });
+  node.diagram.commitTransaction("rotate " + angle.toString());
+}
+tools.node_templates["pipe"] = 
+  $$(go.Node, "Spot",
+    {
+      locationObjectName: "SHAPE",
+      locationSpot: go.Spot.Center,
+      selectionAdorned: false,  // use a Binding on the Shape.stroke to show selection
+      itemTemplate:
+        // each port is an "X" shape whose alignment spot and port ID are given by the item data
+        $$(go.Panel,
+          new go.Binding("portId", "id"),
+          new go.Binding("alignment", "spot", go.Spot.parse),
+          $$(go.Shape, "XLine",
+            { width: 6, height: 6, background: "transparent", fill: null, stroke: "gray" },
+            new go.Binding("figure", "id", function(pid) {
+              if (pid === null || pid === "") return "XLine";
+              if (pid[0] === 'F') return "CircleLine";
+              if (pid[0] === 'M') return "PlusLine";
+              return "XLine";  // including when the first character is 'U'
+            }),  // portFigure converter is defined below
+            new go.Binding("angle", "angle"))
+        ),
+      // hide a port when it is connected
+      linkConnected: function(node, link, port) {
+        if (link.category === "") port.visible = false;
+      },
+      linkDisconnected: function(node, link, port) {
+        if (link.category === "") port.visible = true;
+      }
+    },
+    // this creates the variable number of ports for this Spot Panel, based on the data
+    new go.Binding("itemArray", "ports"),
+    // remember the location of this Node
+    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+    // remember the angle of this Node
+    new go.Binding("angle", "angle").makeTwoWay(),
+    // move a selected part into the Foreground layer, so it isn't obscured by any non-selected parts
+    new go.Binding("layerName", "isSelected", function(s) { return s ? "Foreground" : ""; }).ofObject(),
+    $$(go.Shape,
+      {
+        name: "SHAPE",
+        // the following are default values;
+        // actual values may come from the node data object via data binding
+        geometryString: "F1 M0 0 L20 0 20 20 0 20 z",
+        fill: "rgba(128, 128, 128, 0.5)"
+      },
+      // this determines the actual shape of the Shape
+      new go.Binding("geometryString", "geo"),
+      // selection causes the stroke to be blue instead of black
+      new go.Binding("stroke", "isSelected", function(s) { return s ? "dodgerblue" : "black"; }).ofObject()),
+
+
+
+      {
+        contextMenu:
+          $$(go.Adornment, "Vertical",
+            $$("ContextMenuButton",
+              $$(go.TextBlock, "Rotate +45"),
+              { click: function(e, obj) { pipe_rotate(obj.part.adornedPart, 45); } }),
+            $$("ContextMenuButton",
+              $$(go.TextBlock, "Rotate -45"),
+              { click: function(e, obj) { pipe_rotate(obj.part.adornedPart, -45); } }),
+            $$("ContextMenuButton",
+              $$(go.TextBlock, "Rotate 180"),
+              { click: function(e, obj) { pipe_rotate(obj.part.adornedPart, 180); } }),
+            $$("ContextMenuButton",
+              $$(go.TextBlock, "Detach"),
+              { click: function(e, obj) { 
+                  obj.diagram.startTransaction("detach");
+                  var coll = new go.Set(go.Link);
+                  obj.diagram.selection.each(function(node) {
+                    if (!(node instanceof go.Node)) return;
+                    node.linksConnected.each(function(link) {
+                      if (link.category !== "") return;  // ignore comments
+                      // ignore links to other selected nodes
+                      if (link.getOtherNode(node).isSelected) return;
+                      // disconnect this link
+                      coll.add(link);
+                    });
+                  });
+                  obj.diagram.removeParts(coll, false);
+                  obj.diagram.commitTransaction("detach");
+              } }),
+            $$("ContextMenuButton",
+              $$(go.TextBlock, "Delete"),
+              { click: function(e, obj) { e.diagram.commandHandler.deleteSelection(); } })
+          )
+      }
+  );

@@ -251,3 +251,252 @@ demo.dom_tree = function(){
 
   tools.diagram.layout = $$(go.TreeLayout, { nodeSpacing: 5, layerSpacing: 30 })
 }
+
+demo.icon = function(){
+  tools.diagram.model = new go.GraphLinksModel(
+    [
+      { key: 1, category: 'icon', geo: "file"          , color: "#00B5CB"   },
+      { key: 2, category: 'icon', geo: "alarm"         , color: "#F47321" },
+      { key: 3, category: 'icon', geo: "lab"           , color: "#00B5CB"   },
+      { key: 4, category: 'icon', geo: "earth"         , color: "#00B5CB"  },
+      { key: 5, category: 'icon', geo: "heart"         , color: "#C8DA2B"  },
+      { key: 6, category: 'icon', geo: "arrow-up-right", color: "#00B5CB"   },
+      { key: 7, category: 'icon', geo: "html5"         , color: "#F47321" },
+      { key: 8, category: 'icon', geo: "twitter"       , color: "#F47321" }
+    ],
+    [
+      { from: 1, to: 2 },
+      { from: 1, to: 3 },
+      { from: 3, to: 4 },
+      { from: 4, to: 5 },
+      { from: 4, to: 6 },
+      { from: 3, to: 7 },
+      { from: 3, to: 8 }
+    ]);
+  tools.diagram.layout = $$(go.TreeLayout);
+}
+
+demo.entity_relationship = function(){
+  var nodeDataArray = [
+    { key: "Products", category: 'entity_relationship',
+      items: [ { name: "ProductID", iskey: true, figure: "Decision", color: tools.brushes.yellowgrad },
+               { name: "ProductName", iskey: false, figure: "Cube1", color: tools.brushes.bluegrad },
+               { name: "SupplierID", iskey: false, figure: "Decision", color: "purple" },
+               { name: "CategoryID", iskey: false, figure: "Decision", color: "purple" } ] },
+    { key: "Suppliers", category: 'entity_relationship',
+      items: [ { name: "SupplierID", iskey: true, figure: "Decision", color: tools.brushes.yellowgrad },
+               { name: "CompanyName", iskey: false, figure: "Cube1", color: tools.brushes.bluegrad },
+               { name: "ContactName", iskey: false, figure: "Cube1", color: tools.brushes.bluegrad },
+               { name: "Address", iskey: false, figure: "Cube1", color: tools.brushes.bluegrad } ] },
+    { key: "Categories", category: 'entity_relationship',
+      items: [ { name: "CategoryID", iskey: true, figure: "Decision", color: tools.brushes.yellowgrad },
+               { name: "CategoryName", iskey: false, figure: "Cube1", color: tools.brushes.bluegrad },
+               { name: "Description", iskey: false, figure: "Cube1", color: tools.brushes.bluegrad },
+               { name: "Picture", iskey: false, figure: "TriangleUp", color: tools.brushes.redgrad } ] },
+    { key: "Order Details", category: 'entity_relationship',
+      items: [ { name: "OrderID", iskey: true, figure: "Decision", color: tools.brushes.yellowgrad },
+               { name: "ProductID", iskey: true, figure: "Decision", color: tools.brushes.yellowgrad },
+               { name: "UnitPrice", iskey: false, figure: "MagneticData", color: tools.brushes.greengrad },
+               { name: "Quantity", iskey: false, figure: "MagneticData", color: tools.brushes.greengrad },
+               { name: "Discount", iskey: false, figure: "MagneticData", color: tools.brushes.greengrad } ] },
+  ];
+  var linkDataArray = [
+    { category: 'entity_relationship', from: "Products", to: "Suppliers", text: "0..N", toText: "1" },
+    { category: 'entity_relationship', from: "Products", to: "Categories", text: "0..N", toText: "1" },
+    { category: 'entity_relationship', from: "Order Details", to: "Products", text: "0..N", toText: "1" }
+  ];
+  tools.diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+  tools.diagram.layout = $$(go.ForceDirectedLayout);
+}
+
+demo.gantt = function(){
+  tools.diagram.model = new go.GraphLinksModel(
+    [ // node data
+      { key: "a", category: "gantt", color: "coral", width: 120, loc: new go.Point((0), 40) },
+      { key: "b", category: "gantt", color: "turquoise", width: 160, loc: new go.Point((0), 60) },
+      { key: "c", category: "gantt", color: "coral", width: 150, loc: new go.Point((120), 80) },
+      { key: "d", category: "gantt", color: "turquoise", width: 190, loc: new go.Point((120), 100) },
+      { key: "e", category: "gantt", color: "coral", width: 150, loc: new go.Point((270), 120) },
+      { key: "f", category: "gantt", color: "turquoise", width: 130, loc: new go.Point((310), 140) },
+      { key: "g", category: "gantt", color: "coral", width: 155, loc: new go.Point((420), 160) },
+      { key: "begin", category: "gantt_start", loc: new go.Point(-15,20) },
+      { key: "end", category: "gantt_end", loc: new go.Point((575), 180) },
+      { key: "23Jul", category: "gantt_date", loc: new go.Point((0), 0) },
+      { key: "30Jul", category: "gantt_date", loc: new go.Point((150), 0) },
+      { key: "6Aug", category: "gantt_date", loc: new go.Point((300), 0) },
+      { key: "13Aug", category: "gantt_date", loc: new go.Point((450), 0) }
+    ],
+    [ // link data
+      { category: "gantt", from: "begin", to: "a" },
+      { category: "gantt", from: "begin", to: "b" },
+      { category: "gantt", from: "a", to: "c" },
+      { category: "gantt", from: "a", to: "d" },
+      { category: "gantt", from: "b", to: "e" },
+      { category: "gantt", from: "c", to: "e" },
+      { category: "gantt", from: "d", to: "f" },
+      { category: "gantt", from: "e", to: "g" },
+      { category: "gantt", from: "f", to: "end" },
+      { category: "gantt", from: "g", to: "end" }
+    ]);
+
+  tools.diagram.layout = $$(go.Layout);
+}
+
+demo.uml = function(){
+  // setup a few example class nodes and relationships
+    var nodedata = [
+      {
+        key: 1,
+        category: "uml",
+        name: "BankAccount",
+        properties: [
+          { name: "owner", type: "String", visibility: "public" },
+          { name: "balance", type: "Currency", visibility: "public", default: "0" }
+        ],
+        methods: [
+          { name: "deposit", parameters: [{ name: "amount", type: "Currency" }], visibility: "public" },
+          { name: "withdraw", parameters: [{ name: "amount", type: "Currency" }], visibility: "public" }
+        ]
+      },
+      {
+        key: 11,
+        category: "uml",
+        name: "Person",
+        properties: [
+          { name: "name", type: "String", visibility: "public" },
+          { name: "birth", type: "Date", visibility: "protected" }
+        ],
+        methods: [
+          { name: "getCurrentAge", type: "int", visibility: "public" }
+        ]
+      },
+      {
+        key: 12,
+        category: "uml",
+        name: "Student",
+        properties: [
+          { name: "classes", type: "List", visibility: "public" }
+        ],
+        methods: [
+          { name: "attend", parameters: [{ name: "class", type: "Course" }], visibility: "private" },
+          { name: "sleep", visibility: "private" }
+        ]
+      },
+      {
+        key: 13,
+        category: "uml",
+        name: "Professor",
+        properties: [
+          { name: "classes", type: "List", visibility: "public" }
+        ],
+        methods: [
+          { name: "teach", parameters: [{ name: "class", type: "Course" }], visibility: "private" }
+        ]
+      },
+      {
+        key: 14,
+        category: "uml",
+        name: "Course",
+        properties: [
+          { name: "name", type: "String", visibility: "public" },
+          { name: "description", type: "String", visibility: "public" },
+          { name: "professor", type: "Professor", visibility: "public" },
+          { name: "location", type: "String", visibility: "public" },
+          { name: "times", type: "List", visibility: "public" },
+          { name: "prerequisites", type: "List", visibility: "public" },
+          { name: "students", type: "List", visibility: "public" }
+        ]
+      }
+    ];
+  var linkdata = [
+    { category: "uml", from: 12, to: 11, relationship: "generalization" },
+    { category: "uml", from: 13, to: 11, relationship: "generalization" },
+    { category: "uml", from: 14, to: 13, relationship: "aggregation" }
+  ];
+  tools.diagram.model = $$(go.GraphLinksModel,
+    {
+      copiesArrays: true,
+      copiesArrayObjects: true,
+      nodeDataArray: nodedata,
+      linkDataArray: linkdata
+    });
+  tools.diagram.layout = $$(go.TreeLayout, { // this only lays out in trees nodes connected by "generalization" links
+      angle: 90,
+      path: go.TreeLayout.PathSource,  // links go from child to parent
+      setsPortSpot: false,  // keep Spot.AllSides for link connection spot
+      setsChildPortSpot: false,  // keep Spot.AllSides
+      // nodes not connected by "generalization" links are laid out horizontally
+      arrangement: go.TreeLayout.ArrangementHorizontal
+    })
+}
+
+demo.process_flow = function(){
+  tools.diagram.model = go.Model.fromJson({ "class": "go.GraphLinksModel",
+    "nodeDataArray": [
+  {"key":"P1", "category":"process_flow", "pos":"150 120", "text":"Process"},
+  {"key":"P2", "category":"process_flow", "pos":"330 320", "text":"Tank"},
+  {"key":"V1", "category":"process_flow_value", "pos":"270 120", "text":"V1"},
+  {"key":"P3", "category":"process_flow", "pos":"150 420", "text":"Pump"},
+  {"key":"V2", "category":"process_flow_value", "pos":"150 280", "text":"VM", "angle":270},
+  {"key":"V3", "category":"process_flow_value", "pos":"270 420", "text":"V2", "angle":180},
+  {"key":"P4", "category":"process_flow", "pos":"450 140", "text":"Reserve Tank"},
+  {"key":"V4", "category":"process_flow_value", "pos":"390 60", "text":"VA"},
+  {"key":"V5", "category":"process_flow_value", "pos":"450 260", "text":"VB", "angle":90}
+   ],
+    "linkDataArray": [
+  {"category":"process_flow", "from":"P1", "to":"V1"},
+  {"category":"process_flow", "from":"P3", "to":"V2"},
+  {"category":"process_flow", "from":"V2", "to":"P1"},
+  {"category":"process_flow", "from":"P2", "to":"V3"},
+  {"category":"process_flow", "from":"V3", "to":"P3"},
+  {"category":"process_flow", "from":"V1", "to":"V4"},
+  {"category":"process_flow", "from":"V4", "to":"P4"},
+  {"category":"process_flow", "from":"V1", "to":"P2"},
+  {"category":"process_flow", "from":"P4", "to":"V5"},
+  {"category":"process_flow", "from":"V5", "to":"P2"}
+   ]});
+  tools.diagram.layout = $$(go.Layout);
+
+  function loop() {
+    setTimeout(function() {
+      var oldskips = tools.diagram.skipsUndoManager;
+      tools.diagram.skipsUndoManager = true;
+      tools.diagram.links.each(function(link) {
+          var shape = link.findObject("PIPE");
+          var off = shape.strokeDashOffset - 2;
+          shape.strokeDashOffset = (off <= 0) ? 20 : off;
+        });
+      tools.diagram.skipsUndoManager = oldskips;
+      loop();
+    }, 100);
+  }
+
+  loop();
+}
+
+demo.state_chart = function(){
+  tools.diagram.model = go.Model.fromJson({ "nodeKeyProperty": "id",
+    "nodeDataArray": [
+      { "category": "state_chart", "id": 0, "loc": "120 120", "text": "Initial" },
+      { "category": "state_chart", "id": 1, "loc": "330 120", "text": "First down" },
+      { "category": "state_chart", "id": 2, "loc": "226 376", "text": "First up" },
+      { "category": "state_chart", "id": 3, "loc": "60 276", "text": "Second down" },
+      { "category": "state_chart", "id": 4, "loc": "226 226", "text": "Wait" }
+    ],
+    "linkDataArray": [
+      { "category": "state_chart", "from": 0, "to": 0, "text": "up or timer", "curviness": -20 },
+      { "category": "state_chart", "from": 0, "to": 1, "text": "down", "curviness": 20 },
+      { "category": "state_chart", "from": 1, "to": 0, "text": "up (moved)\nPOST", "curviness": 20 },
+      { "category": "state_chart", "from": 1, "to": 1, "text": "down", "curviness": -20 },
+      { "category": "state_chart", "from": 1, "to": 2, "text": "up (no move)" },
+      { "category": "state_chart", "from": 1, "to": 4, "text": "timer" },
+      { "category": "state_chart", "from": 2, "to": 0, "text": "timer\nPOST" },
+      { "category": "state_chart", "from": 2, "to": 3, "text": "down" },
+      { "category": "state_chart", "from": 3, "to": 0, "text": "up\nPOST\n(dblclick\nif no move)" },
+      { "category": "state_chart", "from": 3, "to": 3, "text": "down or timer", "curviness": 20 },
+      { "category": "state_chart", "from": 4, "to": 0, "text": "up\nPOST" },
+      { "category": "state_chart", "from": 4, "to": 4, "text": "down" }
+    ]
+  });
+  tools.diagram.layout = $$(go.Layout);
+}
