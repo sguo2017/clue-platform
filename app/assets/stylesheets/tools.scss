@@ -54,6 +54,51 @@
 	width: 100%;
 	overflow: auto;
 }
+.tools_sidebar .inspector{
+	max-height: none!important;
+	height: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	overflow: auto!important;
+}
+.tools_sidebar .inspector-container{
+	padding: 35px 0px 40px 0px;
+	position: relative;
+}
+.tools_sidebar .inspector-container > select{
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 34px;
+	padding: 6px 12px;
+	border-radius: 0px;
+}.tools_sidebar .inspector-container > select:focus{
+	outline: 0;
+}
+.tools_sidebaar .inspector-container .inspector-button-container{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.tools_sidebar .inspector-container,
+.tools_sidebar .inspector-container h3,
+.tools_sidebar .inspector-container h2,
+.tools_sidebar .inspector,
+.tools_sidebar .inspector-section{
+	background-color: white;
+	color: rgb(51, 51, 51);
+}
+.tools_sidebar .inspector input,
+.tools_sidebar .inspector select{
+	background-color: lightgray;
+	color: rgb(51, 51, 51);
+}
+.tools_sidebar .inspector-group{
+	border-color: lightgray;
+	border-width: 1px;
+}
 
 .tools_main{
 	height: 100%;

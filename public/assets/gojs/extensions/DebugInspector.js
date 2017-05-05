@@ -25,6 +25,60 @@
   When the collection changes, the inspector passes on information
   to all of its Views so that they may re-populate their inputs.
 */
+window.DebugLocales = {
+  "X": "X坐标",
+  "Y": "Y坐标",
+  "location": "坐标",
+  "Offset X": "X偏移",
+  "Offset Y": "Y偏移",
+  "locationSpot": "中心点",
+  "resizable": "可调整大小",
+  "rotatable": "可旋转",
+  "isShadowed": "是否有阴影",
+  "type": "类型",
+  "Top": "顶部",
+  "Right": "右侧",
+  "Bottom": "底部",
+  "Left": "左侧",
+  "padding": "内边界",
+  "defaultAlignment": "默认对齐方式",
+  "defaultStretch": "默认拉伸方式",
+  "Width": "宽度",
+  "Height": "高度",
+  "gridCellSize": "网格大小",
+  "gridOrigin": "网格原点",
+  "stretch": "拉伸",
+  "name": "名称",
+  "opacity": "透明度",
+  "visible": "可见",
+  "areaBackground": "区域背景",
+  "background": "背景",
+  "position": "位置",
+  "scale": "缩放",
+  "angle": "角度",
+  "desiredSize": "预期大小",
+  "measuredBounds": "测量边界",
+  "naturalBounds": "自然边界",
+  "portId": "连线端点",
+  "minSize": "最小尺寸",
+  "maxSize": "最大尺寸",
+  "isTreeExpanded": "是否可展开树",
+  "category": "节点类型",
+  "key": "主键",
+  "loc": "坐标",
+  "__gohashid": "哈希值",
+  "stroke": "描边",
+  "fill": "填充",
+  "strokeWidth": "描边粗细",
+  "strokeCap": "描边头部",
+  "strokeJoin": "描边拐角",
+  "strokeMiterLimit": "strokeMiterLimit",
+  "flaure": "flaure",
+  "figure": "形状",
+  "toArrow": "末端箭头",
+  "fromArrow": "起点箭头",
+  "geometryStretch": "图形拉伸"
+}
 
 function DebugInspector(divid, diagram, options) {
   this.inspectedProps = {};
@@ -217,7 +271,7 @@ DebugInspector.prototype.rebuildViews = function() {
           else return str.substring(0,1).toUpperCase() + str.substring(1);
         }).join(" ");
       }
-      label.textContent = propname; //camelCaseConverter(propname);
+      label.textContent = DebugLocales[propname] || propname; //camelCaseConverter(propname);
 
       var input = group.children[1];
       if (view.options.readOnly) {
@@ -253,14 +307,14 @@ DebugInspector.prototype.rebuildViews = function() {
 
   var self = this;
   if (this.acceptButton) {
-    this.buildButton("Accept", function() {
+    this.buildButton("应用", function() {
       self.setAllProperties();
       self.rebuildViews();
     });
   }
 
   if (this.resetButton) {
-    this.buildButton("Reset", function(){
+    this.buildButton("重置", function(){
       self.rebuildViews();
     });
   }
@@ -415,7 +469,7 @@ DebugInspector.createSection = function(name) {
   var div = document.createElement("div");
   div.className = "inspector-section";
   var h3 = document.createElement("h3");
-  h3.innerHTML = name + " Properties";
+  h3.innerHTML = name + " 属性";
   div.appendChild(h3);
   return div;
 }
@@ -510,7 +564,7 @@ View.prototype.nFieldHTMLInit = function(fields) {
 
   for (var i = 0; i < fields.length; i++) {
     var label = document.createElement("label");
-    label.textContent = fields[i];
+    label.textContent = DebugLocales[fields[i]] || fields[i];
     label.className = "inspector-n-field-label";
 
     var input = document.createElement("input");
