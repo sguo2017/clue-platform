@@ -72,8 +72,8 @@
 	left: 0;
 	height: 34px;
 	padding: 6px 12px;
-	border-radius: 0px;
-}.tools_sidebar .inspector-container > select:focus{
+}
+.tools_sidebar .inspector-container > select:focus{
 	outline: 0;
 }
 .tools_sidebaar .inspector-container .inspector-button-container{
@@ -92,11 +92,11 @@
 }
 .tools_sidebar .inspector input,
 .tools_sidebar .inspector select{
-	background-color: lightgray;
+	background-color: #ede8e8;
 	color: rgb(51, 51, 51);
 }
 .tools_sidebar .inspector-group{
-	border-color: lightgray;
+	border-color: #ede8e8;
 	border-width: 1px;
 }
 
@@ -135,6 +135,7 @@
 .tools_main .panel-body{
 	height: 100%;
 	overflow: auto;
+	padding: 0;
 }
 
 .tools_search{
