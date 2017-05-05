@@ -10,16 +10,33 @@
     <%= stylesheet_link_tag "/assets/gojs/extensions/spectrum", :media => "all" %>
     <%= stylesheet_link_tag "/assets/gojs/extensions/dataInspector", :media => "all" %>
     <%= stylesheet_link_tag "/assets/gojs/extensions/DebugInspector", :media => "all" %>
+    <%= stylesheet_link_tag "/assets/gojs/extensions/jquery-ui.min", :media => "all" %>
+    <%= stylesheet_link_tag "/assets/gojs/floorplanner/FloorPlanner", :media => "all" %>
     <%= stylesheet_link_tag "application", :media => "all" %>
 
-    <%= javascript_include_tag "/assets/gojs/extensions/jquery.min" %>
     <%= javascript_include_tag "/assets/gojs/go.js" %>
+    
+    <%= javascript_include_tag "/assets/gojs/floorplanner/FloorPlanner-WallBuildingTool" %>
+    <%= javascript_include_tag "/assets/gojs/floorplanner/FloorPlanner-WallReshapingTool" %>
+    <%= javascript_include_tag "/assets/gojs/floorplanner/FloorPlanner-Templates-General" %>
+    <%= javascript_include_tag "/assets/gojs/floorplanner/FloorPlanner-Templates-Furniture" %>
+    <%= javascript_include_tag "/assets/gojs/floorplanner/FloorPlanner-Templates-Walls" %>
+    <%= javascript_include_tag "/assets/gojs/floorplanner/Floorplan" %>
+    <%= javascript_include_tag "/assets/gojs/floorplanner/FloorplanPalette" %>
+    <%= javascript_include_tag "/assets/gojs/floorplanner/FloorplanFilesystem" %>
+    <%= javascript_include_tag "/assets/gojs/floorplanner/FloorplanUI" %>
+
+    <%= javascript_include_tag "/assets/gojs/extensions/jquery.min" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/jquery-ui.min" %>
+    
     <%= javascript_include_tag "/assets/gojs/extensions/HyperlinkText" %>
     <%= javascript_include_tag "/assets/gojs/extensions/spectrum" %>
     <%= javascript_include_tag "/assets/gojs/extensions/dataInspector" %>
     <%= javascript_include_tag "/assets/gojs/extensions/DebugInspector" %>
     <%= javascript_include_tag "/assets/gojs/extensions/ExtendedBrush" %>
     <%= javascript_include_tag "/assets/gojs/extensions/icons" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/layout_sankey" %>
+
     <%= javascript_include_tag "application" %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->

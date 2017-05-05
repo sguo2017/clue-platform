@@ -25,4 +25,5 @@
 //= require tools_diagram
 //= require tools_diagram_ruler
 //= require tools_demos
+//= require floor
 //= require_tree .

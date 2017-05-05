@@ -189,3 +189,73 @@ tools.link_templates["pipe_comment"] =
     $$(go.Shape, { stroke: "brown", strokeWidth: 2 }),
     $$(go.Shape, { toArrow: "OpenTriangle", stroke: "brown" })
   );
+
+tools.link_templates["sankey"] = 
+  $$(go.Link, go.Link.Bezier,
+    {
+      selectionAdornmentTemplate: $$(go.Adornment, "Link",
+        $$(go.Shape,
+          { isPanelMain: true, fill: null, stroke: "rgba(0, 0, 255, 0.3)", strokeWidth: 0 })  // use selection object's strokeWidth
+      ),
+      layerName: "Background",
+      fromEndSegmentLength: 150, toEndSegmentLength: 150,
+      adjusting: go.Link.End
+    },
+    $$(go.Shape, { strokeWidth: 4, stroke: "rgba(173, 173, 173, 0.25)" },
+     new go.Binding("stroke", "", function(data) {
+        var nodedata = tools.diagram.model.findNodeDataForKey(data.from);
+        var hex = nodedata.color;
+        if (hex.charAt(0) == '#') {
+          var rgb = parseInt(hex.substr(1, 6), 16);
+          var r = rgb >> 16;
+          var g = rgb >> 8 & 0xFF;
+          var b = rgb & 0xFF;
+          var alpha = 0.4;
+          if (data.width <= 2) alpha = 1;
+          var rgba = "rgba(" + r + "," + g + "," + b + ", " + alpha + ")";
+          return rgba;
+        }
+        return "rgba(173, 173, 173, 0.25)";
+      }),
+     new go.Binding("strokeWidth", "width"))
+  );
+
+function linkColorConverter(linkdata, elt) {
+      var link = elt.part;
+      if (!link) return blue;
+      var f = link.fromNode;
+      if (!f || !f.data || !f.data.critical) return blue;
+      var t = link.toNode;
+      if (!t || !t.data || !t.data.critical) return blue;
+      return pink;  // when both Link.fromNode.data.critical and Link.toNode.data.critical
+    }
+
+    // The color of a link (including its arrowhead) is red only when both
+    // connected nodes have data that is ".critical"; otherwise it is blue.
+    // This is computed by the binding converter function.
+tools.link_templates["pert"] =
+  $$(go.Link,
+    { toShortLength: 6, toEndSegmentLength: 20 },
+    $$(go.Shape,
+      { strokeWidth: 4 },
+      new go.Binding("stroke", "", function(linkdata, elt) {
+        var link = elt.part;
+        if (!link) return "#0288D1";
+        var f = link.fromNode;
+        if (!f || !f.data || !f.data.critical) return "#0288D1";
+        var t = link.toNode;
+        if (!t || !t.data || !t.data.critical) return "#0288D1";
+        return "#B71C1C";  // when both Link.fromNode.data.critical and Link.toNode.data.critical
+      })),
+    $$(go.Shape,  // arrowhead
+      { toArrow: "Triangle", stroke: null, scale: 1.5 },
+      new go.Binding("fill", "", function(linkdata, elt) {
+        var link = elt.part;
+        if (!link) return "#0288D1";
+        var f = link.fromNode;
+        if (!f || !f.data || !f.data.critical) return "#0288D1";
+        var t = link.toNode;
+        if (!t || !t.data || !t.data.critical) return "#0288D1";
+        return "#B71C1C";  // when both Link.fromNode.data.critical and Link.toNode.data.critical
+      }))
+  );

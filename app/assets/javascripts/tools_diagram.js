@@ -10,8 +10,10 @@ function tools_initial(){
 
 		var diagram = $$(go.Diagram, "tools_main_diagram", {
 			initialContentAlignment: go.Spot.Center,
+			initialAutoScale: go.Diagram.UniformToFill,
 			allowDrop: true,
 			"animationManager.duration": 600,
+			"animationManager.isEnabled": false,
 			"undoManager.isEnabled": true,
 			"grid.visible": true
 		})
@@ -65,4 +67,4 @@ function tools_initial(){
 	}
 }
 
-document.addEventListener("turbolinks:load", tools_initial);
+//document.addEventListener("turbolinks:load", tools_initial);
