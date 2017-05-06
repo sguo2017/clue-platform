@@ -226,14 +226,18 @@ function GoTools(div) {
     this.toolManager.draggingTool.doMouseUp = function () {
         go.DraggingTool.prototype.doMouseUp.call(this);
         this.diagram.updateWallAngles();
-        this.isGridSnapEnabled = this.diagram.model.modelData.preferences.gridSnap;
+        if(this.diagram.model.modelData.preferences)
+            this.isGridSnapEnabled = this.diagram.model.modelData.preferences.gridSnap;
     }
 
     // If user holds SHIFT while dragging, do not use grid snap
     this.toolManager.draggingTool.doMouseMove = function () {
         if (this.diagram.lastInput.shift) {
             this.isGridSnapEnabled = false;
-        } else this.isGridSnapEnabled = this.diagram.model.modelData.preferences.gridSnap;
+        } else {
+            if(this.diagram.model.modelData.preferences)
+                this.isGridSnapEnabled = this.diagram.model.modelData.preferences.gridSnap;
+        }
         go.DraggingTool.prototype.doMouseMove.call(this);
     }
 
@@ -493,7 +497,7 @@ GoTools.prototype.updateWallDimensions = function () {
     goTools.skipsUndoManager = true;
     goTools.startTransaction("update wall dimensions");
     // if showWallLengths === false, remove all pointNodes (used to build wall dimensions)
-    if (!goTools.model.modelData.preferences.showWallLengths) {
+    if (goTools.model.modelData.preferences && !goTools.model.modelData.preferences.showWallLengths) {
         goTools.pointNodes.iterator.each(function (node) { goTools.remove(node); });
         goTools.dimensionLinks.iterator.each(function (link) { goTools.remove(link); });
         goTools.pointNodes.clear();
@@ -689,7 +693,7 @@ GoTools.prototype.updateWallAngles = function () {
     var goTools = this;
     goTools.skipsUndoManager = true; // do not store displaying angles as a transaction
     goTools.startTransaction("display angles");
-    if (goTools.model.modelData.preferences.showWallAngles) {
+    if (goTools.model.modelData.preferences && goTools.model.modelData.preferences.showWallAngles) {
         goTools.angleNodes.iterator.each(function (node) { node.visible = true; });
         var selectedWalls = [];
         goTools.selection.iterator.each(function (part) { if (part.category === "WallGroup") selectedWalls.push(part); });
@@ -894,11 +898,11 @@ GoTools.prototype.updateWallAngles = function () {
         }
     }
     // hide all angles > 180 if show only small angles == true in preferences
-    if (goTools.model.modelData.preferences.showOnlySmallWallAngles) {
+    if (goTools.model.modelData.preferences && goTools.model.modelData.preferences.showOnlySmallWallAngles) {
         goTools.angleNodes.iterator.each(function (node) { if (node.data.sweep >= 180) node.visible = false; });
     }
     // hide all angles if show wall angles == false in preferences
-    if (!goTools.model.modelData.preferences.showWallAngles) {
+    if (goTools.model.modelData.preferences && !goTools.model.modelData.preferences.showWallAngles) {
         goTools.angleNodes.iterator.each(function (node) { node.visible = false; });
     }
     goTools.commitTransaction("display angles");

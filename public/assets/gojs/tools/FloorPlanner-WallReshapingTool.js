@@ -90,7 +90,7 @@ WallReshapingTool.prototype.updateAdornments = function (part) {
     if (part === null || part instanceof go.Link) return;
     if (part.isSelected && !this.diagram.isReadOnly) {
         var selelt = part.findObject(this.reshapeObjectName);
-        if (selelt.part.data.category === "WallGroup") {
+        if (selelt && selelt.part.data.category === "WallGroup") {
             var adornment = part.findAdornment(this.name);
             if (adornment === null) {
                 adornment = this.makeAdornment(selelt);
