@@ -2,16 +2,16 @@
 * Copyright (C) 1998-2017 by Northwoods Software Corporation
 * All Rights Reserved.
 *
-* Floorplan Class
-* A Floorplan is a Diagram with special rules
-* Dependencies: Floorplanner-Templates-General.js, Floorplanner-Templates-Furniture.js, Floorplanner-Templates-Walls.js
+* GoTools Class
+* A GoTools is a Diagram with special rules
+* Dependencies: GoToolsner-Templates-General.js, GoToolsner-Templates-Furniture.js, GoToolsner-Templates-Walls.js
 */
 
 /*
-* Floorplan Constructor
+* GoTools Constructor
 * @param {HTMLDivElement|string} div A reference to a div or its ID as a string
 */
-function Floorplan(div) {
+function GoTools(div) {
 
     /* 
     * Floor Plan Setup:
@@ -19,26 +19,27 @@ function Floorplan(div) {
     */
 
     go.Diagram.call(this, div);
-    // By default there is no filesystem / UI control for a floorplan, though they can be added 
-    this._floorplanFilesystem = null;
-    this._floorplanUI = null;
+    // By default there is no filesystem / UI control for a goTools, though they can be added 
+    this._goToolsFilesSystem = null;
+    this._goToolsUI = null;
     
-    // When a FloorplanPalette instance is made, it is automatically added to a Floorplan's "palettes" field
+    // When a GoToolsPalette instance is made, it is automatically added to a GoTools's "palettes" field
     this._palettes = [];
 
-    // Point Nodes, Dimension Links, Angle Nodes on the Floorplan (never in model data)
+    // Point Nodes, Dimension Links, Angle Nodes on the GoTools (never in model data)
     this._pointNodes = new go.Set(go.Node);
     this._dimensionLinks = new go.Set(go.Link);
     this._angleNodes = new go.Set(go.Node);
 
-    var $ = go.GraphObject.make;
+    var $$ = go.GraphObject.make;
 
     this.initialContentAlignment = go.Spot.Center;
+    //this.initialAutoScale = go.Diagram.UniformToFill;
     this.allowDrop = true;
     this.allowLink = false;
     this.undoManager.isEnabled = true;
     this.layout.isOngoing = false;
-    this.model = $(go.GraphLinksModel, {
+    this.model = $$(go.GraphLinksModel, {
         modelData: {
             "units": "centimeters",
             "unitsAbbreviation": "cm",
@@ -62,40 +63,40 @@ function Floorplan(div) {
     this.draggingTool.gridCellSize = this.model.modelData.gridSize;
     this.rotatingTool = new go.RotatingTool();
     this.rotatingTool.snapAngleEpsilon = 10;
-    this.grid = $(go.Panel, "Grid",
+    this.grid = $$(go.Panel, "Grid",
             { gridCellSize: new go.Size(this.model.modelData.gridSize, this.model.modelData.gridSize), visible: true },
-            $(go.Shape, "LineH", { stroke: "lightgray" }),
-            $(go.Shape, "LineV", { stroke: "lightgray" }));
+            $$(go.Shape, "LineH", { stroke: "lightgray" }),
+            $$(go.Shape, "LineV", { stroke: "lightgray" }));
     this.contextMenu = makeContextMenu(); 
     this.commandHandler.canGroupSelection = true;
     this.commandHandler.canUngroupSelection = true;
     this.commandHandler.archetypeGroupData = { isGroup: true };
  
-    // When floorplan model is changed, update stats in Statistics Window TODO
+    // When goTools model is changed, update stats in Statistics Window TODO
     this.addModelChangedListener(function (e) {
         if (e.isTransactionFinished) {
-            // find floorplan changed
-            var floorplan = null;
+            // find goTools changed
+            var goTools = null;
             if (e.object !== null) {
                 e.object.changes.each(function (change) {
-                    if (change.diagram instanceof Floorplan) floorplan = change.diagram;
+                    if (change.diagram instanceof GoTools) goTools = change.diagram;
                 });
             }            
-            if (floorplan) {
-                if (floorplan.floorplanUI) floorplan.floorplanUI.updateStatistics();
+            if (goTools) {
+                if (goTools.goToolsUI) goTools.goToolsUI.updateStatistics();
             }
         } 
     });
     
-    // When floorplan is modified, change document title to include a *
+    // When goTools is modified, change document title to include a *
     this.addDiagramListener("Modified", function (e) {
-        var floorplan = e.diagram;
-        if (floorplan.floorplanFilesystem) {
-            var currentFile = document.getElementById(floorplan.floorplanFilesystem.state.currentFileId);
+        var goTools = e.diagram;
+        if (goTools.goToolsFilesSystem) {
+            var currentFile = document.getElementById(goTools.goToolsFilesSystem.state.currentFileId);
             if(currentFile){
-                var idx = currentFile.textContent.indexOf("*");
-                if (floorplan.isModified) {
-                    if (idx < 0) currentFile.textContent = currentFile.textContent + "*";
+                var idx = currentFile.textContent.indexOf("（未保存）");
+                if (goTools.isModified) {
+                    if (idx < 0) currentFile.textContent = currentFile.textContent + "（未保存）";
                 }
                 else {
                     if (idx >= 0) currentFile.textContent = currentFile.textContent.substr(0, idx);
@@ -104,16 +105,7 @@ function Floorplan(div) {
         }
     });
 
-    // If floorplan scale has been changed update the 'Scale' item in the View menu
-    this.addDiagramListener("ViewportBoundsChanged", function (e) {
-        var floorplan = e.diagram;
-        if (floorplan.floorplanUI) {
-            var scaleEl = document.getElementById(floorplan.floorplanUI.state.scaleDisplayId);
-            scaleEl.innerHTML = "Scale: " + (e.diagram.scale * 100).toFixed(2) + "%";
-        }
-    });
-
-    // If a node has been dropped onto the Floorplan from a Palette...
+    // If a node has been dropped onto the GoTools from a Palette...
     this.addDiagramListener("ExternalObjectsDropped", function (e) {
         var node = e.diagram.selection.first();
         // Event 1: handle a drag / drop of a wall node from the Palette (as opposed to wall construction via WallBuildingTool)
@@ -126,13 +118,10 @@ function Floorplan(div) {
             e.diagram.updateWall(wall);
             e.diagram.remove(paletteWallNode);
         }
-        if (e.diagram.floorplanUI) {
-            var floorplanUI = e.diagram.floorplanUI;
-            // Event 2: Update the text of the Diagram Helper
-            if (node.category === "WindowNode" || node.category === "DoorNode") floorplanUI.setDiagramHelper("Drag part so the cursor is over a wall to add this part to a wall");
-            else floorplanUI.setDiagramHelper("Drag, resize, or rotate your selection (hold SHIFT for no grid-snapping)");
+        if (e.diagram.goToolsUI) {
+            var goToolsUI = e.diagram.goToolsUI;
             // Event 3: If the select tool is not active, make it active
-            if (e.diagram.toolManager.mouseDownTools.elt(0).isEnabled) floorplanUI.setBehavior('dragging', e.diagram);
+            if (e.diagram.toolManager.mouseDownTools.elt(0).isEnabled) goToolsUI.setBehavior('dragging', e.diagram);
         }
     });
 
@@ -143,73 +132,79 @@ function Floorplan(div) {
 
     // Display different help depending on selection context
     this.addDiagramListener("ChangedSelection", function (e) {
-        var floorplan = e.diagram;
-        floorplan.skipsUndoManager = true;
-        floorplan.startTransaction("remove dimension links and angle nodes");
-        floorplan.pointNodes.iterator.each(function (node) { e.diagram.remove(node) });
-        floorplan.dimensionLinks.iterator.each(function (link) { e.diagram.remove(link) });
+        var goTools = e.diagram;
+        goTools.skipsUndoManager = true;
+        goTools.startTransaction("remove dimension links and angle nodes");
+        goTools.pointNodes.iterator.each(function (node) { e.diagram.remove(node) });
+        goTools.dimensionLinks.iterator.each(function (link) { e.diagram.remove(link) });
 
         var missedDimensionLinks = []; // used only in undo situations
-        floorplan.links.iterator.each(function (link) { if (link.data.category == "DimensionLink") missedDimensionLinks.push(link); });
+        goTools.links.iterator.each(function (link) { if (link.data.category == "DimensionLink") missedDimensionLinks.push(link); });
         for (var i = 0; i < missedDimensionLinks.length; i++) {
             e.diagram.remove(missedDimensionLinks[i]);
         }
 
-        floorplan.pointNodes.clear();
-        floorplan.dimensionLinks.clear();
-        floorplan.angleNodes.iterator.each(function (node) { e.diagram.remove(node); });
-        floorplan.angleNodes.clear();
+        goTools.pointNodes.clear();
+        goTools.dimensionLinks.clear();
+        goTools.angleNodes.iterator.each(function (node) { e.diagram.remove(node); });
+        goTools.angleNodes.clear();
         
-        floorplan.commitTransaction("remove dimension links and angle nodes");
-        floorplan.skipsUndoManager = false;
-        floorplan.updateWallDimensions();
-        floorplan.updateWallAngles();
-        if (floorplan.floorplanUI) {
-            var floorplanUI = floorplan.floorplanUI;
-            var selection = floorplan.selection;
-            var node = floorplan.selection.first(); // only used if selection.count === 1
+        goTools.commitTransaction("remove dimension links and angle nodes");
+        goTools.skipsUndoManager = false;
+        goTools.updateWallDimensions();
+        goTools.updateWallAngles();
+        if (goTools.goToolsUI) {
+            var goToolsUI = goTools.goToolsUI;
+            var selection = goTools.selection;
+            var node = goTools.selection.first(); // only used if selection.count === 1
 
-            if (selection.count === 0) floorplan.floorplanUI.setSelectionInfo('Nothing selected');
-            else if (selection.count === 1) floorplan.floorplanUI.setSelectionInfo(floorplan.selection.first());
-            else floorplan.floorplanUI.setSelectionInfo('Selection: ');
-
-            if (selection.count === 0) floorplanUI.setDiagramHelper("Click to select a part, drag one from a Palette, or draw a wall with the Wall Tool (Ctr + 1)");
-            else if (selection.count > 1) {
+            if (selection.count > 1) {
                 var ungroupable = false;
                 selection.iterator.each(function (node) { if (node.category === "WindowNode" || node.category === "DoorNode" || node.category === "WallGroup") ungroupable = true; });
-                if (!ungroupable) floorplanUI.setDiagramHelper("You may group your selection with the context menu (Right Click anywhere)");
             }
-            else if (node.category === "WallGroup") floorplanUI.setDiagramHelper("Drag wall endpoints or add doors and windows to the wall from the Wall Parts Palette");
-            else if (selection.first().category === "WindowNode" || selection.first().category === "DoorNode") {
-                if (node.containingGroup !== null) floorplanUI.setDiagramHelper("Drag and resize wall part along the wall; drag away from wall to detach");
-                else floorplanUI.setDiagramHelper("Drag part so the cursor is over a wall to add this part to a wall");
-            }
-            else if (selection.first().category === "MultiPurposeNode") floorplanUI.setDiagramHelper("Double click on part text to revise it");
-            else floorplanUI.setDiagramHelper("Drag, resize, or rotate (hold SHIFT for no snap) your selection");
 
         }
     });
 
-    /* 
-    * Node Templates
-    * Add Default Node, Multi-Purpose Node, Window Node, Palette Wall Node, and Door Node to the Node Template Map
-    * Template functions defined in FloorPlanner-Templates-* js files
-    */
+    this.brushes = {
+        wood: $$(go.Brush, "Linear", { 0: "#964514", 1: "#5E2605" }),
+        wall: $$(go.Brush, "Linear", { 0: "#A8A8A8", 1: "#545454" }),
+        blue: $$(go.Brush, "Linear", { 0: "#42C0FB", 1: "#009ACD" }),
+        metal: $$(go.Brush, "Linear", { 0: "#A8A8A8", 1: "#474747" }),
+        green: $$(go.Brush, "Linear", { 0: "#9CCB19", 1: "#698B22" }),
+        
+        bluegrad: $$(go.Brush, "Linear", { 0: "rgb(150, 150, 250)", 0.5: "rgb(86, 86, 186)", 1: "rgb(86, 86, 186)" }),
+        greengrad: $$(go.Brush, "Linear", { 0: "rgb(158, 209, 159)", 1: "rgb(67, 101, 56)" }),
+        redgrad: $$(go.Brush, "Linear", { 0: "rgb(206, 106, 100)", 1: "rgb(180, 56, 50)" }),
+        yellowgrad: $$(go.Brush, "Linear", { 0: "rgb(254, 221, 50)", 1: "rgb(254, 182, 50)" }),
+        lightgrad: $$(go.Brush, "Linear", { 1: "#E6E6FA", 0: "#FFFAF0" })
+    };
+    this.makeNodeTemplateMap();
+    this.makeGroupTemplateMap();
+    this.makeLinkTemplateMap();
 
-    this.nodeTemplateMap.add("", makeDefaultNode()); // Default Node (furniture)
-    this.nodeTemplateMap.add("MultiPurposeNode", makeMultiPurposeNode()); // Multi-Purpose Node 
-    this.nodeTemplateMap.add("WindowNode", makeWindowNode()); // Window Node
-    this.nodeTemplateMap.add("PaletteWallNode", makePaletteWallNode()); // Palette Wall Node
-    this.nodeTemplateMap.add("DoorNode", makeDoorNode()); // Door Node
+    if (jQuery("#dataInspector").length>0) {
+        this.dataInspector = new Inspector("dataInspector", this,{
+            properties: {
+              "key": { readOnly: true },
+              "comments": {}
+            }
+        })
+    }
+    if (jQuery("#debugInspector").length>0) {
+        this.debugInspector = new DebugInspector('debugInspector', this, {
+            acceptButton: true,
+            resetButton: true,
+            /*
+            // example predicate, only show data objects:
+            inspectPredicate: function(value) {
+              return !(value instanceof go.GraphObject)
+            }
+            */
+        });
+     }
 
-    /*
-    * Group Templates
-    * Add Default Group, Wall Group to Group Template Map
-    * Template functions defined in FloorPlanner-Templates-* js files
-    */
-
-    this.groupTemplateMap.add("", makeDefaultGroup()); // Default Group
-    this.groupTemplateMap.add("WallGroup", makeWallGroup()); // Wall Group
+    //diagram_ruler();
 
     /*
     * Install Custom Tools
@@ -246,7 +241,6 @@ function Floorplan(div) {
     this.toolManager.resizingTool.doMouseMove = function () {
         var node = this.adornedObject;
         // if node is the only thing selected, display its info as its resized
-        if (this.diagram.selection.count === 1 && this.floorplanUI) this.floorplanUI.setSelectionInfo(node);
         this.diagram.updateWallDimensions();
         go.ResizingTool.prototype.doMouseMove.call(this);
     }
@@ -296,50 +290,52 @@ function Floorplan(div) {
     }
 
     this.toolManager.draggingTool.isGridSnapEnabled = true;
-} go.Diagram.inherit(Floorplan, go.Diagram);
+} 
 
-// Get/set the Floorplan Filesystem instance associated with this Floorplan
-Object.defineProperty(Floorplan.prototype, "floorplanFilesystem", {
-    get: function () { return this._floorplanFilesystem; },
+go.Diagram.inherit(GoTools, go.Diagram);
+
+// Get/set the GoTools Filesystem instance associated with this GoTools
+Object.defineProperty(GoTools.prototype, "goToolsFilesSystem", {
+    get: function () { return this._goToolsFilesSystem; },
     set: function (val) {
-        val instanceof FloorplanFilesystem ? this._floorplanFilesystem = val : this._floorplanFilesystem = null;
+        val instanceof GoToolsFilesSystem ? this._goToolsFilesSystem = val : this._goToolsFilesSystem = null;
     }
 });
 
-// Get/set the FloorplanUI instance associated with this Floorplan
-Object.defineProperty(Floorplan.prototype, "floorplanUI", {
-    get: function () { return this._floorplanUI; },
+// Get/set the GoToolsUI instance associated with this GoTools
+Object.defineProperty(GoTools.prototype, "goToolsUI", {
+    get: function () { return this._goToolsUI; },
     set: function (val) {
-        val instanceof FloorplanUI ? this._floorplanUI = val : this._floorplanUI = null;
+        val instanceof GoToolsUI ? this._goToolsUI = val : this._goToolsUI = null;
     }
 });
 
-// Get array of all FloorplanPalettes associated with this Floorplan
-Object.defineProperty(Floorplan.prototype, "palettes", {
+// Get array of all GoToolsPalettes associated with this GoTools
+Object.defineProperty(GoTools.prototype, "palettes", {
     get: function () { return this._palettes; }
 });
 
-// Get / set Set of all Point Nodes in the Floorplan
-Object.defineProperty(Floorplan.prototype, "pointNodes", {
+// Get / set Set of all Point Nodes in the GoTools
+Object.defineProperty(GoTools.prototype, "pointNodes", {
     get: function () { return this._pointNodes; },
     set: function (val) { this._pointNodes = val; }
 });
 
-// Get / set Set of all Dimension Links in the Floorplan
-Object.defineProperty(Floorplan.prototype, "dimensionLinks", {
+// Get / set Set of all Dimension Links in the GoTools
+Object.defineProperty(GoTools.prototype, "dimensionLinks", {
     get: function () { return this._dimensionLinks; },
     set: function () { this._dimensionLinks = val; }
 });
 
-// Get / set Set of all Angle Nodes in the Floorplan
-Object.defineProperty(Floorplan.prototype, "angleNodes", {
+// Get / set Set of all Angle Nodes in the GoTools
+Object.defineProperty(GoTools.prototype, "angleNodes", {
     get: function () { return this._angleNodes; },
     set: function () { this._angleNodes = val; }
 });
 
 
 // Check what units are being used, convert to cm then multiply by 2, (1px = 2cm, change this if you want to use a different paradigm)
-Floorplan.prototype.convertPixelsToUnits = function (num) {
+GoTools.prototype.convertPixelsToUnits = function (num) {
     var units = this.model.modelData.units;
     if (units === 'meters') return (num / 100) * 2;
     if (units === 'feet') return (num / 30.48) * 2;
@@ -348,7 +344,7 @@ Floorplan.prototype.convertPixelsToUnits = function (num) {
 }
 
 // Take a number of units, convert to cm, then divide by 2, (1px = 2cm, change this if you want to use a different paradigm)
-Floorplan.prototype.convertUnitsToPixels = function (num) {
+GoTools.prototype.convertUnitsToPixels = function (num) {
     var units = this.model.modelData.units;
     if (units === 'meters') return (num * 100) / 2;
     if (units === 'feet') return (num * 30.48) / 2;
@@ -360,7 +356,7 @@ Floorplan.prototype.convertUnitsToPixels = function (num) {
 * Update the geometry, angle, and location of a given wall
 * @param {Wall} wall A reference to a valid Wall Group (defined in Templates-Walls)
 */
-Floorplan.prototype.updateWall = function (wall) {
+GoTools.prototype.updateWall = function (wall) {
     var shape = wall.findObject("SHAPE");
     var geo = new go.Geometry(go.Geometry.Line);
     var sPt = wall.data.startpoint;
@@ -400,24 +396,87 @@ function getAdjustedPoint(point, wall, angle, wallOffset) {
 * @param {Number} angle The angle of the wallPart
 * @param {Number} wallOffset How far from the wall (in px) the Link should be
 * @param {Boolean} soloWallFlag If this Link is the only Dimension Link for "wall" (no other wallParts on "wall" selected) this is true; else, false
-* @param {Floorplan} floorplan A reference to a valid Floorplan 
+* @param {GoTools} goTools A reference to a valid GoTools 
 */
-function buildDimensionLink(wall, index, point1, point2, angle, wallOffset, soloWallFlag, floorplan) {
+function buildDimensionLink(wall, index, point1, point2, angle, wallOffset, soloWallFlag, goTools) {
+    var $ = go.GraphObject.make
+    
     point1 = getAdjustedPoint(point1, wall, angle, wallOffset);
     point2 = getAdjustedPoint(point2, wall, angle, wallOffset);
     var data1 = { key: wall.data.key + "PointNode" + index, category: "PointNode", loc: go.Point.stringify(point1) };
     var data2 = { key: wall.data.key + "PointNode" + (index + 1), category: "PointNode", loc: go.Point.stringify(point2) };
     var data3 = { key: wall.data.key + "DimensionLink", category: 'DimensionLink', from: data1.key, to: data2.key, stroke: 'gray', angle: angle, wall: wall.data.key, soloWallFlag: soloWallFlag };
-    var pointNode1 = makePointNode();
-    var pointNode2 = makePointNode();
-    var link = makeDimensionLink();
+    var pointNode1 = $$(go.Node, "Position", new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify));
+    var pointNode2 = $$(go.Node, "Position", new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify));
+    var link = $$(go.Link,
+        { locationSpot: go.Spot.TopLeft },
+        // link itself
+        $$(go.Shape,
+        { stroke: "gray", strokeWidth: 2, name: 'SHAPE' }),
+        // to arrow shape
+        $$(go.Shape,
+        { toArrow: "OpenTriangle", stroke: "gray", strokeWidth: 2 }),
+        $$(go.Shape,
+        // from arrow shape
+        { fromArrow: "BackwardOpenTriangle", stroke: "gray", strokeWidth: 2 }),
+        // dimension link text 
+        $$(go.TextBlock,
+        { text: 'sometext', segmentOffset: new go.Point(0, -10), font: "13px sans-serif" },
+        new go.Binding("text", "", function (link) {
+            var floorplan = link.diagram;
+            if (floorplan) {
+                var fromPtNode = null; var toPtNode = null;
+                floorplan.pointNodes.iterator.each(function (node) {
+                    if (node.data.key === link.data.from) fromPtNode = node;
+                    if (node.data.key === link.data.to) toPtNode = node;
+                });
+                if (fromPtNode !== null) {
+                    var fromPt = fromPtNode.location;
+                    var toPt = toPtNode.location;
+                    return floorplan.convertPixelsToUnits(Math.sqrt(fromPt.distanceSquaredPoint(toPt))).toFixed(2) + floorplan.model.modelData.unitsAbbreviation;
+                } return null;
+            } return null;
+        }).ofObject(),
+        // bind angle of textblock to angle of link -- always make text rightside up and readable
+        new go.Binding("angle", "angle", function (angle, link) {
+            if (angle > 90 && angle < 270) return (angle + 180) % 360;
+            return angle;
+        }),
+        // default poisiton text above / below dimension link based on angle
+        new go.Binding("segmentOffset", "angle", function (angle, textblock) {
+            var floorplan = textblock.part.diagram;
+            if (floorplan) {
+                var wall = floorplan.findPartForKey(textblock.part.data.wall);
+                if (wall.rotateObject.angle > 135 && wall.rotateObject.angle < 315) return new go.Point(0, 10);
+                return new go.Point(0, -10);
+            } return new go.Point(0,0);
+        }).ofObject(),
+        // scale font size according to the length of the link
+        new go.Binding("font", "", function (link) {
+            var floorplan = link.diagram;
+            var fromPtNode = null; var toPtNode = null;
+            floorplan.pointNodes.iterator.each(function (node) {
+                if (node.data.key === link.data.from) fromPtNode = node;
+                if (node.data.key === link.data.to) toPtNode = node;
+            });
+            if (fromPtNode !== null) {
+                var fromPt = fromPtNode.location;
+                var toPt = toPtNode.location;
+                var distance = Math.sqrt(fromPt.distanceSquaredPoint(toPt));
+                if (distance > 40) return "13px sans-serif";
+                if (distance <= 40 && distance >= 20) return "11px sans-serif";
+                else return "9px sans-serif";
+            } return "13px sans-serif";
+        }).ofObject()
+        )
+    );
 
-    floorplan.pointNodes.add(pointNode1);
-    floorplan.pointNodes.add(pointNode2);
-    floorplan.dimensionLinks.add(link);
-    floorplan.add(pointNode1);
-    floorplan.add(pointNode2);
-    floorplan.add(link);
+    goTools.pointNodes.add(pointNode1);
+    goTools.pointNodes.add(pointNode2);
+    goTools.dimensionLinks.add(link);
+    goTools.add(pointNode1);
+    goTools.add(pointNode2);
+    goTools.add(link);
 
     pointNode1.data = data1;
     pointNode2.data = data2;
@@ -429,36 +488,36 @@ function buildDimensionLink(wall, index, point1, point2, angle, wallOffset, solo
 /* 
 * Update Dimension Links shown along a wall, based on which wallParts are selected
 */
-Floorplan.prototype.updateWallDimensions = function () {
-    var floorplan = this;
-    floorplan.skipsUndoManager = true;
-    floorplan.startTransaction("update wall dimensions");
+GoTools.prototype.updateWallDimensions = function () {
+    var goTools = this;
+    goTools.skipsUndoManager = true;
+    goTools.startTransaction("update wall dimensions");
     // if showWallLengths === false, remove all pointNodes (used to build wall dimensions)
-    if (!floorplan.model.modelData.preferences.showWallLengths) {
-        floorplan.pointNodes.iterator.each(function (node) { floorplan.remove(node); });
-        floorplan.dimensionLinks.iterator.each(function (link) { floorplan.remove(link); });
-        floorplan.pointNodes.clear();
-        floorplan.dimensionLinks.clear();
-        floorplan.commitTransaction("update wall dimensions");
-        floorplan.skipsUndoManager = false;
+    if (!goTools.model.modelData.preferences.showWallLengths) {
+        goTools.pointNodes.iterator.each(function (node) { goTools.remove(node); });
+        goTools.dimensionLinks.iterator.each(function (link) { goTools.remove(link); });
+        goTools.pointNodes.clear();
+        goTools.dimensionLinks.clear();
+        goTools.commitTransaction("update wall dimensions");
+        goTools.skipsUndoManager = false;
         return;
     }
     // make visible all dimension links (zero-length dimension links are set to invisible at the end of the function) 
-    floorplan.dimensionLinks.iterator.each(function (link) { link.visible = true; });
+    goTools.dimensionLinks.iterator.each(function (link) { link.visible = true; });
 
-    var selection = floorplan.selection;
+    var selection = goTools.selection;
     // gather all selected walls, including walls of selected DoorNodes and WindowNodes
     var walls = new go.Set(go.Group);
     selection.iterator.each(function (part) {
         if ((part.category === 'WindowNode' || part.category === 'DoorNode') && part.containingGroup !== null) walls.add(part.containingGroup);
         if (part.category === 'WallGroup' && part.data !== null) {
             var soloWallLink = null;
-            floorplan.dimensionLinks.iterator.each(function (link) { if (link.data.soloWallFlag && link.data.wall === part.data.key) soloWallLink = link; });
+            goTools.dimensionLinks.iterator.each(function (link) { if (link.data.soloWallFlag && link.data.wall === part.data.key) soloWallLink = link; });
             // if there's 1 Dimension Link for this wall (link has soloWallFlag), adjust to/from pointNodes of link, rather than deleting / redrawing
             if (soloWallLink !== null) {
                 // since this is the only Dimension Link for this wall, keys of its pointNodes will be (wall.data.key) + 1 / (wall.data.key) + 2
                 var linkPoint1 = null; var linkPoint2 = null;
-                floorplan.pointNodes.iterator.each(function (node) {
+                goTools.pointNodes.iterator.each(function (node) {
                     if (node.data.key === part.data.key + "PointNode1") linkPoint1 = node;
                     if (node.data.key === part.data.key + "PointNode2") linkPoint2 = node;
                 });
@@ -482,7 +541,7 @@ Floorplan.prototype.updateWallDimensions = function () {
                 var endpoint = part.data.endpoint;
                 var firstWallPt = ((startpoint.x + startpoint.y) <= (endpoint.x + endpoint.y)) ? startpoint : endpoint;
                 var lastWallPt = ((startpoint.x + startpoint.y) > (endpoint.x + endpoint.y)) ? startpoint : endpoint;
-                buildDimensionLink(part, 1, firstWallPt.copy(), lastWallPt.copy(), part.rotateObject.angle, 10, true, floorplan);
+                buildDimensionLink(part, 1, firstWallPt.copy(), lastWallPt.copy(), part.rotateObject.angle, 10, true, goTools);
             }
         }
     });
@@ -516,7 +575,7 @@ Floorplan.prototype.updateWallDimensions = function () {
         // build / edit dimension links for each stretch, defined by pairs of points in wallPartEndpoints
         for (var j = 0; j < wallPartEndpoints.length - 1; j++) {
             var linkPoint1 = null; linkPoint2 = null;
-            floorplan.pointNodes.iterator.each(function (node) {
+            goTools.pointNodes.iterator.each(function (node) {
                 if (node.data.key === wall.data.key + "PointNode" + k) linkPoint1 = node;
                 if (node.data.key === wall.data.key + "PointNode" + (k + 1)) linkPoint2 = node;
             });
@@ -529,19 +588,19 @@ Floorplan.prototype.updateWallDimensions = function () {
                 linkPoint2.updateTargetBindings();
             }
                 // only build new links if needed -- normally simply change pointNode locations
-            else buildDimensionLink(wall, k, wallPartEndpoints[j].copy(), wallPartEndpoints[j + 1].copy(), angle, 5, false, floorplan);
+            else buildDimensionLink(wall, k, wallPartEndpoints[j].copy(), wallPartEndpoints[j + 1].copy(), angle, 5, false, goTools);
             k += 2;
         }
         // total wall Dimension Link would be constructed of a kth and k+1st pointNode
         var totalWallDimensionLink = null;
-        floorplan.dimensionLinks.iterator.each(function (link) {
+        goTools.dimensionLinks.iterator.each(function (link) {
             if ((link.fromNode.data.key === wall.data.key + "PointNode" + k) &&
                 (link.toNode.data.key === wall.data.key + "PointNode" + (k + 1))) totalWallDimensionLink = link;
         });
         // if a total wall Dimension Link already exists, adjust its constituent point nodes
         if (totalWallDimensionLink !== null) {
             var linkPoint1 = null; var linkPoint2 = null;
-            floorplan.pointNodes.iterator.each(function (node) {
+            goTools.pointNodes.iterator.each(function (node) {
                 if (node.data.key === wall.data.key + "PointNode" + k) linkPoint1 = node;
                 if (node.data.key === wall.data.key + "PointNode" + (k + 1)) linkPoint2 = node;
             });
@@ -553,24 +612,24 @@ Floorplan.prototype.updateWallDimensions = function () {
             linkPoint2.updateTargetBindings();
         }
             // only build total wall Dimension Link (far out from wall to accomodate wallPart Dimension Links) if one does not already exist
-        else buildDimensionLink(wall, k, wallPartEndpoints[0].copy(), wallPartEndpoints[wallPartEndpoints.length - 1].copy(), angle, 25, false, floorplan);
+        else buildDimensionLink(wall, k, wallPartEndpoints[0].copy(), wallPartEndpoints[wallPartEndpoints.length - 1].copy(), angle, 25, false, goTools);
     });
 
     // Cleanup: hide zero-length Dimension Links, DimensionLInks with null wall points
-    floorplan.dimensionLinks.iterator.each(function (link) {     
+    goTools.dimensionLinks.iterator.each(function (link) {     
         var canStay = false;
-        floorplan.pointNodes.iterator.each(function (node) {
+        goTools.pointNodes.iterator.each(function (node) {
             if (node.data.key == link.data.to) canStay = true;
         });
-        if (!canStay) floorplan.remove(link);
+        if (!canStay) goTools.remove(link);
         else {
             var length = Math.sqrt(link.toNode.location.distanceSquaredPoint(link.fromNode.location));
             if (length < 1 && !link.data.soloWallFlag) link.visible = false;
         }
     });
 
-    floorplan.commitTransaction("update wall dimensions");
-    floorplan.skipsUndoManager = false;
+    goTools.commitTransaction("update wall dimensions");
+    goTools.skipsUndoManager = false;
 }
 
 /*
@@ -626,18 +685,18 @@ var getWallsIntersection = function (wall1, wall2) {
 /* 
 * Update Angle Nodes shown along a wall, based on which wall(s) is/are selected
 */
-Floorplan.prototype.updateWallAngles = function () {
-    var floorplan = this;
-    floorplan.skipsUndoManager = true; // do not store displaying angles as a transaction
-    floorplan.startTransaction("display angles");
-    if (floorplan.model.modelData.preferences.showWallAngles) {
-        floorplan.angleNodes.iterator.each(function (node) { node.visible = true; });
+GoTools.prototype.updateWallAngles = function () {
+    var goTools = this;
+    goTools.skipsUndoManager = true; // do not store displaying angles as a transaction
+    goTools.startTransaction("display angles");
+    if (goTools.model.modelData.preferences.showWallAngles) {
+        goTools.angleNodes.iterator.each(function (node) { node.visible = true; });
         var selectedWalls = [];
-        floorplan.selection.iterator.each(function (part) { if (part.category === "WallGroup") selectedWalls.push(part); });
+        goTools.selection.iterator.each(function (part) { if (part.category === "WallGroup") selectedWalls.push(part); });
         for (var i = 0; i < selectedWalls.length; i++) {
             var seen = new go.Set("string"); // Set of all walls "seen" thus far for "wall"
             var wall = selectedWalls[i];
-            var possibleWalls = floorplan.findNodesByExample({ category: "WallGroup" });
+            var possibleWalls = goTools.findNodesByExample({ category: "WallGroup" });
 
             // go through all other walls; if the other wall intersects this wall, make angles
             possibleWalls.iterator.each(function (otherWall) {
@@ -647,7 +706,7 @@ Floorplan.prototype.updateWallAngles = function () {
                     seen.add(otherWall.data.key);
                     // "otherWall" intersects "wall"; make or update angle nodes
                     var intersectionPoint = getWallsIntersection(wall, otherWall);
-                    var wallsInvolved = floorplan.findObjectsNear(intersectionPoint,
+                    var wallsInvolved = goTools.findObjectsNear(intersectionPoint,
                         1,
                         function (x) { if (x.part !== null) return x.part; },
                         function (p) { return p.category === "WallGroup"; },
@@ -656,7 +715,7 @@ Floorplan.prototype.updateWallAngles = function () {
                     var endpoints = []; // store endpoints and their corresponding walls here
                     // gather endpoints of each wall in wallsInvolved; discard endpoints within a tolerance distance of intersectionPoint
                     wallsInvolved.iterator.each(function (w) {
-                        var tolerance = (floorplan.model.modelData.gridSize >= 10) ? floorplan.model.modelData.gridSize : 10;
+                        var tolerance = (goTools.model.modelData.gridSize >= 10) ? goTools.model.modelData.gridSize : 10;
                         if (Math.sqrt(w.data.startpoint.distanceSquaredPoint(intersectionPoint)) > tolerance) endpoints.push({ point: w.data.startpoint, wall: w.data.key });
                         if (Math.sqrt(w.data.endpoint.distanceSquaredPoint(intersectionPoint)) > tolerance) endpoints.push({ point: w.data.endpoint, wall: w.data.key });
                     });
@@ -719,7 +778,7 @@ Floorplan.prototype.updateWallAngles = function () {
 
                         // check if this angleNode already exists -- if it does, adjust data (instead of deleting/redrawing)
                         var angleNode = null;
-                        floorplan.angleNodes.iterator.each(function (aNode) { if (aNode.data.key === key) angleNode = aNode; });
+                        goTools.angleNodes.iterator.each(function (aNode) { if (aNode.data.key === key) angleNode = aNode; });
                         if (angleNode !== null) {
                             angleNode.data.angle = angle;
                             angleNode.data.sweep = sweep;
@@ -730,11 +789,67 @@ Floorplan.prototype.updateWallAngles = function () {
                             // if this angleNode does not already exist, create it and add it to the diagram 
                         else {
                             var data = { key: key, category: "AngleNode", loc: go.Point.stringify(intersectionPoint), stroke: "dodgerblue", angle: angle, sweep: sweep, maxRadius: maxRadius };
-                            var newAngleNode = makeAngleNode();
+                            var newAngleNode = $$(go.Node, "Spot",
+                                { locationSpot: go.Spot.Center, locationObjectName: "SHAPE", selectionAdorned: false },
+                                new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                                    $$(go.Shape, "Circle", // placed where walls intersect, is invisible
+                                    { name: "SHAPE", fill: "red", height: 0, width: 0 }),
+                                    $$(go.Shape, // arc
+                                    { stroke: "green", strokeWidth: 1.5, fill: null }, 
+                                    new go.Binding("geometry", "", function(node) {
+                                        var ang = node.data.angle;
+                                        var sweep = node.data.sweep;
+                                        var rad = Math.min(30, node.data.maxRadius);
+                                        if (typeof sweep === "number" && sweep > 0) {
+                                            var start = new go.Point(rad, 0).rotate(ang);
+                                            // this is much more efficient than calling go.GraphObject.make:
+                                            return new go.Geometry()
+                                                  .add(new go.PathFigure(start.x + rad, start.y + rad)  // start point
+                                                       .add(new go.PathSegment(go.PathSegment.Arc,
+                                                                               ang, sweep,  // angles
+                                                                               rad, rad,  // center
+                                                                               rad, rad)  // radius
+                                                            ))
+                                                  .add(new go.PathFigure(0, 0))
+                                                  .add(new go.PathFigure(2 * rad, 2 * rad));
+                                        } else {  // make sure this arc always occupies the same circular area of RAD radius
+                                            return new go.Geometry()
+                                                  .add(new go.PathFigure(0, 0))
+                                                  .add(new go.PathFigure(2 * rad, 2 * rad));
+                                        }
+                                    }).ofObject(),
+                                    new go.Binding("stroke", "sweep", function (sweep) {
+                                        return (sweep % 45 < 1 || sweep % 45 > 44) ? "dodgerblue" : "lightblue";
+                                    })),
+                                    // Arc label panel
+                                    $$(go.Panel, "Auto",
+                                    { name: "ARCLABEL" },
+                                    // position the label in the center of the arc
+                                    new go.Binding("alignment", "sweep", function (sweep, panel) {
+                                        var rad = Math.min(30, panel.part.data.maxRadius);
+                                        var angle = panel.part.data.angle;
+                                        var cntr = new go.Point(rad, 0).rotate(angle + sweep / 2);
+                                        return new go.Spot(0.5, 0.5, cntr.x, cntr.y);
+                                    }),
+                                        // rectangle containing angle text
+                                        $$(go.Shape,
+                                        { stroke: "black", fill: "white" },
+                                        new go.Binding("stroke", "sweep", function (sweep) {
+                                            return (sweep % 45 < 1 || sweep % 45 > 44) ? "dodgerblue" : "lightblue";
+                                        })),
+                                        // angle text
+                                        $$(go.TextBlock,
+                                        { font: "7pt sans-serif", margin: new go.Margin(2, 2, 2, 2) },
+                                        new go.Binding("text", "sweep", function (sweep) {
+                                            return sweep.toFixed(2) + String.fromCharCode(176);
+                                        }),
+                                        new go.Binding("stroke", "color"))
+                                    )
+                                );
                             newAngleNode.data = data;
-                            floorplan.add(newAngleNode);
+                            goTools.add(newAngleNode);
                             newAngleNode.updateTargetBindings();
-                            floorplan.angleNodes.add(newAngleNode);
+                            goTools.angleNodes.add(newAngleNode);
                         }
                     }
                 }
@@ -742,7 +857,7 @@ Floorplan.prototype.updateWallAngles = function () {
         }
         // garbage collection (angleNodes that should not exist any more)
         var garbage = [];
-        floorplan.angleNodes.iterator.each(function (node) {
+        goTools.angleNodes.iterator.each(function (node) {
             var keyNums = node.data.key.match(/\d+/g); // values X for all wall keys involved, given key "wallX"
             var numWalls = (node.data.key.match(/wall/g) || []).length; // # of walls involved in in "node"'s construction
             var wallsInvolved = [];
@@ -753,8 +868,8 @@ Floorplan.prototype.updateWallAngles = function () {
 
             // Case 1: if any wall pairs involved in this angleNode are no longer intersecting, add this angleNode to "garbage"
             for (var i = 0; i < wallsInvolved.length - 1; i++) {
-                var wall1 = floorplan.findPartForKey(wallsInvolved[i]);
-                var wall2 = floorplan.findPartForKey(wallsInvolved[i + 1]);
+                var wall1 = goTools.findPartForKey(wallsInvolved[i]);
+                var wall2 = goTools.findPartForKey(wallsInvolved[i + 1]);
                 var intersectionPoint = getWallsIntersection(wall1, wall2);
                 if (intersectionPoint === null) garbage.push(node);
             }
@@ -762,7 +877,7 @@ Floorplan.prototype.updateWallAngles = function () {
             // collect all angleNodes with same walls in their construction as "node"
             var possibleAngleNodes = new go.Set(go.Node);
             var allWalls = node.data.key.slice(0, node.data.key.indexOf("angle"));
-            floorplan.angleNodes.iterator.each(function (other) { if (other.data.key.includes(allWalls)) possibleAngleNodes.add(other); });
+            goTools.angleNodes.iterator.each(function (other) { if (other.data.key.includes(allWalls)) possibleAngleNodes.add(other); });
             possibleAngleNodes.iterator.each(function (pNode) {
                 if (pNode.data.loc !== node.data.loc) {
                     garbage.push(pNode);
@@ -774,18 +889,18 @@ Floorplan.prototype.updateWallAngles = function () {
         });
 
         for (var i = 0; i < garbage.length; i++) {
-            floorplan.remove(garbage[i]); // remove garbage
-            floorplan.angleNodes.remove(garbage[i]);
+            goTools.remove(garbage[i]); // remove garbage
+            goTools.angleNodes.remove(garbage[i]);
         }
     }
     // hide all angles > 180 if show only small angles == true in preferences
-    if (floorplan.model.modelData.preferences.showOnlySmallWallAngles) {
-        floorplan.angleNodes.iterator.each(function (node) { if (node.data.sweep >= 180) node.visible = false; });
+    if (goTools.model.modelData.preferences.showOnlySmallWallAngles) {
+        goTools.angleNodes.iterator.each(function (node) { if (node.data.sweep >= 180) node.visible = false; });
     }
     // hide all angles if show wall angles == false in preferences
-    if (!floorplan.model.modelData.preferences.showWallAngles) {
-        floorplan.angleNodes.iterator.each(function (node) { node.visible = false; });
+    if (!goTools.model.modelData.preferences.showWallAngles) {
+        goTools.angleNodes.iterator.each(function (node) { node.visible = false; });
     }
-    floorplan.commitTransaction("display angles");
-    floorplan.skipsUndoManager = false;
+    goTools.commitTransaction("display angles");
+    goTools.skipsUndoManager = false;
 }

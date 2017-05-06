@@ -1,185 +1,27 @@
-<div id="currentFile">(Unsaved File)</div>
-<!-- File menus-->
-<!-- The Nav Bar / Windows are specific to a certain floorplan and its classes -- unlike most of the Floorplanner code, which is generic -->
-<nav>
-	<ul id="fileMenus">
-		<li>
-			<a href="#">File</a>
-			<ul>
-				<li><a href="#" onclick="filesystem.newFloorplan()">New <p class="shortcut">(Ctrl + D)</p></a></li>
-				<li><a href="#" onclick="filesystem.showOpenWindow()">Open... <p class="shortcut">(Ctrl + O)</p></a></li>
-				<li><a href="#" onclick="filesystem.saveFloorplan()">Save <p class="shortcut">(Ctrl + S)</p></a></li>
-				<li><a href="#" onclick="filesystem.saveFloorplanAs()">Save As...</a></li>
-				<li><a href="#" onclick="filesystem.showRemoveWindow()">Remove... <p class="shortcut">(Ctrl + R)</p></a></li>
-			</ul>
-		</li>
-		<li>
-			<a href="#">Edit</a>
-			<ul>
-				<li><a href="#" onclick="myFloorplan.commandHandler.undo()">Undo <p class="shortcut">(Ctrl + Z)</p></a></li>
-				<li><a href="#" onclick="myFloorplan.commandHandler.redo()">Redo <p class="shortcut">(Ctrl + Y)</p></a></li>
-				<li><a href="#" onclick="myFloorplan.commandHandler.copySelection()">Copy <p class="shortcut">(Ctrl + C)</p></a></li>
-				<li><a href="#" onclick="myFloorplan.commandHandler.cutSelection()">Cut <p class="shortcut">(Ctrl + X)</p></a></li>
-				<li><a href="#" onclick="myFloorplan.commandHandler.pasteSelection()">Paste <p class="shortcut">(Ctrl + V)</p></a></li>
-				<li><a href="#" onclick="myFloorplan.commandHandler.deleteSelection()">Delete <p class="shortcut">(Del)</p></a></li>
-				<li><a href="#" onclick="myFloorplan.commandHandler.selectAll()">Select All <p class="shortcut">(Ctrl + A)</p></a></li>
-			</ul>
-		</li>
-		<li>
-			<a href="#">View</a>
-			<ul>
-				<li><a href="#" onclick="ui.hideShow('diagramHelpDiv')" id="diagramHelpDivButton">Hide Diagram Help <p class="shortcut"> (Ctrl + H)</p></a></li>
-				<li><a href="#" onclick="ui.hideShow('selectionInfoWindow')" id="selectionInfoWindowButton">Show Selection Help <p class="shortcut"> (Ctrl + I)</p></a></li>
-				<li><a href="#" onclick="ui.hideShow('myPaletteWindow')" id="myPaletteWindowButton">Hide Palettes <p class="shortcut"> (Ctrl + P)</p></a></li>
-				<li><a href="#" onclick="ui.hideShow('myOverviewWindow')" id="myOverviewWindowButton">Show Overview <p class="shortcut"> (Ctrl + E)</p></a></li>
-				<li><a href="#" onclick="ui.hideShow('statisticsWindow')" id="statisticsWindowButton">Show Statistics <p class="shortcut"> (Ctrl + G)</p></a></li>
-				<li>
-					<a href="#" id="optionsWindowButton" onclick="ui.hideShow('optionsWindow')">Show Options <p class="shortcut"> (Ctrl + B)</p> </a>
-				</li>
-				<li>
-					<a href="#" class="scaleItems" onclick="ui.adjustScale('-')">-</a>
-					<a href="#" class="scaleItems" id="scaleDisplay">Scale: 100%</a>
-					<a href="#" class="scaleItems" onclick="ui.adjustScale('+')">+</a>
-				</li>
-			</ul>
-		</li>
-		<li><button class="setBehavior toolIcons" id="wallBuildingButton" title="Wall Building Tool (Ctrl + 1)" onclick="ui.setBehavior('wallBuilding')">&nbsp;</button></li>
-		<li><button class="setBehavior toolIcons" id="draggingButton" title="Select/Move Tool (Ctrl + 2)" onclick="ui.setBehavior('dragging')">&nbsp;</button></li>
-		<p id="wallWidthBox">
-			<label for="wallWidthInput" id="wallWidthInputLabel">Wall Width:</label>
-			<input id="wallWidthInput" class="unitsInput" placeholder="width" />
-			<input id="wallWidthUnitsInput" class="unitsBox" value="cm" disabled="disabled" />
-		</p>
-	</ul>
-</nav>
-
-<div id="diagramHelpDiv" style="visibility: visible">
-	<div id="diagramHelpTextDiv">
-		<p>Drag a node to the Diagram or select the Wall Drawing Tool (Ctrl + 1) to begin</p>
-	</div>
-</div>
-
-<!-- Floating windows-->
-<div id="myPaletteWindow" style="visibility: visible" class="draggable ui-draggable">
-	<div id="myPaletteWindowHandle" class="handle ui-draggable-handle">Palettes<button id="myPaletteClose" class="windowButtons clickable" onclick="ui.closeElement('myPaletteWindow')">X</button></div>
-	<div id="palettes">
-		<!-- jQuery accordion -->
-		<h3 class="paletteLabel">Furniture</h3>
-		<div>
-			<input id="furnitureSearchBar" placeholder="Search Furniture" oninput="ui.searchFurniture()" />
-			<div id="furniturePaletteDiv" class="paletteClass"></div>
-		</div>
-		<h3 class="paletteLabel">Wall Parts</h3>
-		<div id="wallPartsPaletteDiv" class="paletteClass"></div>
-	</div>
-</div>
-
-<div id="openDocument" style="visibility: hidden;" class="draggable ui-draggable">
-	<div id="openDocumentHandle" class="handle ui-draggable-handle">Open File<button id="openDocumentClose" class="windowButtons clickable" onclick="ui.closeElement('openDocument')">X</button></div>
-	<div id="openText" class="elementText">Choose file to open...</div>
-	<select id="filesToOpen" class="mySavedFiles"></select>
-	<br />
-	<button id="openBtn" class="elementBtn" type="button" onclick="filesystem.loadFloorplan()">Open</button>
-</div>
-
-<div id="removeDocument" style="visibility: hidden;" class="draggable ui-draggable">
-	<div id="removeDocumentHandle" class="handle">Delete File <button id="removeDocumentClose" class="windowButtons clickable" onclick="ui.closeElement('removeDocument')">X</button></div>
-	<div id="removeText" class="elementText">Choose file to remove...</div>
-	<select id="filesToRemove" class="mySavedFiles"></select>
-	<br />
-	<button id="removeBtn" class="elementBtn" type="button" onclick="filesystem.removeFloorplan()" style="margin-left:70px">Remove</button>
-</div>
-
-<div id="myOverviewWindow" style="visibility: hidden;" class="draggable ui-draggable">
-	<div id="myOverviewWindowHandle" class="handle ui-draggable-handle">Overview<button id="myOverviewClose" title="Close" class="windowButtons clickable" onclick="ui.closeElement('myOverviewWindow')">X</button></div>
-	<div id="myOverviewDiv" style="height:187px; width: 300px;"></div>
-</div>
-
-<div id="selectionInfoWindow" style="visibility: hidden" class="draggable ui-draggable">
-	<div id="selectionInfoWindowHandle" class="handle ui-draggable-handle">Selection Info <button id="selectionInfoClose" class="windowButtons clickable" onclick="ui.closeElement('selectionInfoWindow')">X</button></div>
-	<div id="selectionInfoTextDiv" class="grid-container">Nothing selected</div>
-</div>
-
-<div id="optionsWindow" style="visibility: hidden" class="draggable ui-draggable">
-	<div id="optionsWindowHandle" class="handle ui-draggable-handle">Options <button id="optionsWindowClose" class="windowButtons clickable" onclick="ui.closeElement('optionsWindow')">X</button></div>
-	Units
-	<div id="unitsRow" class="row data">
-		<form id="unitsForm" onchange="ui.changeUnits()">
-			<div class="col-4">
-				<input type="radio" name="units" id="centimeters" checked />cm
-			</div>
-			<div class="col-4">
-				<input type="radio" name="units" id="meters" /> m
-			</div>
-			<div class="col-4">
-				<input type="radio" name="units" id="inches" />in
-			</div>
-			<div class="col-4">
-				<input type="radio" name="units" id="feet" />ft
-			</div>
-		</form>
-	</div>
-	Grid
-	<div id="gridRow" class="row">
-		<div class="col-2">
-			<input id="gridSizeInput" placeholder="grid size" class="unitsInput" />
-			<input id="gridSizeUnitsInput" class="unitsBox" value="cm" disabled />
-			<button id="setGridButton" onclick="ui.changeGridSize()">Set Grid</button>
-		</div>
-		<div class="col-2">
-			<input type="checkbox" id="showGridCheckbox" onchange="ui.checkboxChanged('showGridCheckbox', myFloorplan)" checked />Show Grid
-		</div>
-	</div>
-	Preferences
-	<div id="miscRow" class="row data">
-		<div class="col-1">
-			<input type="checkbox" id="gridSnapCheckbox" onchange="ui.checkboxChanged('gridSnapCheckbox', myFloorplan)" checked />Grid Snap
-		</div>
-		<div class="col-1">
-			<input type="checkbox" id="wallGuidelinesCheckbox" onchange="ui.checkboxChanged('wallGuidelinesCheckbox', myFloorplan)" checked /> Show Wall Guidelines
-		</div>
-		<div class="col-1">
-			<input type="checkbox" id="wallLengthsCheckbox" onchange="ui.checkboxChanged('wallLengthsCheckbox', myFloorplan)" checked /> Show Wall Lengths
-		</div>
-		<div class="col-1">
-			<input type="checkbox" id="wallAnglesCheckbox" onchange="ui.checkboxChanged('wallAnglesCheckbox', myFloorplan)" checked /> Show Wall Angles
-		</div>
-		<div class="col-1">
-			<input type="checkbox" id="smallWallAnglesCheckbox" onchange="ui.checkboxChanged('smallWallAnglesCheckbox', myFloorplan)" unchecked /> Show Only Small Wall Angles
-		</div>
-	</div>
-</div>
-
-<div id="statisticsWindow" style="visibility: hidden" class="draggable ui-draggable">
-	<div id="statisticsWindowHandle" class="handle ui-draggable-handle">Floor Plan Statistics <button id="statisticsWindowClose" class="windowButtons clickable" onclick="ui.closeElement('statisticsWindow')">X</button></div>
-	Stats
-	<div id="statisticsWindowTextDiv" class="grid-container"></div>
-</div>
-
 <% content_for :title do %>分析工具<% end %>
 <% content_for :navbar do %>
 <ul class="nav navbar-nav">
 	<li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">文件</a>
       <ul class="dropdown-menu">
-        <li><a onclick="file_new()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新建</a></li>
-        <li><a onclick=""><span class="glyphicon glyphicon-open" aria-hidden="true"></span> 打开...</a></li>
-        <li><a onclick=""><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 保存</a></li>
-        <li><a onclick=""><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 另存...</a></li>
-        <li><a onclick=""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a></li>
+        <li><a onclick="filesystem.newFloorplan()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新建</a></li>
+        <li><a onclick="filesystem.showOpenWindow()"><span class="glyphicon glyphicon-open" aria-hidden="true"></span> 打开...</a></li>
+        <li><a onclick="filesystem.saveFloorplan()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 保存</a></li>
+        <li><a onclick="filesystem.saveFloorplanAs()"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 另存...</a></li>
+        <li><a onclick="filesystem.showRemoveWindow()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a></li>
       </ul>
     </li>
    	<li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">编辑</a>
       <ul class="dropdown-menu">
       	<li><a onclick="">重命名</a></li>
-        <li><a onclick="tools.diagram.commandHandler.undo()">撤销</a></li>
-        <li><a onclick="tools.diagram.commandHandler.redo()">重做</a></li>
-        <li><a onclick="tools.diagram.commandHandler.cutSelection()">剪切</a></li>
-        <li><a onclick="tools.diagram.commandHandler.copySelection()">拷贝</a></li>
-        <li><a onclick="tools.diagram.commandHandler.pasteSelection()">粘贴</a></li>
-        <li><a onclick="tools.diagram.commandHandler.deleteSelection()">删除</a></li>
-        <li><a onclick="tools.diagram.commandHandler.selectAll()">全选</a></li>
+        <li><a onclick="myFloorplan.commandHandler.undo()">撤销</a></li>
+        <li><a onclick="myFloorplan.commandHandler.redo()">重做</a></li>
+        <li><a onclick="myFloorplan.commandHandler.cutSelection()">剪切</a></li>
+        <li><a onclick="myFloorplan.commandHandler.copySelection()">拷贝</a></li>
+        <li><a onclick="myFloorplan.commandHandler.pasteSelection()">粘贴</a></li>
+        <li><a onclick="myFloorplan.commandHandler.deleteSelection()">删除</a></li>
+        <li><a onclick="myFloorplan.commandHandler.selectAll()">全选</a></li>
 		<li role="separator" class="divider"></li>
         <li><a onclick="tools.diagram.commandHandler.groupSelection()">合并为组</a></li>
         <li><a onclick="tools.diagram.commandHandler.ungroupSelection()">拆散组</a></li>
@@ -238,12 +80,13 @@
         <li><a onclick="demo.freehand_drawing()">实例: 画笔</a></li>
         <li><a onclick="demo.sankey()">实例: 桑基图</a></li>
         <li><a onclick="demo.pert()">实例: 计划评审</a></li>
+        <li><a onclick="demo.floor_planner()">实例: 室内设计</a></li>
       </ul>
     </li>
 </ul>  
 <% end %>
 
-<div class="tools_main" id="body">
+<div class="tools_main">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="panel-title row">
@@ -255,8 +98,8 @@
 					  </div>
 					  <label href="#">操作方式</label>
 					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
-						  <button type="button" class="btn btn-default">放大</button>
-						  <button type="button" class="btn btn-default">缩小</button>
+						  <button type="button" class="btn btn-default" onclick="ui.adjustScale('+')">放大</button>
+						  <button type="button" class="btn btn-default" onclick="ui.adjustScale('-')">缩小</button>
 					  </div>
 					  <label href="#">布局方式</label>
 					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
@@ -286,12 +129,13 @@
 		      <li role="presentation" class="dropdown">
 		        <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">库 <span class="caret"></span></a>
 		        <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-		          	<li><a onclick="changePalette('circuit')">电子电路</a></li>
-				    <li><a onclick="changePalette('floor')">室内平面图</a></li>
-				    <li><a onclick="changePalette('flowchart')">流程图</a></li>
-				    <li><a onclick="changePalette('shape')">形状</a></li>
-				    <li><a onclick="changePalette('icon')">图标</a></li>
-				    <li><a onclick="changePalette('pipe')">管道</a></li>
+		        	<li><a onclick="goTools.palette.changePalette('floor_planner')">室内设计</a></li>
+		          	<li><a onclick="goTools.palette.changePalette('circuit')">电子电路</a></li>
+				    <li><a onclick="goTools.palette.changePalette('floor')">室内平面图</a></li>
+				    <li><a onclick="goTools.palette.changePalette('flowchart')">流程图</a></li>
+				    <li><a onclick="goTools.palette.changePalette('shape')">形状</a></li>
+				    <li><a onclick="goTools.palette.changePalette('icon')">图标</a></li>
+				    <li><a onclick="goTools.palette.changePalette('pipe')">管道</a></li>
 		        </ul>
 		      </li>
 		      <li role="presentation"><a href="#tab_debugInspector" role="tab" data-toggle="tab" aria-controls="tab_debugInspector" aria-expanded="true">属性</a></li>
@@ -300,6 +144,7 @@
 		<div class="panel-body tab-content" style="padding-bottom: 0px;">
 		    <div role="tabpanel" class="tab-pane fade in active" id="tab_palette" aria-labelledby="profile-tab">
 		    	<div id="tools_main_palette" style="width:100%;height:66%;">
+		    		<!--input id="furnitureSearchBar" placeholder="Search Furniture" oninput="ui.searchFurniture()" /-->
 		    	</div>
 		    	<div class="panel panel-default" style="height:34%">
 					<div class="panel-heading">
@@ -374,7 +219,7 @@
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-	  <button type="button" class="btn btn-default btn-sm" onclick="toggle_search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	  <button type="button" class="btn btn-default btn-sm" onclick="$('.tools_search').toggle()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>

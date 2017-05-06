@@ -2,15 +2,15 @@
 * Copyright (C) 1998-2017 by Northwoods Software Corporation
 * All Rights Reserved.
 *
-* Floorplan Filesystem Class
-* Handles Floorplan-specific saving / loading model data events
-* Attached to a specific instance of Floorplan (via constructor); can be assigned to Floorplan.floorplanFilesystem
+* GoTools Filesystem Class
+* Handles GoTools-specific saving / loading model data events
+* Attached to a specific instance of GoTools (via constructor); can be assigned to GoTools.goToolsFilesystem
 * Currently only supports saving / loading from localstorage 
 */
 
 /*
-* Floorplan Filesystem Constructor
-* @param {Floorplan} floorplan A reference to a valid instance of Floorplan
+* GoTools Filesystem Constructor
+* @param {GoTools} goTools A reference to a valid instance of GoTools
 * @param {Object} state A JSON object with string ids for UI objects (windows, listboxes, HTML elements)
 *   {
 *       openWindowId: {String} the id of the HTML window to open a file
@@ -20,8 +20,8 @@
 *       filesToRemoveListId: {String} the id of the HTML listbox of the removeWindow
 *   }
 */
-function FloorplanFilesystem(floorplan, state) {
-    this._floorplan = floorplan;
+function GoToolsFilesSystem(goTools, state) {
+    this._goTools = goTools;
     this._UNSAVED_FILENAME = "(Unsaved File)";
     this._DEFAULT_MODELDATA = {
         "units": "centimeters",
@@ -40,23 +40,23 @@ function FloorplanFilesystem(floorplan, state) {
     this._state = state;
 }
 
-// Get the Floorplan associated with this Floorplan Filesystem
-Object.defineProperty(FloorplanFilesystem.prototype, "floorplan", {
-    get: function () { return this._floorplan; }
+// Get the GoTools associated with this GoTools Filesystem
+Object.defineProperty(GoToolsFilesSystem.prototype, "goTools", {
+    get: function () { return this._goTools; }
 });
 
-// Get constant name for an unsaved Floorplan 
-Object.defineProperty(FloorplanFilesystem.prototype, "UNSAVED_FILENAME", {
+// Get constant name for an unsaved GoTools 
+Object.defineProperty(GoToolsFilesSystem.prototype, "UNSAVED_FILENAME", {
     get: function () { return this._UNSAVED_FILENAME; }
 });
 
-// Get constant default model data (default Floorplan model data for a new Floorplan)
-Object.defineProperty(FloorplanFilesystem.prototype, "DEFAULT_MODELDATA", {
+// Get constant default model data (default GoTools model data for a new GoTools)
+Object.defineProperty(GoToolsFilesSystem.prototype, "DEFAULT_MODELDATA", {
     get: function () { return this._DEFAULT_MODELDATA; }
 });
 
 // Get state information about this app's UI
-Object.defineProperty(FloorplanFilesystem.prototype, "state", {
+Object.defineProperty(GoToolsFilesSystem.prototype, "state", {
     get: function () { return this._state; }
 });
 
@@ -105,19 +105,19 @@ function openWindow(id, listid) {
 
 /*
 * Instance methods
-* New Floorplan, Save Floorplan, Save Floorplan As, Load Floorplan, Remove Floorplan
+* New GoTools, Save GoTools, Save GoTools As, Load GoTools, Remove GoTools
 * Show Open Window, Show Remove Window
 * Set Current File Name, Get Current File Name
 */
 
-// Create new floorplan (Ctrl + D or File -> New)
-FloorplanFilesystem.prototype.newFloorplan = function() {
-    var floorplan = this.floorplan;
+// Create new goTools (Ctrl + D or File -> New)
+GoToolsFilesSystem.prototype.newGoTools = function() {
+    var goTools = this.goTools;
     // checks to see if all changes have been saved
-    if (floorplan.isModified) {
+    if (goTools.isModified) {
         var save = confirm("Would you like to save changes to " + this.getCurrentFileName() + "?");
         if (save) {
-            this.saveFloorplan();
+            this.saveGoTools();
         }
     }
     this.setCurrentFileName(this.UNSAVED_FILENAME);
@@ -125,27 +125,27 @@ FloorplanFilesystem.prototype.newFloorplan = function() {
     var model = new go.GraphLinksModel;
     // initialize all modelData
     model.modelData = this.DEFAULT_MODELDATA;
-    floorplan.model = model;
-    floorplan.undoManager.isEnabled = true;
-    floorplan.isModified = false;
-    if (floorplan.floorplanUI) floorplan.floorplanUI.updateUI();
+    goTools.model = model;
+    goTools.undoManager.isEnabled = true;
+    goTools.isModified = false;
+    if (goTools.goToolsUI) goTools.goToolsUI.updateUI();
 }
 
 // Save current floor plan to local storage (Ctrl + S or File -> Save)
-FloorplanFilesystem.prototype.saveFloorplan = function () {
+GoToolsFilesSystem.prototype.saveGoTools = function () {
     if (checkLocalStorage()) {
         var saveName = this.getCurrentFileName();
         if (saveName === this.UNSAVED_FILENAME) {
-            this.saveFloorplanAs();
+            this.saveGoToolsAs();
         } else {
-            window.localStorage.setItem(saveName, this.floorplan.model.toJson());
-            this.floorplan.isModified = false;
+            window.localStorage.setItem(saveName, this.goTools.model.toJson());
+            this.goTools.isModified = false;
         }
     }
 }
 
 // Save floor plan to local storage with a new name (File -> Save As)
-FloorplanFilesystem.prototype.saveFloorplanAs = function () {
+GoToolsFilesSystem.prototype.saveGoToolsAs = function () {
     if (checkLocalStorage()) {
         var saveName = prompt("Save file as...", this.getCurrentFileName());
         // if saveName is already in list of files, ask if overwrite is ok
@@ -156,16 +156,16 @@ FloorplanFilesystem.prototype.saveFloorplanAs = function () {
             }
             if (override) {
                 this.setCurrentFileName(saveName);
-                window.localStorage.setItem(saveName, this.floorplan.model.toJson());
-                this.floorplan.isModified = false;
+                window.localStorage.setItem(saveName, this.goTools.model.toJson());
+                this.goTools.isModified = false;
             }
         }
     }
 }
 
-// Load floorplan model data in "Open" window (Ctrl + O or File -> Open)
-FloorplanFilesystem.prototype.loadFloorplan = function () {
-    var floorplan = this.floorplan;
+// Load goTools model data in "Open" window (Ctrl + O or File -> Open)
+GoToolsFilesSystem.prototype.loadGoTools = function () {
+    var goTools = this.goTools;
     var listbox = document.getElementById(this.state.filesToOpenListId);
     var fileName = undefined; // get selected filename
     for (var i = 0; i < listbox.options.length; i++) {
@@ -173,31 +173,32 @@ FloorplanFilesystem.prototype.loadFloorplan = function () {
     }
     if (fileName !== undefined) {
         var savedFile = window.localStorage.getItem(fileName);
-        this.loadFloorplanFromModel(savedFile);
-        floorplan.isModified = false;
+        this.loadGoToolsFromModel(savedFile);
+        goTools.isModified = false;
         this.setCurrentFileName(fileName);
     }
-    if (floorplan.floorplanUI) floorplan.floorplanUI.closeElement(this.state.openWindowId);
+    if (goTools.goToolsUI) goTools.goToolsUI.closeElement(this.state.openWindowId);
 }
 
-FloorplanFilesystem.prototype.loadFloorplanFromModel = function (str) {
-    var floorplan = this.floorplan;
-    floorplan.model = go.Model.fromJson(str);
-    floorplan.skipsUndoManager = true;
-    floorplan.startTransaction("generate walls");
-    floorplan.nodes.each(function (node) {
-        if (node.category === "WallGroup") floorplan.updateWall(node);
+GoToolsFilesSystem.prototype.loadGoToolsFromModel = function (str) {
+    var goTools = this.goTools;
+    goTools.layout = go.GraphObject.make(go.Layout);
+    goTools.model = go.Model.fromJson(str);
+    goTools.skipsUndoManager = true;
+    goTools.startTransaction("generate walls");
+    goTools.nodes.each(function (node) {
+        if (node.category === "WallGroup") goTools.updateWall(node);
     });
-    if (floorplan.floorplanUI) floorplan.floorplanUI.updateUI();
+    if (goTools.goToolsUI) goTools.goToolsUI.updateUI();
 
-    floorplan.commitTransaction("generate walls");
-    floorplan.undoManager.isEnabled = true;
+    goTools.commitTransaction("generate walls");
+    goTools.undoManager.isEnabled = true;
 
 }
 
-// Delete selected floorplan from local storage
-FloorplanFilesystem.prototype.removeFloorplan = function () {
-    var floorplan = this.floorplan;
+// Delete selected goTools from local storage
+GoToolsFilesSystem.prototype.removeGoTools = function () {
+    var goTools = this.goTools;
     var listbox = document.getElementById(this.state.filesToRemoveListId);
     var fileName = undefined; // get selected filename
     for (var i = 0; i < listbox.options.length; i++) {
@@ -207,16 +208,16 @@ FloorplanFilesystem.prototype.removeFloorplan = function () {
         // removes file from local storage
         window.localStorage.removeItem(fileName);
     }
-    if (floorplan.floorplanUI) floorplan.floorplanUI.closeElement(this.state.removeWindowId);
+    if (goTools.goToolsUI) goTools.goToolsUI.closeElement(this.state.removeWindowId);
 }
 
 // Check to see if all changes have been saved -> show the "Open" window
-FloorplanFilesystem.prototype.showOpenWindow = function () {
+GoToolsFilesSystem.prototype.showOpenWindow = function () {
     if (checkLocalStorage()) {
-        if (this.floorplan.isModified) {
+        if (this.goTools.isModified) {
             var save = confirm("Would you like to save changes to " + this.getCurrentFileName() + "?");
             if (save) {
-                this.saveFloorplan();
+                this.saveGoTools();
             }
         }
         openWindow(this.state.openWindowId, this.state.filesToOpenListId);
@@ -224,21 +225,21 @@ FloorplanFilesystem.prototype.showOpenWindow = function () {
 }
 
 // Show the Remove File window
-FloorplanFilesystem.prototype.showRemoveWindow = function () {
+GoToolsFilesSystem.prototype.showRemoveWindow = function () {
     if (checkLocalStorage()) {
         openWindow(this.state.removeWindowId, this.state.filesToRemoveListId);
     }
 }
 
 // Add * to current file element if diagram has been modified
-FloorplanFilesystem.prototype.setCurrentFileName= function(name) {
+GoToolsFilesSystem.prototype.setCurrentFileName= function(name) {
     var currentFile = document.getElementById(this.state.currentFileId);
-    if (this.floorplan.isModified) name += "*";
+    if (this.goTools.isModified) name += "*";
     currentFile.textContent = name;
 }
 
 // Get current file name from the current file element
-FloorplanFilesystem.prototype.getCurrentFileName = function() {
+GoToolsFilesSystem.prototype.getCurrentFileName = function() {
     var currentFile = document.getElementById(this.state.currentFileId);
     var name = currentFile.textContent;
     if (name[name.length - 1] === "*") return name.substr(0, name.length - 1);

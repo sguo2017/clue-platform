@@ -14,7 +14,8 @@ function WallBuildingTool() {
     this._startPoint = null;
     this._endPoint = null;
     this._wallReshapingTool = null;
-} go.Diagram.inherit(WallBuildingTool, go.Tool);
+} 
+go.Diagram.inherit(WallBuildingTool, go.Tool);
 
 // Get / set the current startPoint
 Object.defineProperty(WallBuildingTool.prototype, "startPoint", {
