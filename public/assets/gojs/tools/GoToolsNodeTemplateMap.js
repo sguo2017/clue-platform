@@ -889,13 +889,7 @@ GoTools.prototype.makeNodeTemplateMap = function(){
   	    { portId: "out", alignment: new go.Spot(1, 0.5) })
   	));
 
-  function flowchart_showPorts(node, show) {
-      var diagram = node.diagram;
-      if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
-      node.ports.each(function(port) {
-          port.stroke = (show ? "white" : null);
-        });
-    }
+    
 
   function flowchart_nodeStyle() {
     return [
@@ -910,8 +904,20 @@ GoTools.prototype.makeNodeTemplateMap = function(){
         //isShadowed: true,
         //shadowColor: "#888",
         // handle mouse enter/leave events to show/hide the ports
-        mouseEnter: function (e, obj) { flowchart_showPorts(obj.part, true); },
-        mouseLeave: function (e, obj) { flowchart_showPorts(obj.part, false); }
+        mouseEnter: function (e, obj) { 
+          var diagram = obj.part.diagram;
+          if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
+          obj.part.ports.each(function(port) {
+              port.stroke = "white";
+            });
+        },
+        mouseLeave: function (e, obj) { 
+          var diagram = obj.part.diagram;
+          if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
+          obj.part.ports.each(function(port) {
+              port.stroke = null;
+            });
+        }
       }
     ];
   }

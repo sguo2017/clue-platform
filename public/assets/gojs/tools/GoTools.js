@@ -36,7 +36,7 @@ function GoTools(div) {
     this.initialContentAlignment = go.Spot.Center;
     //this.initialAutoScale = go.Diagram.UniformToFill;
     this.allowDrop = true;
-    this.allowLink = false;
+    this.allowLink = true;
     this.undoManager.isEnabled = true;
     this.layout.isOngoing = false;
     this.model = $$(go.GraphLinksModel, {
@@ -139,7 +139,10 @@ function GoTools(div) {
         goTools.dimensionLinks.iterator.each(function (link) { e.diagram.remove(link) });
 
         var missedDimensionLinks = []; // used only in undo situations
-        goTools.links.iterator.each(function (link) { if (link.data.category == "DimensionLink") missedDimensionLinks.push(link); });
+        goTools.links.iterator.each(function (link) { 
+            if (link.data && link.data.category == "DimensionLink") 
+                missedDimensionLinks.push(link); 
+        });
         for (var i = 0; i < missedDimensionLinks.length; i++) {
             e.diagram.remove(missedDimensionLinks[i]);
         }
