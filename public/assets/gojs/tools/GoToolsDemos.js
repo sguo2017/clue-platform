@@ -901,3 +901,13 @@ demo.wheel = function(){
   })
   goTools.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 }
+
+demo.seating = function(){
+  goTools.layout = $$(go.Layout);
+  goTools.model = new go.GraphLinksModel([
+      {"key":1, "category":"TableR3", "name":"Head 1", "guests":{}, "loc":"143.5 58"},
+      {"key":2, "category":"TableR3", "name":"Head 2", "guests":{}, "loc":"324.5 58"},
+      {"key":3, "category":"TableR8", "name":"3", "guests":{}, "loc":"121.5 203.5"},
+      {"key":4, "category":"TableC8", "name":"4", "guests":{}, "loc":"364.5 223.5"}
+    ]);  // this sample does not make use of any links
+}

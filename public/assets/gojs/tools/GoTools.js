@@ -252,6 +252,10 @@ function GoTools(div) {
           },
         mainElement: this.cxElement
     });
+
+    //search draggerable
+
+    $(".tools_search").draggable({ handle: "#pushpin" });//.resizable();
     
 
     //diagram_ruler();

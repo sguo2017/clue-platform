@@ -542,6 +542,19 @@ GoToolsPalette.prototype.initial = function(){
 	    */
 	]);
 
+	this.paletteMap.add("seating", [
+      { category: 'seating_person', key: "Tyrion Lannister" },
+      { category: 'seating_person', key: "Daenerys Targaryen", plus: 3 },  // dragons, of course
+      { category: 'seating_person', key: "Jon Snow" },
+      { category: 'seating_person', key: "Stannis Baratheon" },
+      { category: 'seating_person', key: "Arya Stark" },
+      { category: 'seating_person', key: "Jorah Mormont" },
+      { category: 'seating_person', key: "Sandor Clegane" },
+      { category: 'seating_person', key: "Joffrey Baratheon" },
+      { category: 'seating_person', key: "Brienne of Tarth" },
+      { category: 'seating_person', key: "Hodor" }
+    ])
+
 	var shapes = go.Shape.getFigureGenerators().toArray();;
 	for(var i=0; i<shapes.length; i++){
 		shapes[i]["category"] = "shape";

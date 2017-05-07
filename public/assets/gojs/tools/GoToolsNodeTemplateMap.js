@@ -1699,4 +1699,127 @@ GoTools.prototype.makeNodeTemplateMap = function(){
           { name: "TEXTBLOCK" },  // for search
           new go.Binding("text", "text"))
       ));
+
+  this.nodeTemplateMap.add("seating_person", 
+    $$(go.Node, "Auto",
+        { background: "transparent" },  // in front of all Tables
+        // when selected is in foreground layer
+        new go.Binding("layerName", "isSelected", function(s) { return s ? "Foreground" : ""; }).ofObject(),
+        { locationSpot: go.Spot.Center },
+        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+        new go.Binding("text", "key"),
+        { // what to do when a drag-over or a drag-drop occurs on a Node representing a table
+          mouseDragEnter: function(e, node, prev) { highlightSeats(node, node.diagram.selection, true); },
+          mouseDragLeave: function(e, node, next) { highlightSeats(node, node.diagram.selection, false); },
+          mouseDrop: function(e, node) { assignPeopleToSeats(node, node.diagram.selection, e.documentPoint); }
+        },
+        $$(go.Shape, "Rectangle", { fill: "blanchedalmond", stroke: null }),
+        $$(go.Panel, "Viewbox",
+          { desiredSize: new go.Size(50, 38) },
+          $$(go.TextBlock,{ margin: 2, desiredSize: new go.Size(55, NaN), font: "8pt Verdana, sans-serif", textAlign: "center", stroke: "darkblue" },
+            new go.Binding("text", "", function(data) {
+                var s = data.key;
+                if (data.plus) s += " +" + data.plus.toString();
+                return s;
+              }))
+        )
+      ));
+    // Create a seat element at a particular alignment relative to the table.
+    function Seat(number, align, focus) {
+      if (typeof align === 'string') align = go.Spot.parse(align);
+      if (!align || !align.isSpot()) align = go.Spot.Right;
+      if (typeof focus === 'string') focus = go.Spot.parse(focus);
+      if (!focus || !focus.isSpot()) focus = align.opposite();
+      return $$(go.Panel, "Spot",
+               { name: number.toString(), alignment: align, alignmentFocus: focus },
+               $$(go.Shape, "Circle",
+                 { name: "SEATSHAPE", desiredSize: new go.Size(40, 40), fill: "burlywood", stroke: "white", strokeWidth: 2 },
+                 new go.Binding("fill")),
+               $$(go.TextBlock, number.toString(),
+                 { font: "10pt Verdana, sans-serif" },
+                 new go.Binding("angle", "angle", function(n) { return -n; }))
+             );
+    }
+
+    function tableStyle() {
+      return [
+        { background: "transparent" },
+        { layerName: "Background" },  // behind all Persons
+        { locationSpot: go.Spot.Center, locationObjectName: "TABLESHAPE" },
+        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+        { rotatable: true },
+        new go.Binding("angle").makeTwoWay(),
+          { // what to do when a drag-over or a drag-drop occurs on a Node representing a table
+            mouseDragEnter: function(e, node, prev) { 
+                //highlightSeats(node, node.diagram.selection, true); 
+            },
+            mouseDragLeave: function(e, node, next) { 
+                //highlightSeats(node, node.diagram.selection, false); 
+            },
+            mouseDrop: function(e, node) { 
+                //assignPeopleToSeats(node, node.diagram.selection, e.documentPoint); 
+            }
+          }
+        ];
+    }
+
+    // various kinds of tables:
+
+    this.nodeTemplateMap.add("TableR8",  // rectangular with 8 seats
+      $$(go.Node, "Spot", tableStyle(),
+        $$(go.Panel, "Spot",
+          $$(go.Shape, "Rectangle",
+            { name: "TABLESHAPE", desiredSize: new go.Size(160, 80), fill: "burlywood", stroke: null },
+            new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify),
+            new go.Binding("fill")),
+          $$(go.TextBlock, { editable: true, font: "bold 11pt Verdana, sans-serif" },
+            new go.Binding("text", "name").makeTwoWay(),
+            new go.Binding("angle", "angle", function(n) { return -n; }))
+        ),
+        Seat(1, "0.2 0", "0.5 1"),
+        Seat(2, "0.5 0", "0.5 1"),
+        Seat(3, "0.8 0", "0.5 1"),
+        Seat(4, "1 0.5", "0 0.5"),
+        Seat(5, "0.8 1", "0.5 0"),
+        Seat(6, "0.5 1", "0.5 0"),
+        Seat(7, "0.2 1", "0.5 0"),
+        Seat(8, "0 0.5", "1 0.5")
+      ));
+
+    this.nodeTemplateMap.add("TableR3",  // rectangular with 3 seats in a line
+      $$(go.Node, "Spot", tableStyle(),
+        $$(go.Panel, "Spot",
+          $$(go.Shape, "Rectangle",
+            { name: "TABLESHAPE", desiredSize: new go.Size(160, 60), fill: "burlywood", stroke: null },
+            new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify),
+            new go.Binding("fill")),
+          $$(go.TextBlock, { editable: true, font: "bold 11pt Verdana, sans-serif" },
+            new go.Binding("text", "name").makeTwoWay(),
+            new go.Binding("angle", "angle", function(n) { return -n; }))
+        ),
+        Seat(1, "0.2 0", "0.5 1"),
+        Seat(2, "0.5 0", "0.5 1"),
+        Seat(3, "0.8 0", "0.5 1")
+      ));
+
+    this.nodeTemplateMap.add("TableC8",  // circular with 8 seats
+      $$(go.Node, "Spot", tableStyle(),
+        $$(go.Panel, "Spot",
+          $$(go.Shape, "Circle",
+            { name: "TABLESHAPE", desiredSize: new go.Size(120, 120), fill: "burlywood", stroke: null },
+            new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify),
+            new go.Binding("fill")),
+          $$(go.TextBlock, { editable: true, font: "bold 11pt Verdana, sans-serif" },
+            new go.Binding("text", "name").makeTwoWay(),
+            new go.Binding("angle", "angle", function(n) { return -n; }))
+        ),
+        Seat(1, "0.50 0", "0.5 1"),
+        Seat(2, "0.85 0.15", "0.15 0.85"),
+        Seat(3, "1 0.5", "0 0.5"),
+        Seat(4, "0.85 0.85", "0.15 0.15"),
+        Seat(5, "0.50 1", "0.5 0"),
+        Seat(6, "0.15 0.85", "0.85 0.15"),
+        Seat(7, "0 0.5", "1 0.5"),
+        Seat(8, "0.15 0.15", "0.85 0.85")
+      ));
 }
