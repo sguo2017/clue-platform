@@ -14,6 +14,14 @@ GoTools.prototype.changeLayout = function(type){
       this.layout = $$(WheelLayout);
       $("#tab_layout_circular_link").tab("show");
       break;
+    case "layeredDigraph": 
+      this.layout = $$(go.LayeredDigraphLayout);
+      $("#tab_layout_layeredDigraph_link").tab("show");
+      break;
+    case "forceDirected": 
+      this.layout = $$(go.ForceDirectedLayout);
+      $("#tab_layout_forceDirected_link").tab("show");
+      break;
     case "default":
       this.layout = $$(go.Layout);
       break;
@@ -29,8 +37,8 @@ function getRadioValue(name) {
 
 GoTools.prototype.triggerGridLayout = function(){
 
-  goTools.startTransaction("change grid Layout");
-  var lay = goTools.layout;
+  this.startTransaction("change grid Layout");
+  var lay = this.layout;
 
   var wrappingColumn = document.getElementById("layout_grid_wrappingColumn").value;
   lay.wrappingColumn = parseFloat(wrappingColumn, 10);
@@ -67,12 +75,12 @@ GoTools.prototype.triggerGridLayout = function(){
     case "Descending": lay.sorting = go.GridLayout.Descending; break;
   }
 
-  goTools.commitTransaction("change grid Layout");
+  this.commitTransaction("change grid Layout");
 }
 
 GoTools.prototype.triggerTreeLayout = function(){
-  goTools.startTransaction("change tree Layout");
-  var lay = goTools.layout;
+  this.startTransaction("change tree Layout");
+  var lay = this.layout;
 
   var style = document.getElementById("layout_tree_style").value;
   if (style === "Layered") lay.treeStyle = go.TreeLayout.StyleLayered;
@@ -211,12 +219,12 @@ GoTools.prototype.triggerTreeLayout = function(){
     lay.alternateSetsChildPortSpot = altSetsChildPortSpot;
   }
 
-  goTools.commitTransaction("change tree Layout");
+  this.commitTransaction("change tree Layout");
 }  
 
 GoTools.prototype.triggerCircularLayout = function(){
-  goTools.startTransaction("change circular Layout");
-  var lay = goTools.layout;
+  this.startTransaction("change circular Layout");
+  var lay = this.layout;
 
   var radius = document.getElementById("layout_circular_radius").value;
   if (radius !== "NaN") radius = parseFloat(radius, 10);
@@ -262,5 +270,99 @@ GoTools.prototype.triggerCircularLayout = function(){
   else if (sorting === "Descending") lay.sorting = go.CircularLayout.Descending;
   else if (sorting === "Optimized") lay.sorting = go.CircularLayout.Optimized;
 
-  goTools.commitTransaction("change circular Layout");
+  this.commitTransaction("change circular Layout");
+}
+
+GoTools.prototype.triggerLayeredDigraphLayout = function(){
+
+  this.startTransaction("change layeredDigraph Layout");
+  var lay = this.layout;
+
+  var direction = getRadioValue("layout_layeredDigraph_direction");
+  direction = parseFloat(direction, 10);
+  lay.direction = direction;
+
+  var layerSpacing = document.getElementById("layout_layeredDigraph_layerSpacing").value;
+  layerSpacing = parseFloat(layerSpacing, 10);
+  lay.layerSpacing = layerSpacing;
+
+  var columnSpacing = document.getElementById("layout_layeredDigraph_columnSpacing").value;
+  columnSpacing = parseFloat(columnSpacing, 10);
+  lay.columnSpacing = columnSpacing;
+
+  var cycleRemove = getRadioValue("layout_layeredDigraph_cycleRemove");
+  if (cycleRemove === "CycleDepthFirst") lay.cycleRemoveOption = go.LayeredDigraphLayout.CycleDepthFirst;
+  else if (cycleRemove === "CycleGreedy") lay.cycleRemoveOption = go.LayeredDigraphLayout.CycleGreedy;
+
+  var layering = getRadioValue("layout_layeredDigraph_layering");
+  if (layering === "LayerOptimalLinkLength") lay.layeringOption = go.LayeredDigraphLayout.LayerOptimalLinkLength;
+  else if (layering === "LayerLongestPathSource") lay.layeringOption = go.LayeredDigraphLayout.LayerLongestPathSource;
+  else if (layering === "LayerLongestPathSink") lay.layeringOption = go.LayeredDigraphLayout.LayerLongestPathSink;
+
+  var initialize = getRadioValue("layout_layeredDigraph_initialize");
+  if (initialize === "InitDepthFirstOut") lay.initializeOption = go.LayeredDigraphLayout.InitDepthFirstOut;
+  else if (initialize === "InitDepthFirstIn") lay.initializeOption = go.LayeredDigraphLayout.InitDepthFirstIn;
+  else if (initialize === "InitNaive") lay.initializeOption = go.LayeredDigraphLayout.InitNaive;
+
+  var aggressive = getRadioValue("layout_layeredDigraph_aggressive");
+  if (aggressive === "AggressiveLess") lay.aggressiveOption = go.LayeredDigraphLayout.AggressiveLess;
+  else if (aggressive === "AggressiveNone") lay.aggressiveOption = go.LayeredDigraphLayout.AggressiveNone;
+  else if (aggressive === "AggressiveMore") lay.aggressiveOption = go.LayeredDigraphLayout.AggressiveMore;
+
+  //TODO implement pack option
+  var pack = document.getElementsByName("layout_layeredDigraph_pack");
+  var packing = 0;
+  for (var i = 0; i < pack.length; i++) {
+    if (pack[i].checked) packing = packing | parseInt(pack[i].value, 10);
+  }
+  lay.packOption = packing;
+
+  var setsPortSpots = document.getElementById("layout_layeredDigraph_setsPortSpots");
+  lay.setsPortSpots = setsPortSpots.checked;
+
+  this.commitTransaction("change layeredDigraph Layout");
+
+}
+
+GoTools.prototype.triggerForceDirectedLayout = function(){
+  this.startTransaction("changed forceDirected Layout");
+  var lay = this.layout;
+
+  var maxIter = document.getElementById("layout_forceDirected_maxIter").value;
+  maxIter = parseInt(maxIter, 10);
+  lay.maxIterations = maxIter;
+
+  var epsilon = document.getElementById("layout_forceDirected_epsilon").value;
+  epsilon = parseFloat(epsilon, 10);
+  lay.epsilon = epsilon;
+
+  var infinity = document.getElementById("layout_forceDirected_infinity").value;
+  infinity = parseFloat(infinity, 10);
+  lay.infinity = infinity;
+
+  var arrangement = document.getElementById("layout_forceDirected_arrangement").value;
+  var arrangementSpacing = new go.Size();
+  arrangement = arrangement.split(" ", 2);
+  arrangementSpacing.width = parseFloat(arrangement[0], 10);
+  arrangementSpacing.height = parseFloat(arrangement[1], 10);
+  lay.arrangementSpacing = arrangementSpacing;
+
+  var charge = document.getElementById("layout_forceDirected_charge").value;
+  charge = parseFloat(charge, 10);
+  lay.defaultElectricalCharge = charge;
+
+  var mass = document.getElementById("layout_forceDirected_mass").value;
+  mass = parseFloat(mass, 10);
+  lay.defaultGravitationalMass = mass;
+
+  var stiffness = document.getElementById("layout_forceDirected_stiffness").value;
+  stiffness = parseFloat(stiffness, 10);
+  lay.defaultSpringStiffness = stiffness;
+
+  var length = document.getElementById("layout_forceDirected_length").value;
+  length = parseFloat(length, 10);
+  lay.defaultSpringLength = length;
+
+  this.commitTransaction("changed forceDirected Layout");
+
 }

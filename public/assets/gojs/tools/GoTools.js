@@ -207,6 +207,53 @@ function GoTools(div) {
         });
      }
 
+
+    // This is the actual HTML context menu:
+    this.cxElement = document.getElementById("contextMenu");
+
+    // Since we have only one main element, we don't have to declare a hide method,
+    // we can set mainElement and GoJS will hide it automatically
+    var self = this;
+    this.cxcommand = function(event, val) {
+      if (val === undefined) val = event.currentTarget.id;
+      switch (val) {
+        case "cut": self.commandHandler.cutSelection(); break;
+        case "copy": self.commandHandler.copySelection(); break;
+        case "paste": self.commandHandler.pasteSelection(self.lastInput.documentPoint); break;
+        case "delete": self.commandHandler.deleteSelection(); break;
+        case "color": {
+            var color = window.getComputedStyle(document.elementFromPoint(event.clientX, event.clientY).parentElement)['background-color'];
+            changeColor(self, color); break;
+        }
+      }
+      self.currentTool.stopTool();
+    }
+    this.cxElement.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+        return false;
+    }, false);
+
+    this.contextMenu = $$(go.HTMLInfo, {
+        show: function(obj, diagram, tool) {
+            // Show only the relevant buttons given the current state.
+            var cmd = diagram.commandHandler;
+            // document.getElementById("cut").style.display = cmd.canCutSelection() ? "block" : "none";
+            // document.getElementById("copy").style.display = cmd.canCopySelection() ? "block" : "none";
+            // document.getElementById("paste").style.display = cmd.canPasteSelection() ? "block" : "none";
+            // document.getElementById("delete").style.display = cmd.canDeleteSelection() ? "block" : "none";
+            // document.getElementById("color").style.display = (obj !== null ? "block" : "none");
+
+            // Now show the whole context menu element
+            diagram.cxElement.style.display = "block";
+            // we don't bother overriding positionContextMenu, we just do it here:
+            var mousePt = diagram.lastInput.viewPoint;
+            diagram.cxElement.style.left = mousePt.x + "px";
+            diagram.cxElement.style.top = mousePt.y + 38 + "px";
+          },
+        mainElement: this.cxElement
+    });
+    
+
     //diagram_ruler();
 
     /*
@@ -242,6 +289,11 @@ function GoTools(div) {
                 this.isGridSnapEnabled = this.diagram.model.modelData.preferences.gridSnap;
         }
         go.DraggingTool.prototype.doMouseMove.call(this);
+
+        if (this.isActive) { 
+            if(this.diagram.layout instanceof go.ForceDirectedLayout)
+                this.diagram.layout.invalidateLayout(); 
+        }
     }
 
     // When resizing, constantly update the node info box with updated size info; constantly update Dimension Links

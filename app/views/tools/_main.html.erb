@@ -3,11 +3,6 @@
 		<div class="panel-heading">
 			<div class="panel-title row">
 				<div class="col-xs-7">
-					  <label href="#">选取模式</label>
-					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
-						  <button type="button" class="btn btn-default">框选</button>
-						  <button type="button" class="btn btn-default">平移</button>
-					  </div>
 					  <label href="#">操作方式</label>
 					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
 						  <button type="button" class="btn btn-default" onclick="ui.adjustScale('+')">放大</button>
@@ -17,7 +12,8 @@
 					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
 					      <button type="button" class="btn btn-default" onclick="goTools.changeLayout('grid');">网格</button>
 						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('tree');">树形</button>
-						  <button type="button" class="btn btn-default">星形</button>
+						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('layeredDigraph');">层次</button>
+						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('forceDirected');">力导向</button>
 						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('circular');">圆形</button>
 						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('default');">自由</button>
 					  </div> 
@@ -31,6 +27,22 @@
 		</div>
 		<div class="panel-body" id="tools_main_diagram" style="padding-bottom: 0px; min-height: 96px;">
 			
+		</div>
+		<div id="contextMenu">
+			<ul>
+			  <li id="cut" onclick="goTools.cxcommand(event)"><a href="#" target="_self">剪切</a></li>
+			  <li id="copy" onclick="goTools.cxcommand(event)"><a href="#" target="_self">拷贝</a></li>
+			  <li id="paste" onclick="goTools.cxcommand(event)"><a href="#" target="_self">粘贴</a></li>
+			  <li id="delete" onclick="goTools.cxcommand(event)"><a href="#" target="_self">删除</a></li>
+			  <li id="color" class="hasSubMenu"><a href="#" target="_self">颜色</a>
+			    <ul class="subMenu" id="colorSubMenu">
+			        <li style="background: crimson;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">红色</a></li>
+			        <li style="background: chartreuse;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">绿色</a></li>
+			        <li style="background: aquamarine;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">蓝色</a></li>
+			        <li style="background: gold;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">黄色</a></li>
+			    </ul>
+			  </li>
+			</ul>
 		</div>
 	</div>
 </div>

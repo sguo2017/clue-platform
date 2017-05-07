@@ -203,3 +203,56 @@
 .tools_menus_vertical .btn-group-vertical > .btn:last-child{
 	border-radius: 0;
 }
+
+  #contextMenu {
+    z-index: 300;
+    position: absolute;
+    left: 5px;
+    border: 1px solid #444;
+    background-color: #F5F5F5;
+    display: none;
+    box-shadow: 0 0 10px rgba( 0, 0, 0, .4 );
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  #contextMenu ul {
+    list-style: none;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  #contextMenu li a {
+    position: relative;
+    min-width: 60px;
+    color: #444;
+    display: inline-block;
+    padding: 6px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #contextMenu li:hover {
+    background: #CEDFF2;
+    color: #EEE;
+  }
+
+  #contextMenu li ul li {
+    display: none;
+  }
+
+  #contextMenu li ul li a {
+    position: relative;
+    min-width: 60px;
+    padding: 6px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #contextMenu li:hover ul li {
+    display: block;
+    margin-left: 0px;
+    margin-top: 0px;
+  }

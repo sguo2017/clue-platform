@@ -1,0 +1,119 @@
+<h5>层次布局属性</h5>
+<form class="form-horizontal">
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">方向:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_direction" onclick="goTools.triggerLayeredDigraphLayout()" value="0" checked="checked" />右 (0)
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_direction" onclick="goTools.triggerLayeredDigraphLayout()" value="90" />下 (90)
+      </label>
+      <br/>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_direction" onclick="goTools.triggerLayeredDigraphLayout()" value="180" />左 (180)
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_direction" onclick="goTools.triggerLayeredDigraphLayout()" value="270" />上 (270)
+      </label>      
+    </div>
+  </div> 
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_layeredDigraph_layerSpacing" class="col-xs-3 control-label">层次间距:</label>
+    <div class="col-xs-9">
+       <input type="text" size="3" class="form-control" id="layout_layeredDigraph_layerSpacing" value="25" onchange="goTools.triggerLayeredDigraphLayout()" style="clear: left;" />
+    </div>
+  </div>
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_layeredDigraph_columnSpacing" class="col-xs-3 control-label">列间距:</label>
+    <div class="col-xs-9">
+       <input type="text" size="3" class="form-control" id="layout_layeredDigraph_columnSpacing" value="25" onchange="goTools.triggerLayeredDigraphLayout()" />
+    </div>
+  </div>  
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">CycleRemove:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_cycleRemove" onclick="goTools.triggerLayeredDigraphLayout()" value="CycleDepthFirst" checked="checked" /> CycleDepthFirst
+      </label>
+      <br/>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_cycleRemove" onclick="goTools.triggerLayeredDigraphLayout()" value="CycleGreedy" /> CycleGreedy
+      </label>     
+    </div>
+  </div>  
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">Layering:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_layering" onclick="goTools.triggerLayeredDigraphLayout()" value="LayerOptimalLinkLength" checked="checked" /> LayerOptimalLinkLength
+      </label>
+      <br/>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_layering" onclick="goTools.triggerLayeredDigraphLayout()" value="LayerLongestPathSource" /> LayerLongestPathSource
+      </label>
+      <br/>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_layering" onclick="goTools.triggerLayeredDigraphLayout()" value="LayerLongestPathSink" /> LayerLongestPathSink
+      </label>     
+    </div>
+  </div>
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">Initialize:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_initialize" onclick="goTools.triggerLayeredDigraphLayout()" value="InitDepthFirstOut" checked="checked" /> InitDepthFirstOut
+      </label>
+      <br/>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_initialize" onclick="goTools.triggerLayeredDigraphLayout()" value="InitDepthFirstIn" /> InitDepthFirstIn
+      </label>
+      <br/>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_initialize" onclick="goTools.triggerLayeredDigraphLayout()" value="InitNaive" /> InitNaive
+      </label>     
+    </div>
+  </div>  
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">Aggressive:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_aggressive" onclick="goTools.triggerLayeredDigraphLayout()" value="AggressiveNone" /> AggressiveNone
+      </label>
+      <br/>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_aggressive" onclick="goTools.triggerLayeredDigraphLayout()" value="AggressiveLess" checked="checked" /> AggressiveLess
+      </label>
+      <br/>
+      <label class="radio-inline">
+        <input type="radio" name="layout_layeredDigraph_aggressive" onclick="goTools.triggerLayeredDigraphLayout()" value="AggressiveMore" /> AggressiveMore
+      </label>     
+    </div>
+  </div>     
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">Pack:</label>
+    <div class="col-xs-9">
+      <label class="checkbox-inline">
+        <input type="checkbox" name="layout_layeredDigraph_pack" onclick="goTools.triggerLayeredDigraphLayout()" value="4" checked="checked" /> PackMedian
+      </label>
+      <br/>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="layout_layeredDigraph_pack" onclick="goTools.triggerLayeredDigraphLayout()" value="2" checked="checked" /> PackStraighten
+      </label>
+      <br/>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="layout_layeredDigraph_pack" onclick="goTools.triggerLayeredDigraphLayout()" value="1" checked="checked" /> PackExpand
+      </label>     
+    </div>
+  </div>   
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_layeredDigraph_setsPortSpots" class="col-xs-3 control-label">SetsPortSpot:</label>
+    <div class="col-xs-9">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="layout_layeredDigraph_setsPortSpots" checked="checked" onclick="goTools.triggerLayeredDigraphLayout()">
+        </label>
+      </div>
+    </div>
+  </div>       
+</form>
