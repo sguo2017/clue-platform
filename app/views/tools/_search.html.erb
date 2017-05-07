@@ -1,0 +1,33 @@
+
+<div class="tools_search">
+	<div class="panel panel-default">
+		<span id="pushpin" class="glyphicon-pushpin glyphicon"></span>
+		<div class="panel-body">
+			<form class="navbar-form">
+				<div class="input-group">
+				  <input type="text" class="form-control" placeholder="搜索关键字">
+				</div>
+			</form>			
+		</div>
+		<table class="table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>项目标识</th>
+					<th>项目类型</th>
+					<th>上下文</th>
+				</tr>				
+			</thead>
+			<tbody>
+				<% 4.times do |index| %>
+				<tr>
+					<td><%= index %></td>
+					<td>13678987777</td>
+					<td>手机</td>
+					<td><%= index %>-(350)88987777</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>	
+</div>

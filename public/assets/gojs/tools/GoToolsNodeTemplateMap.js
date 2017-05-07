@@ -1657,4 +1657,46 @@ GoTools.prototype.makeNodeTemplateMap = function(){
           { row: 2, column: 2, margin: 5, textAlign: "center" })
       )  // end Table Panel
     ));  // end Node
+
+  this.nodeTemplateMap.add("wheel", 
+      $$(go.Node, "Horizontal",
+        {
+          selectionAdorned: false,
+          locationSpot: go.Spot.Center,  // Node.location is the center of the Shape
+          locationObjectName: "SHAPE",
+          mouseEnter: function(e, node) {
+            node.diagram.clearHighlighteds();
+            node.linksConnected.each(function(link) { 
+                link.isHighlighted = true;
+                link.fromNode.isHighlighted = true;
+                link.toNode.isHighlighted = true;
+            });
+            node.isHighlighted = true;
+            var tb = node.findObject("TEXTBLOCK");
+            if (tb !== null) tb.stroke = "red";
+          },
+          mouseLeave: function(e, node) {
+            node.diagram.clearHighlighteds();
+            var tb = node.findObject("TEXTBLOCK");
+            if (tb !== null) tb.stroke = "black";
+          }
+        },
+        new go.Binding("text", "text"),  // for sorting the nodes
+        $$(go.Shape, "Ellipse",
+          {
+            name: "SHAPE",
+            fill: "lightgray",  // default value, but also data-bound
+            stroke: "transparent",  // modified by highlighting
+            strokeWidth: 2,
+            desiredSize: new go.Size(20, 20),
+            portId: ""
+          },  // so links will go to the shape, not the whole node
+          new go.Binding("fill", "color"),
+          new go.Binding("stroke", "isHighlighted",
+                         function(h) { return h ? "red" : "transparent"; })
+                        .ofObject()),
+        $$(go.TextBlock,
+          { name: "TEXTBLOCK" },  // for search
+          new go.Binding("text", "text"))
+      ));
 }

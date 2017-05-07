@@ -863,3 +863,41 @@ demo.floor_planner = function(){
     ],
     "linkDataArray": []});
 }
+
+demo.wheel = function(){
+  var names = [
+    "Joshua", "Daniel", "Robert", "Noah", "Anthony",
+    "Elizabeth", "Addison", "Alexis", "Ella", "Samantha",
+    "Joseph", "Scott", "James", "Ryan", "Benjamin",
+    "Walter", "Gabriel", "Christian", "Nathan", "Simon",
+    "Isabella", "Emma", "Olivia", "Sophia", "Ava",
+    "Emily", "Madison", "Tina", "Elena", "Mia",
+    "Jacob", "Ethan", "Michael", "Alexander", "William",
+    "Natalie", "Grace", "Lily", "Alyssa", "Ashley",
+    "Sarah", "Taylor", "Hannah", "Brianna", "Hailey",
+    "Christopher", "Aiden", "Matthew", "David", "Andrew",
+    "Kaylee", "Juliana", "Leah", "Anna", "Allison",
+    "John", "Samuel", "Tyler", "Dylan", "Jonathan",
+  ];
+
+  var nodeDataArray = [];
+  for (var i = 0; i < names.length; i++) {
+    nodeDataArray.push({ category: "wheel", key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
+  }
+
+  var linkDataArray = [];
+  var num = nodeDataArray.length;
+  for (var i = 0; i < num * 2; i++) {
+    var a = Math.floor(Math.random() * num);
+    var b = Math.floor(Math.random() * num / 4) + 1;
+    linkDataArray.push({ category: "wheel", from: a, to: (a + b) % num, color: go.Brush.randomColor(0, 127) });
+  }
+  goTools.layout = $$(WheelLayout, {
+    arrangement: go.CircularLayout.ConstantDistance,
+    nodeDiameterFormula: go.CircularLayout.Circular,
+    spacing: 10,
+    aspectRatio: 0.7,
+    sorting: go.CircularLayout.Optimized
+  })
+  goTools.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+}

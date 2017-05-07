@@ -1,0 +1,70 @@
+
+<h5>网格布局属性</h5>
+<form class="form-horizontal">
+  	<div class="form-group form-group-sm">
+    	<label for="layout_grid_wrappingColumn" class="col-xs-3 control-label">列数:</label>
+    	<div class="col-xs-9">
+     		 <input type="text" class="form-control" id="layout_grid_wrappingColumn" value="NaN" onchange="goTools.triggerGridLayout()">
+     		 <span class="help-block">NaN 表示没有限制</span>
+    	</div>
+    </div>
+    <div class="form-group form-group-sm">
+    	<label for="layout_grid_wrappingWidth" class="col-xs-3 control-label">宽度:</label>
+    	<div class="col-xs-9">
+     		 <input type="text" class="form-control" id="layout_grid_wrappingWidth" value="NaN" onchange="goTools.triggerGridLayout()">
+     		 <span class="help-block">NaN 表示使用图表的视口宽度</span>
+    	</div>
+    </div>
+    <div class="form-group form-group-sm">
+    	<label for="layout_grid_cellSize" class="col-xs-3 control-label">单元格:</label>
+    	<div class="col-xs-9">
+     		 <input type="text" class="form-control" id="layout_grid_cellSize" value="NaN NaN" onchange="goTools.triggerGridLayout()">
+     		 <span class="help-block">NaN x NaN 表示仅用最小的空间容纳内容</span>
+    	</div>
+    </div>
+    <div class="form-group form-group-sm">
+    	<label for="layout_grid_spacing" class="col-xs-3 control-label">间距:</label>
+    	<div class="col-xs-9">
+     		 <input type="text" class="form-control" id="layout_grid_spacing" value="NaN NaN" onchange="goTools.triggerGridLayout()">
+     		 <span class="help-block">节点之间的最小空隙</span>
+    	</div>
+	</div>
+    <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    	<label class="col-xs-3 control-label">对齐参照:</label>
+    	<div class="col-xs-9">
+ 		 	<label class="radio-inline">
+ 		 		<input type="radio" name="layout_grid_alignment" value="Position" onclick="goTools.triggerGridLayout()">
+ 		 		Position
+ 		 	</label>
+			 <label class="radio-inline">
+ 		 		<input type="radio" name="layout_grid_alignment" value="Location" checked="checked" onclick="goTools.triggerGridLayout()">
+ 		 		Location
+ 		 	</label>
+    	</div>
+    </div>
+    <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    	<label class="col-xs-3 control-label">对齐方式:</label>
+    	<div class="col-xs-9">
+ 		 	<label class="radio-inline">
+ 		 		<input type="radio" name="layout_grid_arrangement" value="LeftToRight" checked="checked" onclick="goTools.triggerGridLayout()">
+ 		 		从左到右
+ 		 	</label>
+			 <label class="radio-inline">
+ 		 		<input type="radio" name="layout_grid_arrangement" value="RightToLeft" onclick="goTools.triggerGridLayout()">
+ 		 		从右到左
+ 		 	</label>
+    	</div>
+    </div>    
+    <div class="form-group form-group-sm">
+		<label for="layout_grid_sorting" class="col-xs-3 control-label">排序:</label>
+		<div class="col-xs-9">
+			<select name="layout_grid_sorting" id="layout_grid_sorting" class="form-control"  onchange="goTools.triggerGridLayout()">
+				<option value="Forward" selected="selected">正向</option>
+		        <option value="Reverse">反向</option>
+		        <option value="Ascending">升序</option>
+		        <option value="Descending">降序</option>
+			</select>
+		</div>
+	
+  	</div>	  	
+</form>

@@ -1,0 +1,88 @@
+<% content_for :title do %>分析工具<% end %>
+<% content_for :navbar do %>
+<ul class="nav navbar-nav">
+	<li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">文件</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="filesystem.newFloorplan()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新建</a></li>
+        <li><a onclick="filesystem.showOpenWindow()"><span class="glyphicon glyphicon-open" aria-hidden="true"></span> 打开...</a></li>
+        <li><a onclick="filesystem.saveFloorplan()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 保存</a></li>
+        <li><a onclick="filesystem.saveFloorplanAs()"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 另存...</a></li>
+        <li><a onclick="filesystem.showRemoveWindow()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a></li>
+      </ul>
+    </li>
+   	<li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">编辑</a>
+      <ul class="dropdown-menu">
+      	<li><a onclick="">重命名</a></li>
+        <li><a onclick="myFloorplan.commandHandler.undo()">撤销</a></li>
+        <li><a onclick="myFloorplan.commandHandler.redo()">重做</a></li>
+        <li><a onclick="myFloorplan.commandHandler.cutSelection()">剪切</a></li>
+        <li><a onclick="myFloorplan.commandHandler.copySelection()">拷贝</a></li>
+        <li><a onclick="myFloorplan.commandHandler.pasteSelection()">粘贴</a></li>
+        <li><a onclick="myFloorplan.commandHandler.deleteSelection()">删除</a></li>
+        <li><a onclick="myFloorplan.commandHandler.selectAll()">全选</a></li>
+		<li role="separator" class="divider"></li>
+        <li><a onclick="tools.diagram.commandHandler.groupSelection()">合并为组</a></li>
+        <li><a onclick="tools.diagram.commandHandler.ungroupSelection()">拆散组</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">对齐</a>
+      <ul class="dropdown-menu">
+        <li><a onclick=""><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> 左对齐</a></li>
+        <li><a onclick=""><span class="glyphicon glyphicon-align-right" aria-hidden="true"></span> 右对齐</a></li>
+        <li><a onclick="">顶部对齐</a></li>
+        <li><a onclick="">底部对齐</a></li>
+        <li><a onclick="">水平对齐</a></li>
+        <li><a onclick="">垂直对齐</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">间距</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="">行间距</a></li>
+        <li><a onclick="">列间距</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">旋转</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="">45%</a></li>
+        <li><a onclick="">-45%</a></li>
+        <li><a onclick="">90%</a></li>
+        <li><a onclick="">-90%</a></li>
+        <li><a onclick="">180%</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">设置</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="">显示网格</a></li>
+        <li><a onclick="">显示辅助线</a></li>
+        <li><a onclick="">粘附网格</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">演示</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="demo.color_box()">实例: Color Boxes</a></li>
+        <li><a onclick="demo.flowchart()">实例: 流程图</a></li>
+        <li><a onclick="demo.class_hierarchy()">实例: GoJS 类层次</a></li>
+        <li><a onclick="demo.dom_tree()">实例: 文档对象模型</a></li>
+        <li><a onclick="demo.circuit()">实例: 电子电路</a></li>
+        <li><a onclick="demo.icon()">实例: 图标</a></li>
+        <li><a onclick="demo.entity_relationship()">实例: 对象关系模型</a></li>
+        <li><a onclick="demo.gantt()">实例: 甘特图</a></li>
+        <li><a onclick="demo.uml()">实例: UML</a></li>
+        <li><a onclick="demo.process_flow()">实例: 处理流程</a></li>
+        <li><a onclick="demo.state_chart()">实例: 状态图</a></li>
+        <li><a onclick="demo.freehand_drawing()">实例: 画笔</a></li>
+        <li><a onclick="demo.sankey()">实例: 桑基图</a></li>
+        <li><a onclick="demo.pert()">实例: 计划评审</a></li>
+        <li><a onclick="demo.floor_planner()">实例: 室内设计</a></li>
+        <li><a onclick="demo.wheel()">实例: 朋友轮</a></li>
+      </ul>
+    </li>
+</ul>  
+<% end %>

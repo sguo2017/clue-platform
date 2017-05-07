@@ -99,7 +99,20 @@
 	border-color: #ede8e8;
 	border-width: 1px;
 }
-
+.tools_sidebar #tab_layout .form-group{
+	margin-bottom: 0px;
+}
+.tools_sidebar #tab_layout .form-group .control-label{
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: right;
+	word-wrap: break-word;
+}
+.tools_sidebar #tab_layout .form-group .help-block{
+	color: #c4c2c2;
+	font-weight: normal;
+	font-size: 12px;
+}
 .tools_main{
 	height: 100%;
 	padding-left: 47px;

@@ -262,4 +262,30 @@ GoTools.prototype.makeLinkTemplateMap = function(){
           return "#B71C1C";  // when both Link.fromNode.data.critical and Link.toNode.data.critical
         }))
     ));
+
+  this.linkTemplateMap.add("wheel",
+    $$(go.Link,
+        {
+          routing: go.Link.Normal,
+          curve: go.Link.Bezier,
+          selectionAdorned: false,
+          mouseEnter: function(e, link) {
+            link.isHighlighted = true;
+            link.fromNode.isHighlighted = true;
+            link.toNode.isHighlighted = true;
+          },
+          mouseLeave: function(e, link) {
+            link.isHighlighted = false;
+            link.fromNode.isHighlighted = false;
+            link.toNode.isHighlighted = false;
+          }
+        },
+        $$(go.Shape,
+          new go.Binding("stroke", "isHighlighted",
+                         function(h, shape) { return h ? "red" : shape.part.data.color; })
+                        .ofObject(),
+          new go.Binding("strokeWidth", "isHighlighted",
+                         function(h) { return h ? 2 : 1; })
+                        .ofObject())
+      ))
 }

@@ -1,0 +1,288 @@
+<h5>树布局属性</h5>
+<form class="form-horizontal">
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_style" class="col-xs-3 control-label">树类型:</label>
+    <div class="col-xs-9">
+      <select name="layout_tree_style" id="layout_tree_style" class="form-control"  onchange="goTools.triggerTreeLayout()">
+        <option value="Layered" selected="selected">层次节点</option>
+        <option value="Alternating">交替节点</option>
+        <option value="LastParents">最后一个父节点</option>
+        <option value="RootOnly">仅仅对根节点</option>
+      </select>
+    </div>
+  </div>    
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_layerStyle" class="col-xs-3 control-label">层类型:</label>
+    <div class="col-xs-9">
+      <select name="layout_tree_layerStyle" id="layout_tree_layerStyle" class="form-control"  onchange="goTools.triggerTreeLayout()">
+        <option value="Individual" selected="selected">独立</option>
+        <option value="Siblings">兄弟</option>
+        <option value="Uniform">全部</option>
+      </select>
+    </div>
+  </div>      
+  <b>默认属性</b><br>
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">角度:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_angle" onclick="goTools.triggerTreeLayout()" value="0" checked="checked">右
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_angle" onclick="goTools.triggerTreeLayout()" value="90">下
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_angle" onclick="goTools.triggerTreeLayout()" value="180">左
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_angle" onclick="goTools.triggerTreeLayout()" value="270">上
+      </label>
+    </div>
+  </div>  
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_align" class="col-xs-3 control-label">对齐:</label>
+    <div class="col-xs-9">
+      <select name="layout_tree_align" id="layout_tree_align" class="form-control"  onchange="goTools.triggerTreeLayout()">
+        <option value="CenterChildren" selected="selected">孩子居中</option>
+        <option value="CenterSubtrees">子树居中</option>
+        <option value="Start">开始</option>
+        <option value="End">结束</option>
+        <option value="Bus">Bus</option>
+        <option value="BusBranching">BusBranching</option>
+        <option value="TopLeftBus">TopLeftBus</option>
+        <option value="BottomRightBus">BottomRightBus</option>
+      </select>
+    </div>
+  </div>     
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_nodeSpacing" class="col-xs-3 control-label">节点间距:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_nodeSpacing" value="20" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">负数会导致覆盖</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_nodeIndent" class="col-xs-3 control-label">节点缩进:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_nodeIndent" value="0" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">when Start or End; >= 0</span>
+    </div>
+  </div>  
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_nodeIndentPastParent" class="col-xs-3 control-label">NodeIndentPastParent:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_nodeIndentPastParent" value="0" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">fraction; 0-1</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_layerSpacing" class="col-xs-3 control-label">层间距:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_layerSpacing" value="50" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">负数会导致覆盖</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_layerSpacingParentOverlap" class="col-xs-3 control-label">LayerSpacingParentOverlap:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_layerSpacingParentOverlap" value="0" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">fraction; 0-1</span>
+    </div>
+  </div>  
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_sorting" class="col-xs-3 control-label">排序:</label>
+    <div class="col-xs-9">
+      <select name="layout_tree_sorting" id="layout_tree_sorting" class="form-control"  onchange="goTools.triggerTreeLayout()">
+        <option value="Forwards" selected="selected">正向</option>
+        <option value="Reverse">反向</option>
+        <option value="Ascending">升序</option>
+        <option value="Descending">降序</option>
+      </select>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">压缩:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_compaction" onclick="goTools.triggerTreeLayout()" value="Block" checked="checked"> 块
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_compaction" onclick="goTools.triggerTreeLayout()" value="None"> 无<br>
+      </label>
+    </div>
+  </div>    
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_breadthLimit" class="col-xs-3 control-label">BreadthLimit:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_breadthLimit" value="0" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">0 表示无限制</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_rowSpacing" class="col-xs-3 control-label">行间距:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_rowSpacing" value="25" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">负数会导致覆盖</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_rowIndent" class="col-xs-3 control-label">行缩进:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_rowIndent" value="10" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">>= 0</span>
+    </div>
+  </div>  
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_setsPortSpot" class="col-xs-3 control-label">SetsPortSpot:</label>
+    <div class="col-xs-9">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="layout_tree_setsPortSpot" checked="checked" onclick="goTools.triggerTreeLayout()">
+        </label>
+      </div>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_setsChildPortSpot" class="col-xs-3 control-label">SetsChildPortSpot:</label>
+    <div class="col-xs-9">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="layout_tree_setsChildPortSpot" checked="checked" onclick="goTools.triggerTreeLayout()"><br>
+        </label>
+      </div>
+    </div>
+  </div>  
+  <hr/>
+  <b>交替属性</b><br>
+  (仅对树类型不是层次节点时才生效)<br>
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">角度:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_altAngle" onclick="goTools.triggerTreeLayout()" value="0" checked="checked">右
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_altAngle" onclick="goTools.triggerTreeLayout()" value="90">下
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_altAngle" onclick="goTools.triggerTreeLayout()" value="180">左
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_altAngle" onclick="goTools.triggerTreeLayout()" value="270">上
+      </label>
+    </div>
+  </div>   
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_altAlign" class="col-xs-3 control-label">对齐:</label>
+    <div class="col-xs-9">
+      <select name="layout_tree_altAlign" id="layout_tree_altAlign" class="form-control"  onchange="goTools.triggerTreeLayout()">
+        <option value="CenterChildren" selected="selected">孩子居中</option>
+        <option value="CenterSubtrees">子树居中</option>
+        <option value="Start">开始</option>
+        <option value="End">结束</option>
+        <option value="Bus">Bus</option>
+        <option value="BusBranching">BusBranching</option>
+        <option value="TopLeftBus">TopLeftBus</option>
+        <option value="BottomRightBus">BottomRightBus</option>
+      </select>
+    </div>
+  </div>     
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_altNodeSpacing" class="col-xs-3 control-label">节点间距:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_altNodeSpacing" value="20" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">负数会导致覆盖</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_altNodeIndent" class="col-xs-3 control-label">节点缩进:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_altNodeIndent" value="0" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">when Start or End; >= 0</span>
+    </div>
+  </div>  
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_altNodeIndentPastParent" class="col-xs-3 control-label">NodeIndentPastParent:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_altNodeIndentPastParent" value="0" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">fraction; 0-1</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_altLayerSpacing" class="col-xs-3 control-label">层间距:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_altLayerSpacing" value="50" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">负数会导致覆盖</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_altLayerSpacingParentOverlap" class="col-xs-3 control-label">LayerSpacingParentOverlap:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_altLayerSpacingParentOverlap" value="0" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">fraction; 0-1</span>
+    </div>
+  </div>  
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_altSorting" class="col-xs-3 control-label">排序:</label>
+    <div class="col-xs-9">
+      <select name="layout_tree_altSorting" id="layout_tree_altSorting" class="form-control"  onchange="goTools.triggerTreeLayout()">
+        <option value="Forwards" selected="selected">正向</option>
+        <option value="Reverse">反向</option>
+        <option value="Ascending">升序</option>
+        <option value="Descending">降序</option>
+      </select>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label class="col-xs-3 control-label">压缩:</label>
+    <div class="col-xs-9">
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_altCompaction" onclick="goTools.triggerTreeLayout()" value="Block" checked="checked"> 块
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="layout_tree_altCompaction" onclick="goTools.triggerTreeLayout()" value="None"> 无<br>
+      </label>
+    </div>
+  </div>    
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_altBreadthLimit" class="col-xs-3 control-label">BreadthLimit:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_altBreadthLimit" value="0" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">0 表示无限制</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_altRowSpacing" class="col-xs-3 control-label">行间距:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_altRowSpacing" value="25" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">负数会导致覆盖</span>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm">
+    <label for="layout_tree_altRowIndent" class="col-xs-3 control-label">行缩进:</label>
+    <div class="col-xs-9">
+       <input type="number" size="2" class="form-control" id="layout_tree_altRowIndent" value="10" onchange="goTools.triggerTreeLayout()">
+       <span class="help-block">>= 0</span>
+    </div>
+  </div>  
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_altSetsPortSpot" class="col-xs-3 control-label">SetsPortSpot:</label>
+    <div class="col-xs-9">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="layout_tree_altSetsPortSpot" checked="checked" onclick="goTools.triggerTreeLayout()">
+        </label>
+      </div>
+    </div>
+  </div> 
+  <div class="form-group form-group-sm" style="margin-bottom:10px;">
+    <label for="layout_tree_altSetsChildPortSpot" class="col-xs-3 control-label">SetsChildPortSpot:</label>
+    <div class="col-xs-9">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="layout_tree_altSetsChildPortSpot" checked="checked" onclick="goTools.triggerTreeLayout()"><br>
+        </label>
+      </div>
+    </div>
+  </div> 
+</form>

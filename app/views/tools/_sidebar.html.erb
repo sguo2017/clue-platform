@@ -1,0 +1,80 @@
+
+<div class="tools_sidebar">
+	<div class="panel panel-default" style="height: 100%">
+		<div class="panel-heading" style="padding:0;margin:0">
+			<ul id="myTabs" class="nav nav-tabs" role="tablist">		
+			  <li role="presentation" class="active"><a href="#tab_palette" id="tab_link_palette" role="tab" data-toggle="tab" aria-controls="tab_palette" aria-expanded="true">图元对象</a></li>      
+		      <li role="presentation" class="dropdown">
+		        <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">库 <span class="caret"></span></a>
+		        <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+		        	<li><a onclick="goTools.palette.changePalette('floor_planner')">室内设计</a></li>
+		          	<li><a onclick="goTools.palette.changePalette('circuit')">电子电路</a></li>
+				    <li><a onclick="goTools.palette.changePalette('floor')">室内平面图</a></li>
+				    <li><a onclick="goTools.palette.changePalette('flowchart')">流程图</a></li>
+				    <li><a onclick="goTools.palette.changePalette('shape')">形状</a></li>
+				    <li><a onclick="goTools.palette.changePalette('icon')">图标</a></li>
+				    <li><a onclick="goTools.palette.changePalette('pipe')">管道</a></li>
+		        </ul>
+		      </li>
+		      <li role="presentation"><a href="#tab_debugInspector" role="tab" data-toggle="tab" aria-controls="tab_debugInspector" aria-expanded="true">属性</a></li>
+		      <li role="presentation"><a href="#tab_layout" id="tab_layout_link" role="tab" data-toggle="tab" aria-controls="tab_layout" aria-expanded="true">布局</a></li>
+		    </ul>
+		</div>
+		<div class="panel-body tab-content" style="padding-bottom: 0px;">
+		    <div role="tabpanel" class="tab-pane fade in active" id="tab_palette" aria-labelledby="profile-tab">
+		    	<div id="tools_main_palette" style="width:100%;height:66%;">
+		    		<!--input id="furnitureSearchBar" placeholder="Search Furniture" oninput="ui.searchFurniture()" /-->
+		    	</div>
+		    	<div class="panel panel-default" style="height:34%">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-4">
+								<h3 class="panel-title">缩略图</h3>
+							</div>
+							<div class="col-xs-8 text-right">
+								<div class="dropdown dropdown-margin-top">
+								  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								    Dropdown
+								    <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu"	 aria-labelledby="dropdownMenu1">
+								    <li><a onclick="">Action</a></li>
+								    <li><a onclick="">Another action</a></li>
+								    <li><a onclick="">Something else here</a></li>
+								    <li role="separator" class="divider"></li>
+								    <li><a onclick="">Separated link</a></li>
+								  </ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body" id="tools_main_overview" style="padding-bottom: 0px; width:100%; background-color: #eee">
+
+					</div>				
+				</div>
+		    </div>
+		    <div role="tabpanel" class="tab-pane fade" id="tab_debugInspector" aria-labelledby="home-tab">
+		        <div class="inspector-container" id="debugInspector" style="width:100%;height:100%;overflow:hidden;">
+				</div>
+		    </div>		
+		    <div role="tabpanel" class="tab-pane fade" id="tab_layout" aria-labelledby="home-tab">
+		    	<ul id="myTabs2" class="nav nav-tabs" role="tablist" style="display:none">		
+			      <li role="presentation"><a href="#tab_layout_grid" id="tab_layout_grid_link" role="tab" data-toggle="tab" aria-controls="tab_layout_grid" aria-expanded="true">网格</a></li>
+			      <li role="presentation"><a href="#tab_layout_tree" id="tab_layout_tree_link" role="tab" data-toggle="tab" aria-controls="tab_layout_tree" aria-expanded="true">树</a></li>
+			      <li role="presentation"><a href="#tab_layout_circular" id="tab_layout_circular_link" role="tab" data-toggle="tab" aria-controls="tab_layout_circular" aria-expanded="true">圆形</a></li>
+			    </ul>
+		        <div class="tab-content" style="width:100%;height:100%;overflow:auto;background-color: aliceblue;">
+		        	<div role="tabpanel" class="tab-pane fade in active" id="tab_layout_grid" style="padding:20px;">
+		        		<%= render "layout_grid" %>
+		        	</div>
+		        	<div role="tabpanel" class="tab-pane fade" id="tab_layout_tree" style="padding:20px;">
+		        		<%= render "layout_tree" %>
+		        	</div>
+		        	<div role="tabpanel" class="tab-pane fade" id="tab_layout_circular" style="padding:20px;">
+		        		<%= render "layout_circular" %>
+		        	</div>
+				</div>
+		    </div>		    
+		</div>
+	</div>
+</div>

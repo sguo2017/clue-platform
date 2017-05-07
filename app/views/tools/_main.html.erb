@@ -1,0 +1,36 @@
+<div class="tools_main">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="panel-title row">
+				<div class="col-xs-7">
+					  <label href="#">选取模式</label>
+					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default">框选</button>
+						  <button type="button" class="btn btn-default">平移</button>
+					  </div>
+					  <label href="#">操作方式</label>
+					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default" onclick="ui.adjustScale('+')">放大</button>
+						  <button type="button" class="btn btn-default" onclick="ui.adjustScale('-')">缩小</button>
+					  </div>
+					  <label href="#">布局方式</label>
+					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
+					      <button type="button" class="btn btn-default" onclick="goTools.changeLayout('grid');">网格</button>
+						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('tree');">树形</button>
+						  <button type="button" class="btn btn-default">星形</button>
+						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('circular');">圆形</button>
+						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('default');">自由</button>
+					  </div> 
+				</div>
+				<div class="col-xs-5 text-right">
+					<button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> 数据导入</button>
+					<button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 图表保存</button>
+					<button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 图表导出</button>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body" id="tools_main_diagram" style="padding-bottom: 0px; min-height: 96px;">
+			
+		</div>
+	</div>
+</div>
