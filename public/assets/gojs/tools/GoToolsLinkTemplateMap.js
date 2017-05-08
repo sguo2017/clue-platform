@@ -288,4 +288,11 @@ GoTools.prototype.makeLinkTemplateMap = function(){
                          function(h) { return h ? 2 : 1; })
                         .ofObject())
       ))
+
+  this.linkTemplateMap.add("timeline",
+    $$(BarLink,  // defined below
+        { toShortLength: 2 , layerName: "Background" },
+        $$(go.Shape, { stroke: "#E37933", strokeWidth: 2 })
+      ))
+
 }

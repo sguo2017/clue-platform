@@ -1822,4 +1822,100 @@ GoTools.prototype.makeNodeTemplateMap = function(){
         Seat(7, "0 0.5", "1 0.5"),
         Seat(8, "0.15 0.15", "0.85 0.85")
       ));
+
+    this.nodeTemplateMap.add("timeline",
+        $$(go.Node, "Table",
+        { locationSpot: go.Spot.Center, movable: false },
+        $$(go.Panel, "Auto",
+          $$(go.Shape, "RoundedRectangle", 
+            { fill: "#252526", stroke: "#519ABA", strokeWidth: 3 }
+          ),
+          $$(go.Panel, "Table",
+            $$(go.TextBlock,
+              {
+                row: 0,
+                stroke: "#CCCCCC",
+                wrap: go.TextBlock.WrapFit,
+                font: "bold 12pt sans-serif", 
+                textAlign: "center", margin: 4
+              },
+              new go.Binding("text", "event")
+            ),
+            $$(go.TextBlock,
+              {
+                row: 1,
+                stroke: "#A074C4",
+                textAlign: "center", margin: 4
+              },
+              new go.Binding("text", "date", function(d) { return d.toLocaleDateString(); })
+            )
+          )
+        )
+      ))
+
+    this.nodeTemplateMap.add("timeline_line",
+      $$(go.Node, "Graduated",
+        {
+          movable: false, copyable: false,
+          resizable: true, resizeObjectName: "MAIN",
+          background: "transparent",
+          graduatedMin: 0,
+          graduatedMax: 365,
+          graduatedTickUnit: 1,
+          resizeAdornmentTemplate:  // only resizing at right end
+            $$(go.Adornment, "Spot",
+              $$(go.Placeholder),
+              $$(go.Shape, { alignment: go.Spot.Right, cursor: "e-resize", desiredSize: new go.Size(4, 16), fill: "lightblue", stroke: "deepskyblue" })
+            ) 
+        },
+        new go.Binding("graduatedMax", "", function() {
+            var timeline = myDiagram.model.findNodeDataForKey("timeline");
+            var startDate = timeline.start;
+            var endDate = timeline.end;
+
+            function treatAsUTC(date) {
+              var result = new Date(date);
+              result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+              return result;
+            }
+
+            function daysBetween(startDate, endDate) {
+              var millisecondsPerDay = 24 * 60 * 60 * 1000;
+              return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+            }
+            return daysBetween(startDate, endDate);
+          }),
+        $$(go.Shape, "LineH",
+          { name: "MAIN", stroke: "#519ABA", height: 1, strokeWidth: 3 },
+          new go.Binding("width", "length").makeTwoWay()
+        ),
+        $$(go.Shape, { geometryString: "M0 0 V10", interval: 7, stroke: "#519ABA", strokeWidth: 2 }),
+        $$(go.TextBlock, 
+          { 
+            font: "10pt sans-serif",
+            stroke: "#333333",
+            interval: 14,
+            alignmentFocus: go.Spot.MiddleRight,
+            segmentOrientation: go.Link.OrientMinus90,
+            segmentOffset: new go.Point(0, 12),
+            graduatedFunction: function(n) {
+                var timeline = goTools.model.findNodeDataForKey("timeline");
+                var startDate = timeline.start;
+                var startDateMs = startDate.getTime() + startDate.getTimezoneOffset() * 60000;
+                var msPerDay = 24 * 60 * 60 * 1000;
+                var date = new Date(startDateMs + n * msPerDay);
+                return date.toLocaleDateString();
+              }
+          },
+          new go.Binding("interval", "length", function(len) {
+              if (len >= 800) return 7;
+              else if (400 <= len && len < 800) return 14;
+              else if (200 <= len && len < 400) return 21;
+              else if (140 <= len && len < 200) return 28;
+              else if (110 <= len && len < 140) return 35;
+              else return 365;
+            })
+        )
+      )
+    );
 }

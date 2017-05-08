@@ -911,3 +911,40 @@ demo.seating = function(){
       {"key":4, "category":"TableC8", "name":"4", "guests":{}, "loc":"364.5 223.5"}
     ]);  // this sample does not make use of any links
 }
+
+demo.timeline = function(){
+  // Setup the model data -- an object describing the timeline bar node
+  // and an object for each event node:
+  var data = [
+    { // this defines the actual time "Line" bar
+      key: "timeline", category: "timeline_line",
+      lineSpacing: 30,  // distance between timeline and event nodes
+      length: 700,  // the width of the timeline
+      start: new Date("1 Jan 2016"),
+      end: new Date("31 Dec 2016")
+    },
+
+    // the rest are just "events" --
+    // you can add as much information as you want on each and extend the
+    // default nodeTemplate to show as much information as you want
+    { category: 'timeline', event: "New Year's Day", date: new Date("1 Jan 2016") },
+    { category: 'timeline', event: "MLK Jr. Day", date: new Date("18 Jan 2016") },
+    { category: 'timeline', event: "Presidents Day", date: new Date("15 Feb 2016") },
+    { category: 'timeline', event: "Memorial Day", date: new Date("30 May 2016") },
+    { category: 'timeline', event: "Independence Day", date: new Date("4 Jul 2016") },
+    { category: 'timeline', event: "Labor Day", date: new Date("5 Sep 2016") },
+    { category: 'timeline', event: "Columbus Day", date: new Date("10 Oct 2016") },
+    { category: 'timeline', event: "Veterans Day", date: new Date("11 Nov 2016") },
+    { category: 'timeline', event: "Thanksgiving", date: new Date("24 Nov 2016") },
+    { category: 'timeline', event: "Christmas", date: new Date("25 Dec 2016") }
+  ];
+
+  // prepare the model by adding links to the Line
+  for (var i = 0; i < data.length; i++) {
+    var d = data[i];
+    if (d.key !== "timeline") d.parent = "timeline";
+  }
+  goTools.layout = $$(TimelineLayout),
+  goTools.linkTemplate = goTools.linkTemplateMap.getValue("timeline");
+  goTools.model = $$(go.TreeModel, { nodeDataArray: data });
+}
