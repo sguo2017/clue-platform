@@ -65,26 +65,33 @@
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">演示</a>
       <ul class="dropdown-menu">
-        <li><a onclick="demo.color_box()">实例: Color Boxes</a></li>
-        <li><a onclick="demo.flowchart()">实例: 流程图</a></li>
-        <li><a onclick="demo.class_hierarchy()">实例: GoJS 类层次</a></li>
-        <li><a onclick="demo.dom_tree()">实例: 文档对象模型</a></li>
-        <li><a onclick="demo.circuit()">实例: 电子电路</a></li>
-        <li><a onclick="demo.icon()">实例: 图标</a></li>
-        <li><a onclick="demo.entity_relationship()">实例: 对象关系模型</a></li>
-        <li><a onclick="demo.gantt()">实例: 甘特图</a></li>
-        <li><a onclick="demo.uml()">实例: UML</a></li>
-        <li><a onclick="demo.process_flow()">实例: 处理流程</a></li>
-        <li><a onclick="demo.state_chart()">实例: 状态图</a></li>
-        <li><a onclick="demo.freehand_drawing()">实例: 画笔</a></li>
-        <li><a onclick="demo.sankey()">实例: 桑基图</a></li>
-        <li><a onclick="demo.pert()">实例: 计划评审</a></li>
-        <li><a onclick="demo.floor_planner()">实例: 室内设计</a></li>
-        <li><a onclick="demo.wheel()">实例: 朋友轮</a></li>
-        <li><a onclick="demo.seating()">实例: 坐席安排</a></li>
-        <li><a onclick="demo.timeline()">实例: 通话时序</a></li>
-        <li><a onclick="demo.sequence()">实例: 通话记录</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.color_box()">实例: Color Boxes</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.flowchart()">实例: 流程图</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.class_hierarchy()">实例: GoJS 类层次</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.dom_tree()">实例: 文档对象模型</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.circuit()">实例: 电子电路</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.icon()">实例: 图标</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.entity_relationship()">实例: 对象关系模型</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.gantt()">实例: 甘特图</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.uml()">实例: UML</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.process_flow()">实例: 处理流程</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.state_chart()">实例: 状态图</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.freehand_drawing()">实例: 画笔</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.sankey()">实例: 桑基图</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.pert()">实例: 计划评审</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.floor_planner()">实例: 室内设计</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.wheel()">实例: 朋友轮</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.seating()">实例: 坐席安排</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.timeline()">实例: 通话时序</a></li>
+        <li><a onclick="$('#tab_main_diagram_1_link').tab('show'); demo.sequence()">实例: 通话记录</a></li>
       </ul>
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">演示 2</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="$('#tab_main_diagram_2_link').tab('show'); echart_demo.echart_01();">实例: 通缉犯迁徙轨迹</a></li>
+        <li><a onclick="$('#tab_main_diagram_2_link').tab('show'); echart_demo.echart_02();">实例: 全国通缉犯分布统计</a></li>
+      </ul>
+    </li>
     </li>
 </ul>  
 <% end %>
