@@ -1,0 +1,29 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="sortingApi.js"></script>
+</head>
+<body>
+
+    <div style="height: 100%; box-sizing: border-box; padding-top: 20px;">
+        <div id="myGrid" class="ag-fresh" style="height: 100%;"></div>
+    </div>
+
+    <div style="position: fixed; top: 0px; left: 0px; margin: 4px 4px 4px 10px; display: inline-block;">
+        <div style="padding-bottom: 4px; display: inline-block;">
+            <button onclick="sortByAthleteAsc()">按运动员升序</button>
+            <button onclick="sortByAthleteDesc()">按运动员降序</button>
+            <button onclick="sortByCountryThenSport()">国籍升序, 然后体育项目升序</button>
+            <button onclick="sortBySportThenCountry()">体育项目升序，然后国籍升序</button>
+        </div>
+        <div style="padding-bottom: 4px; display: inline-block;">
+            <button onclick="clearSort()">清除排序</button>
+            <button onclick="printSortStateToConsole()">打印排序状态</button>
+            <button onclick="saveSort()">保存排序</button>
+            <button onclick="restoreFromSave()">恢复保存的排序</button>
+        </div>
+    </div>
+
+</body>
+</html>

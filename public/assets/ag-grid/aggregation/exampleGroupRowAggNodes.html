@@ -1,0 +1,20 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="exampleGroupRowAggNodes.js"></script>
+</head>
+<body>
+
+	<div style="position: absolute; padding-top: 4px; padding-left: 8px; top: 0px; left: 0px;">
+        <button onclick="gridOptions.api.expandAll()">展开全部</button>
+    	<button onclick="gridOptions.api.collapseAll()">收起全部</button>
+	</div>
+
+    <div style="height: 100%; padding-top: 20px; box-sizing: border-box;">
+    	<div id="myGrid" style="height: 100%;" class="ag-fresh"></div>
+	</div>
+
+
+</body>
+</html>

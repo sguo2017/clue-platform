@@ -1,0 +1,24 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="examplePivotApi.js"></script>
+</head>
+<body>
+    <div style="height: 100%; padding-top: 25px; box-sizing: border-box;">
+        <div id="myGrid" style="height: 100%;" class="ag-fresh"></div>
+    </div>
+    <div style="padding: 4px; padding-left: 10px; position: absolute; top: 0px; left: 0px;">
+        <button onclick="gridOptions.columnApi.setPivotMode(true)">打开透视模式</button>
+        <button onclick="gridOptions.columnApi.setPivotMode(false)">关闭透视图式</button>
+        &nbsp;&nbsp;
+        <button onclick="gridOptions.columnApi.addPivotColumn('country')">按国家进行透视</button>
+        <button onclick="gridOptions.columnApi.addPivotColumns(['year','country'])">按年份和国家进行透视</button>
+        <button onclick="gridOptions.columnApi.removePivotColumn('country')">Un-Pivot Country</button>
+        &nbsp;&nbsp;
+        <button onclick="gridOptions.columnApi.setPivotColumns([])">清除所有条件</button>
+        &nbsp;&nbsp;
+        <button onclick="gridOptions.api.exportDataAsCsv({})">导出为CSV</button>
+    </div>
+</body>
+</html>

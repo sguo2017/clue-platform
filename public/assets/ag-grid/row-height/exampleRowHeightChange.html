@@ -1,0 +1,26 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="exampleRowHeightChange.js"></script>
+</head>
+<body>
+    <div style="height: 100%; box-sizing: border-box; padding-top: 20px;">
+        <div id="myGrid" style="height: 100%;" class="ag-fresh"></div>
+    </div>
+    <div style="position: absolute; top: 0px; left: 0px; margin-left: 10px; margin-top: 4px;">
+        顶级分组:
+        <button onclick="setGroupHeight(25)">25px</button>
+        <button onclick="setGroupHeight(50)">50px</button>
+        <button onclick="setGroupHeight(100)">100px</button>
+        体育项目 Swimming 相关的行:
+        <button onclick="setSwimmingHeight(25)">25px</button>
+        <button onclick="setSwimmingHeight(50)">50px</button>
+        <button onclick="setSwimmingHeight(100)">100px</button>
+        国籍 Zimbabwe 相关的 Rows:
+        <button onclick="setZimbabweHeight(25)">25px</button>
+        <button onclick="setZimbabweHeight(50)">50px</button>
+        <button onclick="setZimbabweHeight(100)">100px</button>
+    </div>
+</body>
+</html>

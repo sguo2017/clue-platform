@@ -1,0 +1,16 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="exampleSelectionCheckboxFiltered.js"></script>
+</head>
+<body>
+    <div style="height: 100%; box-sizing: border-box; padding-top: 22px;">
+        <div id="myGrid" style="height: 100%;" class="ag-fresh"></div>
+    </div>
+    <div style="position: absolute; top: 0px; left: 0px; margin-left: 8px; margin-top: 4px;">
+        <button onclick="filterSwimming()">只显示游泳项目</button>
+        <button onclick="clearFilter()" style="margin-left: 10px;">清除过滤条件</button>
+    </div>
+</body>
+</html>

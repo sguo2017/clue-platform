@@ -1,0 +1,28 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="exampleFloatingFooter.js"></script>
+</head>
+
+<style>
+    .bold-row {
+        font-weight: bold;
+    }
+</style>
+
+<body>
+	<div style="position: absolute; padding-top: 4px; padding-left: 8px; top: 0px; left: 0px;">
+	    <button onclick="btSizeColsToFix()">调整列宽度</button>    
+	</div>
+
+    <div style="height: 100%; padding-top: 20px; padding-bottom: 31px; box-sizing: border-box;">
+    	<div id="myGridTop" style="height: 100%;" class="ag-fresh"></div>
+	</div>
+
+	<div style="position: absolute; height: 41px; bottom: 0px; left: 8px; right: 8px;">
+	    <div id="myGridBottom" style="height: 100%;" class="ag-fresh"></div>    
+	</div>
+
+</body>
+</html>

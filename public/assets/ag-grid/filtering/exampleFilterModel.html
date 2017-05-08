@@ -1,0 +1,36 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="exampleFilterModel.js"></script>
+</head>
+<body>
+
+
+	<div style="position: absolute; padding-top: 4px; padding-left: 8px; top: 0px; left: 0px;">
+	    <div>
+	        <span style="padding-bottom: 4px; display: inline-block;">
+	            <button onclick="saveFilterModel()">保存过滤条件</button>
+	            <button onclick="restoreFilterModel()">重置过滤条件</button>
+	            <button onclick="clearFilters()">清除过滤条件</button>
+	        </span>
+	    </div>
+	    <div>
+	        <span>
+	            <button onclick="restoreFromHardCoded()">姓名 等于 'Mich%', 国籍 等于 ['Ireland', 'United States'], 年龄 小于 30, 日期 早于 01/01/2010</button>
+	        </span>
+	    </div>
+	    <div>
+	        <span style="padding-bottom: 4px; display: inline-block;">
+	            保存的过滤条件: <span id="savedFilters">[]</span>
+	        </span>
+	    </div>
+    </div>
+
+    <div style="height: 100%; padding-top: 70px; box-sizing: border-box;">
+    	<div id="myGrid" style="height: 100%;" class="ag-fresh"></div>
+	</div>
+
+
+</body>
+</html>

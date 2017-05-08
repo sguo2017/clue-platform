@@ -1,0 +1,20 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="exampleSetFilterApi.js"></script>
+</head>
+<body>
+    <div style="height: 100%; padding-top: 20px; box-sizing: border-box;">
+        <div id="myGrid" class="ag-fresh" style="height: 100%; margin-top: 4px;"></div>
+    </div>
+    <div style="padding: 4px; position: absolute; top: 0px; left: 0px;">
+        <div>
+            运动员:
+            <button onClick="selectNothing()">全部清空</button>
+            <button onClick="selectJohnAndKenny()">只显示 John Joe Nevin 和 Kenny Egan</button>
+            <button onClick="selectEverything()">全部选择</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<head>
+    <!-- you don't need ignore=notused in your code, this is just here to trick the cache -->
+    <script src="../../../assets/ag-grid/ag-grid-enterprise.js"></script>
+    <script src="columnStateExample.js"></script>
+</head>
+<body>
+
+	<div style="position: absolute; padding-top: 4px; padding-left: 8px; top: 0px; left: 0px;">
+	    <div style="padding-bottom: 4px;">
+	        列显示/隐藏:
+	        <button onclick="showAthlete(true)">显示运动员列</button>
+	        <button onclick="showAthlete(false)">隐藏运动员列</button>
+	        <button onclick="showMedals(true)">显示所有奖牌列</button>
+	        <button onclick="showMedals(false)">隐藏所有奖牌列</button>
+	    </div>
+	    <div style="padding-bottom: 4px;">
+	        列冻结/解冻:
+	        <button onclick="pinAthlete(true)">冻结运动员列</button>
+	        <button onclick="pinAthlete(false)">解冻运动员列</button>
+	        <button onclick="pinAge(true)">冻结年龄列</button>
+	        <button onclick="pinAge(false)">解冻年龄列</button>
+	    </div>
+	    <div style="padding-bottom: 4px;">
+	        列状态:
+	        <button onclick="printState()">输出列的状态</button>
+	        <button onclick="saveState()">保存列的状态</button>
+	        <button onclick="restoreState()">恢复保存的列状态</button>
+	        <button onclick="resetState()">重置列的状态</button>
+	    </div>
+    </div>
+
+    <div style="height: 100%; padding-top: 70px; box-sizing: border-box;">
+    	<div id="myGrid" style="height: 100%;" class="ag-fresh"></div>
+	</div>
+
+</body>
+</html>
