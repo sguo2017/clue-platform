@@ -26,8 +26,14 @@ GoTools.prototype.makeLinkTemplateMap = function(){
         reshapable: true,
         resegmentable: true,
         // mouse-overs subtly highlight links:
-        mouseEnter: function(e, link) { link.findObject("HIGHLIGHT").stroke = "rgba(30,144,255,0.2)"; },
-        mouseLeave: function(e, link) { link.findObject("HIGHLIGHT").stroke = "transparent"; }
+        mouseEnter: function(e, link) { 
+          var obj = link.findObject("HIGHLIGHT");
+          if(obj) obj.stroke = "rgba(30,144,255,0.2)"; 
+        },
+        mouseLeave: function(e, link) { 
+          var obj = link.findObject("HIGHLIGHT");
+          if(obj) obj.stroke = "transparent"; 
+        }
       },
       new go.Binding("points").makeTwoWay(),
       $$(go.Shape,  // the highlight shape, normally transparent
@@ -313,4 +319,55 @@ GoTools.prototype.makeLinkTemplateMap = function(){
           new go.Binding("text", "text").makeTwoWay())
       ))
 
+  this.linkTemplateMap.add("euler", 
+    $$(go.Link,
+      $$(go.Shape,
+        new go.Binding("stroke", "color"),
+        new go.Binding("strokeWidth", "width"),
+        new go.Binding("strokeDashArray", "dash"))
+    ))
+
+  this.linkTemplateMap.add("Dimensioning", 
+    $$(DimensioningLink,
+      new go.Binding("fromSpot", "fromSpot", go.Spot.parse),
+      new go.Binding("toSpot", "toSpot", go.Spot.parse),
+      new go.Binding("direction"),
+      new go.Binding("extension"),
+      new go.Binding("inset"),
+      $$(go.Shape, { stroke: "gray" },
+        new go.Binding("stroke", "color")),
+      $$(go.Shape, { fromArrow: "BackwardOpenTriangle", segmentIndex: 2, stroke: "gray" },
+        new go.Binding("stroke", "color")),
+      $$(go.Shape, { toArrow: "OpenTriangle", segmentIndex: -3, stroke: "gray" },
+        new go.Binding("stroke", "color")),
+      $$(go.TextBlock,
+        {
+          segmentIndex: 2,
+          segmentFraction: 0.5,
+          segmentOrientation: go.Link.OrientUpright,
+          alignmentFocus: go.Spot.Bottom,
+          stroke: "gray",
+          font: "8pt sans-serif"
+        },
+        new go.Binding("text", "", function(link) {
+          var numpts = link.pointsCount;
+          if (numpts < 2) return "";
+          var p0 = link.getPoint(0);
+          var pn = link.getPoint(numpts - 1);
+          var ang = link.direction;
+          if (isNaN(ang)) return Math.floor(Math.sqrt(p0.distanceSquaredPoint(pn))) + "";
+          var rad = ang * Math.PI / 180;
+          return Math.floor(Math.abs(Math.cos(rad) * (p0.x - pn.x)) +
+                            Math.abs(Math.sin(rad) * (p0.y - pn.y))) + "";
+        }).ofObject(),
+        new go.Binding("stroke", "color"))
+    ));
+
+  this.linkTemplateMap.add("comment",
+      // if the BalloonLink class has been loaded from the Extensions directory, use it
+      $$((typeof BalloonLink === "function" ? BalloonLink : go.Link),
+        $$(go.Shape,  // the Shape.geometry will be computed to surround the comment node and
+                     // point all the way to the commented node
+          { stroke: "brown", strokeWidth: 1, fill: "lightyellow" })
+      ));
 }

@@ -34,9 +34,12 @@ function GoTools(div) {
     var $$ = go.GraphObject.make;
 
     this.initialContentAlignment = go.Spot.Center;
-    //this.initialAutoScale = go.Diagram.UniformToFill;
+    this.initialAutoScale = go.Diagram.UniformToFill;
+    this.initialDocumentSpot = go.Spot.TopCenter;
+    this.initialViewportSpot = go.Spot.TopCenter;
     this.allowDrop = true;
     this.allowLink = true;
+    this.allowSelect = true;
     this.undoManager.isEnabled = true;
     this.layout.isOngoing = false;
     this.model = $$(go.GraphLinksModel, {
@@ -55,6 +58,8 @@ function GoTools(div) {
             }
         }
     });
+    this.isReadOnly = false;
+    this.scrollMode = go.Diagram.DocumentScroll;//go.Diagram.InfiniteScroll;
     this.resizingTool = new go.ResizingTool();
     this.resizingTool.isGridSnapEnabled = true;
     this.draggingTool = new go.DraggingTool();
@@ -73,13 +78,37 @@ function GoTools(div) {
     this.commandHandler.archetypeGroupData = { isGroup: true };
  
     // When goTools model is changed, update stats in Statistics Window TODO
-    this.addModelChangedListener(function (e) {
-        if (e.isTransactionFinished) {
+    this.addModelChangedListener(function (evt) {
+        if (evt.isTransactionFinished) {
             // find goTools changed
             var goTools = null;
-            if (e.object !== null) {
-                e.object.changes.each(function (change) {
-                    if (change.diagram instanceof GoTools) goTools = change.diagram;
+            var txn = evt.object;  // a Transaction
+            if (txn !== null) {
+                txn.changes.each(function (e) {
+                    if (e.modelChange == "nodeDataArray") {
+                        // record node insertions and removals
+                      if (e.change === go.ChangedEvent.Insert) {
+                        console.log(evt.propertyName + " 添加了主键为: " + e.newValue.key + " 的节点");
+                      } else if (e.change === go.ChangedEvent.Remove) {
+                        console.log(evt.propertyName + " 删除了主键为: " + e.oldValue.key + " 的节点");
+                      }
+                    }else if(e.modelChange == "linkDataArray"){
+                      if (e.change === go.ChangedEvent.Insert) {
+                        console.log(evt.propertyName + " 添加了连线: " + e.newValue);
+                      } else if (e.change === go.ChangedEvent.Remove) {
+                        console.log(evt.propertyName + " 删除了连线: " + e.oldValue);
+                      }
+                    }else if(e.modelChange == "linkFromKey"){
+                      if (e.change === go.ChangedEvent.Property) {
+                        console.log(evt.propertyName + " 修改了连线: " + e.object + " 的起点，从: " + e.oldValue.key + " 到: "+ e.newValue.key);
+                      }
+                    }else if(e.modelChange == "linkToKey"){
+                      if (e.change === go.ChangedEvent.Property) {
+                        console.log(evt.propertyName + " 修改了连线: " + e.object + " 的末端，从: " + e.oldValue.key + " 到: "+ e.newValue.key);
+                      }
+                    }
+
+                    if (e.diagram instanceof GoTools) goTools = e.diagram;
                 });
             }            
             if (goTools) {
@@ -104,6 +133,20 @@ function GoTools(div) {
             }
         }
     });
+
+    this.addDiagramListener("InitialLayoutCompleted", function(e){
+        console.log("GoTools 初始化完毕");
+        // pick a random node data
+        var nodeDataArray = e.diagram.model.nodeDataArray;
+        if(nodeDataArray.length>0){
+            var data = nodeDataArray[Math.floor(Math.random()*nodeDataArray.length)];
+            // find the corresponding Node
+            var node = e.diagram.findNodeForData(data);
+            // and center it and select it
+            //e.diagram.centerRect(node.actualBounds);
+            e.diagram.select(node);
+        }
+    })
 
     // If a node has been dropped onto the GoTools from a Palette...
     this.addDiagramListener("ExternalObjectsDropped", function (e) {
@@ -353,6 +396,10 @@ function GoTools(div) {
     }
 
     this.toolManager.draggingTool.isGridSnapEnabled = true;
+
+    //滚动或者缩放
+    //this.toolManager.mouseWheelBehavior = go.ToolManager.WheelZoom;
+    this.toolManager.clickCreatingTool.archetypeNodeData =  { text: "new node" };
 } 
 
 go.Diagram.inherit(GoTools, go.Diagram);

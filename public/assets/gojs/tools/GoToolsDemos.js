@@ -142,6 +142,7 @@ demo.flowchart = function(){
 	  "linkToPortIdProperty": "toPort",
 	  "nodeDataArray": [
 		{"category":"flowchart.comment", "loc":"360 -10", "text":"Kookie Brittle", "key":-13},
+    {"key":"A comment", "text":"comment\nabout Alpha", "category":"comment"},
 		{"key":-1, "category":"flowchart.start", "loc":"175 0", "text":"Start"},
 		{"key":0, "category":"flowchart.normal", "loc":"0 77", "text":"Preheat oven to 375 F"},
 		{"key":1, "category":"flowchart.normal", "loc":"175 100", "text":"In a bowl, blend: 1 cup margarine, 1.5 teaspoon vanilla, 1 teaspoon salt"},
@@ -155,6 +156,7 @@ demo.flowchart = function(){
 		{"key":-2, "category":"flowchart.end", "loc":"175 640", "text":"Enjoy!"}
 		 ],
 	  "linkDataArray": [
+    {"from":"A comment", "to":1, "category": "comment" },
 		{"from":1, "to":2, "category": 'flowchart', "fromPort":"B", "toPort":"T"},
 		{"from":2, "to":3, "category": 'flowchart', "fromPort":"B", "toPort":"T"},
 		{"from":3, "to":4, "category": 'flowchart', "fromPort":"B", "toPort":"T"},
@@ -973,4 +975,36 @@ demo.sequence = function(){
   {"category":"sequence", "from":"Bob", "to":"Fred", "text":"serve food", "time":6},
   {"category":"sequence", "from":"Fred", "to":"Renee", "text":"pay", "time":8}
    ]});
+}
+
+demo.euler = function(){
+  var nodeDataArray = [
+      { key: 1, text: "Cognitive Procedural", loc: "300 300", category: "euler_center" },
+      { key: 2, text: "Cognitive Problem Solving", loc: "600 300", category: "euler_center", hicolor: "lightblue", hiwidth: 7 },
+      { key: 11, text: "Logical Reasoning", loc: "450 275", category: "euler" },
+      { key: 12, text: "Scaffolding", loc: "450 325", category: "euler" },
+      { key: 13, text: "Part Task Training", loc: "425 400", category: "euler" },
+      { key: 21, text: "Training Wheels", loc: "325 125", category: "euler" },
+      { key: 22, text: "Exploratory Learning", loc: "250 150", category: "euler" },
+      { key: 23, text: "Learner Control", loc: "650 150", category: "euler" },
+      { key: 31, text: "Overlearning", loc: "450 475", category: "euler" }
+    ];
+  var linkDataArray = [
+    { category: "euler", from: 1, to: 11, color: "gray" },
+    { category: "euler", from: 1, to: 12, color: "gray", dash: [3, 2] },
+    { category: "euler", from: 1, to: 13, color: "olive", width: 2 },
+    { category: "euler", from: 1, to: 21, color: "olive", width: 3 },
+    { category: "euler", from: 1, to: 22, color: "olive", width: 2 },
+    { category: "euler", from: 1, to: 23, color: "crimson", width: 2 },
+    { category: "euler", from: 1, to: 31 },
+    { category: "euler", from: 2, to: 11, color: "gray" },
+    { category: "euler", from: 2, to: 12, color: "olive", width: 2 },
+    { category: "euler", from: 2, to: 13, color: "gray", dash: [3, 2] },
+    { category: "euler", from: 2, to: 21, color: "crimson", width: 2 },
+    { category: "euler", from: 2, to: 22, color: "crimson", width: 2 },
+    { category: "euler", from: 2, to: 23, color: "black", width: 3 },
+    { category: "euler", from: 2, to: 31, color: "black", dash: [3, 2] }
+  ];
+  goTools.layout = $$(go.Layout);
+  goTools.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 }

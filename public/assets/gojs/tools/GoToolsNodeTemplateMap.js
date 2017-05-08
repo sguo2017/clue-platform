@@ -1106,6 +1106,21 @@ GoTools.prototype.makeNodeTemplateMap = function(){
       }
     ));
 
+  this.nodeTemplateMap.add("font-awesome", 
+    $$(go.Node, "Auto",
+        $$(go.TextBlock, { 
+            stroke: '#000',
+            margin: 0,
+            textAlign: 'center',
+            width: 32,
+            font: '26px FontAwesome',
+            editable: false,
+            isMultiline: false
+          },
+          new go.Binding("text")
+        )
+    ));
+
   // define the Node template, representing an entity
   this.nodeTemplateMap.add("entity_relationship", 
     $$(go.Node, "Auto",  // the whole node panel
@@ -1961,5 +1976,64 @@ GoTools.prototype.makeNodeTemplateMap = function(){
               return (height - ActivityStart - ActivityEnd) / MessageSpacing;
             }))
       ))
+
+    this.nodeTemplateMap.add("euler",
+        $$(go.Node, "Auto",
+        { locationSpot: go.Spot.Center },
+        new go.Binding("location", "loc", go.Point.parse),
+        $$(go.Shape, "Ellipse",
+          { fill: "transparent" },
+          new go.Binding("stroke", "color"),
+          new go.Binding("strokeWidth", "width"),
+          new go.Binding("strokeDashArray", "dash")),
+        $$("HyperlinkText",
+          function(node) { return "https://en.wikipedia.org/w/index.php?search=" + encodeURIComponent(node.data.text); },
+          function(node) { return node.data.text; },
+          { margin: 1, maxSize: new go.Size(80, 80), textAlign: "center" })
+      ))
+
+    this.nodeTemplateMap.add("euler_center",
+      $$(go.Node, "Spot",
+        { locationSpot: go.Spot.Center },
+        new go.Binding("location", "loc", go.Point.parse),
+        $$(go.Shape, "Circle",
+          {
+            fill: "rgba(128,128,128,0.1)", stroke: null,
+            width: 550, height: 550
+          }),
+        $$(go.Shape, "Circle",
+          {
+            fill: "rgba(128,128,128,0.05)", stroke: null,
+            width: 400, height: 400
+          }),
+        $$(go.Shape, "Circle",
+          {
+            fill: "rgba(128,128,128,0.033)", stroke: null,
+            width: 250, height: 250
+          }),
+        $$(go.Panel, "Spot",
+          $$(go.Shape, "Circle",
+            { isPanelMain: true, fill: "transparent", portId: "" },
+            new go.Binding("stroke", "hicolor"),
+            new go.Binding("strokeWidth", "hiwidth")),
+          $$(go.Shape, "Circle",
+            { isPanelMain: true, fill: "transparent" },
+            new go.Binding("stroke", "color"),
+            new go.Binding("strokeWidth", "width"),
+            new go.Binding("strokeDashArray", "dash")),
+          $$("HyperlinkText",
+            function(node) { return "https://en.wikipedia.org/w/index.php?search=" + encodeURIComponent(node.data.text); },
+            function(node) { return node.data.text; },
+            { margin: 1, maxSize: new go.Size(80, 80), textAlign: "center" })
+        )
+      ));
+
+    this.nodeTemplateMap.add("comment",
+      $$(go.Node,  // this needs to act as a rectangular shape for BalloonLink,
+        { background: "transparent" },  // which can be accomplished by setting the background.
+        $$(go.TextBlock,
+          { stroke: "brown", margin: 3 },
+          new go.Binding("text"))
+      ));
 
 }

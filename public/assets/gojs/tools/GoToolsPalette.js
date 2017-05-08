@@ -566,6 +566,8 @@ GoToolsPalette.prototype.initial = function(){
 		icons_nodes.push({geo: k, color: "#00B5CB", category: "icon"});
 	}
 	this.paletteMap.add("icon", icons_nodes);
+
+	this.paletteMap.add("font-awesome", getFontAwesomeList());
 }
 
 GoToolsPalette.prototype.getPaletteNodeData = function(type){
