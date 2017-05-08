@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'suspects_teams/index'
+
   get 'tools/index'
 
   get 'suspects/index'

@@ -58,6 +58,7 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-sass'
+gem "font-awesome-rails"
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'

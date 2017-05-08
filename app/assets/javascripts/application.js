@@ -15,6 +15,7 @@
 //= require rails-ujs
 //= require turbolinks
 //= require bootstrap
+//= require suspects_teams
 //= require_tree .
 
 
