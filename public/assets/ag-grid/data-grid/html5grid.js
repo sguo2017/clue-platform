@@ -159,7 +159,8 @@
         rowHeight: 22,
         animateRows: true,
         onModelUpdated: modelUpdated,
-        debug: true
+        debug: true,
+        showToolPanel: true,
     };
 
     var btBringGridBack;
