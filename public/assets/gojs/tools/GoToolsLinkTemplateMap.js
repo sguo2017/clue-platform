@@ -295,4 +295,22 @@ GoTools.prototype.makeLinkTemplateMap = function(){
         $$(go.Shape, { stroke: "#E37933", strokeWidth: 2 })
       ))
 
+  this.linkTemplateMap.add("sequence", 
+    $$(MessageLink,  // defined below
+        { selectionAdorned: true, curviness: 0 },
+        $$(go.Shape, "Rectangle",
+          { stroke: "black" }),
+        $$(go.Shape,
+          { toArrow: "OpenTriangle", stroke: "black" }),
+        $$(go.TextBlock,
+          {
+            font: "400 9pt Source Sans Pro, sans-serif",
+            segmentIndex: 0,
+            segmentOffset: new go.Point(NaN, NaN),
+            isMultiline: false,
+            editable: true
+          },
+          new go.Binding("text", "text").makeTwoWay())
+      ))
+
 }

@@ -1916,6 +1916,50 @@ GoTools.prototype.makeNodeTemplateMap = function(){
               else return 365;
             })
         )
-      )
-    );
+      ))
+
+    this.nodeTemplateMap.add("sequence", 
+      $$(go.Node,
+        {
+          locationSpot: go.Spot.Top,
+          locationObjectName: "SHAPE",
+          minLocation: new go.Point(NaN, LinePrefix-ActivityStart),
+          maxLocation: new go.Point(NaN, 19999),
+          selectionObjectName: "SHAPE",
+          resizable: true,
+          resizeObjectName: "SHAPE",
+          resizeAdornmentTemplate:
+            $$(go.Adornment, "Spot",
+              $$(go.Placeholder),
+              $$(go.Shape,  // only a bottom resize handle
+                { alignment: go.Spot.Bottom, cursor: "col-resize",
+                desiredSize: new go.Size(6, 6), fill: "yellow" })
+            )
+        },
+        new go.Binding("location", "", function computeActivityLocation(act) {
+          var groupdata = goTools.model.findNodeDataForKey(act.group);
+          if (groupdata === null) return new go.Point();
+          // get location of Lifeline's starting point
+          var grouploc = go.Point.parse(groupdata.loc);
+          return new go.Point(grouploc.x, convertTimeToY(act.start) - ActivityStart);
+        }).makeTwoWay(function(loc, act) {
+          goTools.model.setDataProperty(act, "start", convertYToTime(loc.y + ActivityStart));
+        }),
+        $$(go.Shape, "Rectangle",
+          {
+            name: "SHAPE",
+            fill: "white", stroke: "black",
+            width: ActivityWidth,
+            // allow Activities to be resized down to 1/4 of a time unit
+            minSize: new go.Size(ActivityWidth, function(duration) {
+              return ActivityStart + duration * MessageSpacing + ActivityEnd;
+            }(0.25))
+          },
+          new go.Binding("height", "duration", function(duration) {
+              return ActivityStart + duration * MessageSpacing + ActivityEnd;
+            }).makeTwoWay(function(height) {
+              return (height - ActivityStart - ActivityEnd) / MessageSpacing;
+            }))
+      ))
+
 }
