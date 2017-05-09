@@ -360,8 +360,8 @@ function GoTools(div) {
         go.DraggingTool.prototype.doMouseMove.call(this);
 
         if (this.isActive) { 
-            if(this.diagram.layout instanceof go.ForceDirectedLayout)
-                this.diagram.layout.invalidateLayout(); 
+            //if(this.diagram.layout instanceof go.ForceDirectedLayout)
+            //    this.diagram.layout.invalidateLayout(); 
         }
     }
 

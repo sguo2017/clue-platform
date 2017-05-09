@@ -403,4 +403,10 @@ GoTools.prototype.makeLinkTemplateMap = function(){
       { selectable: false },
       $$(go.Shape, { strokeWidth: 2, stroke: "blue" })
     ));  
+
+  this.linkTemplateMap.add("force_directed",
+    $$(go.Link,
+        { selectable: false },
+        $$(go.Shape,
+          { strokeWidth: 3, stroke: "#333" })));
 }

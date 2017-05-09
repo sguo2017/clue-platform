@@ -2385,4 +2385,19 @@ GoTools.prototype.makeNodeTemplateMap = function(){
   // the representation of each label node -- nothing shows on a Marriage Link
   this.nodeTemplateMap.add("genogram_marriage_linklabel",
     $$(go.Node, { selectable: false, width: 1, height: 1, fromEndSegmentLength: 20 }));
+
+  this.nodeTemplateMap.add("force_directed",
+    $$(go.Node, "Spot",
+        // make sure the Node.location is different from the Node.position
+        { locationSpot: go.Spot.Center },
+        new go.Binding("text", "text"),  // for sorting
+        $$(go.Shape, "Ellipse",
+          { fill: "lightgray",
+            stroke: null,
+            desiredSize: new go.Size(30, 30) },
+          new go.Binding("fill", "fill")),
+        $$(go.TextBlock,
+          new go.Binding("text", "text"))
+      ));
+
 }

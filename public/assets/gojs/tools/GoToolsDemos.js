@@ -1205,3 +1205,73 @@ demo.genogram = function(){
   ],
   4 /* focus on this person */);
 }
+
+demo.force_directed = function(){
+  // Creates a random number of randomly colored nodes.
+  function generateNodes(min, max) {
+    var nodeArray = [];
+    if (isNaN(min) || min < 0) min = 0;
+    if (isNaN(max) || max < min) max = min;
+    var numNodes = Math.floor(Math.random() * (max - min + 1)) + min;
+    for (var i = 0; i < numNodes; i++) {
+      nodeArray.push({
+        category: 'force_directed',
+        key: i,
+        text: i.toString(),
+        fill: go.Brush.randomColor()
+      });
+    }
+
+    // randomize the node data
+    for (i = 0; i < nodeArray.length; i++) {
+      var swap = Math.floor(Math.random() * nodeArray.length);
+      var temp = nodeArray[swap];
+      nodeArray[swap] = nodeArray[i];
+      nodeArray[i] = temp;
+    }
+
+    // set the nodeDataArray to this array of objects
+    goTools.model.nodeDataArray = nodeArray;
+  }
+
+  // Takes the random collection of nodes and creates a random tree with them.
+  // Respects the minimum and maximum number of links from each node.
+  // (The minimum can be disregarded if we run out of nodes to link to)
+  function generateLinks(min, max) {
+    if (goTools.nodes.count < 2) return;
+    if (isNaN(min) || min < 1) min = 1;
+    if (isNaN(max) || max < min) max = min;
+    var linkArray = [];
+    // make two Lists of nodes to keep track of where links already exist
+    var nit = goTools.nodes;
+    var nodes = new go.List(go.Node);
+    nodes.addAll(nit);
+    var available = new go.List(go.Node);
+    available.addAll(nodes);
+    for (var i = 0; i < nodes.length; i++) {
+      var next = nodes.elt(i);
+      available.remove(next)
+      var children = Math.floor(Math.random() * (max - min + 1)) + min;
+      for (var j = 1; j <= children; j++) {
+        if (available.length === 0) break;
+        var to = available.elt(0);
+        available.remove(to);
+        // get keys from the Node.text strings
+        var nextKey = parseInt(next.text, 10);
+        var toKey = parseInt(to.text, 10);
+        linkArray.push({ category: 'force_directed', from: nextKey, to: toKey });
+      }
+    }
+    goTools.model.linkDataArray = linkArray;
+  }
+
+  goTools.toolManager.mouseWheelBehavior = go.ToolManager.WheelZoom;
+  goTools.layout = $$(go.ForceDirectedLayout);
+  goTools.startTransaction("generateTree");
+  // replace the diagram's model's nodeDataArray
+  generateNodes(20, 1000);
+  // replace the diagram's model's linkDataArray
+  generateLinks(30, 100);
+  // perform a diagram layout with the latest parameters
+  goTools.commitTransaction("generateTree");
+}
