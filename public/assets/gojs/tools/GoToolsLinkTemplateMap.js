@@ -386,4 +386,21 @@ GoTools.prototype.makeLinkTemplateMap = function(){
             return "black";
           }).ofObject())
       ))
+
+
+  this.linkTemplateMap.add("genogram",
+    $$(go.Link,
+      {
+        routing: go.Link.Orthogonal, curviness: 15,
+        layerName: "Background", selectable: false,
+        fromSpot: go.Spot.Bottom, toSpot: go.Spot.Top
+      },
+      $$(go.Shape, { strokeWidth: 2 })
+    ));
+
+  this.linkTemplateMap.add("genogram_marriage",
+    $$(go.Link,
+      { selectable: false },
+      $$(go.Shape, { strokeWidth: 2, stroke: "blue" })
+    ));  
 }

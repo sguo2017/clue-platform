@@ -1037,3 +1037,171 @@ demo.mindmap = function(){
    ]
   });
 }
+
+demo.genogram = function(){
+  // create and initialize the Diagram.model given an array of node data representing people
+  function setupDiagram(diagram, array, focusId) {
+    diagram.model =
+      go.GraphObject.make(go.GraphLinksModel,
+        { // declare support for link label nodes
+          linkLabelKeysProperty: "labelKeys",
+          // this property determines which template is used
+          // create all of the nodes for people
+          nodeDataArray: array
+        });
+    setupMarriages(diagram);
+    setupParents(diagram);
+
+    var node = diagram.findNodeForKey(focusId);
+    if (node !== null) {
+      diagram.select(node);
+      // remove any spouse for the person under focus:
+      //node.linksConnected.each(function(l) {
+      //  if (!l.isLabeledLink) return;
+      //  l.opacity = 0;
+      //  var spouse = l.getOtherNode(node);
+      //  spouse.opacity = 0;
+      //  spouse.pickable = false;
+      //});
+    }
+  }
+
+  function findMarriage(diagram, a, b) {  // A and B are node keys
+    var nodeA = diagram.findNodeForKey(a);
+    var nodeB = diagram.findNodeForKey(b);
+    if (nodeA !== null && nodeB !== null) {
+      var it = nodeA.findLinksBetween(nodeB);  // in either direction
+      while (it.next()) {
+        var link = it.value;
+        // Link.data.category === "genogram_marriage" means it's a marriage relationship
+        if (link.data !== null && link.data.category === "genogram_marriage") return link;
+      }
+    }
+    return null;
+  }
+
+  // now process the node data to determine marriages
+  function setupMarriages(diagram) {
+    var model = diagram.model;
+    var nodeDataArray = model.nodeDataArray;
+    for (var i = 0; i < nodeDataArray.length; i++) {
+      var data = nodeDataArray[i];
+      var key = data.key;
+      var uxs = data.ux;
+      if (uxs !== undefined) {
+        if (typeof uxs === "number") uxs = [ uxs ];
+        for (var j = 0; j < uxs.length; j++) {
+          var wife = uxs[j];
+          if (key === wife) {
+            // or warn no reflexive marriages
+            continue;
+          }
+          var link = findMarriage(diagram, key, wife);
+          if (link === null) {
+            // add a label node for the marriage link
+            var mlab = { category: "genogram_marriage_linklabel" };
+            model.addNodeData(mlab);
+            // add the marriage link itself, also referring to the label node
+            var mdata = { from: key, to: wife, labelKeys: [mlab.key], category: "genogram_marriage" };
+            model.addLinkData(mdata);
+          }
+        }
+      }
+      var virs = data.vir;
+      if (virs !== undefined) {
+        if (typeof virs === "number") virs = [ virs ];
+        for (var j = 0; j < virs.length; j++) {
+          var husband = virs[j];
+          if (key === husband) {
+            // or warn no reflexive marriages
+            continue;
+          }
+          var link = findMarriage(diagram, key, husband);
+          if (link === null) {
+            // add a label node for the marriage link
+            var mlab = { category: "genogram_marriage_linklabel" };
+            model.addNodeData(mlab);
+            // add the marriage link itself, also referring to the label node
+            var mdata = { from: key, to: husband, labelKeys: [mlab.key], category: "genogram_marriage" };
+            model.addLinkData(mdata);
+          }
+        }
+      }
+    }
+  }
+
+  // process parent-child relationships once all marriages are known
+  function setupParents(diagram) {
+    var model = diagram.model;
+    var nodeDataArray = model.nodeDataArray;
+    for (var i = 0; i < nodeDataArray.length; i++) {
+      var data = nodeDataArray[i];
+      var key = data.key;
+      var mother = data.m;
+      var father = data.f;
+      if (mother !== undefined && father !== undefined) {
+        var link = findMarriage(diagram, mother, father);
+        if (link === null) {
+          // or warn no known mother or no known father or no known marriage between them
+          if (window.console) window.console.log("unknown marriage: " + mother + " & " + father);
+          continue;
+        }
+        var mdata = link.data;
+        var mlabkey = mdata.labelKeys[0];
+        var cdata = { from: mlabkey, to: key };
+        goTools.model.addLinkData(cdata);
+      }
+    }
+  }
+  goTools.layout = $$(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
+  goTools.linkTemplate = goTools.linkTemplateMap.getValue("genogram");
+  // n: name, s: sex, m: mother, f: father, ux: wife, vir: husband, a: attributes/markers
+  setupDiagram(goTools, [
+    { key: 0, n: "Aaron", category: "genogram_male", m:-10, f:-11, ux: 1, a: ["C", "F", "K"] },
+    { key: 1, n: "Alice", category: "genogram_female", m:-12, f:-13, a: ["B", "H", "K"] },
+    { key: 2, n: "Bob", category: "genogram_male", m: 1, f: 0, ux: 3, a: ["C", "H", "L"] },
+    { key: 3, n: "Barbara", category: "genogram_female", a: ["C"] },
+    { key: 4, n: "Bill", category: "genogram_male", m: 1, f: 0, ux: 5, a: ["E", "H"] },
+    { key: 5, n: "Brooke", category: "genogram_female", a: ["B", "H", "L"] },
+    { key: 6, n: "Claire", category: "genogram_female", m: 1, f: 0, a: ["C"] },
+    { key: 7, n: "Carol", category: "genogram_female", m: 1, f: 0, a: ["C", "I"] },
+    { key: 8, n: "Chloe", category: "genogram_female", m: 1, f: 0, vir: 9, a: ["E"] },
+    { key: 9, n: "Chris", category: "genogram_male", a: ["B", "H"] },
+    { key: 10, n: "Ellie", category: "genogram_female", m: 3, f: 2, a: ["E", "G"] },
+    { key: 11, n: "Dan", category: "genogram_male", m: 3, f: 2, a: ["B", "J"] },
+    { key: 12, n: "Elizabeth", category: "genogram_female", vir: 13, a: ["J"] },
+    { key: 13, n: "David", category: "genogram_male", m: 5, f: 4, a: ["B", "H"] },
+    { key: 14, n: "Emma", category: "genogram_female", m: 5, f: 4, a: ["E", "G"] },
+    { key: 15, n: "Evan", category: "genogram_male", m: 8, f: 9, a: ["F", "H"] },
+    { key: 16, n: "Ethan", category: "genogram_male", m: 8, f: 9, a: ["D", "K"] },
+    { key: 17, n: "Eve", category: "genogram_female", vir: 16, a: ["B", "F", "L"] },
+    { key: 18, n: "Emily", category: "genogram_female", m: 8, f: 9 },
+    { key: 19, n: "Fred", category: "genogram_male", m: 17, f: 16, a: ["B"] },
+    { key: 20, n: "Faith", category: "genogram_female", m: 17, f: 16, a: ["L"] },
+    { key: 21, n: "Felicia", category: "genogram_female", m: 12, f: 13, a: ["H"] },
+    { key: 22, n: "Frank", category: "genogram_male", m: 12, f: 13, a: ["B", "H"] },
+
+    // "Aaron"'s ancestors
+    { key: -10, n: "Paternal Grandfather", category: "genogram_male", m: -33, f: -32, ux: -11, a: ["A", "S"] },
+    { key: -11, n: "Paternal Grandmother", category: "genogram_female", a: ["E", "S"] },
+    { key: -32, n: "Paternal Great", category: "genogram_male", ux: -33, a: ["F", "H", "S"] },
+    { key: -33, n: "Paternal Great", category: "genogram_female", a: ["S"] },
+    { key: -40, n: "Great Uncle", category: "genogram_male", m: -33, f: -32, a: ["F", "H", "S"] },
+    { key: -41, n: "Great Aunt", category: "genogram_female", m: -33, f: -32, a: ["B", "I", "S"] },
+    { key: -20, n: "Uncle", category: "genogram_male", m: -11, f: -10, a: ["A", "S"] },
+
+    // "Alice"'s ancestors
+    { key: -12, n: "Maternal Grandfather", category: "genogram_male", ux: -13, a: ["D", "L", "S"] },
+    { key: -13, n: "Maternal Grandmother", category: "genogram_female", m: -31, f: -30, a: ["H", "S"] },
+    { key: -21, n: "Aunt", category: "genogram_female", m: -13, f: -12, a: ["C", "I"] },
+    { key: -22, n: "Uncle", category: "genogram_male", ux: -21 },
+    { key: -23, n: "Cousin", category: "genogram_male", m: -21, f: -22 },
+    { key: -30, n: "Maternal Great", category: "genogram_male", ux: -31, a: ["D", "J", "S"] },
+    { key: -31, n: "Maternal Great", category: "genogram_female", m: -50, f: -51, a: ["B", "H", "L", "S"] },
+    { key: -42, n: "Great Uncle", category: "genogram_male", m: -30, f: -31, a: ["C", "J", "S"] },
+    { key: -43, n: "Great Aunt", category: "genogram_female", m: -30, f: -31, a: ["E", "G", "S"] },
+    { key: -50, n: "Maternal Great Great", category: "genogram_female", ux: -51, a: ["D", "I", "S"] },
+    { key: -51, n: "Maternal Great Great", category: "genogram_male", a: ["B", "H", "S"] }
+  ],
+  4 /* focus on this person */);
+}
