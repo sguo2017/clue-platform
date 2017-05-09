@@ -568,6 +568,7 @@ GoToolsPalette.prototype.initial = function(){
 	this.paletteMap.add("icon", icons_nodes);
 
 	this.paletteMap.add("font-awesome", getFontAwesomeList());
+	this.paletteMap.add("glyphicons", getGlyphiconsList());
 }
 
 GoToolsPalette.prototype.getPaletteNodeData = function(type){

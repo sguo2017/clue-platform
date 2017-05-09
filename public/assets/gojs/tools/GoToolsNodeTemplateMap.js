@@ -1121,6 +1121,21 @@ GoTools.prototype.makeNodeTemplateMap = function(){
         )
     ));
 
+  this.nodeTemplateMap.add("glyphicons", 
+    $$(go.Node, "Auto",
+        $$(go.TextBlock, { 
+            stroke: '#000',
+            margin: 0,
+            textAlign: 'center',
+            width: 32,
+            font: '26px Glyphicons Halflings',
+            editable: false,
+            isMultiline: false
+          },
+          new go.Binding("text")
+        )
+    ));
+
   // define the Node template, representing an entity
   this.nodeTemplateMap.add("entity_relationship", 
     $$(go.Node, "Auto",  // the whole node panel
