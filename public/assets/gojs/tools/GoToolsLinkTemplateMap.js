@@ -370,4 +370,20 @@ GoTools.prototype.makeLinkTemplateMap = function(){
                      // point all the way to the commented node
           { stroke: "brown", strokeWidth: 1, fill: "lightyellow" })
       ));
+
+  this.linkTemplateMap.add("mindmap",
+    $$(go.Link,
+        {
+          curve: go.Link.Bezier,
+          fromShortLength: -2,
+          toShortLength: -2,
+          selectable: false
+        },
+        $$(go.Shape,
+          { strokeWidth: 3 },
+          new go.Binding("stroke", "toNode", function(n) {
+            if (n.data.brush) return n.data.brush;
+            return "black";
+          }).ofObject())
+      ))
 }

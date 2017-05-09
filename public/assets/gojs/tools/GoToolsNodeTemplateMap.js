@@ -1919,7 +1919,7 @@ GoTools.prototype.makeNodeTemplateMap = function(){
             ) 
         },
         new go.Binding("graduatedMax", "", function() {
-            var timeline = myDiagram.model.findNodeDataForKey("timeline");
+            var timeline = goTools.model.findNodeDataForKey("timeline");
             var startDate = timeline.start;
             var endDate = timeline.end;
 
@@ -2071,4 +2071,180 @@ GoTools.prototype.makeNodeTemplateMap = function(){
           new go.Binding("text"))
       ));
 
+    window.updateMindmapDirection = function(node, dir) {
+        node.diagram.model.setDataProperty(node.data, "dir", dir);
+        // recursively update the direction of the child nodes
+        var chl = node.findTreeChildrenNodes(); // gives us an iterator of the child nodes related to this particular node
+        while(chl.next()) {
+          updateMindmapDirection(chl.value, dir);
+        }
+      }
+    window.layoutMindMap = function(node){
+        if (node.data.key === 0) {  // adding to the root?
+            var root = node.diagram.findNodeForKey(0);
+            if (root === null) return;
+            node.diagram.startTransaction("Layout");
+            // split the nodes and links into two collections
+            var rightward = new go.Set(go.Part);
+            var leftward = new go.Set(go.Part);
+            root.findLinksConnected().each(function(link) {
+                var child = link.toNode;
+                if (child.data.dir === "left") {
+                  leftward.add(root);  // the root node is in both collections
+                  leftward.add(link);
+                  leftward.addAll(child.findTreeParts());
+                } else {
+                  rightward.add(root);  // the root node is in both collections
+                  rightward.add(link);
+                  rightward.addAll(child.findTreeParts());
+                }
+              });
+            // do one layout and then the other without moving the shared root node
+            go.GraphObject.make(go.TreeLayout,
+                { angle: 0,
+                  arrangement: go.TreeLayout.ArrangementFixedRoots,
+                  nodeSpacing: 5,
+                  layerSpacing: 20,
+                  setsPortSpot: false, // don't set port spots since we're managing them with our spotConverter function
+                  setsChildPortSpot: false }).doLayout(rightward);
+            go.GraphObject.make(go.TreeLayout,
+                { angle: 180,
+                  arrangement: go.TreeLayout.ArrangementFixedRoots,
+                  nodeSpacing: 5,
+                  layerSpacing: 20,
+                  setsPortSpot: false, // don't set port spots since we're managing them with our spotConverter function
+                  setsChildPortSpot: false }).doLayout(leftward);
+            node.diagram.commitTransaction("Layout");
+        } else {  // otherwise lay out only the subtree starting at this parent node
+          go.GraphObject.make(go.TreeLayout,
+            { angle: node.data.dir === "left" ? 180 : 0,
+              arrangement: go.TreeLayout.ArrangementFixedRoots,
+              nodeSpacing: 5,
+              layerSpacing: 20,
+              setsPortSpot: false, // don't set port spots since we're managing them with our spotConverter function
+              setsChildPortSpot: false }).doLayout(node.findTreeParts());
+        }
+    }
+
+    this.nodeTemplateMap.add("mindmap",
+        // a node consists of some text with a line shape underneath
+      $$(go.Node, "Vertical",
+        { selectionObjectName: "TEXT" },
+        $$(go.TextBlock,
+          {
+            name: "TEXT",
+            minSize: new go.Size(30, 15),
+            editable: true
+          },
+          // remember not only the text string but the scale and the font in the node data
+          new go.Binding("text", "text").makeTwoWay(),
+          new go.Binding("scale", "scale").makeTwoWay(),
+          new go.Binding("font", "font").makeTwoWay()),
+        $$(go.Shape, "LineH",
+          {
+            stretch: go.GraphObject.Horizontal,
+            strokeWidth: 3, height: 3,
+            // this line shape is the port -- what links connect with
+            portId: "", fromSpot: go.Spot.LeftRightSides, toSpot: go.Spot.LeftRightSides
+          },
+          new go.Binding("stroke", "brush"),
+          // make sure links come in from the proper direction and go out appropriately
+          new go.Binding("fromSpot", "dir", function(dir) { 
+            return dir === "left" ? go.Spot.Left : go.Spot.Right;
+          }),
+          new go.Binding("toSpot", "dir", function(dir) { 
+            return dir === "left" ? go.Spot.Right : go.Spot.Left;
+          })),
+        // remember the locations of each node in the node data
+        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+        // make sure text "grows" in the desired direction
+        new go.Binding("locationSpot", "dir", function(dir) { 
+            return dir === "left" ? go.Spot.Right : go.Spot.Left;
+          }),
+        {
+            // selected nodes show a button for adding children
+            selectionAdornmentTemplate:
+              $$(go.Adornment, "Spot",
+                $$(go.Panel, "Auto",
+                  // this Adornment has a rectangular blue Shape around the selected node
+                  $$(go.Shape, { fill: null, stroke: "dodgerblue", strokeWidth: 3 }),
+                  $$(go.Placeholder, { margin: new go.Margin(4, 4, 0, 4) })
+                ),
+                // and this Adornment has a Button to the right of the selected node
+                $$("Button",
+                  {
+                    alignment: go.Spot.Right,
+                    alignmentFocus: go.Spot.Left,
+                    click: function(e, obj) {
+                        var adorn = obj.part;
+                        var diagram = adorn.diagram;
+                        diagram.startTransaction("Add Node");
+                        var oldnode = adorn.adornedPart;
+                        var olddata = oldnode.data;
+                        // copy the brush and direction to the new node data
+                        var newdata = { category: "mindmap", text: "idea", brush: olddata.brush, dir: olddata.dir, parent: olddata.key };
+                        diagram.model.addNodeData(newdata);
+                        layoutMindMap(oldnode);
+                        diagram.commitTransaction("Add Node");
+                      }  // define click behavior for this Button in the Adornment
+                  },
+                  $$(go.TextBlock, "+",  // the Button content
+                    { font: "bold 8pt sans-serif" })
+                )
+              ),
+
+            // the context menu allows users to change the font size and weight,
+            // and to perform a limited tree layout starting at that node
+            contextMenu:
+              $$(go.Adornment, "Vertical",
+                $$("ContextMenuButton",
+                  $$(go.TextBlock, "Bigger"),
+                  { click: function(e, obj) { 
+                        var adorn = obj.part;
+                        adorn.diagram.startTransaction("Change Text Size");
+                        var node = adorn.adornedPart;
+                        var tb = node.findObject("TEXT");
+                        tb.scale *= 1.1;
+                        adorn.diagram.commitTransaction("Change Text Size"); 
+                  } }),
+                $$("ContextMenuButton",
+                  $$(go.TextBlock, "Smaller"),
+                  { click: function(e, obj) { 
+                        var adorn = obj.part;
+                        adorn.diagram.startTransaction("Change Text Size");
+                        var node = adorn.adornedPart;
+                        var tb = node.findObject("TEXT");
+                        tb.scale *= 1/1.1;
+                        adorn.diagram.commitTransaction("Change Text Size"); 
+                  } }),
+                $$("ContextMenuButton",
+                  $$(go.TextBlock, "Bold/Normal"),
+                  { click: function(e, obj) { 
+                    var adorn = obj.part;
+                    adorn.diagram.startTransaction("Change Text Weight");
+                    var node = adorn.adornedPart;
+                    var tb = node.findObject("TEXT");
+                    // assume "bold" is at the start of the font specifier
+                    var idx = tb.font.indexOf("bold");
+                    if (idx < 0) {
+                      tb.font = "bold " + tb.font;
+                    } else {
+                      tb.font = tb.font.substr(idx + 5);
+                    }
+                    adorn.diagram.commitTransaction("Change Text Weight");
+                  } 
+                }),
+                $$("ContextMenuButton",
+                  $$(go.TextBlock, "Layout"),
+                  {
+                    click: function(e, obj) {
+                        var adorn = obj.part;
+                        adorn.diagram.startTransaction("Subtree Layout");
+                        layoutMindMap(adorn.adornedPart);
+                        adorn.diagram.commitTransaction("Subtree Layout");
+                      }
+                  }
+                )
+              )
+        }));
 }

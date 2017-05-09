@@ -66,6 +66,8 @@ function GoTools(div) {
     this.draggingTool.isGridSnapEnabled = true;
     this.draggingTool.gridSnapCellSpot = go.Spot.TopLeft;
     this.draggingTool.gridCellSize = this.model.modelData.gridSize;
+    this.draggingTool.dragsTree = true;
+
     this.rotatingTool = new go.RotatingTool();
     this.rotatingTool.snapAngleEpsilon = 10;
     this.grid = $$(go.Panel, "Grid",
@@ -76,6 +78,9 @@ function GoTools(div) {
     this.commandHandler.canGroupSelection = true;
     this.commandHandler.canUngroupSelection = true;
     this.commandHandler.archetypeGroupData = { isGroup: true };
+
+    this.commandHandler.copiesTree = true;
+    this.commandHandler.deletesTree = true;
  
     // When goTools model is changed, update stats in Statistics Window TODO
     this.addModelChangedListener(function (evt) {
@@ -210,6 +215,23 @@ function GoTools(div) {
             }
 
         }
+    });
+
+    this.addDiagramListener("SelectionMoved", function(e) {
+      var rootX = e.diagram.findNodeForKey(0).location.x;
+      e.diagram.selection.each(function(node) {
+          //if (node.data.parent !== 0) return; // Only consider nodes connected to the root
+          if(node.category=="mindmap"){
+              var nodeX = node.location.x;
+              console.log("1")
+              if (rootX < nodeX && node.data.dir !== "right") {
+                updateMindmapDirection(node, "right");
+              } else if (rootX > nodeX && node.data.dir !== "left") {
+                updateMindmapDirection(node, "left");
+              }
+              layoutMindMap(node);
+            }
+        });
     });
 
     this.brushes = {
