@@ -149,7 +149,7 @@ function GoTools(div) {
             var node = e.diagram.findNodeForData(data);
             // and center it and select it
             //e.diagram.centerRect(node.actualBounds);
-            e.diagram.select(node);
+            //e.diagram.select(node);
         }
     })
 

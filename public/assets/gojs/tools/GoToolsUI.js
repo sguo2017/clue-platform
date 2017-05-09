@@ -172,15 +172,15 @@ GoToolsUI.prototype.hideShow = function(id) {
 */
 GoToolsUI.prototype.adjustScale = function(sign) {
 	var goTools = this.goTools;
-	var el = document.getElementById(this.state.scaleDisplayId);
+	//var el = document.getElementById(this.state.scaleDisplayId);
 	goTools.startTransaction('Change Scale');
 	switch (sign) {
 		case '-': goTools.scale -= .1; break;
 		case '+': goTools.scale += .1; break;
 	}
 	goTools.scale = parseFloat((Math.round(goTools.scale / .1) * .1).toFixed(2));
-	var scale = (goTools.scale * 100).toFixed(2);
-	el.innerHTML = 'Scale: ' + scale + '%';
+	//var scale = (goTools.scale * 100).toFixed(2);
+	//el.innerHTML = 'Scale: ' + scale + '%';
 	goTools.commitTransaction('Change Scale');
 }
 

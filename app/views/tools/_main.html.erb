@@ -2,11 +2,16 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="panel-title row">
-				<div class="col-xs-7">
+				<div class="col-xs-8">
+					  <label href="#">滚轮操作</label>
+					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default" onclick="goTools.toolManager.mouseWheelBehavior = go.ToolManager.WheelScroll;">平移</button>
+						  <button type="button" class="btn btn-default" onclick="goTools.toolManager.mouseWheelBehavior = go.ToolManager.WheelZoom;">缩放</button>
+					  </div>
 					  <label href="#">操作方式</label>
 					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
-						  <button type="button" class="btn btn-default" onclick="ui.adjustScale('+')">放大</button>
-						  <button type="button" class="btn btn-default" onclick="ui.adjustScale('-')">缩小</button>
+						  <button type="button" class="btn btn-default" onclick="goTools.goToolsUI.adjustScale('+')">放大</button>
+						  <button type="button" class="btn btn-default" onclick="goTools.goToolsUI.adjustScale('-')">缩小</button>
 					  </div>
 					  <label href="#">布局方式</label>
 					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
@@ -18,7 +23,7 @@
 						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('default');">自由</button>
 					  </div> 
 				</div>
-				<div class="col-xs-5 text-right">
+				<div class="col-xs-4 text-right">
 					<button class="btn btn-link btn-xs"><span class="fa fa-camera-retro" aria-hidden="true"></span> 数据导入</button>
 					<button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 图表保存</button>
 					<button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 图表导出</button>

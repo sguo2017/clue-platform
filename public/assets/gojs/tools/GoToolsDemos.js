@@ -1265,7 +1265,6 @@ demo.force_directed = function(){
     goTools.model.linkDataArray = linkArray;
   }
 
-  goTools.toolManager.mouseWheelBehavior = go.ToolManager.WheelZoom;
   goTools.layout = $$(go.ForceDirectedLayout);
   goTools.startTransaction("generateTree");
   // replace the diagram's model's nodeDataArray
