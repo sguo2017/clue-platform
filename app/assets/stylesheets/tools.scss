@@ -152,23 +152,6 @@
 	background-color: #DAE4E4;
 }
 
-.tools_search{
-	position: absolute;
-	bottom: 0px;
-	left: 70px;
-	width: 400px;
-	z-index: 2;
-	display: none;
-}
-.tools_search .panel{
-	position: relative;
-}
-.tools_search #pushpin{
-	position: absolute;
-	left: 5px;
-	top: -10px;
-	z-index: 3;
-}
 .tools_search .panel-body{
 	padding: 0;
 }
@@ -182,11 +165,6 @@
 .tools_search .panel-body .navbar-form .input-group input{
 	border-width: 0px;
 }
-
-.tools_search .handle {
-  cursor: move;
-}
-
 
 .tools_menus_vertical{
 	height: 100%;

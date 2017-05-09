@@ -1108,31 +1108,51 @@ GoTools.prototype.makeNodeTemplateMap = function(){
 
   this.nodeTemplateMap.add("font-awesome", 
     $$(go.Node, "Auto",
+      {
+        rotatable: true,
+        locationSpot: go.Spot.Center,
+        resizable: true,
+        width:32
+      },
         $$(go.TextBlock, { 
+            name: 'TEXTBLOCK',
             stroke: '#000',
             margin: 0,
             textAlign: 'center',
-            width: 32,
+            verticalAlignment: go.Spot.Center,
             font: '26px FontAwesome',
             editable: false,
             isMultiline: false
           },
-          new go.Binding("text")
+          new go.Binding("text"),
+          new go.Binding("font", "width", function(w){
+            return Math.round(w/32*26)+"px FontAwesome"
+          }).ofObject()
         )
     ));
 
   this.nodeTemplateMap.add("glyphicons", 
     $$(go.Node, "Auto",
-        $$(go.TextBlock, { 
+      {
+        rotatable: true,
+        locationSpot: go.Spot.Center,
+        resizable: true,
+        width:32
+      },
+        $$(go.TextBlock, {
+            name: 'TEXTBLOCK',
             stroke: '#000',
             margin: 0,
             textAlign: 'center',
-            width: 32,
+            verticalAlignment: go.Spot.Bottom,
             font: '26px Glyphicons Halflings',
             editable: false,
             isMultiline: false
           },
-          new go.Binding("text")
+          new go.Binding("text"),
+          new go.Binding("font", "width", function(w){
+            return Math.round(w/32*26)+"px Glyphicons Halflings"
+          }).ofObject()
         )
     ));
 
