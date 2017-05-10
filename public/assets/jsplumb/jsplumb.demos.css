@@ -1,0 +1,677 @@
+#jsplumb_flowchart .window {
+    border: 1px solid #346789;
+    box-shadow: 2px 2px 19px #aaa;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    opacity: 0.8;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    cursor: pointer;
+    text-align: center;
+    z-index: 20;
+    position: absolute;
+    background-color: #eeeeef;
+    color: black;
+    font-family: helvetica, sans-serif;
+    padding: 0.5em;
+    font-size: 0.9em;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+}
+
+#jsplumb_flowchart .window:hover {
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #444;
+    opacity: 0.6;
+}
+
+#jsplumb_flowchart .active {
+    border: 1px dotted green;
+}
+
+#jsplumb_flowchart .hover {
+    border: 1px dotted red;
+}
+
+#jsplumb_flowchart #flowchartWindow1 {
+    top: 34em;
+    left: 5em;
+}
+
+#jsplumb_flowchart #flowchartWindow2 {
+    top: 7em;
+    left: 36em;
+}
+
+#jsplumb_flowchart #flowchartWindow3 {
+    top: 27em;
+    left: 48em;
+}
+
+#jsplumb_flowchart #flowchartWindow4 {
+    top: 23em;
+    left: 22em;
+}
+
+#jsplumb_flowchart .jtk-connector {
+    z-index: 4;
+}
+
+#jsplumb_flowchart .jtk-endpoint, .endpointTargetLabel, .endpointSourceLabel {
+    z-index: 21;
+    cursor: pointer;
+}
+
+#jsplumb_flowchart .aLabel {
+    background-color: white;
+    padding: 0.4em;
+    font: 12px sans-serif;
+    color: #444;
+    z-index: 21;
+    border: 1px dotted gray;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+#jsplumb_flowchart .aLabel.jtk-hover {
+    background-color: #5C96BC;
+    color: white;
+    border: 1px solid white;
+}
+
+#jsplumb_flowchart .window.jtk-connected {
+    border: 1px solid green;
+}
+
+#jsplumb_flowchart .jtk-drag {
+    outline: 4px solid pink !important;
+}
+
+
+#jsplumb_statemachine .w {
+    padding: 16px;
+    position: absolute;
+    z-index: 4;
+    border: 1px solid #2e6f9a;
+    box-shadow: 2px 2px 19px #e0e0e0;
+    -o-box-shadow: 2px 2px 19px #e0e0e0;
+    -webkit-box-shadow: 2px 2px 19px #e0e0e0;
+    -moz-box-shadow: 2px 2px 19px #e0e0e0;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    opacity: 0.8;
+    cursor: move;
+    background-color: white;
+    font-size: 11px;
+    -webkit-transition: background-color 0.25s ease-in;
+    -moz-transition: background-color 0.25s ease-in;
+    transition: background-color 0.25s ease-in;
+}
+
+#jsplumb_statemachine .w:hover {
+    background-color: #5c96bc;
+    color: white;
+
+}
+
+#jsplumb_statemachine .aLabel {
+    -webkit-transition: background-color 0.25s ease-in;
+    -moz-transition: background-color 0.25s ease-in;
+    transition: background-color 0.25s ease-in;
+}
+
+#jsplumb_statemachine .aLabel.jtk-hover, 
+#jsplumb_statemachine .jtk-source-hover, 
+#jsplumb_statemachine .jtk-target-hover {
+    background-color: #1e8151;
+    color: white;
+}
+
+#jsplumb_statemachine .aLabel {
+    background-color: white;
+    opacity: 0.8;
+    padding: 0.3em;
+    border-radius: 0.5em;
+    border: 1px solid #346789;
+    cursor: pointer;
+}
+
+#jsplumb_statemachine .ep {
+    position: absolute;
+    bottom: 37%;
+    right: 5px;
+    width: 1em;
+    height: 1em;
+    background-color: orange;
+    cursor: pointer;
+    box-shadow: 0 0 2px black;
+    -webkit-transition: -webkit-box-shadow 0.25s ease-in;
+    -moz-transition: -moz-box-shadow 0.25s ease-in;
+    transition: box-shadow 0.25s ease-in;
+}
+
+#jsplumb_statemachine .ep:hover {
+    box-shadow: 0 0 6px black;
+}
+
+#jsplumb_statemachine .jtk-endpoint {
+    z-index: 3;
+}
+
+#jsplumb_statemachine #opened {
+    left: 10em;
+    top: 5em;
+}
+
+#jsplumb_statemachine #phone1 {
+    left: 35em;
+    top: 12em;
+    width: 7em;
+}
+
+#jsplumb_statemachine #inperson {
+    left: 12em;
+    top: 23em;
+}
+
+#jsplumb_statemachine #phone2 {
+    left: 28em;
+    top: 24em;
+}
+
+#jsplumb_statemachine #rejected {
+    left: 10em;
+    top: 35em;
+}
+
+#jsplumb_statemachine .dragHover {
+    border: 2px solid orange;
+}
+
+
+/** ELEMENT POSITIONS **/
+#jsplumb_draggable_connectors #dragDropWindow1 { top:76px;left:100px; }
+#jsplumb_draggable_connectors #dragDropWindow2 { top:148px; left:600px; }
+#jsplumb_draggable_connectors #dragDropWindow3 { top:340px; left:100px; }
+#jsplumb_draggable_connectors #dragDropWindow4 { top:416px; left:600px; }
+
+/** ELEMENTS **/
+#jsplumb_draggable_connectors .window {
+    font-family: serif;
+    font-style: italic;
+    background-color: white;
+    border: 1px solid #346789;
+    text-align: center;
+    z-index: 24;
+    cursor: pointer;
+    box-shadow: 2px 2px 19px #aaa;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    position: absolute;
+    color: black;
+    padding-top: 5px;
+    width: 140px;
+    height: 120px;
+    line-height: 12px;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+}
+
+#jsplumb_draggable_connectors .window:hover {
+    border:1px solid #123456;
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #fff;
+    opacity:0.9;
+}
+
+
+#jsplumb_draggable_connectors a, 
+#jsplumb_draggable_connectors a:visited {
+    color:#057D9F;
+}
+
+#jsplumb_draggable_connectors a:hover {
+    color:orange;
+}
+
+/** LINKS IN WINDOWS **/
+#jsplumb_draggable_connectors .drag-locked { border:1px solid red; }
+#jsplumb_draggable_connectors .cmdLink { font-size:0.80em;}
+
+/** DRAG/DROP CLASSES **/
+#jsplumb_draggable_connectors .dragActive { border:2px dotted orange; }
+#jsplumb_draggable_connectors .dropHover { border:1px dotted red; }
+
+/** INFO WINDOW **/
+#jsplumb_draggable_connectors #list {
+    text-align: center;
+    display: none;
+    font-size: 90%;
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+    top: 100px;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid #456;
+    opacity: 0.8;
+    border-radius: 8px;
+    color: #444;
+}
+#jsplumb_draggable_connectors #list table { width:100%;}
+#jsplumb_draggable_connectors #list table th, 
+#jsplumb_draggable_connectors #list strong { color:black; font-size:12px; text-align: center; }
+
+
+
+/** JSPLUMB ARTEFACTS **/
+#jsplumb_perimeter_anchors .jtk-connector {
+    z-index:1;
+}
+
+/** COMMON ELEMENT PROPERTIES **/
+#jsplumb_perimeter_anchors .shape {
+    z-index:2;
+    opacity:0.7;
+    position:absolute;
+    cursor:pointer;
+    text-align:center;
+    color:#333;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/** SHAPES **/
+
+#jsplumb_perimeter_anchors [data-shape=Rectangle] {
+    width:210px;
+    height:70px;
+    left:380px;
+    top:505px;
+    background-image:url(rectangle.png);
+}
+
+#jsplumb_perimeter_anchors [data-shape=Ellipse] {
+    width:210px;
+    height:70px;
+    left:250px;
+    top:300px;
+    background-image:url(ellipse.png);
+}
+
+#jsplumb_perimeter_anchors [data-shape=Circle] {
+    width:150px;
+    height:150px;
+    left:100px;
+    top:60px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-image:url(circle.png);
+}
+
+#jsplumb_perimeter_anchors [data-shape=Triangle] {
+    width:150px;
+    height:150px;
+    background-image:url(triangle.png);
+}
+
+#jsplumb_perimeter_anchors ._90[data-shape=Triangle] {
+    width:150px;
+    height:150px;
+    background-image:url(triangle_90.png);
+}
+
+#jsplumb_perimeter_anchors [data-shape=Diamond] {
+    width:150px;
+    height:150px;
+    left:550px;
+    top:150px;
+    background-image:url(diamond.png);
+}
+
+#jsplumb_hierachical_chart .window {
+    background-color:white;
+    border:1px solid #346789;
+    text-align:center;
+    z-index:24;
+    cursor:pointer;
+    box-shadow: 2px 2px 19px #aaa;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -moz-border-radius:0.5em;
+    border-radius:0.5em;
+    position:absolute;
+    color:black;
+    padding:0.5em;
+    width:80px;
+    height:80px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+}
+
+#jsplumb_hierachical_chart .window:hover {
+    border:1px solid #123456;
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #fff;
+    opacity:0.9;
+}
+
+
+/** ELEMENTS **/
+#jsplumb_hierachical_chart .window { 
+    border:0.1em dotted #d4e06b;    
+    width:14em; 
+    height:4em;     
+    line-height:4em;    
+}
+
+/** HOVER EFFECTS **/
+#jsplumb_hierachical_chart .window:hover, 
+#jsplumb_hierachical_chart .window.jtk-source-hover, 
+#jsplumb_hierachical_chart .window.jtk-target-hover {
+    border:1px solid orange;
+    color:orange;
+}
+
+/** ELEMENT POSITIONS **/
+#jsplumb_hierachical_chart #chartWindow1 { left:20em; top:6em;}
+#jsplumb_hierachical_chart #chartWindow2 { left:10em;top:18em;}
+#jsplumb_hierachical_chart #chartWindow3 { left:40em;top:18em;}
+#jsplumb_hierachical_chart #chartWindow4 { left:4em;top:30em;}
+#jsplumb_hierachical_chart #chartWindow5 { left:22em;top:30em;}
+#jsplumb_hierachical_chart #chartWindow6 { left:47em;top:30em;}
+#jsplumb_hierachical_chart #chartWindow7 { top:18em;left:46em;}
+#jsplumb_hierachical_chart #chartWindow8 { left:63em;top:38em;}
+
+
+
+/** ELEMENTS **/
+#jsplumb_sources_targets .window {
+    position: absolute;
+}
+
+#jsplumb_sources_targets .window:hover {
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #fff;
+}
+
+#jsplumb_sources_targets .window {
+    border: 2px dotted #346789;
+    width: 14em;
+    height: 4em;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+}
+
+#jsplumb_sources_targets .smallWindow {
+    background-color: #558822;
+    cursor: move;
+}
+
+/** ENABLE/DISABLE LINK **/
+#jsplumb_sources_targets #enableDisableSource {
+    position: absolute;
+    top: 1em;
+    right:5px;
+    color: #DDD;
+    font-size:12px;
+}
+
+#jsplumb_sources_targets #enableDisableSource:hover {
+    color: orange;
+}
+
+#jsplumb_sources_targets .enableDisableTarget {
+    color:white;
+    right:5px;
+    top:5px;
+    position:absolute;
+    font-size:12px;
+}
+
+#jsplumb_sources_targets .enableDisableTarget:visited, 
+#jsplumb_sources_targets .enableDisableTarget:focus {
+    color:white;
+}
+
+#jsplumb_sources_targets .enableDisableTarget:hover {
+    color: orange;
+}
+
+#jsplumb_sources_targets .element-disabled {
+    outline:2px solid lightcoral;
+}
+
+/** LARGE WINDOW STYLE AND POSITION **/
+#jsplumb_sources_targets #sourceWindow1 {
+    background-color: #0d78bc;
+    top: 9em;
+    left: 14em;
+    width: 30em;
+    height: 6em;
+    text-align: left;
+}
+
+/** SMALL WINDOW POSITIONS **/
+#jsplumb_sources_targets #targetWindow2 {
+    top: 29em;
+    left: 44em;
+}
+
+#jsplumb_sources_targets #targetWindow3 {
+    top: 23em;
+    left: 2em;
+}
+
+#jsplumb_sources_targets #targetWindow4 {
+    top: 31em;
+    left: 26em;
+}
+
+#jsplumb_sources_targets #targetWindow5 {
+    top: 39em;
+    left: 13em;
+}
+
+#jsplumb_sources_targets #targetWindow6 {
+    top: 21em;
+    left: 56em;
+}
+
+/** JSPLUMB ARTEFACTS **/
+#jsplumb_sources_targets .jtk-endpoint {
+    z-index: 32;
+}
+
+/* ENDPOINT STYLES */
+#jsplumb_sources_targets .large-green circle {
+    fill:#558822;
+}
+
+#jsplumb_sources_targets .small-blue circle {
+    fill:#0d78bc;
+}
+
+#jsplumb_dynamic_anchors .window {
+    z-index: 24;
+    background-color: white;
+    border: 1px solid #346789;
+    border-radius: 0.5em;
+    position: absolute;
+    cursor: pointer;
+    box-shadow: 2px 2px 19px #aaa;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+}
+
+#jsplumb_dynamic_anchors .window:hover {
+    border: 1px solid #123456;
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #fff;
+    opacity: 0.9;
+}
+
+#jsplumb_dynamic_anchors .window a {
+    font-family: helvetica, sans-serif;
+}
+
+/** ELEMENTS **/
+#jsplumb_dynamic_anchors .window {
+    width: 5em;
+    height: 5em;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+}
+
+/** ELEMENT POSITIONS **/
+#jsplumb_dynamic_anchors #dynamicWindow1 {
+    top: 5em;
+    left: 2em;
+}
+
+#jsplumb_dynamic_anchors #dynamicWindow2 {
+    top: 8em;
+    left: 43em;
+}
+
+#jsplumb_dynamic_anchors #dynamicWindow3 {
+    top: 28em;
+    left: 2em;
+}
+
+#jsplumb_dynamic_anchors #dynamicWindow4 {
+    top: 16em;
+    left: 22em;
+}
+
+#jsplumb_dynamic_anchors #dynamicWindow5 {
+    top: 34em;
+    left: 26em;
+}
+
+#jsplumb_dynamic_anchors #dynamicWindow6 {
+    top: 23em;
+    left: 56em;
+}
+
+#jsplumb_dynamic_anchors #dynamicWindow7 {
+    top: 18em;
+    left: 40em;
+}
+
+#jsplumb_dynamic_anchors #dynamicWindow8 {
+    left: 63em;
+    top: 32em;
+}
+
+/** JSPLUMB ARTEFACTS **/
+#jsplumb_dynamic_anchors .jtk-connector {
+    z-index: 4;
+}
+
+#jsplumb_dynamic_anchors .jtk-endpoint {
+    z-index: 5;
+}
+
+/** JSPLUMB ARTEFACTS **/
+#jsplumb_animation .jtk-overlay {
+    z-index: 51;
+}
+
+#jsplumb_animation .jtk-endpoint {
+    z-index: 50;
+    cursor: move;
+}
+
+#jsplumb_animation .jtk-connector {
+    z-index: 1;
+}
+
+/** ELEMENTS **/
+#jsplumb_animation .bigdot {
+    cursor: pointer;
+    width: 162px;
+    height: 162px;
+    background-image: url(bigdot.png);
+    z-index: 5;
+    position: absolute;
+    border-radius: 81px;
+}
+
+#jsplumb_animation .bigdot-hover {
+    border: 2px solid orange;
+}
+
+#jsplumb_animation .dropHover {
+    border: 1px solid orange;
+}
+
+/** ELEMENT POSITIONS **/
+#jsplumb_animation #bd1 {
+    top: 10em;
+    left: 26em;
+}
+
+#jsplumb_animation #bd2 {
+    top: 3em;
+    left: 3em;
+}
+
+#jsplumb_animation #bd3 {
+    top: 19em;
+    left: 4.5em;
+}
+
+#jsplumb_animation #bd4 {
+    top: 19em;
+    left: 46em;
+}
+
+
+path, 
+.jtk-endpoint {
+    cursor: pointer;
+}
+
+.jtk-overlay {
+    background-color:transparent;
+}
