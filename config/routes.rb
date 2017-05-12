@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'excel/index'
+
   get 'suspects_teams/index'
 
   get 'tools/index'

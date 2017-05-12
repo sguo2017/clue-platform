@@ -1,0 +1,22 @@
+<% content_for :navbar do %>
+<ul class="nav navbar-nav">
+	<li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">文件</a>
+      <ul class="dropdown-menu">
+        <li><a onclick="filesystem.newFloorplan()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新建</a></li>
+        <li><a onclick="filesystem.showOpenWindow()"><span class="glyphicon glyphicon-open" aria-hidden="true"></span> 打开...</a></li>
+        <li><a onclick="filesystem.saveFloorplan()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 保存</a></li>
+        <li><a onclick="filesystem.saveFloorplanAs()"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 另存...</a></li>
+        <li><a onclick="filesystem.showRemoveWindow()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</a></li>
+      </ul>
+    </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">演示</a>
+        <ul class="dropdown-menu">
+          <li><a onclick="doc.account_report()">Account Report</a></li>
+          <li><a onclick="$('#tools_main_aggrid').attr('src', '/assets/ag-grid/data-grid/html5grid.html');">实例: ag-grid-02</a></li>
+        </ul>
+      </li>
+    </li>
+</ul>  
+<% end %>

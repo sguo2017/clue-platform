@@ -76,6 +76,9 @@
 
     <%= javascript_include_tag "/assets/jsplumb/jsplumb.demos" %>    
 
+    <%= javascript_include_tag "/assets/ag-grid/ag-grid-enterprise" %>
+    <%= javascript_include_tag "/assets/ag-grid/ag-grid-doc" %>
+
     <%= javascript_include_tag "application" %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -108,7 +111,7 @@
             <li><a href="#" style="padding-left:2px"><span class="badge">42</span></a></li>
             
           </ul>
-          <% if params[:controller] != "tools" %>
+          <% if params[:controller] != "tools" && params[:controller] != "excel" %>
           <form class="navbar-form navbar-right">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="搜索关键字">

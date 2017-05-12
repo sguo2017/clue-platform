@@ -218,7 +218,9 @@ function GoTools(div) {
     });
 
     this.addDiagramListener("SelectionMoved", function(e) {
-      var rootX = e.diagram.findNodeForKey(0).location.x;
+      var node = e.diagram.findNodeForKey(0);
+      if(!node) return;
+      var rootX = node.location.x;
       e.diagram.selection.each(function(node) {
           //if (node.data.parent !== 0) return; // Only consider nodes connected to the root
           if(node.category=="mindmap"){
