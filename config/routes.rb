@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'spa/elm'
+
   get 'spa/vue'
 
   get 'spa/react'

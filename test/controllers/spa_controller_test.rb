@@ -6,13 +6,18 @@ class SpaControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get vue" do
-    get spa_vue_url
+  test "should get elm" do
+    get spa_elm_url
     assert_response :success
   end
 
   test "should get react" do
     get spa_react_url
+    assert_response :success
+  end
+
+  test "should get vue" do
+    get spa_vue_url
     assert_response :success
   end
 

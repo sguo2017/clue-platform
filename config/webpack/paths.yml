@@ -8,6 +8,7 @@ default: &default
   node_modules: node_modules
   source: app/javascript
   extensions:
+    - .elm
     - .coffee
     - .js
     - .jsx

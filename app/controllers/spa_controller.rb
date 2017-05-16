@@ -2,9 +2,12 @@ class SpaController < ApplicationController
   def angular
   end
 
-  def vue
+  def elm
   end
 
   def react
+  end
+
+  def vue
   end
 end
