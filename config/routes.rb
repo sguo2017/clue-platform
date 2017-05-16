@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'spa/vue'
+
+  get 'spa/react'
+
+  get 'spa/angular'
+
   get 'excel/index'
 
   get 'suspects_teams/index'
