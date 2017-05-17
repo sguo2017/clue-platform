@@ -1,0 +1,1 @@
+require('../vue-framework7')
