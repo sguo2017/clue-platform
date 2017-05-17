@@ -10,4 +10,8 @@ class SpaController < ApplicationController
 
   def vue
   end
+
+  def framework7
+  	render layout: false
+  end
 end

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get 'spa/angular'
 
+  get 'spa/framework7'
+
   get 'excel/index'
 
   get 'suspects_teams/index'

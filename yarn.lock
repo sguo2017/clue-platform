@@ -1556,13 +1556,13 @@ elliptic@^6.0.0:
 
 elm-hot-loader@^0.5.4:
   version "0.5.4"
-  resolved "http://registry.npm.taobao.org/elm-hot-loader/download/elm-hot-loader-0.5.4.tgz#5fd9d9058f6efeac2f5fcf83aeef81cf3984312e"
+  resolved "https://registry.yarnpkg.com/elm-hot-loader/-/elm-hot-loader-0.5.4.tgz#5fd9d9058f6efeac2f5fcf83aeef81cf3984312e"
   dependencies:
     loader-utils "^0.2.12"
 
 elm-webpack-loader@^4.3.1:
   version "4.3.1"
-  resolved "http://registry.npm.taobao.org/elm-webpack-loader/download/elm-webpack-loader-4.3.1.tgz#3a53c3f9a73209206bf38b365a1b0b80a2b3d4ea"
+  resolved "https://registry.yarnpkg.com/elm-webpack-loader/-/elm-webpack-loader-4.3.1.tgz#3a53c3f9a73209206bf38b365a1b0b80a2b3d4ea"
   dependencies:
     elm "^0.18.0"
     glob "^7.1.1"
@@ -1572,7 +1572,7 @@ elm-webpack-loader@^4.3.1:
 
 elm@^0.18.0:
   version "0.18.0"
-  resolved "http://registry.npm.taobao.org/elm/download/elm-0.18.0.tgz#919b8309cd939dfe2ff9d252d961b6c89509b970"
+  resolved "https://registry.yarnpkg.com/elm/-/elm-0.18.0.tgz#919b8309cd939dfe2ff9d252d961b6c89509b970"
   dependencies:
     mkdirp "0.5.1"
     promise "7.1.1"
@@ -1857,6 +1857,14 @@ forwarded@~0.1.0:
 fraction.js@4.0.0:
   version "4.0.0"
   resolved "http://registry.npm.taobao.org/fraction.js/download/fraction.js-4.0.0.tgz#73974e2f8b51ef709536d624cc90782e2bb61274"
+
+framework7-vue@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/framework7-vue/-/framework7-vue-0.9.0.tgz#4c9a68914b1f1c2c7806f6d001dbcbefcde25e07"
+
+framework7@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/framework7/-/framework7-1.6.0.tgz#dfd981708240767a5eb3fe8419078c83b8739b99"
 
 fresh@0.5.0:
   version "0.5.0"
