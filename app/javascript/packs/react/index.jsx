@@ -6,21 +6,21 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
-const Hello = props => (
-  <div>Hello {props.name}!</div>
+const App = props => (
+  <div>Clue, Hello {props.name}!</div>
 )
 
-Hello.defaultProps = {
+App.defaultProps = {
   name: 'David'
 }
 
-Hello.propTypes = {
+App.propTypes = {
   name: PropTypes.string
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Hello name="React 222" />,
+    <App name="React" />,
     document.getElementById("react_main"),
   )
 })
