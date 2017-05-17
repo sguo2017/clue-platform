@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'spa/framework7'
 
+  get 'spa/vue_admin'
+
   get 'excel/index'
 
   get 'suspects_teams/index'
