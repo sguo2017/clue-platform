@@ -6,6 +6,8 @@
         "modules": false
       }
     ],
+    ["es2015", {"modules": false}],
+    "stage-2",
     "react"
   ]
 }
