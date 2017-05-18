@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'spa/framework7'
 
   get 'spa/vue_admin'
+  get 'spa/vue_cnodejs'
 
   get 'excel/index'
 
