@@ -167,6 +167,5 @@
     "webpack-zepto": "0.0.1",
     "zone.js": "^0.8.10"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
