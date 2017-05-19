@@ -23,6 +23,10 @@ class SpaController < ApplicationController
     render layout: false
   end
 
+  def vue_element
+    render layout: false
+  end
+
   def vue_admin
     render layout: false
   end
