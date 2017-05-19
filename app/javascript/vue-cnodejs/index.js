@@ -16,7 +16,6 @@ Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 
 // 实例化VueRouter
 const router = new VueRouter({
-    mode: 'history',
     routes
 });
 FastClick.attach(document.body);

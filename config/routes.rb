@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'spa/vue_admin'
   get 'spa/vue_cnodejs'
   get 'spa/vue_douban'
+  get 'spa/vue_adminlte'
 
   get 'excel/index'
 
