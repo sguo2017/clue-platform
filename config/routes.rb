@@ -1,15 +1,10 @@
 Rails.application.routes.draw do
 
-  get 'spa/elm'
-
-  get 'spa/vue'
-
-  get 'spa/react'
+  get 'spa/react_framework7'
 
   get 'spa/angular'
 
-  get 'spa/framework7'
-
+  get 'spa/vue_framework7'
   get 'spa/vue_admin'
   get 'spa/vue_cnodejs'
   get 'spa/vue_douban'

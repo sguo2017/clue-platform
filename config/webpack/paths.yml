@@ -13,10 +13,12 @@ default: &default
     - .js
     - .jsx
     - .ts
+    - .tsx
     - .vue
     - .sass
     - .scss
     - .css
+    - .less
     - .png
     - .svg
     - .gif

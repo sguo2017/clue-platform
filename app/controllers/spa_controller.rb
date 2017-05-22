@@ -2,13 +2,8 @@ class SpaController < ApplicationController
   def angular
   end
 
-  def elm
-  end
-
-  def react
-  end
-
-  def vue
+  def react_framework7
+    render layout: false    
   end
 
   def vue_cnodejs
@@ -31,7 +26,7 @@ class SpaController < ApplicationController
     render layout: false
   end
 
-  def framework7
+  def vue_framework7
   	render layout: false
   end
 end
