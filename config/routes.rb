@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get 'spa/react_framework7'
+  get 'spa/react_adminonrest'
 
   get 'spa/angular'
 

@@ -6,6 +6,10 @@ class SpaController < ApplicationController
     render layout: false    
   end
 
+  def react_adminonrest
+    render layout: false    
+  end
+
   def vue_cnodejs
     render layout: false
   end
