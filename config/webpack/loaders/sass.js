@@ -3,6 +3,7 @@ const { env } = require('../configuration.js')
 
 module.exports = {
   test: /\.(scss|sass)$/i,
+  exclude: /angular_blur/,
   use: ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [

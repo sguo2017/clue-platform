@@ -39,6 +39,10 @@ module.exports = {
     new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
     new ManifestPlugin({ fileName: paths.manifest, publicPath, writeToFileEmit: true })
     //,require('autoprefixer')
+    ,new webpack.ProvidePlugin({
+      'jQuery': 'jquery',
+      '$': 'jquery',
+    })
   ],
 
   resolve: {
