@@ -15,7 +15,7 @@ export class LeafletMaps {
   ngAfterViewInit() {
     let el = this._elementRef.nativeElement.querySelector('.leaflet-maps');
 
-    L.Icon.Default.imagePath = 'assets/img/theme/vendor/leaflet';
+    L.Icon.Default.imagePath = '/assets/angular-blur/img/theme/vendor/leaflet';
     var map = L.map(el).setView([51.505, -0.09], 13);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

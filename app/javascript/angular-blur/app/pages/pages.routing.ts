@@ -8,11 +8,11 @@ import { ModuleWithProviders } from '@angular/core';
 export const routes: Routes = [
   {
     path: 'login',
-    loadChildren: 'app/pages/login/login.module#LoginModule'
+    loadChildren: '../../app/pages/login/login.module#LoginModule'
   },
   {
     path: 'register',
-    loadChildren: 'app/pages/register/register.module#RegisterModule'
+    loadChildren: '../../app/pages/register/register.module#RegisterModule'
   },
   {
     path: 'pages',

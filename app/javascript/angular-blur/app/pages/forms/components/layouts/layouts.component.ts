@@ -7,9 +7,9 @@ import { NgUploaderOptions } from 'ngx-uploader';
 })
 export class Layouts {
 
-  public defaultPicture = 'assets/img/theme/no-photo.png';
+  public defaultPicture = '/assets/angular-blur/img/theme/no-photo.png';
   public profile:any = {
-    picture: 'assets/img/app/profile/Nasta.png'
+    picture: '/assets/angular-blur/img/app/profile/Nasta.png'
   };
   public uploaderOptions:NgUploaderOptions = {
     // url: 'http://website.com/upload'

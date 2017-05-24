@@ -1,4 +1,4 @@
-@import 'conf/conf';
+@import './conf/conf';
 
 $left-space: $sidebar-width;
 
@@ -161,11 +161,11 @@ a {
 
 .icon-up {
   //@include bg-nr('arrow-green-up.svg');
-  background: url('/assets/img/arrow-green-up.svg') no-repeat 0 0;
+  background: url('/assets/angular-blur/img/arrow-green-up.svg') no-repeat 0 0;
 }
 
 .icon-down {
-  background: url('/assets/img/arrow-red-down.svg') no-repeat 0 0;
+  background: url('/assets/angular-blur/img/arrow-red-down.svg') no-repeat 0 0;
 }
 
 .disable-text-selection {

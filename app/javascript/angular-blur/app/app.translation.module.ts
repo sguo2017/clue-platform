@@ -6,7 +6,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateService } from '@ngx-translate/core';
 
 export function createTranslateLoader(http: Http) {
-    return new TranslateHttpLoader(http, './assets/i18n/US/', '.json');
+    return new TranslateHttpLoader(http, '/assets/angular-blur/i18n/US/', '.json');
 }
 
 const translationOptions = {

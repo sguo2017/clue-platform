@@ -3,9 +3,10 @@ const { env } = require('../configuration.js')
 
 module.exports = {
   test: /\.(scss|sass)$/i,
-  exclude: /^angular_blur/,
+  include: /angular-blur/,
+  exclude: /angular-blur\/app\/theme\/theme/,
   use: [
-      'raw-loader',
+      'to-string-loader',
       { loader: 'css-loader', options: { minimize: env.NODE_ENV === 'production' } },
       'postcss-loader',
       'sass-loader'
