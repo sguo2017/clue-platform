@@ -1,0 +1,16 @@
+$font-stack: Helvetica, sans-serif;
+$font-size: 1.1em;
+$primary-color: #000;
+$bgcolor: #fff;
+$topMargin: 60px;
+
+body {
+  font-size: $font-size;
+  background-color: $bgcolor;
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+
+#app-content {
+  margin-top: $topMargin;
+}

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'spa/vue_douban'
   get 'spa/vue_adminlte'
 
+  get 'spa/backbone-todo'
+
   get 'excel/index'
 
   get 'suspects_teams/index'
