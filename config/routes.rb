@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'spa/react_adminonrest'
 
   get 'spa/angular_blur'
+  get 'spa/angular_adminlte'
 
   get 'spa/vue_framework7'
   get 'spa/vue_admin'
