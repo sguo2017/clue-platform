@@ -1,6 +1,7 @@
 /* global data */
 import FakeRest from 'fakerest';
 import fetchMock from 'fetch-mock';
+import data from './restData';
 
 export default () => {
     const restServer = new FakeRest.FetchServer('http://localhost:3000');

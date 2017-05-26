@@ -1,1 +1,0 @@
-require('../../../spa/angular-adminlte')

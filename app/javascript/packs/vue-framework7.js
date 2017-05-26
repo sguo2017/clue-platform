@@ -1,1 +1,0 @@
-require('../../../spa/vue-framework7')

@@ -3,38 +3,28 @@
 <head>
 <meta charset="utf-8">
 <title>Ng2AdminLTE</title>
-<base href="/">
+<!--base href="/"-->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-  // See http://www.backalleycoder.com/2016/05/13/sghpa-the-single-page-app-hack-for-github-pages/
-  (function(){
-    var redirect = sessionStorage.redirect;
-    delete sessionStorage.redirect;
-    if (redirect && redirect != location.href) {
-      history.replaceState(null, null, redirect);
-    }
-  })();
-</script>
+<%= stylesheet_pack_tag 'angular-adminlte' %>
 </head>
-
-		<app-root>
-		<div class="loading">
-			<div class="sk-cube-grid">
-				<div class="sk-cube sk-cube1"></div>
-				<div class="sk-cube sk-cube2"></div>
-				<div class="sk-cube sk-cube3"></div>
-				<div class="sk-cube sk-cube4"></div>
-				<div class="sk-cube sk-cube5"></div>
-				<div class="sk-cube sk-cube6"></div>
-				<div class="sk-cube sk-cube7"></div>
-				<div class="sk-cube sk-cube8"></div>
-				<div class="sk-cube sk-cube9"></div>
-			</div>
-			<h2>Please wait a few seconds</h2>
+<body>
+	<app-root>
+	<div class="loading">
+		<div class="sk-cube-grid">
+			<div class="sk-cube sk-cube1"></div>
+			<div class="sk-cube sk-cube2"></div>
+			<div class="sk-cube sk-cube3"></div>
+			<div class="sk-cube sk-cube4"></div>
+			<div class="sk-cube sk-cube5"></div>
+			<div class="sk-cube sk-cube6"></div>
+			<div class="sk-cube sk-cube7"></div>
+			<div class="sk-cube sk-cube8"></div>
+			<div class="sk-cube sk-cube9"></div>
 		</div>
-		</app-root>
-		<script type="text/javascript" src="/assets/jquery/dist/jquery.js"></script>
-	    <script type="text/javascript" src="/assets/bootstrap/dist/js/bootstrap.js"></script>
-		<%= javascript_pack_tag 'angular-adminlte' %>
+		<h2>Please wait a few seconds</h2>
+	</div>
+	</app-root>
+	<%= javascript_pack_tag 'angular-adminlte' %>
+</body>
 </html>
