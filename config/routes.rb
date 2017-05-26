@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'spa/react_framework7'
   get 'spa/react_adminonrest'
+  get 'spa/react_budgeting'
 
   get 'spa/angular_blur'
   get 'spa/angular_adminlte'
