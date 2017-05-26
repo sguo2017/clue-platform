@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
 
-  get 'spa/react_framework7'
-  get 'spa/react_adminonrest'
-  get 'spa/react_budgeting'
+  get 'spa/react-framework7'
+  get 'spa/react-adminonrest'
+  get 'spa/react-budgeting'
 
-  get 'spa/angular_blur'
-  get 'spa/angular_adminlte'
+  get 'spa/angular-blur'
+  get 'spa/angular-adminlte'
 
-  get 'spa/vue_framework7'
-  get 'spa/vue_admin'
-  get 'spa/vue_cnodejs'
-  get 'spa/vue_douban'
-  get 'spa/vue_adminlte'
+  get 'spa/vue-framework7'
+  get 'spa/vue-admin'
+  get 'spa/vue-cnodejs'
+  get 'spa/vue-douban'
+  get 'spa/vue-adminlte'
 
   get 'spa/backbone-todo'
 

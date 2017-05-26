@@ -4,16 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CoPilot</title>
-    <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico"/>
-    <!-- css -->
-    <link rel="stylesheet" href="/assets/bootstrap/dist/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/assets/ionicons/css/ionicons.min.css">
-
-    <link rel="stylesheet" href="/assets/AdminLTE/AdminLTE.min.css">
-    <link rel="stylesheet" href="/assets/AdminLTE/skin-blue.min.css">
-    <link rel="stylesheet" href="/assets/pace/pace.min.css">
+    <%= stylesheet_pack_tag 'vue-adminlte' %>    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,13 +15,6 @@
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div id="root"></div>
-
-
-    <script src="/assets/jquery/dist/jquery.min.js"></script>
-    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/assets/AdminLTE/app.min.js"></script>
-    <script src="/assets/pace/pace.min.js"></script>
-
     <%= javascript_pack_tag 'vue-adminlte' %>    
   </body>
 </html>

@@ -246,6 +246,7 @@
     "stylelint": "^7.10.1",
     "superagent": "^3.5.0",
     "sw-precache-webpack-plugin": "^0.9.2",
+    "tether": "^1.4.0",
     "theaterjs": "^3.0.0",
     "timeago.js": "^3.0.1",
     "to-string-loader": "^1.1.5",

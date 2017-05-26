@@ -1,3 +1,15 @@
+import "../../public/assets/bootstrap/dist/css/bootstrap.min.css";
+import "font-awesome/css/font-awesome.min.css";
+import "ionicons/css/ionicons.min.css";
+import "admin-lte/dist/css/AdminLTE.min.css";
+import "admin-lte/dist/css/skins/skin-blue.min.css";
+import "../../public/assets/pace/pace.min.css";
+
+import 'jquery';
+import "../../public/assets/bootstrap/dist/js/bootstrap.min.js";
+import 'admin-lte';
+import "../../public/assets/pace/pace.min.js";
+
 // Import System requirements
 import Vue from 'vue'
 import VueRouter from 'vue-router'

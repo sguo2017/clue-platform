@@ -221,7 +221,7 @@ export default {
 @import url('/assets/datatables/jquery.dataTables.min.css');
 */
 
-@import url('../../../../public/assets/datatables/dataTables.bootstrap.css');
+@import 'datatables.net-bs/css/dataTables.bootstrap.css';
 
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting_asc:after,
