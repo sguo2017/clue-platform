@@ -4,10 +4,6 @@
     </div>
 </template>
 <script>
-    require('../assets/scss/CV.scss');
-    require('../assets/scss/iconfont/iconfont.css');
-    require('../assets/scss/github-markdown.css');
-
     export default {
         mounted() {
             setTimeout(() => {

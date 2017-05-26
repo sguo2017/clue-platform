@@ -6,6 +6,11 @@ import routes from './routers';
 import Alert from './libs/alert';
 import store from './vuex/user';
 import FastClick from 'fastclick';
+
+import './assets/scss/CV.scss';
+import './assets/scss/iconfont/iconfont.css';
+import './assets/scss/github-markdown.css';
+
 Vue.use(VueRouter);
 Vue.use(Alert);
 
