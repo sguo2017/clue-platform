@@ -439,6 +439,10 @@ angular2-uuid@^1.1.0:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/angular2-uuid/download/angular2-uuid-1.1.1.tgz#72f03cd532b7f40032eb1ecfb9f8457384be956e"
 
+angular2@^2.0.0-beta.21:
+  version "2.0.0-beta.21"
+  resolved "http://registry.npm.taobao.org/angular2/download/angular2-2.0.0-beta.21.tgz#78643e590641526a2596dcd1d5cca3a5509ed76d"
+
 angularfire2@^2.0.0-beta.6:
   version "2.0.0-beta.7-pre"
   resolved "http://registry.npm.taobao.org/angularfire2/download/angularfire2-2.0.0-beta.7-pre.tgz#596419077187f2d6e79e46e8beac2e685d92f045"
@@ -13587,6 +13591,10 @@ synesthesia@^1.0.1:
   resolved "http://registry.npm.taobao.org/synesthesia/download/synesthesia-1.0.1.tgz#5ef95ea548c0d5c6e6f9bb4b0d0731dff864a777"
   dependencies:
     css-color-names "0.0.3"
+
+systemjs@^0.20.12:
+  version "0.20.12"
+  resolved "http://registry.npm.taobao.org/systemjs/download/systemjs-0.20.12.tgz#135cc471280448453347829ebb9639a09a67f101"
 
 table@^3.7.8:
   version "3.8.3"

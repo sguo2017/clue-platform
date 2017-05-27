@@ -1,5 +1,5 @@
 module.exports = {
     test: /\.html$/,
-    exclude: /todomvc/,
+    exclude: /todomvc\/angular2-es2015/,
     loader: 'html-loader'
 }

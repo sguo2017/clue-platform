@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'todomvc/angular2-es2015'
+  get 'todomvc/angular'
 
   get 'todomvc/backbone'
 
