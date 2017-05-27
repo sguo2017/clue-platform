@@ -1,0 +1,2 @@
+class Suspect < ApplicationRecord
+end

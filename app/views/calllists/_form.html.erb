@@ -1,0 +1,27 @@
+<%= form_with(model: calllist, local: true) do |form| %>
+  <% if calllist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(calllist.errors.count, "error") %> prohibited this calllist from being saved:</h2>
+
+      <ul>
+      <% calllist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :from_num %>
+    <%= form.text_field :from_num, id: :calllist_from_num %>
+  </div>
+
+  <div class="field">
+    <%= form.label :to_num %>
+    <%= form.text_field :to_num, id: :calllist_to_num %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

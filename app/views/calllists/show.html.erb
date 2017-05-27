@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>From num:</strong>
+  <%= @calllist.from_num %>
+</p>
+
+<p>
+  <strong>To num:</strong>
+  <%= @calllist.to_num %>
+</p>
+
+<%= link_to 'Edit', edit_calllist_path(@calllist) %> |
+<%= link_to 'Back', calllists_path %>

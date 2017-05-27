@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Calllists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>From num</th>
+      <th>To num</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @calllists.each do |calllist| %>
+      <tr>
+        <td><%= calllist.from_num %></td>
+        <td><%= calllist.to_num %></td>
+        <td><%= link_to 'Show', calllist %></td>
+        <td><%= link_to 'Edit', edit_calllist_path(calllist) %></td>
+        <td><%= link_to 'Destroy', calllist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Calllist', new_calllist_path %>

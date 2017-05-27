@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @suspect.name %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @suspect.userName %>
+</p>
+
+<p>
+  <strong>Realname:</strong>
+  <%= @suspect.realName %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @suspect.email %>
+</p>
+
+<p>
+  <strong>Born:</strong>
+  <%= @suspect.born %>
+</p>
+
+<p>
+  <strong>Dob:</strong>
+  <%= @suspect.dob %>
+</p>
+
+<p>
+  <strong>Photo:</strong>
+  <%= @suspect.photo %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @suspect.status %>
+</p>
+
+<p>
+  <strong>Skills:</strong>
+  <%= @suspect.skills %>
+</p>
+
+<p>
+  <strong>Settings:</strong>
+  <%= @suspect.settings %>
+</p>
+
+<%= link_to 'Edit', edit_suspect_path(@suspect) %> |
+<%= link_to 'Back', suspects_path %>

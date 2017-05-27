@@ -1,0 +1,62 @@
+<%= form_with(model: suspect, local: true) do |form| %>
+  <% if suspect.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(suspect.errors.count, "error") %> prohibited this suspect from being saved:</h2>
+
+      <ul>
+      <% suspect.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :suspect_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :userName %>
+    <%= form.text_field :userName, id: :suspect_userName %>
+  </div>
+
+  <div class="field">
+    <%= form.label :realName %>
+    <%= form.text_field :realName, id: :suspect_realName %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :suspect_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :born %>
+    <%= form.text_field :born, id: :suspect_born %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photo %>
+    <%= form.text_field :photo, id: :suspect_photo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :suspect_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :skills %>
+    <%= form.text_field :skills, id: :suspect_skills %>
+  </div>
+
+  <div class="field">
+    <%= form.label :settings %>
+    <%= form.text_field :settings, id: :suspect_settings %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
