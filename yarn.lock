@@ -9033,6 +9033,10 @@ matcher-collection@^1.0.0:
   dependencies:
     minimatch "^3.0.2"
 
+material-design-icons@^3.0.1:
+  version "3.0.1"
+  resolved "http://registry.npm.taobao.org/material-design-icons/download/material-design-icons-3.0.1.tgz#9a71c48747218ebca51e51a66da682038cdcb7bf"
+
 material-ui@^0.18.1:
   version "0.18.1"
   resolved "http://registry.npm.taobao.org/material-ui/download/material-ui-0.18.1.tgz#1c8a47d7e930ff0b07064dd8633035984a5a3569"
@@ -14687,6 +14691,12 @@ vue-markdown-loader@^1.0.0:
     loader-utils "^0.2.15"
     markdown-it "^6.0.5"
 
+vue-material@^0.7.1:
+  version "0.7.1"
+  resolved "http://registry.npm.taobao.org/vue-material/download/vue-material-0.7.1.tgz#2ed25eb1e2054c21fe323361604c92f40ef5ada1"
+  dependencies:
+    vue "^2.1.10"
+
 vue-quill-editor@^2.2.1:
   version "2.2.1"
   resolved "http://registry.npm.taobao.org/vue-quill-editor/download/vue-quill-editor-2.2.1.tgz#23aeefde8acb9d84b6d2575631f03b4c6c5b89f3"
@@ -14737,7 +14747,7 @@ vue-turbolinks@^1.0.2:
   dependencies:
     vue "^2.2.4"
 
-vue@^2.1.8, vue@^2.2.4, vue@^2.3.3, vue@latest:
+vue@^2.1.10, vue@^2.1.8, vue@^2.2.4, vue@^2.3.3, vue@latest:
   version "2.3.3"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.3.3.tgz#d1eaa8fde5240735a4563e74f2c7fead9cbb064c"
 
