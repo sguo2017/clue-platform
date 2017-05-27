@@ -1,2 +1,18 @@
-<h1>Todomvc#react</h1>
-<p>Find me in app/views/todomvc/react.html.erb</p>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Template • TodoMVC</title>
+	<%= stylesheet_pack_tag 'todomvc_react' %>
+</head>
+<body>
+<div id="root"></div>
+<footer class="info">
+	<p>Double-click to edit a todo</p>
+	<p>Created by <a href="http://todomvc.com">Neil</a></p>
+	<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
+<%= javascript_pack_tag 'todomvc_react' %>
+</body>
+</html>

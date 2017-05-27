@@ -3976,6 +3976,10 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+director@^1.2.8:
+  version "1.2.8"
+  resolved "http://registry.npm.taobao.org/director/download/director-1.2.8.tgz#c6d9b4dd890e9aff5365183fe9cc8e73994cf2d5"
+
 directory-encoder@^0.7.2:
   version "0.7.2"
   resolved "http://registry.npm.taobao.org/directory-encoder/download/directory-encoder-0.7.2.tgz#59b4e2aa4f25422f6c63b527b462f5e2d0dd2c58"
