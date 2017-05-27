@@ -354,6 +354,26 @@ after@0.8.2:
   version "0.8.2"
   resolved "http://registry.npm.taobao.org/after/download/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
 
+ag-grid-angular@^10.0.0:
+  version "10.0.0"
+  resolved "http://registry.npm.taobao.org/ag-grid-angular/download/ag-grid-angular-10.0.0.tgz#2a67cec7e079f0466ffd3291b00b7805d3011925"
+
+ag-grid-enterprise@^10.0.1:
+  version "10.0.1"
+  resolved "http://registry.npm.taobao.org/ag-grid-enterprise/download/ag-grid-enterprise-10.0.1.tgz#cf1342af41d06e6d406c9a348933f4d59644f6ce"
+
+ag-grid-react@^10.0.0:
+  version "10.0.0"
+  resolved "http://registry.npm.taobao.org/ag-grid-react/download/ag-grid-react-10.0.0.tgz#aa5d1154fe41f10b8fc11402b0f63bd73e0e318f"
+
+ag-grid-vue@^10.0.0:
+  version "10.0.0"
+  resolved "http://registry.npm.taobao.org/ag-grid-vue/download/ag-grid-vue-10.0.0.tgz#fcc965af56d54a2563ca431f6043c7c5ac2e7be8"
+
+ag-grid@^10.0.1:
+  version "10.0.1"
+  resolved "http://registry.npm.taobao.org/ag-grid/download/ag-grid-10.0.1.tgz#3a221c446af8a5095f90a3a638df6bb4bda00f16"
+
 agent-base@2:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/agent-base/download/agent-base-2.0.1.tgz#bd8f9e86a8eb221fffa07bd14befd55df142815e"
@@ -14560,6 +14580,10 @@ vue-infinite-scroll@^2.0.0:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/vue-infinite-scroll/download/vue-infinite-scroll-2.0.1.tgz#f418bd5cdca5e16837ce3b78333832288729e660"
 
+vue-lazyload@^1.0.4:
+  version "1.0.4"
+  resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-1.0.4.tgz#b507bf6c3c7d5672d80d2b5746da9f4d61d21d92"
+
 vue-loader@>=9.4.2, vue-loader@^12.1.1:
   version "12.1.1"
   resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-12.1.1.tgz#28d9dbf850c966aaff1947718b1b8b6f83fb9c6a"
@@ -14577,6 +14601,10 @@ vue-loader@>=9.4.2, vue-loader@^12.1.1:
     vue-hot-reload-api "^2.1.0"
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
+
+vue-local-storage@^0.1.2:
+  version "0.1.2"
+  resolved "http://registry.npm.taobao.org/vue-local-storage/download/vue-local-storage-0.1.2.tgz#7c390e5b38b8effaa738b66e3cb09c8f3923b0b5"
 
 vue-markdown-loader@^1.0.0:
   version "1.0.0"
@@ -14596,6 +14624,12 @@ vue-resource@^1.3.3:
 vue-router@^2.3.0:
   version "2.5.3"
   resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-2.5.3.tgz#073783f564b6aece6c8a59c63e298dc2aabfb51b"
+
+vue-save-state@^1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/vue-save-state/download/vue-save-state-1.2.0.tgz#fefedc1e5af6a3b0a397c13e41113000404c1963"
+  dependencies:
+    lodash "^4.0.0"
 
 vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
   version "3.0.1"
