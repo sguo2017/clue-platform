@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+  get 'todomvc/angular2-es2015'
+
+  get 'todomvc/backbone'
+
+  get 'todomvc/ember'
+
+  get 'todomvc/knockout'
+
+  get 'todomvc/react'
+
+  get 'todomvc/vue'
+
   get 'spa/react-framework7'
   get 'spa/react-adminonrest'
   get 'spa/react-budgeting'

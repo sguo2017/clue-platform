@@ -930,7 +930,7 @@ babel-eslint@7.2.3, babel-eslint@^7.1.1:
     babel-types "^6.23.0"
     babylon "^6.17.0"
 
-babel-generator@^6.18.0, babel-generator@^6.24.1:
+babel-generator@^6.18.0, babel-generator@^6.24.1, babel-generator@^6.8.0:
   version "6.24.1"
   resolved "http://registry.npm.taobao.org/babel-generator/download/babel-generator-6.24.1.tgz#e715f486c58ded25649d888944d52aa07c5d9497"
   dependencies:
@@ -1099,6 +1099,12 @@ babel-plugin-add-module-exports@^0.2.1:
   version "0.2.1"
   resolved "http://registry.npm.taobao.org/babel-plugin-add-module-exports/download/babel-plugin-add-module-exports-0.2.1.tgz#9ae9a1f4a8dc67f0cdec4f4aeda1e43a5ff65e25"
 
+babel-plugin-angular2-annotations@^5.1.0:
+  version "5.1.0"
+  resolved "http://registry.npm.taobao.org/babel-plugin-angular2-annotations/download/babel-plugin-angular2-annotations-5.1.0.tgz#3514c71e07bd25865f402fc831eeac84ca998183"
+  dependencies:
+    babel-generator "^6.8.0"
+
 babel-plugin-check-es2015-constants@^6.22.0:
   version "6.22.0"
   resolved "http://registry.npm.taobao.org/babel-plugin-check-es2015-constants/download/babel-plugin-check-es2015-constants-6.22.0.tgz#35157b101426fd2ffd3da3f75c7d1e91835bbf8a"
@@ -1189,7 +1195,7 @@ babel-plugin-transform-async-to-generator@^6.22.0, babel-plugin-transform-async-
     babel-plugin-syntax-async-functions "^6.8.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-class-properties@6.24.1, babel-plugin-transform-class-properties@^6.23.0, babel-plugin-transform-class-properties@^6.24.1:
+babel-plugin-transform-class-properties@6.24.1, babel-plugin-transform-class-properties@^6.23.0, babel-plugin-transform-class-properties@^6.24.1, babel-plugin-transform-class-properties@^6.8.0:
   version "6.24.1"
   resolved "http://registry.npm.taobao.org/babel-plugin-transform-class-properties/download/babel-plugin-transform-class-properties-6.24.1.tgz#6a79763ea61d33d36f37b611aa9def81a81b46ac"
   dependencies:
@@ -1392,7 +1398,7 @@ babel-plugin-transform-exponentiation-operator@^6.22.0, babel-plugin-transform-e
     babel-plugin-syntax-exponentiation-operator "^6.8.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-flow-strip-types@^6.22.0:
+babel-plugin-transform-flow-strip-types@^6.22.0, babel-plugin-transform-flow-strip-types@^6.8.0:
   version "6.22.0"
   resolved "http://registry.npm.taobao.org/babel-plugin-transform-flow-strip-types/download/babel-plugin-transform-flow-strip-types-6.22.0.tgz#84cb672935d43714fdc32bce84568d87441cf7cf"
   dependencies:
@@ -1472,6 +1478,15 @@ babel-polyfill@^6.16.0, babel-polyfill@^6.23.0, babel-polyfill@^6.7.4:
     babel-runtime "^6.22.0"
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
+
+babel-preset-angular2@^0.0.2:
+  version "0.0.2"
+  resolved "http://registry.npm.taobao.org/babel-preset-angular2/download/babel-preset-angular2-0.0.2.tgz#a9443215eafdcc9f012ac22bf2171c9d43c8b221"
+  dependencies:
+    babel-plugin-angular2-annotations "^5.1.0"
+    babel-plugin-transform-class-properties "^6.8.0"
+    babel-plugin-transform-decorators-legacy "^1.3.4"
+    babel-plugin-transform-flow-strip-types "^6.8.0"
 
 babel-preset-env@1.4.0:
   version "1.4.0"
@@ -4187,11 +4202,11 @@ ecdsa-sig-formatter@1.0.9:
     base64url "^2.0.0"
     safe-buffer "^5.0.1"
 
-echarts@^3.3.2:
-  version "3.5.4"
-  resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.5.4.tgz#f4fb32559711edc56375b06bf1d7628a707ff9e2"
+echarts@^3.6.0:
+  version "3.6.0"
+  resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.6.0.tgz#cbcb11cb1cb024a9498ff7fa47c3dc95c4186cca"
   dependencies:
-    zrender "^3.4.4"
+    zrender "^3.5.0"
 
 ecstatic@^2.0.0:
   version "2.1.0"
@@ -7947,11 +7962,12 @@ karma-cli@^1.0.1:
   dependencies:
     resolve "^1.1.6"
 
-karma-coverage-istanbul-reporter@^1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/karma-coverage-istanbul-reporter/download/karma-coverage-istanbul-reporter-1.2.1.tgz#5e3ca7b9a153db1cbadffef4c46d978d38a53154"
+karma-coverage-istanbul-reporter@^1.3.0:
+  version "1.3.0"
+  resolved "http://registry.npm.taobao.org/karma-coverage-istanbul-reporter/download/karma-coverage-istanbul-reporter-1.3.0.tgz#d142cd9c55731c9e363ef7374e8ef1a31bebfadb"
   dependencies:
     istanbul-api "^1.1.8"
+    minimatch "^3.0.4"
 
 karma-coverage@^1.1.1:
   version "1.1.1"
@@ -8320,6 +8336,10 @@ loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.x
     big.js "^3.1.3"
     emojis-list "^2.0.0"
     json5 "^0.5.0"
+
+localStorage@^1.0.3:
+  version "1.0.3"
+  resolved "http://registry.npm.taobao.org/localStorage/download/localStorage-1.0.3.tgz#e6b89a57bb760a156a38cc87e0f2550f6ed413d8"
 
 locate-path@^2.0.0:
   version "2.0.0"
@@ -9604,7 +9624,7 @@ node-status-codes@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/node-status-codes/download/node-status-codes-1.0.0.tgz#5ae5541d024645d32a58fcddc9ceecea7ae3ac2f"
 
-node-uuid@~1.4.7:
+node-uuid@^1.4.8, node-uuid@~1.4.7:
   version "1.4.8"
   resolved "http://registry.npm.taobao.org/node-uuid/download/node-uuid-1.4.8.tgz#b040eb0923968afabf8d32fb1f17f1167fdab907"
 
@@ -12781,9 +12801,9 @@ sinon-chai@^2.8.0:
   version "2.10.0"
   resolved "http://registry.npm.taobao.org/sinon-chai/download/sinon-chai-2.10.0.tgz#6ab3008bb8cae9929e744d766574b4cf35f34b5b"
 
-sinon@^2.3.1:
-  version "2.3.1"
-  resolved "http://registry.npm.taobao.org/sinon/download/sinon-2.3.1.tgz#48c9c758b4d0bb86327486833f1c4298919ce9ee"
+sinon@^2.3.2:
+  version "2.3.2"
+  resolved "http://registry.npm.taobao.org/sinon/download/sinon-2.3.2.tgz#c43a9c570f32baac1159505cfeed19108855df89"
   dependencies:
     diff "^3.1.0"
     formatio "1.2.0"
@@ -12935,6 +12955,14 @@ source-list-map@^1.1.1:
 source-map-loader@^0.1.5:
   version "0.1.6"
   resolved "http://registry.npm.taobao.org/source-map-loader/download/source-map-loader-0.1.6.tgz#c09903da6d73b9e53b7ed8ee5245597051e98e91"
+  dependencies:
+    async "^0.9.0"
+    loader-utils "~0.2.2"
+    source-map "~0.1.33"
+
+source-map-loader@^0.2.1:
+  version "0.2.1"
+  resolved "http://registry.npm.taobao.org/source-map-loader/download/source-map-loader-0.2.1.tgz#48126be9230bd47fad05e46a8c3c2e3d2dabe507"
   dependencies:
     async "^0.9.0"
     loader-utils "~0.2.2"
@@ -13866,6 +13894,14 @@ to-string-loader@^1.1.5:
   dependencies:
     loader-utils "^0.2.16"
 
+todomvc-app-css@^2.1.0:
+  version "2.1.0"
+  resolved "http://registry.npm.taobao.org/todomvc-app-css/download/todomvc-app-css-2.1.0.tgz#b6f2716d339afa2e5f799347d2a48b05396242a5"
+
+todomvc-common@^1.0.3:
+  version "1.0.3"
+  resolved "http://registry.npm.taobao.org/todomvc-common/download/todomvc-common-1.0.3.tgz#cba1868109caa401b908ebf77794cc1014b74873"
+
 topo@1.x.x:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/topo/download/topo-1.1.0.tgz#e9d751615d1bb87dc865db182fa1ca0a5ef536d5"
@@ -13966,9 +14002,9 @@ tslib@^1.0.0, tslib@^1.6.0:
   version "1.7.1"
   resolved "http://registry.npm.taobao.org/tslib/download/tslib-1.7.1.tgz#bc8004164691923a79fe8378bbeb3da2017538ec"
 
-tslint-eslint-rules@^4.0.0:
-  version "4.1.0"
-  resolved "http://registry.npm.taobao.org/tslint-eslint-rules/download/tslint-eslint-rules-4.1.0.tgz#8fee295c42f4c8078139deb16ee7b4510fd516b7"
+tslint-eslint-rules@^4.1.1:
+  version "4.1.1"
+  resolved "http://registry.npm.taobao.org/tslint-eslint-rules/download/tslint-eslint-rules-4.1.1.tgz#7c30e7882f26bc276bff91d2384975c69daf88ba"
   dependencies:
     doctrine "^0.7.2"
     tslib "^1.0.0"
@@ -14512,9 +14548,9 @@ vue-infinite-scroll@^2.0.0:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/vue-infinite-scroll/download/vue-infinite-scroll-2.0.1.tgz#f418bd5cdca5e16837ce3b78333832288729e660"
 
-vue-loader@>=9.4.2, vue-loader@^12.0.4:
-  version "12.1.0"
-  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-12.1.0.tgz#f9ca958da1fd4e8c0598d90375c5419d10d35546"
+vue-loader@>=9.4.2, vue-loader@^12.1.1:
+  version "12.1.1"
+  resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-12.1.1.tgz#28d9dbf850c966aaff1947718b1b8b6f83fb9c6a"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
@@ -15335,6 +15371,6 @@ zone.js@^0.8.10, zone.js@^0.8.4:
   version "0.8.11"
   resolved "http://registry.npm.taobao.org/zone.js/download/zone.js-0.8.11.tgz#742befb17fbc49a571712b8c7d87e58ca26fd886"
 
-zrender@^3.4.4:
-  version "3.4.4"
-  resolved "http://registry.npm.taobao.org/zrender/download/zrender-3.4.4.tgz#ed011f6d05c7f7a472b03480436fd449bc3bc59f"
+zrender@^3.5.0:
+  version "3.5.0"
+  resolved "http://registry.npm.taobao.org/zrender/download/zrender-3.5.0.tgz#096fb72a40edb615f7f443aa71e300875befb1c5"
