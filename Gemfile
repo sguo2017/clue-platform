@@ -64,3 +64,6 @@ gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 
 gem 'webpacker', github: 'rails/webpacker'
+
+gem 'roo'
+

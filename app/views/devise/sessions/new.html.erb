@@ -1,19 +1,39 @@
-<div class="panel panel-default devise-bs">
-  <div class="panel-heading">
-    <h4>数据可视化</h4>
-  </div>
-  <div class="panel-body">
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: 'form' }) do |f| %>
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: 'off', class: 'form-control' %>
-      </div>
-      <br/>
-      <%= f.submit  t('.sign_in', default: 'Sign in'), class: 'btn btn-primary btn-block' %>
-    <% end %>
-  </div>
+<div class="container-fluid login-wrap">
+        <div class="row">
+                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 brand-logo-wrap">
+                        <%= image_tag "logo.png" %>
+                        <div class="brand-name">海关情报研判平台</div>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: 'form', class: "lo
+gin-form" }) do |f| %>
+<!--                    <form class="login-form">  -->
+                                <div class="vertical-input-group">
+                                        <div class="input-group input-group-lg">
+                                                <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-user text-gray"></span>
+                                                </span>
+                                 <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+        <!--                                    <input class="form-control" type="text" name=""> -->
+                                        </div>
+
+                                        <div class="input-group  input-group-lg">
+                                                <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-lock text-gray"></span>
+                                                </span>
+                                <!--     <%= f.label :password %> -->
+                                        <%= f.password_field :password, autocomplete: 'off', class: 'form-control' %>
+                                            <!-- <input class="form-control" type="text" name=""> -->
+                                        </div>
+                                </div>
+                                <div class="mt20">
+                                <!--    <button class="btn btn-primary btn-block btn-lg" type="button">登录</button>  -->
+                                 <%= f.submit  t('.sign_in', default: 'Sign in'), class: 'btn btn-primary btn-block btn-lg' %>
+                               <% end %>
+                                </div>
+<!--                    </form>  -->
+                </div>
+        </div>
 </div>

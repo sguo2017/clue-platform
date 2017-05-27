@@ -5,16 +5,17 @@
 				<h3 class="panel-title">嫌疑犯<a href="#" class="pull-right">更多</a></h3>
 			</div>
 			<div class="panel-body" style="padding-bottom: 0px; min-height: 96px">
-				<% 6.times do %>
-				<a href="/suspects/index" class="col-xs-2" style="padding-left:0px;padding-right:0px">
-					<div class="thumbnail">
-						<img data-src="#" alt="" style="height:94px;background: lightblue;">
-						<div class="caption">
-							<p>嫌疑犯</p>
-						</div>
-					</div>
-				</a>
-				<% end %>
+
+           <% @suspects.each do |suspect| %>
+          <a href="/suspects/?id=<%= suspect.id %>" class="col-xs-2" style="padding-left:0px;padding-right:0px">
+                  <div class="thumbnail">
+                          <img data-src="<%= suspect.photo %>" alt="" src="<%= suspect.photo %>" alt="" style="height:94px;background: lightblue;">
+                          <div class="caption">
+                                  <p><%= suspect.name %></p>
+                          </div>
+                  </div>
+          </a>
+          <% end %>
 			</div>
 			<div class="panel-heading">
 				<h3 class="panel-title">嫌疑团伙<a href="#" class="pull-right">更多</a></h3>

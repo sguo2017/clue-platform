@@ -17,7 +17,7 @@
 //= require bootstrap
 //= require suspects_teams
 //= require_tree .
-
+//= require cp-global
 
 function go_tools_init() {
 	if(jQuery("#tools_main_diagram").length==0) return;
