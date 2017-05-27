@@ -1,1 +1,1 @@
-require('../../../todomvc/react');
+require('../../../todomvc/react/index.jsx');
