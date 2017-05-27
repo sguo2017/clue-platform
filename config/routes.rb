@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'spa/vue-cnodejs'
   get 'spa/vue-douban'
   get 'spa/vue-adminlte'
+  get 'spa/hello-vue'
 
   get 'spa/backbone-todo'
 

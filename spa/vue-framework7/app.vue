@@ -117,5 +117,10 @@
 </template>
 
 <script>
-export default {}
+export default {
+    // Custom App Data
+  data: function(){
+    return this.$root;
+  }
+}
 </script>

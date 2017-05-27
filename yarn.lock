@@ -4210,11 +4210,11 @@ ecdsa-sig-formatter@1.0.9:
     base64url "^2.0.0"
     safe-buffer "^5.0.1"
 
-echarts@^3.6.0:
-  version "3.6.0"
-  resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.6.0.tgz#cbcb11cb1cb024a9498ff7fa47c3dc95c4186cca"
+echarts@^3.6.1:
+  version "3.6.1"
+  resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.6.1.tgz#6cb31173c6ac05ba713a613cdf4dd72145e0ab6f"
   dependencies:
-    zrender "^3.5.0"
+    zrender "^3.5.1"
 
 ecstatic@^2.0.0:
   version "2.1.0"
@@ -15383,6 +15383,6 @@ zone.js@^0.8.10, zone.js@^0.8.4:
   version "0.8.11"
   resolved "http://registry.npm.taobao.org/zone.js/download/zone.js-0.8.11.tgz#742befb17fbc49a571712b8c7d87e58ca26fd886"
 
-zrender@^3.5.0:
-  version "3.5.0"
-  resolved "http://registry.npm.taobao.org/zrender/download/zrender-3.5.0.tgz#096fb72a40edb615f7f443aa71e300875befb1c5"
+zrender@^3.5.1:
+  version "3.5.1"
+  resolved "http://registry.npm.taobao.org/zrender/download/zrender-3.5.1.tgz#70494096f017684c714ddd8bfa24cda6feecec34"
