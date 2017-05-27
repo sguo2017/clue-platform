@@ -1781,6 +1781,10 @@ base64url@2.0.0, base64url@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/base64url/download/base64url-2.0.0.tgz#eac16e03ea1438eff9423d69baa36262ed1f70bb"
 
+batch-processor@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/batch-processor/download/batch-processor-1.0.0.tgz#75c95c32b748e0850d10c2b168f6bdbe9891ace8"
+
 batch@0.5.3:
   version "0.5.3"
   resolved "http://registry.npm.taobao.org/batch/download/batch-0.5.3.tgz#3f3414f380321743bfc1042f9a83ff1d5824d464"
@@ -4230,7 +4234,7 @@ ecdsa-sig-formatter@1.0.9:
     base64url "^2.0.0"
     safe-buffer "^5.0.1"
 
-echarts@^3.6.1:
+echarts@^3.6.0, echarts@^3.6.1, echarts@latest:
   version "3.6.1"
   resolved "http://registry.npm.taobao.org/echarts/download/echarts-3.6.1.tgz#6cb31173c6ac05ba713a613cdf4dd72145e0ab6f"
   dependencies:
@@ -4277,6 +4281,16 @@ ejs@^2.5.6:
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.11:
   version "1.3.11"
   resolved "http://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.11.tgz#744761df1d67b492b322ce9aa0aba5393260eb61"
+
+element-resize-detector@latest:
+  version "1.1.12"
+  resolved "http://registry.npm.taobao.org/element-resize-detector/download/element-resize-detector-1.1.12.tgz#8b3fd6eedda17f9c00b360a0ea2df9927ae80ba2"
+  dependencies:
+    batch-processor "^1.0.0"
+
+element-resize-event@latest:
+  version "2.0.9"
+  resolved "http://registry.npm.taobao.org/element-resize-event/download/element-resize-event-2.0.9.tgz#2f5e1581a296eb5275210c141bc56342e218f876"
 
 element-ui@^1.3.4:
   version "1.3.4"
@@ -7770,6 +7784,10 @@ js-beautify@^1.6.3:
     mkdirp "~0.5.0"
     nopt "~3.0.1"
 
+js-marker-clusterer@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/js-marker-clusterer/download/js-marker-clusterer-1.0.0.tgz#c94be85ae8896819e51c131f891dd2b55558dd17"
+
 js-tokens@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/js-tokens/download/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
@@ -8570,7 +8588,7 @@ lodash.create@3.1.1:
     lodash._basecreate "^3.0.0"
     lodash._isiterateecall "^3.0.0"
 
-lodash.debounce@~4.0.8:
+lodash.debounce@^4.0.8, lodash.debounce@latest, lodash.debounce@~4.0.8:
   version "4.0.8"
   resolved "http://registry.npm.taobao.org/lodash.debounce/download/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
@@ -11498,7 +11516,7 @@ quill-delta@3.4.3:
     extend "^3.0.0"
     fast-diff "1.1.1"
 
-quill@~1.1.9:
+quill@^1.1.7, quill@~1.1.9:
   version "1.1.10"
   resolved "http://registry.npm.taobao.org/quill/download/quill-1.1.10.tgz#55fec2bb3978b94bd525dee702a1cf5dab32d88d"
   dependencies:
@@ -14308,6 +14326,12 @@ upper-case@^1.0.3, upper-case@^1.1.0, upper-case@^1.1.1, upper-case@^1.1.3:
   version "1.1.3"
   resolved "http://registry.npm.taobao.org/upper-case/download/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
 
+uppercamelcase@^1.1.0:
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/uppercamelcase/download/uppercamelcase-1.1.0.tgz#324d98a6b3afc7e8a8953e10641509b0e4e23f97"
+  dependencies:
+    camelcase "^1.2.1"
+
 uppercamelcase@^3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/uppercamelcase/download/uppercamelcase-3.0.0.tgz#380b321b8d73cba16fec4d752a575152d1ef7317"
@@ -14568,9 +14592,57 @@ void-elements@^2.0.0, void-elements@~2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/void-elements/download/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
+vue-amap@^0.2.7:
+  version "0.2.7"
+  resolved "http://registry.npm.taobao.org/vue-amap/download/vue-amap-0.2.7.tgz#10b203d320a41c0659b0e136de4bb9104a6f18c7"
+  dependencies:
+    core-js "^2.4.1"
+    uppercamelcase "^1.1.0"
+
+vue-chartjs@^2.6.3:
+  version "2.6.3"
+  resolved "http://registry.npm.taobao.org/vue-chartjs/download/vue-chartjs-2.6.3.tgz#ef94f4e919a11845bfd72dd6d543f86d602ea324"
+  dependencies:
+    lodash "^4.17.4"
+
 vue-date-picker@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/vue-date-picker/download/vue-date-picker-1.0.2.tgz#d8243dde3d3c37b550cbe4f88c8d4b0803128471"
+
+vue-echarts-v3@^1.0.4:
+  version "1.0.4"
+  resolved "http://registry.npm.taobao.org/vue-echarts-v3/download/vue-echarts-v3-1.0.4.tgz#12e93e720eaacc1881db72dc4270cfe0595d175a"
+  dependencies:
+    echarts latest
+    element-resize-detector latest
+    element-resize-event latest
+    lodash.debounce latest
+    vue latest
+
+vue-echarts@^2.4.0:
+  version "2.4.0"
+  resolved "http://registry.npm.taobao.org/vue-echarts/download/vue-echarts-2.4.0.tgz#28654069ea4cf9ac7426ab0f5f723c77b8cd5f36"
+  dependencies:
+    echarts "^3.6.0"
+    lodash.debounce "^4.0.8"
+
+vue-fullcalendar@^1.0.5, vue-fullcalendar@^1.0.9:
+  version "1.0.9"
+  resolved "http://registry.npm.taobao.org/vue-fullcalendar/download/vue-fullcalendar-1.0.9.tgz#a853bb25946252277533b9994ef503cfacb01233"
+  dependencies:
+    es6-promise "^4.0.5"
+    vue "^2.1.8"
+    vue-fullcalendar "^1.0.5"
+
+vue-google-maps@^0.1.21:
+  version "0.1.21"
+  resolved "http://registry.npm.taobao.org/vue-google-maps/download/vue-google-maps-0.1.21.tgz#19b6fa3df39ff293dca1cf3925f4f287d0f95bac"
+  dependencies:
+    js-marker-clusterer "^1.0.0"
+
+vue-highcharts@^0.0.10:
+  version "0.0.10"
+  resolved "http://registry.npm.taobao.org/vue-highcharts/download/vue-highcharts-0.0.10.tgz#a4b90098ede77a65cca87e62bed87549e1e1c985"
 
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"
@@ -14615,6 +14687,16 @@ vue-markdown-loader@^1.0.0:
     loader-utils "^0.2.15"
     markdown-it "^6.0.5"
 
+vue-quill-editor@^2.2.1:
+  version "2.2.1"
+  resolved "http://registry.npm.taobao.org/vue-quill-editor/download/vue-quill-editor-2.2.1.tgz#23aeefde8acb9d84b6d2575631f03b4c6c5b89f3"
+  dependencies:
+    quill "^1.1.7"
+
+vue-region-picker@^3.0.1:
+  version "3.0.1"
+  resolved "http://registry.npm.taobao.org/vue-region-picker/download/vue-region-picker-3.0.1.tgz#81b1376c2e5fd6c4daf04f709dfdfcac6ef12c5f"
+
 vue-resource@^1.3.3:
   version "1.3.3"
   resolved "http://registry.npm.taobao.org/vue-resource/download/vue-resource-1.3.3.tgz#6f12cfc77cccd47fb7e07aff6c42d75e34005992"
@@ -14655,7 +14737,7 @@ vue-turbolinks@^1.0.2:
   dependencies:
     vue "^2.2.4"
 
-vue@^2.2.4, vue@^2.3.3:
+vue@^2.1.8, vue@^2.2.4, vue@^2.3.3, vue@latest:
   version "2.3.3"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.3.3.tgz#d1eaa8fde5240735a4563e74f2c7fead9cbb064c"
 
