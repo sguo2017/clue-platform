@@ -7,7 +7,7 @@ function submitFormWithImage(fileFieldId) {
   } else {
       let formData = new FormData();
       let url = '/calllists/import';
-      formData.append("image", input_file.files[0]);
+      formData.append("file", input_file.files[0]);
       fetch(url, {
         method: 'POST',
         //mode: "cors",

@@ -1,5 +1,13 @@
 class CalllistsController < ApplicationController
+  before_action :login_required, :only => [:index,:show,:new,:edit,:create]
+  #protect_from_forgery :except => :import
+  #protect_from_forgery :except => :export
+
   before_action :set_calllist, only: [:show, :edit, :update, :destroy]
+
+  def export
+    puts "call list export !"
+  end
 
   def import
     Calllist.import(params[:file])

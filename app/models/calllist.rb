@@ -1,4 +1,4 @@
-equire 'csv'
+require 'csv'
 class Calllist < ApplicationRecord
   def self.import(file)
     csv_text = File.read(file.path)
