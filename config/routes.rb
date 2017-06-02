@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     collection { get :export }
   end
 
- # resources :suspects
+  resources :suspects
   get 'spa/react_framework7'
   get 'spa/react_adminonrest'
 

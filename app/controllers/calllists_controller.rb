@@ -4,13 +4,19 @@ class CalllistsController < ApplicationController
   #protect_from_forgery :except => :export
 
   before_action :set_calllist, only: [:show, :edit, :update, :destroy]
+  #skip_before_action :verify_authenticity_token
 
   def export
     puts "call list export !"
   end
 
   def import
-    Calllist.import(params[:file])
+   @retdata = Calllist.import(params[:file])
+    respond_to do |format|  
+      format.json{  
+        render :json => {:msg => "csv file was successfully imported!", :data=>@retdata}.to_json
+      }  
+    end
   end
 
   # GET /calllists
