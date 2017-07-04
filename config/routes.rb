@@ -5,34 +5,18 @@ Rails.application.routes.draw do
     collection { get :export }
   end
 
-  resources :suspects
+ # resources :suspects
   get 'spa/react_framework7'
   get 'spa/react_adminonrest'
-  get 'todomvc/angular'
 
-  get 'todomvc/backbone'
+  get 'spa/angular_blur'
+  get 'spa/angular_adminlte'
 
-  get 'todomvc/ember'
-
-  get 'todomvc/knockout'
-
-  get 'todomvc/react'
-
-  get 'todomvc/vue'
-
-  get 'spa/react-framework7'
-  get 'spa/react-adminonrest'
-  get 'spa/react-budgeting'
-
-  get 'spa/angular-blur'
-  get 'spa/angular-adminlte'
-
-  get 'spa/vue-framework7'
-  get 'spa/vue-admin'
-  get 'spa/vue-cnodejs'
-  get 'spa/vue-douban'
-  get 'spa/vue-adminlte'
-  get 'spa/hello-vue'
+  get 'spa/vue_framework7'
+  get 'spa/vue_admin'
+  get 'spa/vue_cnodejs'
+  get 'spa/vue_douban'
+  get 'spa/vue_adminlte'
 
   get 'spa/backbone-todo'
 
@@ -43,6 +27,8 @@ Rails.application.routes.draw do
   get 'tools/index'
 
   get 'suspects/index'
+
+  get 'position_decisions/index'
 
   root 'dashboard#index'
 

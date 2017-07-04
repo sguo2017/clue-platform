@@ -19,7 +19,8 @@
     <%= stylesheet_link_tag "/assets/jsplumb/jsplumbtoolkit-defaults", :media => "all" %>
     <%= stylesheet_link_tag "/assets/jsplumb/jsplumb.demos", :media => "all" %>
 
-    <%= stylesheet_link_tag "application", :media => "all" %>
+    <!-- <%= stylesheet_link_tag "application", :media => "all" %> -->
+    <%= stylesheet_link_tag "/assets/common/style/mystyle", :media => "all" %>
 
     <%= javascript_include_tag "/assets/gojs/go.js" %>
     
@@ -80,6 +81,7 @@
     <%= javascript_include_tag "/assets/ag-grid/ag-grid-doc" %>
 
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "/assets/bootstrap/dist/js/bootstrap.min" %>
 
     
 
@@ -90,63 +92,113 @@
   </head>
   <body>
 
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+ <div class="wrap">
+  <div class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-id">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><%= content_for?(:title) ? yield(:title) : "数据可视化" %></a>
-        <% if user_signed_in? %>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %> <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">个人信息</a></li>
-                <li><%= link_to '退出系统', destroy_user_session_path, method: :delete %></li>
-              </ul>
-            </li>
-            <li><a href="#" style="padding:17px 10px 13px 10px"><span class="glyphicon glyphicon-cog"></span></a></li>
-            <li><a href="#" style="padding:17px 2px 13px 10px"><span class="glyphicon glyphicon-bell"></span>
-            </a></li>
-            <li><a href="#" style="padding-left:2px"><span class="badge">42</span></a></li>
-            
-          </ul>
-          <% if params[:controller] != "tools" && params[:controller] != "excel" %>
-          <form class="navbar-form navbar-right">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="搜索关键字">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-                  <span class="glyphicon glyphicon-search"></span>
-                </button>
-              </span>
-            </div>
-          </form>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="/">首页</a></li>
-            <li><a href="/tools/index">分析工具</a></li>
-            <li><a href="#contact">战法管理</a></li>
-            <li><a href="#contact">情报预警</a></li>
-            <li><a href="#contact">证据管理</a></li>
-          </ul>  
-          <% end %> 
-          <%= yield(:navbar) %>       
-        <% end %>
+          <a class="navbar-brand" href="#">
+          <%= image_tag("/assets/common/images/headbar_logo.png")%>
+          </a>
       </div>
-    </div>
-
-
-    <div class="container-fluid main">
-      <div class="row">
-        <div class="col-xs-12">
+      <div class="navbar-collapse collapse" id="navbar-collapse-id">
+          <ul class="nav navbar-nav">
+              <li>
+                  <a href="index.html">首页</a>
+              </li>
+              <li class="active">
+                  <a data-toggle="dropdown" href="analysis.html">分析工具</a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="">人际交往报告</a>
+                    </li>
+                    <li>
+                      <a href="">资金流转报告</a>
+                    </li>
+                    <li>
+                      <a href="">物流往来报告</a>
+                    </li>
+                    <li>
+                      <a href="">消费情况报告</a>
+                    </li>
+                    <li>
+                      <a href="">人员智能画像</a>
+                    </li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">战法管理</a>
+              </li>
+              <li>
+                  <a href="#">预警情报</a>
+              </li>
+              <li>
+                  <a href="#">证据管理</a>
+              </li>
+              <li>
+                  <a href="#">分析工具</a>
+              </li> 
+          </ul>
+          <form class="navbar-form hidden-sm">
+              <div class="input-group">
+                 <input type="text" class="form-control" placeholder="搜索关键字">
+                 <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                 </span>
+              </div>
+          </form>
+        <ul class="nav navbar-nav hidden-md hidden-sm user-tool">
+              <li  class="dropdown">
+                <a class="user-block" data-toggle="dropdown">
+                  <div class="user-img">
+                   <%= image_tag("/assets/common/images/people1.png")%>
+                  </div>
+                  <div>
+                    <span class="caret"></span>
+                    <div>admin</div>
+                    <small>决策岗</small>
+                  </div>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">
+                      <span class="aliconfont icon-person-info"></span> 个人信息
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="aliconfont icon-change-role"></span> 角色转换
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                <span class="aliconfont icon-retirement"></span> 退出登录
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="">
+                  <span class="glyphicon glyphicon-cog text-primary"></span>
+                </a>
+              </li>
+              <li>
+                <a href="" class="notice-wrap">
+                  <span class="glyphicon glyphicon-bell text-primary"></span> 
+                  <span class="label label-warning">30</span>
+                </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <!-- navbar end -->
           <%= bootstrap_flash %>
           <%= yield %>
-        </div>
-      </div><!--/row-->
-    </div> <!-- /container -->
-  
-  </body>
+</div>
+</body>
 </html>
