@@ -1,64 +1,349 @@
-<div class="suspects_teams">
-<div class="page">
-  <div class="users"></div>
-  <script id="user-template" type="text/x-handlebars-template">
-    <div class="user">
-      <div class="photo"><img src="{{photo}}"/></div>
-      <div class="info">
-        <div class="name">{{name}}</div>
-        <div class="nickName">{{userName}}</div>
+<div class="analysis-wrap">
+<div class="bread-nav-wrap">
+    <ul class="bread-nav clearfix">
+      <li class="bread-nav-item home">
+        <a class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
+      </li>
+      <li class="bread-nav-item">
+        <span class="link-item" href="">嫌疑犯团伙详情</span>
+      </li>
+    </ul>
+  </div>
+  <!-- 路径导航 end -->
+  <div class="left-side left-side-inverse column-18">
+    <div class="left-side-heading">
+      <div class="heading-title">
+        <a class="pull-right small" href="">回首页</a>
+        嫌疑犯
       </div>
-      <dl>
-        <dt>出生于</dt>
-        <dd>{{born}}</dd>
-        <dt>出生日期</dt>
-        <dd>{{dob}}</dd>
-        <dt>邮箱</dt>
-        <dd>{{email}}</dd>
-      </dl>
-      <div class="funcs">
-        <div class="left">
-          <div class="icon status fa fa-edit" title="修改状态"></div>
-          <div class="icon delete fa fa-trash" title="删除"></div>
-        </div>
-        <div class="right">
-          <div class="icon clone fa fa-copy" title="复制"></div>
-          <div class="icon send fa fa-envelope" title="添加备注信息"></div>
-        </div>
+      <div class="input-group">
+        <input type="text" class="form-control" value="搜索">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button">
+          搜
+          </button>
+        </span>
       </div>
     </div>
-  </script>
-  <script id="new-user-template" type="text/x-handlebars-template">
-    <div class="user new">
-      <div class="photo">
-        <div class="placeHolder"></div>
+    <ul class="analysis-img-list">
+      <li class="list-item active">
+        <a href="#" class="img-wrap">
+          <%= image_tag("/assets/common/images/image/rectangle1.png")%>
+          <div class="img-title">Midred Ortega</div>
+        </a>
+      </li>
+      <li class="list-item">
+        <a href="#" class="img-wrap">
+          <%= image_tag("/assets/common/images/image/rectangle2.png")%>
+          <div class="img-title">Midred Ortega</div>
+        </a>
+      </li>
+      <li class="list-item">
+        <a href="#" class="img-wrap">
+          <%= image_tag("/assets/common/images/image/rectangle4.png")%>
+          <div class="img-title">Midred Ortega</div>
+        </a>
+      </li>
+      <li class="list-item">
+        <a href="#" class="img-wrap">
+          <%= image_tag("/assets/common/images/image/rectangle7.png")%>
+          <div class="img-title">Midred Ortega</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- left-side end -->
+  <div class="right-side column-24">
+    <div class="inner-panel">
+      <div class="panel-heading">
+        <div class="panel-title">
+          团伙成员
+        </div>
       </div>
-      <div class="info">
-        <div class="name">添加嫌疑团伙成员</div>
+      <div class="block-plr">
+        <ul class="media-list media-img40">
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/image/people1.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">Nicole Harrison</div>
+              <div class="text-muted">母亲，82岁，女</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/image/people2.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">Nicole Harrison</div>
+              <div class="text-muted">母亲，82岁，女</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/image/people3.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">Nicole Harrison</div>
+              <div class="text-muted">母亲，82岁，女</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/people1.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">Nicole Harrison</div>
+              <div class="text-muted">母亲，82岁，女</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/image/people4.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">Nicole Harrison</div>
+              <div class="text-muted">母亲，82岁，女</div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
-  </script>
-  <div class="editorBox">
-    <div class="propertyEditor"></div>
+    <div class="inner-panel">
+      <div class="panel-heading">
+        <div class="panel-title">
+          关联车辆  
+        </div>
+      </div>
+      <div class="block-plr">
+        <ul class="media-list media-img40">
+          <li class="media">
+            <div class="media-left">
+             <%= image_tag("/assets/common/images/car_def.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">5-214-34-038</div>
+              <div class="text-muted">白色，轿车</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/car_def.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">5-214-34-038</div>
+              <div class="text-muted">白色，轿车</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+             <%= image_tag("/assets/common/images/car_def.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">5-214-34-038</div>
+              <div class="text-muted">白色，轿车</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/car_def.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">5-214-34-038</div>
+              <div class="text-muted">白色，轿车</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="inner-panel">
+      <div class="panel-heading">
+        <div class="panel-title">
+          关联文档
+        </div>
+      </div>
+      <div class="block-plr">
+        <ul class="media-list media-img40">
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/documemt_def.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">嫌疑团伙调查资料</div>
+              <div class="text-gray">重要，1月2日 20:34</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/img_def.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">车辆图片-大众cc,车辆</div>
+              <div class="text-gray">重要，1月2日 20:34</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/excel_def.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">团伙成员手机通讯录</div>
+              <div class="text-gray">重要，1月2日 20:34</div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+               <%= image_tag("/assets/common/images/audio_def.png",:class => "img-circle")%>
+            </div>
+            <div class="media-body">
+              <div class="media-heading">团伙成员审讯录音</div>
+              <div class="text-gray">重要，1月2日 20:34</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>  
   </div>
-</div>
-<div class="popup">
-  <div class="header">
-    <div class="title">添加嫌疑人备注信息</div>
-    <div class="icon"><i class="fa fa-send" title="Send"></i></div>
+  <!-- right-side end -->
+  <div class="container-18-24">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="info-show">
+          <div class="info-left">
+            <%= image_tag("/assets/common/images/people1.png")%>
+          </div>
+          <div class="info-body">
+            <div class="info-heading clearfix">
+              <div class="pull-left">
+                <span class="info-name">张三团伙</span>
+                <div class="mt5">
+                  <span class="label label-warning mr10">走私</span>
+                  <span class="label label-warning mr10">代销</span>
+                  <span class="label label-warning mr10">黑社会</span>
+                </div>
+              </div>
+              <div class="ico-tool-list pull-right">
+                <a class="ico-wrap" href="">
+                  <div class="ico-name">5人</div>
+                  <div class="text-gray">
+                    <span class="aliconfont icon-family f14"></span> 团伙成员
+                  </div>
+                </a>
+                <a class="ico-wrap" href="">
+                  <div class="ico-name">5件</div>
+                  <div class="text-gray">
+                    <span class="aliconfont icon-file f14"></span> 关联案件
+                  </div>
+                </a>
+                <a class="ico-wrap" href="">
+                  <div class="ico-name">5人</div>
+                  <div class="text-gray">
+                    <span class="aliconfont icon-car f14"></span> 关联车辆
+                  </div>
+                </a>
+                <a class="ico-wrap" href="">
+                  <div class="ico-name">5台</div>
+                  <div class="text-gray">
+                    <span class="glyphicon glyphicon-file f14"></span> 关联文档 
+                  </div>
+                </a>
+                <a class="ico-wrap" href="">
+                  <div class="ico-name">5份</div>
+                  <div class="text-gray">
+                    <span class="aliconfont icon-tab f14"></span> 标签信息
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="info-list-wrap">
+              <ul class="float-ul wu2 clearfix lh22">
+                <li class="float-ul-item">名称：张三团伙</li>
+                <li class="float-ul-item">公司：山东市东花贸易运输有限责任公司</li>
+                <li class="float-ul-item">团队类型：走私</li>
+                <li class="float-ul-item">注册地址：山东市东花北里20号楼01单元701室</li>
+                <li class="float-ul-item">团伙成员：10人</li>
+                <li class="float-ul-item">公司账户：230583085</li>
+                <li class="float-ul-item">1号人物：张三</li>
+                <li class="float-ul-item">&nbsp;</li>
+                <li class="float-ul-item">2号人物：李四</li>
+                <li class="float-ul-item">&nbsp;</li>
+                <li class="float-ul-item">3号人物：王五</li>
+                <li class="float-ul-item">&nbsp;</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="inner-panel-heading">
+        <div class="panel-title">
+          <div class="pull-right">
+            <ul class="nav-line-space list-unstyled">
+              <li class="active"><a href="">人际关系分析</a></li>
+              <li><a href="">出行轨迹分析</a></li>
+              <li><a href="">资金流转分析</a></li>
+              <li><a href="">物流往来分析</a></li>
+            </ul>
+          </div>
+          关联案件
+        </div>
+      </div>
+      <div class="panel-body">
+        <ul class="media-list media-time-axis">
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/image/rectangle-a1.png",:class => "media-object")%>
+            </div>
+            <div class="media-body">
+              <div class="title-conponent">
+                <small class="pull-right text-gray">
+                  <span class="glyphicon glyphicon-calendar text-primary"></span>&nbsp;2017-12-12&nbsp;12:12:12
+                </small>
+                <span class="f16">117走私案</span>
+                <span class="label label-danger ml10">未结案</span>
+              </div>
+              <div class="text-muted">
+              黄埔海关5月24日对外通报，该关成功捣毁了５个涉嫌走私进口光电材料的犯罪团伙。截至24日9点，抓获犯罪嫌疑人78名，现场查扣涉嫌走私进口的光电材料一批。经查，2014年以来，涉案走私团伙共走私进口光电材料约6300吨，案值约10亿元。５月２４日凌晨5：30分，专案指挥部统一下达抓捕命令，近千名警力分成143个行动小组，分别在广州、深圳、东莞、中山、江门、武汉、成都、长沙、玉林等地同步开展收网行动，成功捣毁了上述犯罪团伙，一举抓获78名犯罪嫌疑人。
+              </div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/image/rectangle-a1.png",:class => "media-object")%>
+            </div>
+            <div class="media-body">
+              <div class="title-conponent">
+                <small class="pull-right text-gray">
+                  <span class="glyphicon glyphicon-calendar text-primary"></span>&nbsp;2017-12-12&nbsp;12:12:12
+                </small>
+                <span class="f16">117走私案</span>
+                <span class="label label-success ml10">已结案</span>
+              </div>
+              <div class="text-muted">
+              黄埔海关5月24日对外通报，该关成功捣毁了５个涉嫌走私进口光电材料的犯罪团伙。截至24日9点，抓获犯罪嫌疑人78名，现场查扣涉嫌走私进口的光电材料一批。经查，2014年以来，涉案走私团伙共走私进口光电材料约6300吨，案值约10亿元。５月２４日凌晨5：30分，专案指挥部统一下达抓捕命令，近千名警力分成143个行动小组，分别在广州、深圳、东莞、中山、江门、武汉、成都、长沙、玉林等地同步开展收网行动，成功捣毁了上述犯罪团伙，一举抓获78名犯罪嫌疑人。
+              </div>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <%= image_tag("/assets/common/images/image/rectangle-a1.png",:class => "media-object")%>
+            </div>
+            <div class="media-body">
+              <div class="title-conponent">
+                <small class="pull-right text-gray">
+                  <span class="glyphicon glyphicon-calendar text-primary"></span>&nbsp;2017-12-12&nbsp;12:12:12
+                </small>
+                <span class="f16">117走私案</span>
+                <span class="label label-success ml10">已结案</span>
+              </div>
+              <div class="text-muted">
+              黄埔海关5月24日对外通报，该关成功捣毁了５个涉嫌走私进口光电材料的犯罪团伙。截至24日9点，抓获犯罪嫌疑人78名，现场查扣涉嫌走私进口的光电材料一批。经查，2014年以来，涉案走私团伙共走私进口光电材料约6300吨，案值约10亿元。５月２４日凌晨5：30分，专案指挥部统一下达抓捕命令，近千名警力分成143个行动小组，分别在广州、深圳、东莞、中山、江门、武汉、成都、长沙、玉林等地同步开展收网行动，成功捣毁了上述犯罪团伙，一举抓获78名犯罪嫌疑人。
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>  
   </div>
-  <div class="content">
-    <textarea placeholder="您要添加的内容"></textarea>
   </div>
-</div>
-<div class="instructions">
-  <ol type="1">
-    <li>Select a user</li>
-    <li>Try to change Name or Nickname property</li>
-    <li>Press "Send message to user" button and watch the nice popup window</li>
-    <li>Select an other user too</li>
-    <li>Try the multiple property edit (e.g. change status)</li>
-    <li>Watch the "Add new user" button hover effect</li>
-  </ol>
-</div>
-</div>

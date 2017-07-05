@@ -1,225 +1,344 @@
-<div class="left_sidebar">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">嫌疑犯<a href="#" class="pull-right">回首页</a></h3>
-		</div>
-		<div class="panel-body" style="padding-bottom: 0px; min-height: 96px;">
-			<% 20.times do %>
-		
-				<div class="col-xs-12" style="padding-left:0px;padding-right:0px">
-					<div class="thumbnail">
-						<img data-src="#" alt="" style="height:150px;background: lightblue;">
-						<div class="caption">
-							<p>嫌疑犯</p>
-						</div>
-					</div>
-				</div>
-		
-			<% end %>
-		</div>
-		<div class="panel-footer">
-			<form>
-				<div class="input-group">
-				  <input type="text" class="form-control" placeholder="搜索关键字">
-				</div>
-			</form>
-		</div>
+<div class="analysis-wrap">
+<div class="bread-nav-wrap">
+		<ul class="bread-nav clearfix">
+			<li class="bread-nav-item home">
+				<a class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
+			</li>
+			<li class="bread-nav-item">
+				<span class="link-item" href="">嫌疑犯详情</span>
+			</li>
+		</ul>
 	</div>
-</div>
-
-<div class="center_block">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<div class="media">
-				<a class="pull-left" href="#">
-					<img class="media-object" data-src="#">
+	<!-- 路径导航 end -->
+	<div class="left-side left-side-inverse column-18">
+		<div class="left-side-heading">
+			<div class="heading-title">
+				<a class="pull-right small" href="">回首页</a>
+				嫌疑犯
+			</div>
+			<div class="input-group">
+				<input type="text" class="form-control" value="搜索">
+				<span class="input-group-btn">
+					<button class="btn btn-primary" type="button">
+					搜
+					</button>
+				</span>
+			</div>
+		</div>
+		<ul class="analysis-img-list">
+			<li class="list-item active">
+				<a href="#" class="img-wrap">
+					<%= image_tag("/assets/common/images/image/rectangle1.png")%>
+					<div class="img-title">Midred Ortega</div>
 				</a>
+			</li>
+			<li class="list-item">
+				<a href="#" class="img-wrap">
+					<%= image_tag("/assets/common/images/image/rectangle2.png")%>
+					<div class="img-title">Midred Ortega</div>
+				</a>
+			</li>
+			<li class="list-item">
+				<a href="#" class="img-wrap">
+					<%= image_tag("/assets/common/images/image/rectangle4.png")%>
+					<div class="img-title">Midred Ortega</div>
+				</a>
+			</li>
+			<li class="list-item">
+				<a href="#" class="img-wrap">
+					<%= image_tag("/assets/common/images/image/rectangle7.png")%>
+					<div class="img-title">Midred Ortega</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- left-side end -->
 
-				<div class="media-body">
-					<div class="row">
-						<div class="col-xs-3">
-							<h3>嫌疑犯名称</h3>
+	<div class="right-side column-24">
+		<div class="inner-panel">
+			<div class="panel-heading">
+				<div class="panel-title">
+					家庭成员
+				</div>
+			</div>
+			<div class="block-plr">
+				<ul class="media-list media-img40">
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/image/people1.png",:class => "img-circle")%>
 						</div>
-						<div class="col-xs-9 text-right">
-							<div class="row">
-								<div class="col-xs-2 col-xs-offset-1 text-center" style="padding-left:0px;padding-right:0px">
-									<h4>5人</h4>
-									<p class="text-muted"><span class="glyphicon glyphicon-user"></span> 家庭成员</p>
-								</div>
-								<div class="col-xs-2 text-center" style="padding-left:0px;padding-right:0px">
-									<h4>3起</h4>
-									<p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 关联案件</p>
-								</div>
-								<div class="col-xs-2 text-center" style="padding-left:0px;padding-right:0px">
-									<h4>5台</h4>
-									<p class="text-muted"><span class="glyphicon glyphicon-plane"></span> 关联车辆</p>
-								</div>
-								<div class="col-xs-2 text-center" style="padding-left:0px;padding-right:0px">
-									<h4>9份</h4>
-									<p class="text-muted"><span class="glyphicon glyphicon-file"></span> 关联文档</p>
-								</div>
-								<div class="col-xs-2 text-center" style="padding-left:0px;padding-right:0px">
-									<h4>3人</h4>
-									<p class="text-muted"><span class="glyphicon glyphicon-tag"></span> 标签信息</p>
-								</div>
+						<div class="media-body">
+							<div class="media-heading">Nicole Harrison</div>
+							<div class="text-muted">母亲，82岁，女</div>
+						</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/image/people5.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">Nicole Harrison</div>
+							<div class="text-muted">母亲，82岁，女</div>
+						</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/image/people6.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">Nicole Harrison</div>
+							<div class="text-muted">母亲，82岁，女</div>
+						</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/image/people7.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">Nicole Harrison</div>
+							<div class="text-muted">母亲，82岁，女</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="inner-panel">
+			<div class="panel-heading">
+				<div class="panel-title">
+					关联车辆	
+				</div>
+			</div>
+			<div class="block-plr">
+				<ul class="media-list media-img40">
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/car_def.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">5-214-34-038</div>
+							<div class="text-muted">白色，轿车</div>
+						</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/car_def.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">5-214-34-038</div>
+							<div class="text-muted">白色，轿车</div>
+						</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/car_def.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">5-214-34-038</div>
+							<div class="text-muted">白色，轿车</div>
+						</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/car_def.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">5-214-34-038</div>
+							<div class="text-muted">白色，轿车</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="inner-panel">
+			<div class="panel-heading">
+				<div class="panel-title">
+					关联文档
+				</div>
+			</div>
+			<div class="block-plr">
+				<ul class="media-list media-img40">
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/documemt_def.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">Edward Rios</div>
+							<div class="text-muted">重要，1月2日 20:34</div>
+						</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/documemt_def.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">Edward Rios</div>
+							<div class="text-muted">重要，1月2日 20:34</div>
+						</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/documemt_def.png",:class => "img-circle")%>
+						</div>
+						<div class="media-body">
+							<div class="media-heading">Edward Rios</div>
+							<div class="text-muted">重要，1月2日 20:34</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>	
+	</div>
+	<!-- right-side end -->
+	<div class="container-18-24">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="info-show">
+					<div class="info-left">
+						<%= image_tag("/assets/common/images/people1.png")%>
+					</div>
+					<div class="info-body">
+						<div class="info-heading clearfix">
+							<div class="info-name pull-left">mildred ortage</div>
+							<div class="ico-tool-list pull-right">
+								<a class="ico-wrap" href="">
+									<div class="ico-name">5人</div>
+	 								<div class="text-gray">
+										<span class="aliconfont icon-family f14"></span> 家庭成员
+	 								</div>
+		 						</a>
+								<a class="ico-wrap" href="">
+									<div class="ico-name">5起</div>
+	 								<div class="text-gray">
+										<span class="aliconfont icon-file f14"></span> 关联案件
+	 								</div>
+		 						</a>
+								<a class="ico-wrap" href="">
+									<div class="ico-name">4台</div>
+	 								<div class="text-gray">
+										<span class="aliconfont icon-car f14"></span> 关联车辆
+	 								</div>
+		 						</a>
+								<a class="ico-wrap" href="">
+									<div class="ico-name">9份</div>
+	 								<div class="text-gray">
+										<span class="glyphicon glyphicon-file f14"></span> 关联文档 
+	 								</div>
+		 						</a>
+								<a class="ico-wrap" href="">
+									<div class="ico-name">5人</div>
+	 								<div class="text-gray">
+										<span class="aliconfont icon-tab f14"></span> 标签信息
+	 								</div>
+		 						</a>
 							</div>
 						</div>
-					</div>
-					<div class="row" style="margin-top: 10px;">
-						<div class="col-xs-6">
-							<dl class="dl-horizontal">
-							  <dt>姓名</dt>
-							  <dd>张三</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>性别</dt>
-							  <dd>男</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>年龄</dt>
-							  <dd>30</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>户籍</dt>
-							  <dd>山东市花山镇20号楼31单元701房</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>电话</dt>
-							  <dd>18000223344</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>邮箱</dt>
-							  <dd>18000223344@qq.com</dd>
-							</dl>
-						</div>
-						<div class="col-xs-6">
-							<dl class="dl-horizontal">
-							  <dt>现地址</dt>
-							  <dd>山东市花山镇20号楼31单元701房</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>民族</dt>
-							  <dd>回族</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>学历</dt>
-							  <dd>高中</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>毕业学校</dt>
-							  <dd>第三中学</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>身份证</dt>
-							  <dd>44011119888880002</dd>
-							</dl>
-							<dl class="dl-horizontal">
-							  <dt>QQ号码</dt>
-							  <dd>80869005</dd>
-							</dl>
+						<div class="info-list-wrap">
+							<ul class="float-ul wu2 clearfix lh22">
+								<li class="float-ul-item">姓名：张三</li>
+								<li class="float-ul-item">现住址：山东市东华北里20号楼1单元701室</li>
+								<li class="float-ul-item">性别：男</li>
+								<li class="float-ul-item">民族：回族</li>
+								<li class="float-ul-item">年龄：34</li>
+								<li class="float-ul-item">学历：高中</li>
+								<li class="float-ul-item">户籍：山东</li>
+								<li class="float-ul-item">毕业学校：第三中学</li>
+								<li class="float-ul-item">电话：1328888888</li>
+								<li class="float-ul-item">身份证：325234352342313141</li>
+								<li class="float-ul-item">邮箱：25345346@126.com</li>
+								<li class="float-ul-item">QQ号码：3443643</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-3">
-					<h3 class="panel-title">关联案件</h3>
-				</div>
-				<div class="col-xs-9 text-right">
-                                        <input type="file" name="suspect[calllist]" id="suspect_calllist_file">
-                                          
-					<a class="btn btn-link" onclick="submitFormWithImage('suspect_calllist_file')" >通话关系分析</a>
-					<a class="btn btn-link">人际关系分析</a>
-					<a class="btn btn-link">出行轨迹分析</a>
-					<a class="btn btn-link">资金流转分析</a>
-					<a class="btn btn-link">物流来往分析</a>
+			<hr>
+			<div class="inner-panel-heading">
+				<div class="panel-title">
+					<div class="pull-right">
+						<ul class="nav-line-space list-unstyled">
+							<li class="active"><a href="">人际关系分析</a></li>
+							<li><a href="">出行轨迹分析</a></li>
+							<li><a href="">资金流转分析</a></li>
+							<li><a href="">物流往来分析</a></li>
+						</ul>
+					</div>
+					关联案件
 				</div>
 			</div>
-			
-		</div>
-		<div class="panel-body" style="padding-bottom: 0px; min-height: 96px;">
-			<% 4.times do %>
-				<div class="media">
-					<a class="pull-left" href="#">
-						<img class="media-object" data-src="#">
-					</a>
-					<div class="media-body">
-						<h5 class="media-heading">案件名称 <span class="label label-danger">重要</span><span class='timer'>2017-05-03 13:56:00</span></h5>
-						<p class="text-muted" style="font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						<div class="media">
-							<a class="pull-left" href="#">
-								<img class="media-object" data-src="#">
-							</a>
-
-							<div class="media-body">
-								<h5 class="media-heading">用户名称</h5>
-								<p class="text-muted well well-sm" style="font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<div class="panel-body">
+				<ul class="media-list media-time-axis">
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/image/rectangle-a1.png",:class => "media-object")%>
+						</div>
+						<div class="media-body">
+							<div class="title-conponent">
+								<small class="pull-right text-gray">
+									<span class="glyphicon glyphicon-calendar text-primary"></span>&nbsp;2017-12-12&nbsp;12:12:12
+								</small>
+								<span class="f16">117走私案</span>
+								<span class="label label-danger ml10">重要</span>
+							</div>
+							<div class="text-muted">
+							违规和wig狐尾花跟号为宏观和我和我换个我还给我和我哥会偶尔我会狗儿文化宫二维火锅 而我国和文化宫IE文化宫IE我hi共，二维过后号未果后IE无花果hi嗯我。围殴号共和我哥和我号号号偶尔维护费，说过话威哥wigIE我。文广局微结构嗯我、
+							</div>
+							<div class="media media-img40">
+								<div class="media-left">
+									<%= image_tag("/assets/common/images/image/people8.png",:class => 
+									"media-object img-circle") %>
+								</div>
+								<div class="media-body">
+									<div class="media-heading">
+										<small class="pull-right text-gray">
+											<span class="glyphicon glyphicon-calendar text-primary"></span>&nbsp;2017-12-12&nbsp;12:12:12
+										</small>
+										<span class="f16 text-capitalize">louis alvarez</span>	
+									</div>
+									<div class="alert alert-warning">
+										违规和wig狐尾花跟号为宏观和我和我换个我还给我和我哥会偶尔我会狗儿文化宫二维火锅 而我国和文化宫IE文化宫IE我hi共，二维过后号未果后IE无花果hi嗯我。围殴号共和我哥和我号号号偶尔维护费，说过话威哥wigIE我。文广局微结构嗯我、
+									</div>
+								</div>									
 							</div>
 						</div>
-					</div>
-				</div>
-		
-			<% end %>
-		</div>
-	</div>
-</div>
+					</li>
+					<li class="media">
+						<div class="media-left">
+							<%= image_tag("/assets/common/images/image/rectangle-a2.png",:class => 
+							"media-object")%>
+						</div>
+						<div class="media-body">
+							<div class="title-conponent">
+								<small class="pull-right text-gray">
+									<span class="glyphicon glyphicon-calendar text-primary"></span>&nbsp;2017-12-12&nbsp;12:12:12
+								</small>
+								<span class="f16">117走私案</span>
+								<span class="label label-danger ml10">重要</span>
+							</div>
+							<div class="text-muted">
+							违规和wig狐尾花跟号为宏观和我和我换个我还给我和我哥会偶尔我会狗儿文化宫二维火锅 而我国和文化宫IE文化宫IE我hi共，二维过后号未果后IE无花果hi嗯我。围殴号共和我哥和我号号号偶尔维护费，说过话威哥wigIE我。文广局微结构嗯我、
+							</div>
+							<div class="media media-img40">
+								<div class="media-left">
+									<%= image_tag("/assets/common/images/image/people9.png",:class => 
+										"media-object img-circle") %>
+								</div>
+								<div class="media-body">
+									<div class="media-heading">
+										<small class="pull-right text-gray">
+											<span class="glyphicon glyphicon-calendar text-primary"></span>&nbsp;2017-12-12&nbsp;12:12:12
+										</small>
+										<span class="f16 text-capitalize">louis alvarez</span>	
+									</div>
+									<div class="alert alert-warning">
+										违规和wig狐尾花跟号为宏观和我和我换个我还给我和我哥会偶尔我会狗儿文化宫二维火锅 而我国和文化宫IE文化宫IE我hi共，二维过后号未果后IE无花果hi嗯我。围殴号共和我哥和我号号号偶尔维护费，说过话威哥wigIE我。文广局微结构嗯我、
+									</div>
+								</div>									
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
 
-
-<div class="right_sidebar">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">家庭成员</h3>
-		</div>
-		<div class="panel-body" style="padding-bottom: 0px; min-height: 96px;">
-			<% 4.times do %>
-		
-				<div class="media">
-					<a class="pull-left" href="#">
-						<img class="media-object" data-src="#">
-					</a>
-					<div class="media-body">
-						<h5 class="media-heading">成员名称</h5	>
-						<p class="text-muted" style="font-size: 12px;">关系,年龄,性别关系</p>
-					</div>
-				</div>
-		
-			<% end %>			
-		</div>
-		<div class="panel-heading">
-			<h3 class="panel-title">关联车辆</h3>
-		</div>
-		<div class="panel-body" style="padding-bottom: 0px; min-height: 96px;">
-			<% 4.times do %>
-		
-				<div class="media">
-					<a class="pull-left" href="#">
-						<img class="media-object" data-src="#">
-					</a>
-					<div class="media-body">
-						<h5 class="media-heading">车牌号码</h5	>
-						<p class="text-muted" style="font-size: 12px;">颜色,车型</p>
-					</div>
-				</div>
-		
-			<% end %>
-		</div>
-		<div class="panel-heading">
-			<h3 class="panel-title">关联文档</h3>
-		</div>
-		<div class="panel-body" style="padding-bottom: 0px; min-height: 96px;">
-			<% 8.times do %>
-		
-				<div class="media">
-					<a class="pull-left" href="#">
-						<img class="media-object" data-src="#">
-					</a>
-					<div class="media-body">
-						<h5 class="media-heading">文档名称</h5	>
-						<p class="text-muted" style="font-size: 12px;">级别,2017-05-03</p>
-					</div>
-				</div>
-		
-			<% end %>
-		</div>				
+		</div>	
 	</div>
-</div>
+	</div>
