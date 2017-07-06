@@ -30,10 +30,15 @@ Rails.application.routes.draw do
 
   get 'position_decisions/index'
 
+  get 'resources/search', to: 'resources#search'
+
+
   root 'dashboard#index'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

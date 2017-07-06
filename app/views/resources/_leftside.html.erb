@@ -1,0 +1,24 @@
+ <div class="left-side left-side-inverse column-18">
+    <div class="left-side-heading">
+      <div class="heading-title">
+        <a class="pull-right small" href="">回首页</a>
+        分类  
+      </div>
+<!--       <div class="input-group">
+        <input type="text" class="form-control" value="搜索">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div> -->
+   <%= render 'comp_search_form', resource: @resource %>
+    </div>
+    <div class="left-side-btn-menu">
+      <a href="" class="btn btn-normal btn-block <% if @search_type == 'infomation' %>active<% end %>" type="button">情报资料库</a>  
+      <a href="" class="btn btn-normal btn-block <% if @search_type == 'doc' %>active<% end %>" type="button">文档库</a> 
+      <a href="" class="btn btn-normal btn-block <% if @search_type == 'image' %>active<% end %>" type="button">图片库</a> 
+      <a href="" class="btn btn-normal btn-block <% if @search_type == 'video' %>active<% end %>" type="button">视频库</a> 
+    </div>
+  </div>
+  <!-- left-side end -->

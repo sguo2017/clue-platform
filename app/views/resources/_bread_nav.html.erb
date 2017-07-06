@@ -1,0 +1,25 @@
+<div class="bread-nav-wrap">
+    <ul class="bread-nav clearfix">
+      <li class="bread-nav-item home">
+        <a class="link-item" class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
+      </li>
+      <li class="bread-nav-item">
+        <a class="link-item" href="">综合搜索</a>
+      </li>
+      <li class="bread-nav-item">
+        <span class="link-item">
+          <% case @search_type 
+              when "infomation" %>
+                  情报资料
+          <% when "doc" %>
+                  文档库
+          <% when "image" %>
+                  图片库
+          <% when "video" %>
+                  视频库
+          <% else 
+             end %>
+        </span>
+      </li>
+    </ul>
+  </div>

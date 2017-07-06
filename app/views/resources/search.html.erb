@@ -1,0 +1,20 @@
+<%= render 'bread_nav', resource: @resource %>
+  <!-- 路径导航 end -->
+ <%= render 'leftside', resource: @resource %>
+ <!-- 右侧内容 -->
+ <% case @search_type 
+    when "infomation" %>
+      	<%= render 'rightside_infomation', resource: @resource  %>
+ <% when "doc" %>
+      	<%= render 'rightside_doc', resource: @resource  %>
+ <% when "image" %>
+ 	  	<%= render 'rightside_image', resource: @resource  %>
+ <% when "video" %>
+ 		<%= render 'rightside_video', resource: @resource  %>
+ <% else 
+    end %>
+
+
+   
+ 
+ 
