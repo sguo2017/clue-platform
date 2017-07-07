@@ -5,6 +5,8 @@ class PositionDecisionsController < ApplicationController
   # GET /position_decisions.json
   def index
     #@position_decisions = PositionDecision.all
+    @user = current_user
+    @user.position = "analysis"
   end
 
   # GET /position_decisions/1

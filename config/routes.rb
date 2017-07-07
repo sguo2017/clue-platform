@@ -32,6 +32,15 @@ Rails.application.routes.draw do
 
   get 'resources/search', to: 'resources#search'
 
+  get 'tactics', to: 'tactics#index'
+  get '/tactics/:id', to: 'tactics#show'
+  get '/tools/home', to: 'tools#home'
+  get '/tools/add_info', to: 'tools#add_info'
+  get '/tools/add_manual', to: 'tools#add_manual'
+  get '/tools/rlat', to: 'tools#rlat'
+  get '/tools/rlat_details', to: 'tools#rlat_details'
+
+
 
   root 'dashboard#index'
 

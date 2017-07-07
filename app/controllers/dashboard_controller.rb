@@ -6,13 +6,14 @@ class DashboardController < ApplicationController
 	 end
 
 	def access_entry
-		@user = current_user
-		case @user.position
-		when "decision"
-		    puts "decision"
-		    redirect_to position_decisions_index_path 
-		else
-		    puts "default"
-		end
+		redirect_to position_decisions_index_path
+		# @user = current_user
+		# case @user.position
+		# when "decision"
+		#     puts "decision"
+		#     redirect_to position_decisions_index_path 
+		# else
+		#     puts "default"
+		# end
 	end
 end

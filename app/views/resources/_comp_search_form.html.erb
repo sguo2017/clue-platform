@@ -3,19 +3,10 @@
   <%= text_field_tag("key","",class: "form-control",:placeholder => '搜索')  %>
 	<span class="input-group-btn">
 
-		<button class="btn btn-primary" type="submit">
+		<button class="btn btn-primary" type="button">
 			<span class="glyphicon glyphicon-search"></span>
 		</button>
 
      </span>
        <%= hidden_field_tag 'type', 'doc' %>
 <% end %>
-
-<!-- <div class="input-group">
-				<input type="text" class="form-control" value="搜索">
-				<span class="input-group-btn">
-					<button class="btn btn-primary" type="button">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</span>
-			</div> -->
