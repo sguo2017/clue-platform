@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get '/tools/rlat', to: 'tools#rlat'
   get '/tools/rlat_details', to: 'tools#rlat_details'
 
+  get '/cases/:id', to: 'cases#show'
 
 
   root 'dashboard#index'
