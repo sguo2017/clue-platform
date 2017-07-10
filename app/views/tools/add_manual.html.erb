@@ -4,7 +4,7 @@
 				<a class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
 			</li>
 			<li class="bread-nav-item">
-				<a class="link-item" href="">分析工具</a>
+				<a class="link-item" href="<%= tools_home_path %>">分析工具</a>
 			</li>
 			<li class="bread-nav-item">
 				<a class="link-item" href="">新建分析</a>
@@ -15,32 +15,7 @@
 		</ul>
 	</div>
 	<!-- 路径导航 end -->
-	<div class="left-side left-side-inverse column-18">
-		<div class="left-side-heading">
-			<div class="heading-title">
-				<a class="pull-right small" href="">回首页</a>
-				分类	
-			</div>
-			<div class="input-group">
-				<input type="text" class="form-control" value="搜索">
-				<span class="input-group-btn">
-					<button class="btn btn-primary" type="button">
-					搜
-					</button>
-				</span>
-			</div>
-		</div>
-		<div class="left-side-btn-menu">
-			<button class="btn btn-normal btn-block active" type="button">全部分类</button>	
-			<button class="btn btn-normal btn-block" type="button">人际交往报告(10)</button>	
-			<button class="btn btn-normal btn-block" type="button">出行轨迹报告(10)</button>	
-			<button class="btn btn-normal btn-block" type="button">资金流转报告(10)</button>	
-			<button class="btn btn-normal btn-block" type="button">物流往来报告(10)</button>	
-			<button class="btn btn-normal btn-block" type="button">消费情况报告(9)</button>	
-			<button class="btn btn-normal btn-block" type="button">人员只能画像(8)</button>	
-			<button class="btn btn-normal btn-block" type="button">其他(9)</button>	
-		</div>
-	</div>
+	<%= render 'leftside', tools: @tools %>
 	<!-- left-side end -->
 	<div class="container-18">
 		<div class="panel panel-default clearfix">
@@ -128,10 +103,10 @@
 			<div class="inner-panel-body">
 				<ul class="sub-nav clearfix">
 					<li class="sub-nav-item active">
-						<a href="">手工导入</a>
+						<a href="<%= tools_add_manual_path %>">手工导入</a>
 					</li>
 					<li class="sub-nav-item">
-						<a href="">情报资料库</a>
+						<a href="<%= tools_add_info_path %>">情报资料库</a>
 					</li>
 				</ul>
 				<form action="">

@@ -1,0 +1,26 @@
+<div class="left-side left-side-inverse column-18">
+		<div class="left-side-heading">
+			<div class="heading-title">
+				<a class="pull-right small" href="">回首页</a>
+				分类	
+			</div>
+			<div class="input-group">
+				<input type="text" class="form-control" value="搜索">
+				<span class="input-group-btn">
+					<button class="btn btn-primary" type="button">
+					搜
+					</button>
+				</span>
+			</div>
+		</div>
+		<div class="left-side-btn-menu">
+			<a href="<%= tools_home_path %>" class="btn btn-normal btn-block <% if @tools_type == "home" %>active<% end %>" type="button">全部分类</a>	
+			<a href="<%= tools_rlat_path %>" class="btn btn-normal btn-block <% if @tools_type == 'rlat' %>active<% end %>" type="button">人际交往报告(10)</a>	
+			<a href="" class="btn btn-normal btn-block" type="button">出行轨迹报告(10)</a>	
+			<a href="" class="btn btn-normal btn-block" type="button">资金流转报告(10)</a>	
+			<a href="" class="btn btn-normal btn-block" type="button">物流往来报告(10)</a>	
+			<a href="" class="btn btn-normal btn-block" type="button">消费情况报告(9)</a>	
+			<a href="" class="btn btn-normal btn-block" type="button">人员只能画像(8)</a>	
+			<a href="" class="btn btn-normal btn-block" type="button">其他(9)</a>	
+		</div>
+	</div>

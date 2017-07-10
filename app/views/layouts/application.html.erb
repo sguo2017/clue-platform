@@ -106,12 +106,28 @@
       </div>
       <div class="navbar-collapse collapse" id="navbar-collapse-id">
           <ul class="nav navbar-nav">
-              <li>
-                  <a href="index.html">首页</a>
+              <li class="<% if @current_nav == 'home' %> active<% end %>">
+              <%= link_to "首页", position_decisions_index_path  %>
+                  <!-- <a href="index.html">首页</a> -->
               </li>
-              <li class="active">
-                  <a data-toggle="dropdown" href="analysis.html">分析工具</a>
-                  <ul class="dropdown-menu">
+              <li class="<% if @current_nav == 'resources' %> active<% end %>">
+                  <!-- <a data-toggle="dropdown" href="analysis.html">综合搜索</a> -->
+                  <%= link_to "综合搜索", "#{resources_search_path}?type=infomation"  %>
+              </li>
+              <li class="<% if @current_nav == 'tactics' %> active<% end %>">
+              <%= link_to "战法管理", tactics_path  %>
+                  <!-- <a href="#">战法管理</a> -->
+              </li>
+              <li>
+                  <a href="#">预警情报</a>
+              </li>
+              <li>
+                  <a href="#">证据管理</a>
+              </li>
+              <li class="<% if @current_nav == 'tools' %> active<% end %>">
+                  <!-- <a href="#">分析工具</a> -->
+                  <%= link_to "分析工具", tools_home_path %>
+                   <ul class="dropdown-menu">
                     <li>
                       <a href="">人际交往报告</a>
                     </li>
@@ -128,18 +144,6 @@
                       <a href="">人员智能画像</a>
                     </li>
                   </ul>
-              </li>
-              <li>
-                  <a href="#">战法管理</a>
-              </li>
-              <li>
-                  <a href="#">预警情报</a>
-              </li>
-              <li>
-                  <a href="#">证据管理</a>
-              </li>
-              <li>
-                  <a href="#">分析工具</a>
               </li> 
           </ul>
           <form class="navbar-form hidden-sm">

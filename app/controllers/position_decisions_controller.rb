@@ -7,6 +7,9 @@ class PositionDecisionsController < ApplicationController
     #@position_decisions = PositionDecision.all
     @user = current_user
     @user.position = "analysis"
+    # @user.position = "decision"
+    # @user.position = "action"
+
   end
 
   # GET /position_decisions/1

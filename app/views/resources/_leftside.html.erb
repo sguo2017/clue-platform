@@ -15,10 +15,10 @@
    <%= render 'comp_search_form', resource: @resource %>
     </div>
     <div class="left-side-btn-menu">
-      <a href="" class="btn btn-normal btn-block <% if @search_type == 'infomation' %>active<% end %>" type="button">情报资料库</a>  
-      <a href="" class="btn btn-normal btn-block <% if @search_type == 'doc' %>active<% end %>" type="button">文档库</a> 
-      <a href="" class="btn btn-normal btn-block <% if @search_type == 'image' %>active<% end %>" type="button">图片库</a> 
-      <a href="" class="btn btn-normal btn-block <% if @search_type == 'video' %>active<% end %>" type="button">视频库</a> 
+      <a href="<%= "#{resources_search_path}?type=infomation" %>" class="btn btn-normal btn-block <% if @search_type == 'infomation' %>active<% end %>" type="button">情报资料库</a>  
+      <a href="<%= "#{resources_search_path}?type=doc" %>" class="btn btn-normal btn-block <% if @search_type == 'doc' %>active<% end %>" type="button">文档库</a> 
+      <a href="<%= "#{resources_search_path}?type=image" %>" class="btn btn-normal btn-block <% if @search_type == 'image' %>active<% end %>" type="button">图片库</a> 
+      <a href="<%= "#{resources_search_path}?type=video" %>" class="btn btn-normal btn-block <% if @search_type == 'video' %>active<% end %>" type="button">视频库</a> 
     </div>
   </div>
   <!-- left-side end -->
