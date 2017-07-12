@@ -27,7 +27,7 @@
     </div>
     <ul class="analysis-img-list">
       <% @suspects.each do |suspect| %>
-        <li class="list-item <% if @curr_suspect_id.to_s == suspect.id.to_s %> active<% end %>">
+        <li class="list-item <% if @curr_suspect.id.to_s == suspect.id.to_s %> active<% end %>">
           <a href="#" class="img-wrap">
             <%= image_tag("#{suspect.photo}")%>
             <div class="img-title"><%= suspect.name %></div>
@@ -178,7 +178,7 @@
       <div class="panel-body">
         <div class="info-show">
           <div class="info-left">
-            <%= image_tag("/assets/common/images/people1.png")%>
+            <%= image_tag("#{@curr_suspect.photo}")%>
           </div>
           <div class="info-body">
             <div class="info-heading clearfix">
@@ -218,7 +218,7 @@
             </div>
             <div class="info-list-wrap">
               <ul class="float-ul wu2 clearfix lh22">
-                <li class="float-ul-item">姓名：张三</li>
+                <li class="float-ul-item">姓名：<%= @curr_suspect.name %></li>
                 <li class="float-ul-item">现住址：山东市东华北里20号楼1单元701室</li>
                 <li class="float-ul-item">性别：男</li>
                 <li class="float-ul-item">民族：回族</li>
