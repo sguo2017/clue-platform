@@ -26,7 +26,8 @@ Rails.application.routes.draw do
 
   get 'tools/index'
 
-  get 'suspects/index'
+  get 'suspects', to: 'suspects#index'
+  get 'suspects/:id',  to: 'suspects#show'
 
   get 'position_decisions/index'
 
