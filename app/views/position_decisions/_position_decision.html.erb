@@ -22,7 +22,19 @@
           <div class="inner-panel-body">
             <div class="img-column">
               <ul class="clearfix list-unstyled block-list">
-                <li class="col-xs-6 col-md-3">
+                <% @suspects.each do |suspect| %>
+                  <li class="col-xs-6 col-md-3">
+                    <div class="img-wrap img-adapt img-h-136">
+                      <a class="z-cell" href="">
+                       <%= image_tag("#{suspect.photo}",:class => "img")%>
+                      </a>
+                      <div class="img-title text-ellipsis">
+                        <%= suspect.name %>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+                <!-- <li class="col-xs-6 col-md-3">
                   <div class="img-wrap img-adapt img-h-136">
                     <a class="z-cell" href="">
                      <%= image_tag("/assets/common/images/image/rectangle1.png",:class => "img")%>
@@ -61,7 +73,7 @@
                       某某某某
                     </div>
                   </div>
-                </li>
+                </li> -->
                 
 
               </ul>
