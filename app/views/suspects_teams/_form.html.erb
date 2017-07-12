@@ -1,0 +1,47 @@
+<%= form_with(model: suspects_team, local: true) do |form| %>
+  <% if suspects_team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(suspects_team.errors.count, "error") %> prohibited this suspects_team from being saved:</h2>
+
+      <ul>
+      <% suspects_team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :suspects_team_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :catalog %>
+    <%= form.text_field :catalog, id: :suspects_team_catalog %>
+  </div>
+
+  <div class="field">
+    <%= form.label :company %>
+    <%= form.text_field :company, id: :suspects_team_company %>
+  </div>
+
+  <div class="field">
+    <%= form.label :addr %>
+    <%= form.text_field :addr, id: :suspects_team_addr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :account %>
+    <%= form.text_field :account, id: :suspects_team_account %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photo %>
+    <%= form.text_field :photo, id: :suspects_team_photo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

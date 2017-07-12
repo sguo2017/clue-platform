@@ -6,10 +6,10 @@ class PositionDecisionsController < ApplicationController
   def index
     #@position_decisions = PositionDecision.all
     @user = current_user
-    #@user.position = "analysis"
+    @user.position = "analysis"
     @suspects = Suspect.all
-     @user.position = "decision"
-     @user.position = "action"
+     #@user.position = "decision"
+     #@user.position = "action"
   end
 
   # GET /position_decisions/1

@@ -11,6 +11,36 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :case_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :catalog %>
+    <%= form.text_field :catalog, id: :case_catalog %>
+  </div>
+
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.text_field :role, id: :case_role %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :case_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :detail %>
+    <%= form.text_field :detail, id: :case_detail %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photo %>
+    <%= form.text_field :photo, id: :case_photo %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

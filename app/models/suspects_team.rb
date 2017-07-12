@@ -1,0 +1,2 @@
+class SuspectsTeam < ApplicationRecord
+end

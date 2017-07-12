@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704023003) do
+ActiveRecord::Schema.define(version: 20170712084141) do
 
   create_table "calllists", force: :cascade do |t|
     t.string "from_num"
     t.string "to_num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cases", force: :cascade do |t|
+    t.string "name"
+    t.string "catalog"
+    t.string "role"
+    t.string "status"
+    t.string "detail"
+    t.string "photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,6 +41,17 @@ ActiveRecord::Schema.define(version: 20170704023003) do
     t.string "status"
     t.string "skills"
     t.string "settings"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "suspects_teams", force: :cascade do |t|
+    t.string "name"
+    t.string "catalog"
+    t.string "company"
+    t.string "addr"
+    t.string "account"
+    t.string "photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -17,7 +17,7 @@ class CasesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create case" do
     assert_difference('Case.count') do
-      post cases_url, params: { case: {  } }
+      post cases_url, params: { case: { catalog: @case.catalog, detail: @case.detail, name: @case.name, photo: @case.photo, role: @case.role, status: @case.status } }
     end
 
     assert_redirected_to case_url(Case.last)
@@ -34,7 +34,7 @@ class CasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update case" do
-    patch case_url(@case), params: { case: {  } }
+    patch case_url(@case), params: { case: { catalog: @case.catalog, detail: @case.detail, name: @case.name, photo: @case.photo, role: @case.role, status: @case.status } }
     assert_redirected_to case_url(@case)
   end
 

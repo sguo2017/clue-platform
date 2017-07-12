@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :cases
+  resources :suspects_teams
   resources :calllists  do
     collection { post :import }
     collection { get :export }
@@ -22,7 +24,7 @@ Rails.application.routes.draw do
 
   get 'excel/index'
 
-  get 'suspects_teams/index'
+  #get 'suspects_teams/index'
 
   get 'tools/index'
 
