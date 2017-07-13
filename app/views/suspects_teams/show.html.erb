@@ -2,7 +2,7 @@
 <div class="bread-nav-wrap">
     <ul class="bread-nav clearfix">
       <li class="bread-nav-item home">
-        <a class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
+        <a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
       </li>
       <li class="bread-nav-item">
         <span class="link-item" href="">嫌疑犯团伙详情</span>
@@ -26,13 +26,21 @@
       </div>
     </div>
     <ul class="analysis-img-list">
-    <% @suspects_teams.each do |suspects_team_item| %>
-      <li class="list-item <%if suspects_team_item.id==@suspects_team.id %>active<%end%>">
-        <a href="/suspects_teams/<%=suspects_team_item.id%>" class="img-wrap">
-          <%= image_tag("#{suspects_team_item.photo}")%>
-          <div class="img-title"><%= suspects_team_item.name %></div>
+      <li class="list-item active">
+        <a href="/suspects_teams/<%= @suspects_team.id %>" class="img-wrap">
+          <%= image_tag("#{@suspects_team.photo}") %>
+          <div class="img-title"><%= @suspects_team.name %></div>
         </a>
       </li>
+    <% @suspects_teams.each do |suspects_team_item| %>
+      <% unless @suspects_team.id == suspects_team_item.id %>
+        <li class="list-item">
+          <a href="/suspects_teams/<%=suspects_team_item.id%>" class="img-wrap">
+            <%= image_tag("#{suspects_team_item.photo}")%>
+            <div class="img-title"><%= suspects_team_item.name %></div>
+          </a>
+        </li>
+      <% end %>
     <% end %>
      <!--  <li class="list-item active">
         <a href="#" class="img-wrap">

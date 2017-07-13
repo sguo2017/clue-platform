@@ -2,7 +2,7 @@
 	<div class="bread-nav-wrap">
 		<ul class="bread-nav clearfix">
 			<li class="bread-nav-item home">
-				<a class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
+				<a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
 			</li>
 			<li class="bread-nav-item">
 				<a class="link-item" href="">案件详情</a>
@@ -29,13 +29,21 @@
 			</div>
 		</div>
 		<ul class="analysis-img-list">
-			<% @cases.each do |case_item| %>
-				<li class="list-item <%if case_item.id==@case.id %>active<%end%>">
-					<a href="/cases/<%=case_item.id%>" class="img-wrap">
-						<%= image_tag("#{case_item.photo}")%>
-						<div class="img-title text-ellipsis"><%= case_item.name %></div>
+				<li class="list-item active">
+					<a href="/cases/<%=@case.id%>" class="img-wrap">
+						<%= image_tag("#{@case.photo}")%>
+						<div class="img-title text-ellipsis"><%= @case.name %></div>
 					</a>
 				</li>
+			<% @cases.each do |case_item| %>
+				<% unless @case.id == case_item.id %>
+					<li class="list-item">
+						<a href="/cases/<%=case_item.id%>" class="img-wrap">
+							<%= image_tag("#{case_item.photo}")%>
+							<div class="img-title text-ellipsis"><%= case_item.name %></div>
+						</a>
+					</li>
+				<% end %>
 			<% end %>
 		<!--	<li class="list-item active">
 				<a href="#" class="img-wrap active">
@@ -213,7 +221,7 @@
 							<div class="pull-left">
 								<div class="info-name"><%=@case.name%></div>
 								<div class="mt5">
-									<span class="label label-warning mr10">走私</span>
+									<span class="label label-warning mr10"><%=@case.catalog%></span>
 								</div>
 							</div>
 							
@@ -248,7 +256,7 @@
 							<ul class="float-ul wu2 clearfix lh22">
 								<li class="float-ul-item">案件名称：<%=@case.name%></li>
 								<li class="float-ul-item">涉案物品：豪华进口车343辆</li>
-								<li class="float-ul-item">案件类型：洗车走私案</li>
+								<li class="float-ul-item">案件类型：<%=@case.catalog%></li>
 								<li class="float-ul-item">执法部门：山东海关东华分部</li>
 								<li class="float-ul-item">案件时间：2016-12-12</li>
 								<li class="float-ul-item">&nbsp;</li>
@@ -271,7 +279,8 @@
 				<span class="panel-title">案件描述</span>
 			</div>
 				<div class="inner-panel-body">
-							    山东海关成功破获了“1·17”汽车系列走私案。山东海关立即开展线索核查，逐渐摸清一个以许某某为首的保货团伙从事走私汽车的犯罪事实，并发现另有数个本地走私汽车保货团伙与之存在勾联，案情重大。    海关初步查明，以许某某、邓某某等人为首的6个汽车走私团伙相互勾结，通过绕越设关口岸从广西防城港市、崇左市等中越边境非设关地将汽车走私进境，并开往广东佛山、东莞、深圳等地交给相应的多个汽车走私团伙，贩卖到全国各地牟利。
+					<%=@case.detail%>
+							    <!-- 山东海关成功破获了“1·17”汽车系列走私案。山东海关立即开展线索核查，逐渐摸清一个以许某某为首的保货团伙从事走私汽车的犯罪事实，并发现另有数个本地走私汽车保货团伙与之存在勾联，案情重大。    海关初步查明，以许某某、邓某某等人为首的6个汽车走私团伙相互勾结，通过绕越设关口岸从广西防城港市、崇左市等中越边境非设关地将汽车走私进境，并开往广东佛山、东莞、深圳等地交给相应的多个汽车走私团伙，贩卖到全国各地牟利。
 			   经初步统计，从2012年至今，上述6个团伙共以保货方式从越南走私入境汽车1900余辆，涉及宾利、保时捷、路虎等高端汽车品牌，案值共计约19亿元，这也是山东海关建立缉私局以来侦办的最大一起汽车走私案。
 			      为了追查这个团伙，山东海关与湛江、黄埔、石家庄海关等直属海关单位案件线索的对碰核查，摸清了走私团伙的利益链条，并且逐个击破！    海关初步查明，以许某某、邓某某等人为首的6个汽车走私团伙相互勾结，通过绕越设关口岸从广西防城港市、崇左市等中越边境非设关地将汽车走私进境，并开往广东佛山、东莞、深圳等地交给相应的多个汽车走私团伙，贩卖到全国各地牟利。
 			   经初步统计，从2012年至今，上述6个团伙共以保货方式从越南走私入境汽车1900余辆，涉及宾利、保时捷、路虎等高端汽车品牌，案值共计约19亿元，这也是山东海关建立缉私局以来侦办的最大一起汽车走私案。
@@ -281,7 +290,7 @@
 			经初步统计，从2012年至今，上述6个团伙共以保货方式从越南走私入境汽车1900余辆，涉及宾利、保时捷、路虎等高端汽车品牌，案值共计约19亿元，这也是山东海关建立缉私局以来侦办的最大一起汽车走私案。
 			      为了追查这个团伙，山东海关与湛江、黄埔、石家庄海关等直属海关单位案件线索的对碰核查，摸清了走私团伙的利益链条，并且逐个击破！    海关初步查明，以许某某、邓某某等人为首的6个汽车走私团伙相互勾结，通过绕越设关口岸从广西防城港市、崇左市等中越边境非设关地将汽车走私进境，并开往广东佛山、东莞、深圳等地交给相应的多个汽车走私团伙，贩卖到全国各地牟利。
 			为了追查这个团伙，山东海关与湛江、黄埔、石家庄海关等直属海关单位案件线索的对碰核查，摸清了走私团伙的利益链条，并且逐个击破！
-			经初步统计，从2012年至今，上述6个团伙共以保货方式从越南走私入境汽车1900余辆，涉及宾利、保时捷、路虎等高端汽车品牌，案值共计约19亿元，这也是山东海关建立缉私局以来侦办的最大一起汽车走私案。
+			经初步统计，从2012年至今，上述6个团伙共以保货方式从越南走私入境汽车1900余辆，涉及宾利、保时捷、路虎等高端汽车品牌，案值共计约19亿元，这也是山东海关建立缉私局以来侦办的最大一起汽车走私案。 -->
 				</div>
 			</div>
 		</div>	
