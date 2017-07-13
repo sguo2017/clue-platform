@@ -29,14 +29,21 @@
 			</div>
 		</div>
 		<ul class="analysis-img-list">
-			
-			<li class="list-item active">
+			<% @cases.each do |case_item| %>
+				<li class="list-item <%if case_item.id==@case.id %>active<%end%>">
+					<a href="/cases/<%=case_item.id%>" class="img-wrap">
+						<%= image_tag("#{case_item.photo}")%>
+						<div class="img-title text-ellipsis"><%= case_item.name %></div>
+					</a>
+				</li>
+			<% end %>
+		<!--	<li class="list-item active">
 				<a href="#" class="img-wrap active">
 					<%= image_tag("/assets/common/images/image/Bitmap1.png")%>
 					<div class="img-title text-ellipsis">117系列汽车走私案</div>
 				</a>
 			</li>
-			<li class="list-item">
+			 <li class="list-item">
 				<a href="#" class="img-wrap">
 					<%= image_tag("/assets/common/images/image/Bitmap2.png")%>
 					<div class="img-title text-ellipsis">117系列汽车走私案</div>
@@ -54,7 +61,7 @@
 					<%= image_tag("/assets/common/images/image/Bitmap4.png")%>
 					<div class="img-title text-ellipsis">117系列汽车走私案</div>
 				</a>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 	<!-- left-side end -->
@@ -199,12 +206,12 @@
 			<div class="panel-body">
 				<div class="info-show">
 					<div class="info-left">
-						<%= image_tag("/assets/common/images/image/Bitmap1.png")%>
+						<%= image_tag("#{@case.photo}")%>
 					</div>
 					<div class="info-body">
 						<div class="info-heading clearfix">
 							<div class="pull-left">
-								<div class="info-name">117汽车系列走私案</div>
+								<div class="info-name"><%=@case.name%></div>
 								<div class="mt5">
 									<span class="label label-warning mr10">走私</span>
 								</div>
@@ -239,7 +246,7 @@
 						</div>
 						<div class="info-list-wrap">
 							<ul class="float-ul wu2 clearfix lh22">
-								<li class="float-ul-item">案件名称：117汽车系列走私案</li>
+								<li class="float-ul-item">案件名称：<%=@case.name%></li>
 								<li class="float-ul-item">涉案物品：豪华进口车343辆</li>
 								<li class="float-ul-item">案件类型：洗车走私案</li>
 								<li class="float-ul-item">执法部门：山东海关东华分部</li>

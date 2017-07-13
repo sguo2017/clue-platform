@@ -11,9 +11,9 @@ class SuspectsController < ApplicationController
   # GET /suspects/1.json
   def show
     @suspects = Suspect.all
-    @curr_suspect = @suspect
-    @curr_suspect_id = params[:id]
-    puts "@curr_suspect_id_test=" + @curr_suspect.id.to_s
+    # @curr_suspect = @suspect
+    # @curr_suspect_id = params[:id]
+    # puts "@curr_suspect_id_test=" + @curr_suspect.id.to_s
   end
 
   # GET /suspects/new

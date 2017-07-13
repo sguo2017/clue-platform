@@ -8,6 +8,8 @@ class PositionDecisionsController < ApplicationController
     @user = current_user
     @user.position = "analysis"
     @suspects = Suspect.all
+    @suspects_teams = SuspectsTeam.all
+    @cases = Case.all
      #@user.position = "decision"
      #@user.position = "action"
   end

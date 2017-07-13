@@ -10,6 +10,9 @@ class SuspectsTeamsController < ApplicationController
   # GET /suspects_teams/1
   # GET /suspects_teams/1.json
   def show
+      @suspects_teams = SuspectsTeam.all
+
+      #@curr_suspects_teams_id = @suspects_team.id
   end
 
   # GET /suspects_teams/new
@@ -64,7 +67,7 @@ class SuspectsTeamsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_suspects_team
-      #@suspects_team = SuspectsTeam.find(params[:id])
+      @suspects_team = SuspectsTeam.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

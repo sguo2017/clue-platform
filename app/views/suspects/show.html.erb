@@ -26,11 +26,11 @@
       </div>
     </div>
     <ul class="analysis-img-list">
-      <% @suspects.each do |suspect| %>
-        <li class="list-item <% if @curr_suspect.id.to_s == suspect.id.to_s %> active<% end %>">
-          <a href="#" class="img-wrap">
-            <%= image_tag("#{suspect.photo}")%>
-            <div class="img-title"><%= suspect.name %></div>
+      <% @suspects.each do |suspect_item| %>
+        <li class="list-item <% if suspect_item.id == @suspect.id%> active<% end %>">
+          <a href="/suspects/<%=suspect_item.id%>" class="img-wrap">
+            <%= image_tag("#{suspect_item.photo}")%>
+            <div class="img-title"><%= suspect_item.name %></div>
           </a>
         </li>
       <% end %>
@@ -178,11 +178,11 @@
       <div class="panel-body">
         <div class="info-show">
           <div class="info-left">
-            <%= image_tag("#{@curr_suspect.photo}")%>
+            <%= image_tag("#{@suspect.photo}")%>
           </div>
           <div class="info-body">
             <div class="info-heading clearfix">
-              <div class="info-name pull-left">mildred ortage</div>
+              <div class="info-name pull-left"><%=@suspect.name%></div>
               <div class="ico-tool-list pull-right">
                 <a class="ico-wrap" href="">
                   <div class="ico-name">5人</div>
@@ -218,7 +218,7 @@
             </div>
             <div class="info-list-wrap">
               <ul class="float-ul wu2 clearfix lh22">
-                <li class="float-ul-item">姓名：<%= @curr_suspect.name %></li>
+                <li class="float-ul-item">姓名：<%= @suspect.name %></li>
                 <li class="float-ul-item">现住址：山东市东华北里20号楼1单元701室</li>
                 <li class="float-ul-item">性别：男</li>
                 <li class="float-ul-item">民族：回族</li>

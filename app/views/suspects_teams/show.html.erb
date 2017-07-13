@@ -26,7 +26,15 @@
       </div>
     </div>
     <ul class="analysis-img-list">
-      <li class="list-item active">
+    <% @suspects_teams.each do |suspects_team_item| %>
+      <li class="list-item <%if suspects_team_item.id==@suspects_team.id %>active<%end%>">
+        <a href="/suspects_teams/<%=suspects_team_item.id%>" class="img-wrap">
+          <%= image_tag("#{suspects_team_item.photo}")%>
+          <div class="img-title"><%= suspects_team_item.name %></div>
+        </a>
+      </li>
+    <% end %>
+     <!--  <li class="list-item active">
         <a href="#" class="img-wrap">
           <%= image_tag("/assets/common/images/image/rectangle1.png")%>
           <div class="img-title">Midred Ortega</div>
@@ -49,7 +57,7 @@
           <%= image_tag("/assets/common/images/image/rectangle7.png")%>
           <div class="img-title">Midred Ortega</div>
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
   <!-- left-side end -->
@@ -211,12 +219,12 @@
       <div class="panel-body">
         <div class="info-show">
           <div class="info-left">
-            <%= image_tag("/assets/common/images/people1.png")%>
+            <%= image_tag("#{@suspects_team.photo}")%>
           </div>
           <div class="info-body">
             <div class="info-heading clearfix">
               <div class="pull-left">
-                <span class="info-name">张三团伙</span>
+                <span class="info-name"><%=@suspects_team.name%></span>
                 <div class="mt5">
                   <span class="label label-warning mr10">走私</span>
                   <span class="label label-warning mr10">代销</span>
