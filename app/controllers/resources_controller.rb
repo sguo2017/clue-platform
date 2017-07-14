@@ -10,6 +10,7 @@ class ResourcesController < ApplicationController
   # POST /resources/search
   # POST /resources/search.json
   def search
+    # @user = current_user
     @search_type = params[:type]
     puts "搜索类型=" + params[:type].to_s #+ "_关键字=" + params[:key]
     #@resource = Resource.new(resource_params)

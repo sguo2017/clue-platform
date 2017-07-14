@@ -14,7 +14,7 @@
 //= require jquery.turbolinks
 //= require rails-ujs
 //= require turbolinks
-//= require bootstrap
+// require bootstrap --这里和bootstrap.min.js冲突，屏蔽掉，否则下拉菜单出不来
 //= require suspects_teams
 //= require_tree .
 //= require cp-global

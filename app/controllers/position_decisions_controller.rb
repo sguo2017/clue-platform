@@ -5,8 +5,12 @@ class PositionDecisionsController < ApplicationController
   # GET /position_decisions.json
   def index
     #@position_decisions = PositionDecision.all
+    session[:curr_position] = nil
     @user = current_user
-    @user.position = "analysis"
+    unless  params[:position].blank?
+       @user.position = params[:position]
+    end
+    session[:curr_position] = @user.position
     @suspects = Suspect.all
     @suspects_teams = SuspectsTeam.all
     @cases = Case.all

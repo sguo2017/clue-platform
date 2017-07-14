@@ -106,6 +106,7 @@
       </div>
       <div class="navbar-collapse collapse" id="navbar-collapse-id">
           <ul class="nav navbar-nav">
+          <% puts " 当前导航 =" + @current_nav %>
               <li class="<% if @current_nav == 'home' %> active<% end %>">
               <%= link_to "首页", position_decisions_index_path  %>
                   <!-- <a href="index.html">首页</a> -->
@@ -160,28 +161,38 @@
               <li  class="dropdown">
                 <a class="user-block" data-toggle="dropdown">
                   <div class="user-img">
-                   <%= image_tag("/assets/common/images/people1.png",:class => "img-circle")%>
+                    <!-- <img class="img-circle" src="../less/images/people1.png" alt=""> -->
+                    <%= image_tag("/assets/common/images/people1.png",:class=>"img-circle")%>
                   </div>
                   <div>
                     <span class="caret"></span>
                     <div>admin</div>
-                    <small>决策岗</small>
+                    <small>
+                      <% case @user.position %>
+                      <% when "decision" %>
+                      决策岗
+                      <% when "action" %>
+                      执行岗
+                      <% when "analysis" %>
+                      分析岗
+                      <% end %>
+                    </small>
                   </div>
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="#">
-                      <span class="aliconfont icon-person-info"></span> 个人信息
+                    <a href="<%= position_decisions_index_path%>?position=decision">
+                      决策岗
                     </a>
                   </li>
                   <li>
-                    <a href="#">
-                      <span class="aliconfont icon-change-role"></span> 角色转换
+                    <a href="<%= position_decisions_index_path%>?position=analysis">
+                      分析岗
                     </a>
                   </li>
                   <li>
-                    <a href="#">
-                <span class="aliconfont icon-retirement"></span> 退出登录
+                    <a href="<%= position_decisions_index_path%>?position=action">
+                执行岗
                     </a>
                   </li>
                 </ul>
@@ -192,9 +203,8 @@
                 </a>
               </li>
               <li>
-                <a href="" class="notice-wrap">
-                  <span class="glyphicon glyphicon-bell text-primary"></span>
-                  <span class="label label-warning">30</span>
+                <a href="<%= destroy_user_session_path %>" data-method="delete">
+                  <span class="glyphicon glyphicon-log-out text-primary"></span>
                 </a>
               </li>
           </ul>
