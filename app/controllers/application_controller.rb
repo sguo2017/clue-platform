@@ -2,7 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :menu_active
-  def menu_active    
+  def menu_active
+    unless session[:curr_position].blank?
+          current_user.position = session[:curr_position]
+    end  
+    @user = current_user
     @current_uri = request.fullpath
     #puts "@current_uri=" + @current_uri
     @current_nav = @current_uri[/^\/([a-z_]+)[\?\/]{0,1}.*/,1].to_s
