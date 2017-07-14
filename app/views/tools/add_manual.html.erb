@@ -36,8 +36,8 @@
 							<div class="mt5">
 								<input class="form-control" type="text" value="117走私案">
 							</div>
-							
-						</div> 
+
+						</div>
 						<div class="col-md-5">
 							<label class="" for="">通话时间区间</label>
 							<div class="input-group mt5">
@@ -51,10 +51,10 @@
 								<input class="form-control" type="text" value="2017-12-12">
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar text-primary"></span>
-								</span>								
+								</span>
 							</div>
-								
-							
+
+
 						</div>
 					</form>
 				</div>
@@ -95,8 +95,8 @@
 					</a>
 				</div>
 			</div>
-				
-				
+
+
 			<div class="inner-panel-subheading">
 				<span class="inner-panel-subtitle">数据导入</span>
 			</div>
@@ -109,36 +109,33 @@
 						<a href="<%= tools_add_info_path %>">情报资料库</a>
 					</li>
 				</ul>
-				<form action="">
+				<form id = "read_from_excel" action="/calllists/process_excel" enctype="multipart/form-data" method="post">
 					<div class="row block-mt">
 						<div class="col-xs-3">
-							<label for="">文件导入</label>	
+							<label for="">文件导入</label>
 							<div class="input-group mt5">
-								<input class="form-control" type="text">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-folder-open text-primary"></span>									
+								<input id='file_name_wrap' class="form-control" type="text" readonly="readonly">
+								<input id='upload_excel_field' class="hidden" name="excel_call_list" type="file" onchange="import_calllist_from_excel()">
+								<span class="input-group-addon" onclick="$('#upload_excel_field').click();">
+									<span class="glyphicon glyphicon-folder-open text-primary"></span>
 								</span>
 							</div>
 						</div>
 						<div class="col-xs-3">
 							<label for="">
 							<span class="text-primary aliconfont icon-dot1"></span>
-							文件导入</label>	
-							<select class="form-control mt5" name="" id="">
-								<option value="">文件一</option>
-								<option value="">文件二</option>
-								<option value="">文件三</option>
+							主叫号码</label>
+							<select class="form-control mt5" name="" id="from_selector">
+                <option value=""></option>
 							</select>
 						</div>
 						<div class="col-xs-3">
 							<label for="">
 							<span class="text-warning aliconfont icon-dot1"></span>
 							被叫号码
-							</label>	
-							<select class="form-control mt5" name="" id="">
-								<option value="">号码一</option>
-								<option value="">号码二</option>
-								<option value="">号码三</option>
+							</label>
+							<select class="form-control mt5" name="" id="to_selector">
+								<<option value=""></option>
 							</select>
 						</div>
 					</div>
@@ -150,16 +147,16 @@
 					</div>
 					<ul class="nav nav-tabs block-mt">
 					    <li class="active"><a href="#">sheet1</a></li>
-					    <li><a href="#">sheet2</a></li>
-					    <li><a href="#">sheet3</a></li>
+					    <!-- <li><a href="#">sheet2</a></li>
+					    <li><a href="#">sheet3</a></li> -->
 					</ul>
 				</div>
-				
-				<table class="table table-hover thead-bg block-mt">
+
+				<table class="table table-hover thead-bg block-mt" id="calllist_table">
 					<tr>
 						<th>
 							<div class="checkbox-ui">
-								<span class="aliconfont icon-checkbox"></span>
+								<span class="aliconfont icon-checkbox active" onclick='changeAllSelectStatus()'></span>
 							</div>
 						</th>
 						<th>序号</th>
@@ -168,7 +165,7 @@
 						<th>通话时间</th>
 						<th>信息来源</th>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>
 							<div class="checkbox-ui">
 								<span class="aliconfont icon-checkbox active"></span>
@@ -180,33 +177,10 @@
 						<td class="text-warning">1354325235</td>
 						<td>2017-12-12</td>
 						<td>通话记录</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="checkbox-ui">
-								<span class="aliconfont icon-checkbox"></span>
-							</div>
-						</td>
-						<td>1</td>
-						<td class="text-primary">1312403325</td>
-						<td class="text-warning">1354325235</td>
-						<td>2017-12-12</td>
-						<td>通话记录</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="checkbox-ui">
-								<span class="aliconfont icon-checkbox"></span>
-							</div>
-						</td>
-						<td>1</td>
-						<td class="text-primary">1312403325</td>
-						<td class="text-warning">1354325235</td>
-						<td>2017-12-12</td>
-						<td>通话记录</td>
-					</tr>
+					</tr> -->
+
 				</table>
-				<ul class="pagination"> 
+				<!-- <ul class="pagination">
 					<li>
 						<a href="#">
 							<span>«</span>
@@ -232,10 +206,10 @@
 							<span>»</span>
 						</a>
 					</li>
-				</ul>
-				
+				</ul> -->
+
 				<div class="mt5">
-					<button class="btn btn-primary btn-long">确定</button>
+					<button class="btn btn-primary btn-long" onclick="$('#read_from_excel').submit()">确定</button>
 					<button class="btn btn-default btn-long ml10">取消</button>
 				</div>
 			</div>

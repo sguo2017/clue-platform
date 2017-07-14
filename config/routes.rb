@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :calllists  do
     collection { post :import }
     collection { get :export }
+    collection { post :process_excel }
   end
 
  # resources :suspects
