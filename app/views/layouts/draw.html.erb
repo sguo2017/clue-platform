@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "数据可视化" %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag "/assets/gojs/extensions/spectrum", :media => "all" %>
+    <%= stylesheet_link_tag "/assets/gojs/extensions/dataInspector", :media => "all" %>
+    <%= stylesheet_link_tag "/assets/gojs/extensions/DebugInspector", :media => "all" %>
+<!--     <%= stylesheet_link_tag "/assets/gojs/extensions/jquery-ui.min", :media => "all" %> -->
+
+    <%= stylesheet_link_tag "/assets/propertiesjs/propertiesJS", :media => "all" %>
+    <%= stylesheet_link_tag "/assets/propertiesjs/toastr.min", :media => "all" %>
+
+    <%= stylesheet_link_tag "/assets/layer/build/skin/default/layer", :media => "all" %>
+    <%= stylesheet_link_tag "/assets/jsplumb/jsplumbtoolkit-defaults", :media => "all" %>
+    <%= stylesheet_link_tag "/assets/jsplumb/jsplumb.demos", :media => "all" %>
+
+    <!-- <%= stylesheet_link_tag "application", :media => "all" %> -->
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <!-- <%= stylesheet_link_tag "/assets/common/style/mystyle", :media => "all" %> -->
+
+    <%= javascript_include_tag "/assets/gojs/go.js" %>
+
+    <%= javascript_include_tag "/assets/gojs/tools/FloorPlanner-WallBuildingTool" %>
+    <%= javascript_include_tag "/assets/gojs/tools/FloorPlanner-WallReshapingTool" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoTools" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsUI" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsPalette" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsLayout" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsNodeTemplateMap" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsLinkTemplateMap" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsGroupTemplateMap" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsFilesSystem" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsDiagramRuler" %>
+    <%= javascript_include_tag "/assets/gojs/tools/GoToolsDemos" %>
+
+    <%= javascript_include_tag "/assets/gojs/extensions/jquery.min" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/jquery-ui.min" %>
+
+    <%= javascript_include_tag "/assets/gojs/extensions/HyperlinkText" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/spectrum" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/dataInspector" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/DebugInspector" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/ExtendedBrush" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/icons" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/link_bar" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/link_message" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/link_dimensioning" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/link_balloon" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/layout_sankey" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/layout_wheel" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/layout_continuousForceDirected" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/layout_timeline" %>
+    <%= javascript_include_tag "/assets/gojs/extensions/layout_genogram" %>
+
+    <%= javascript_include_tag "/assets/gojs/extensions/font-list" %>
+
+    <%= javascript_include_tag "/assets/propertiesjs/toastr.min" %>
+    <%= javascript_include_tag "/assets/propertiesjs/propertiesJS" %>
+    <%= javascript_include_tag "/assets/propertiesjs/handlebars.min" %>
+    <%= javascript_include_tag "/assets/propertiesjs/TweenMax.min" %>
+
+    <%= javascript_include_tag "/assets/echarts/echarts.min" %>
+    <%= javascript_include_tag "/assets/echarts/china" %>
+    <%= javascript_include_tag "/assets/echarts/world" %>
+
+    <%= javascript_include_tag "/assets/echarts/echarts.demo.01" %>
+    <%= javascript_include_tag "/assets/echarts/echarts.demo.02" %>
+
+    <%= javascript_include_tag "/assets/layer/build/layer" %>
+
+    <%= javascript_include_tag "/assets/jsplumb/jsplumb" %>
+    <%= javascript_include_tag "/assets/jsplumb/jsplumbtoolkit" %>
+
+    <%= javascript_include_tag "/assets/jsplumb/jsplumb.demos" %>
+
+    <%= javascript_include_tag "/assets/ag-grid/ag-grid-enterprise" %>
+    <%= javascript_include_tag "/assets/ag-grid/ag-grid-doc" %>
+
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "/assets/bootstrap/dist/js/bootstrap.min" %>
+    <%= yield :draw%>
+
+
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+ <div class="wrap">
+  <div class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-id">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+          <a class="navbar-brand" href="#">
+          <%= image_tag("/assets/common/images/headbar_logo.png")%>
+          </a>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar-collapse-id">
+          <ul class="nav navbar-nav">
+          <% puts " 当前导航 =" + @current_nav %>
+              <li class="<% if @current_nav == 'home' %> active<% end %>">
+              <%= link_to "首页", position_decisions_index_path  %>
+                  <!-- <a href="index.html">首页</a> -->
+              </li>
+              <li class="<% if @current_nav == 'resources' %> active<% end %>">
+                  <!-- <a data-toggle="dropdown" href="analysis.html">综合搜索</a> -->
+                  <%= link_to "综合搜索", "#{resources_search_path}?type=infomation"  %>
+              </li>
+              <li class="<% if @current_nav == 'tactics' %> active<% end %>">
+              <%= link_to "战法管理", tactics_path  %>
+                  <!-- <a href="#">战法管理</a> -->
+              </li>
+              <li>
+                  <a href="#">预警情报</a>
+              </li>
+              <li>
+                  <a href="#">证据管理</a>
+              </li>
+              <li class="<% if @current_nav == 'tools' %> active<% end %>">
+                  <!-- <a href="#">分析工具</a> -->
+                  <%= link_to "分析工具", tools_home_path %>
+                   <ul class="dropdown-menu">
+                    <li>
+                      <a href="">人际交往报告</a>
+                    </li>
+                    <li>
+                      <a href="">资金流转报告</a>
+                    </li>
+                    <li>
+                      <a href="">物流往来报告</a>
+                    </li>
+                    <li>
+                      <a href="">消费情况报告</a>
+                    </li>
+                    <li>
+                      <a href="">人员智能画像</a>
+                    </li>
+                  </ul>
+              </li>
+          </ul>
+          <form class="navbar-form hidden-sm">
+              <div class="input-group">
+                 <input type="text" class="form-control" placeholder="搜索关键字">
+                 <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                 </span>
+              </div>
+          </form>
+        <ul class="nav navbar-nav hidden-md hidden-sm user-tool">
+              <li  class="dropdown">
+                <a class="user-block" data-toggle="dropdown">
+                  <div class="user-img">
+                    <!-- <img class="img-circle" src="../less/images/people1.png" alt=""> -->
+                    <%= image_tag("/assets/common/images/people1.png",:class=>"img-circle")%>
+                  </div>
+                  <div>
+                    <span class="caret"></span>
+                    <div>admin</div>
+                    <small>
+                      <% case @user.position %>
+                      <% when "decision" %>
+                      决策岗
+                      <% when "action" %>
+                      执行岗
+                      <% when "analysis" %>
+                      分析岗
+                      <% end %>
+                    </small>
+                  </div>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="<%= position_decisions_index_path%>?position=decision">
+                      决策岗
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<%= position_decisions_index_path%>?position=analysis">
+                      分析岗
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<%= position_decisions_index_path%>?position=action">
+                执行岗
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="">
+                  <span class="glyphicon glyphicon-cog text-primary"></span>
+                </a>
+              </li>
+              <li>
+                <a href="<%= destroy_user_session_path %>" data-method="delete">
+                  <span class="glyphicon glyphicon-log-out text-primary"></span>
+                </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <!-- navbar end -->
+          <%= bootstrap_flash %>
+          <%= yield %>
+</div>
+</body>
+</html>

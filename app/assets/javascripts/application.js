@@ -1,7 +1,7 @@
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's 
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
 // vendor/assets/javascripts directory can be referenced here using a relative path.
 //
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
@@ -21,9 +21,9 @@
 
 function go_tools_init() {
 	if(jQuery("#tools_main_diagram").length==0) return;
-	
+
 	var $$ = go.GraphObject.make;
-	
+
 	// GoTools
 	goTools = new GoTools("tools_main_diagram");
 
@@ -35,18 +35,25 @@ function go_tools_init() {
 		filesToRemoveListId: "filesToRemove",
 		filesToOpenListId: "filesToOpen"
 	});
-	
+
 	// UI Interaction state object
 	goTools.goToolsUI = new GoToolsUI(goTools, "ui", "goTools");
 	goTools.goToolsUI.setBehavior("dragging");
-	
+
 	// Overview
 	$$(go.Overview, "tools_main_overview", { observed: goTools, contentAlignment: go.Spot.Center, maxScale: 0.5 });
 
-	// Palettes 
+	// Palettes
 	goTools.palette = new GoToolsPalette("tools_main_palette", goTools);
 
-	
+
 }
 
-document.addEventListener("turbolinks:load", go_tools_init);
+document.addEventListener("turbolinks:load", function(){go_tools_init();draw();});
+
+function getQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}

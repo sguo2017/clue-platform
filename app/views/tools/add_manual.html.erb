@@ -115,7 +115,7 @@
 							<label for="">文件导入</label>
 							<div class="input-group mt5">
 								<input id='file_name_wrap' class="form-control" type="text" readonly="readonly">
-								<input id='upload_excel_field' class="hidden" name="excel_call_list" type="file" onchange="import_calllist_from_excel()">
+								<input id='upload_excel_field' class="hidden" name="excel_call_list" type="file" onchange="excelUtils.init();">
 								<span class="input-group-addon" onclick="$('#upload_excel_field').click();">
 									<span class="glyphicon glyphicon-folder-open text-primary"></span>
 								</span>
@@ -153,32 +153,10 @@
 				</div>
 
 				<table class="table table-hover thead-bg block-mt" id="calllist_table">
-					<tr>
-						<th>
-							<div class="checkbox-ui">
-								<span class="aliconfont icon-checkbox active" onclick='changeAllSelectStatus()'></span>
-							</div>
-						</th>
-						<th>序号</th>
-						<th class="text-primary">主号码</th>
-						<th class="text-warning">对方号码</th>
-						<th>通话时间</th>
-						<th>信息来源</th>
-					</tr>
-					<!-- <tr>
-						<td>
-							<div class="checkbox-ui">
-								<span class="aliconfont icon-checkbox active"></span>
-								<input type="checkbox">
-							</div>
-						</td>
-						<td>1</td>
-						<td class="text-primary">1312403325</td>
-						<td class="text-warning">1354325235</td>
-						<td>2017-12-12</td>
-						<td>通话记录</td>
-					</tr> -->
-
+					<thead>
+					</thead>
+					<tbody>
+					</tbody>
 				</table>
 				<!-- <ul class="pagination">
 					<li>
@@ -209,8 +187,8 @@
 				</ul> -->
 
 				<div class="mt5">
-					<button class="btn btn-primary btn-long" onclick="$('#read_from_excel').submit()">确定</button>
-					<button class="btn btn-default btn-long ml10">取消</button>
+					<a class="btn btn-primary btn-long" id="btn-to-draw-excel" href="/tools/index?type=calllist&sources=excel">确定</a>
+					<a class="btn btn-default btn-long ml10">取消</a>
 				</div>
 			</div>
 		</div>

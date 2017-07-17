@@ -22,9 +22,8 @@ class CalllistsController < ApplicationController
   end
 
   def process_excel
-    list_from_ecxel = Calllist.read(params[:excel_call_list])
-    formatted = gojs_format(list_from_ecxel)
-    render :json => formatted
+    list_from_ecxel = Calllist.read(params[:file])
+    render :json => {:unformat => list_from_ecxel}
   end
 
   # GET /calllists
@@ -98,8 +97,8 @@ class CalllistsController < ApplicationController
       params.require(:calllist).permit(:from_num, :to_num)
     end
 
-    def gojs_format(calllist)
-      links = calllist.select{|c| !c.from_num.nil? and !c.to_num.nil?}.map{ |c| {:from_num => c.from_num, :to_num => c.to_num }}
+    def gojs_format(rows)
+      links = rows.select{|c| !c.from_num.nil? and !c.to_num.nil?}.map{ |c| {:from_num => c.from_num, :to_num => c.to_num }}
       nodes = Set.new
       links.each do |l|
         nodes.add(l[:from_num])

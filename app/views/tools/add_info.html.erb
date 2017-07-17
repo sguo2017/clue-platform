@@ -33,22 +33,22 @@
 							<div class="mt5">
 								<input class="form-control" type="text">
 							</div>
-							
-						</div> 
+
+						</div>
 						<div class="col-xs-5">
 							<label class="" for="">通话时间区间</label>
 							<div class="input-group mt5">
 								<input class="form-control" type="text">
 								<span class="input-group-addon right-radius">
 									<span class="glyphicon glyphicon-calendar text-primary"></span>
-								</span>		
+								</span>
 								<span class="input-group-addon no-bd">
 									到
 								</span>
 								<input class="form-control" type="text">
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar text-primary"></span>
-								</span>								
+								</span>
 							</div>
 						</div>
 					</form>
@@ -90,7 +90,7 @@
 					</a>
 				</div>
 			</div>
-				
+
 			<div class="inner-panel-subheading">
 				<span class="inner-panel-subtitle">数据导入</span>
 			</div>
@@ -104,32 +104,32 @@
 					</li>
 				</ul>
 				<div class="add-analysis-tool block-mt">
-					<a class="add-analysis-item" href="">
+					<a class="add-analysis-item" href="javascript:void(0);">
 						<span class="aliconfont icon-file2"></span>
 						<div class="mt5">通话关系</div>
 					</a>
-					<a class="add-analysis-item" href="">
+					<a class="add-analysis-item" href="javascript:void(0);">
 						<span class="aliconfont icon-msg"></span>
 						<div class="mt5">银行交易</div>
 					</a>
-					<a class="add-analysis-item" href="">
+					<a class="add-analysis-item" href="javascript:void(0);">
 						<span class="aliconfont icon-msg2"></span>
 						<div class="mt5">资金流转</div>
 					</a>
-					<a class="add-analysis-item active" href="">
+					<a class="add-analysis-item" href="javascript:void(0);">
 						<span class="aliconfont icon-email"></span>
 						<div class="mt5">物流往来</div>
 					</a>
 				</div>
 				<div class="mt20">
-					<button class="btn btn-primary btn-long">确定</button>
+					<%= link_to t('.confirm',:default => t("确定")) ,tools_index_path(:type=>:calllist,:sources=>'db'),:class=>"btn btn-primary btn-long" %>
 					<%= link_to t('.cancel', :default => t("取消")),
                 tools_rlat_path, :class => 'btn btn-default btn-long ml10' %>
 					<!-- <button class="btn btn-default btn-long ml10">取消</button> -->
 				</div>
 			</div>
-				
-				
-			
+
+
+
 		</div>
 	</div>
