@@ -7,23 +7,49 @@ class CalllistsController < ApplicationController
   before_action :set_calllist, only: [:show, :edit, :update, :destroy]
   #skip_before_action :verify_authenticity_token
 
+  #直接从数据库中导出calllist的数据(导出为{link:[{}...],node:[{}...]}的格式)
+  #若没有指定batch(批次)参数,则导出全部
   def export
-    formatted = gojs_format(Calllist.all)
-    render :json => formatted
+    if(params['batch']).present?
+      formatted = gojs_format(Calllist.where(:batch => params['batch']))
+    else
+      formatted = gojs_format(Calllist.all)
+    end
+    render :json => {:msg=>"calllist was successfully exported!",:success=>true,:data=>formatted}
   end
 
+  #从excel文件导入数据,并且保存到数据库,前端通过表单上传excel格式的文件
+  #注意这里上传的excel文件字段命名必须与callist的命名一致(含有from_num,to_num即可)
+  #否自字段无法识别,会被忽略掉,数据不会导入
   def import
-   @retdata = Calllist.import(params[:file])
-    respond_to do |format|
-      format.json{
-        render :json => {:msg => "csv file was successfully imported!", :data=>@retdata}.to_json
-      }
+    saved = Calllist.import(params[:file])
+    if saved
+       render :json => {:msg => "file was successfully imported!",:success =>true,:data=>saved}
+    else
+       render :json =>{:msg => "file do not contain correct columns!",:success =>true,:data=>[]}
     end
   end
 
-  def process_excel
-    list_from_ecxel = Calllist.read(params[:file])
-    render :json => {:unformat => list_from_ecxel}
+  #从前端上传的excel文件中读取数据而不保存,并且按照原始的json格式返回({name1:value1,name2:value2,...})
+  def read_from_excel
+    data = Calllist.read(params[:file])
+    render :json => {:msg => "file read successfully!",:success =>true,:data => data}
+  end
+
+  def save_from_json
+    array = params[:data].values
+    batch =  current_user.id.to_s + Time.now.strftime('_%Y_%m_%d_') + Time.now.to_i.to_s
+    if current_user
+      Calllist.transaction do
+        array.each do |row|
+          row['batch'] = batch
+          Calllist.create!(row)
+        end
+      end
+      render :json => {:msg =>"data saved successfully!",:success =>true,:batch => batch}
+    else
+      render :json => {:msg =>"failed to get user info,you need to login!",:success =>false}
+    end
   end
 
   # GET /calllists

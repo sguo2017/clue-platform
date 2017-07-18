@@ -69,3 +69,4 @@ gem 'webpacker', github: 'rails/webpacker'
 
 gem 'roo'
 
+gem 'byebug'

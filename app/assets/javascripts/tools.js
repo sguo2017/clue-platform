@@ -6,7 +6,10 @@ document.addEventListener('turbolinks:load',function(){
       $(this).addClass('active');
     }
   });
-  $('#btn-to-draw-excel').click(function(){excelUtils.checkAndDraw();});
+  $('#btn-to-draw-excel').click(function(){
+    excelUtils.checkAndDraw();
+    excelUtils.saveDataToServer();
+  });
 });
 var excelUtils = {
 
@@ -16,6 +19,7 @@ var excelUtils = {
   toColumn: null,
   nodesForGoJs: null,
   linksForGoJs: null,
+  bacth: null,
   init: function(){
     if($('#upload_excel_field').length==0 && $('#upload_excel_field')[0].files.length==0) return;
     var file = $('#upload_excel_field')[0].files[0];
@@ -24,13 +28,13 @@ var excelUtils = {
     var form = new FormData();
     form.append('file',file);
     $.ajax({
-      url:"/calllists/process_excel",
+      url:"/calllists/read_from_excel",
       type:"post",
       data:form,
       processData:false, //important
       contentType:false  //important
     }).done(responseData => {
-      this.rows = responseData['unformat'];
+      this.rows = responseData['data'];
       this.buildTableHeader();
       this.buildSelectOptions();
       this.buildTableRows();
@@ -161,6 +165,21 @@ var excelUtils = {
       }
       if(outer.nodesForGoJs.indexOf(x[outer.toColumn])<0){
         outer.nodesForGoJs.push(x[outer.toColumn]);
+      }
+    });
+  },
+  saveDataToServer: function(){
+    var fromColumn=this.fromColumn;
+    var toColumn=this.toColumn;
+    var callData=this.rows.map(function(row){return {'from_num':row[fromColumn],'to_num':row[toColumn]}});
+    var outer=this;
+    $.ajax({
+      url: '/calllists/save_from_json',
+      data: {'data':callData},
+      method: 'post',
+    }).done(function(response){
+      if(response['success']){
+        outer.batch=response['batch'];
       }
     });
   }

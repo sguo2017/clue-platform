@@ -9,7 +9,7 @@ var calllistDrawing = {
   getDataFromServer: function(){
     let url = '/calllists/export';
     $.ajax({url: url,async: false}).done((response) =>{
-      var data = response;
+      var data = response['data'];
       this.rawNodesArray=this.nodesArray = data.nodes.map(function(x){
           return {category: 'force_directed',key: x,text: x,fill: go.Brush.randomColor()};
       });

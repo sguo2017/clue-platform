@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     @resources_menu = ["resources"]
     @tactics = ["tactics"]
     @tools = ["tools"]
-    if @home_menu.include?(@current_nav) 
+    if @home_menu.include?(@current_nav)
         @current_nav = "home"
     elsif @resources_menu.include?(@current_nav)
         @current_nav = "resources"
