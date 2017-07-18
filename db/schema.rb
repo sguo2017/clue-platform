@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713064659) do
+ActiveRecord::Schema.define(version: 20170718020527) do
 
-  create_table "calllists", force: :cascade do |t|
+  create_table "calllists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "from_num"
     t.string "to_num"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "batch"
   end
 
-  create_table "cases", force: :cascade do |t|
+  create_table "cases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "catalog"
     t.string "role"
@@ -30,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170713064659) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "suspects", force: :cascade do |t|
+  create_table "suspects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "userName"
     t.string "realName"
@@ -45,7 +46,7 @@ ActiveRecord::Schema.define(version: 20170713064659) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "suspects_teams", force: :cascade do |t|
+  create_table "suspects_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "catalog"
     t.string "company"
@@ -56,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170713064659) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
