@@ -10,14 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// require jquery
+//= require jquery
+//= require jquery-ui
 //= require jquery.turbolinks
-//= require rails-ujs
+//= require jquery_ujs
+//= require bootstrap
 //= require turbolinks
-// require bootstrap --这里和bootstrap.min.js冲突，屏蔽掉，否则下拉菜单出不来
-//= require suspects_teams
 //= require_tree .
-//= require cp-global
+
 
 function go_tools_init() {
 	if(jQuery("#tools_main_diagram").length==0) return;

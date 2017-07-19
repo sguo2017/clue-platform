@@ -8,8 +8,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.0.rc1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use mysql
 gem 'mysql2'
 # Use Puma as the app server
@@ -57,6 +55,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-sass'
@@ -64,9 +63,4 @@ gem "font-awesome-rails"
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
-
-gem 'webpacker', github: 'rails/webpacker'
-
 gem 'roo'
-
-gem 'byebug'

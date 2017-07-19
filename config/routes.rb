@@ -9,20 +9,7 @@ Rails.application.routes.draw do
     collection { post :save_from_json }
   end
 
- # resources :suspects
-  get 'spa/react_framework7'
-  get 'spa/react_adminonrest'
 
-  get 'spa/angular_blur'
-  get 'spa/angular_adminlte'
-
-  get 'spa/vue_framework7'
-  get 'spa/vue_admin'
-  get 'spa/vue_cnodejs'
-  get 'spa/vue_douban'
-  get 'spa/vue_adminlte'
-
-  get 'spa/backbone-todo'
 
   get 'excel/index'
 

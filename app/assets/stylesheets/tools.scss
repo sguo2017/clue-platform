@@ -5,7 +5,7 @@
 	height: 100%;
 	width: 300px;
 	position: absolute;
-	top: 0;
+	top: 50;
 	right: 0;
 	z-index:1;
 }
@@ -38,10 +38,10 @@
 .tools_sidebar .panel-default .panel-heading .nav-tabs > li > a {
 	border-radius: 0;
 }
-.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a, 
-.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a:hover, 
+.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a,
+.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a:hover,
 .tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a:focus {
-	
+
 }
 .tools_sidebar .panel-body{
 	height: 100%;
@@ -117,7 +117,7 @@
 	padding-left: 32px;
 	padding-right: 300px;
 	position: absolute;
-	top: 0;
+	top: 50;
 	left: 0;
 	right: 0;
 }
@@ -168,7 +168,7 @@
 .tools_menus_vertical{
 	height: 100%;
 	position: absolute;
-	top: 0px;
+	top: 60px;
 	left: 0;
 	bottom: 0;
 	width: 33px;

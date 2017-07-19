@@ -7,24 +7,19 @@
     <title><%= content_for?(:title) ? yield(:title) : "数据可视化" %></title>
     <%= csrf_meta_tags %>
 
+    <%= stylesheet_link_tag "application_for_draw", :media => "all" %>
+    <%= stylesheet_link_tag "/assets/common/style/mystyle", :media => "all" %>
     <%= stylesheet_link_tag "/assets/gojs/extensions/spectrum", :media => "all" %>
     <%= stylesheet_link_tag "/assets/gojs/extensions/DataInspector", :media => "all" %>
     <%= stylesheet_link_tag "/assets/gojs/extensions/DebugInspector", :media => "all" %>
-<!--     <%= stylesheet_link_tag "/assets/gojs/extensions/jquery-ui.min", :media => "all" %> -->
-
     <%= stylesheet_link_tag "/assets/propertiesjs/propertiesJS", :media => "all" %>
     <%= stylesheet_link_tag "/assets/propertiesjs/toastr.min", :media => "all" %>
-
     <%= stylesheet_link_tag "/assets/layer/build/skin/default/layer", :media => "all" %>
     <%= stylesheet_link_tag "/assets/jsplumb/jsplumbtoolkit-defaults", :media => "all" %>
     <%= stylesheet_link_tag "/assets/jsplumb/jsplumb.demos", :media => "all" %>
 
-    <!-- <%= stylesheet_link_tag "application", :media => "all" %> -->
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    <!-- <%= stylesheet_link_tag "/assets/common/style/mystyle", :media => "all" %> -->
-
+    <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "/assets/gojs/go.js" %>
-
     <%= javascript_include_tag "/assets/gojs/tools/FloorPlanner-WallBuildingTool" %>
     <%= javascript_include_tag "/assets/gojs/tools/FloorPlanner-WallReshapingTool" %>
     <%= javascript_include_tag "/assets/gojs/tools/GoTools" %>
@@ -37,10 +32,6 @@
     <%= javascript_include_tag "/assets/gojs/tools/GoToolsFilesSystem" %>
     <%= javascript_include_tag "/assets/gojs/tools/GoToolsDiagramRuler" %>
     <%= javascript_include_tag "/assets/gojs/tools/GoToolsDemos" %>
-
-    <%= javascript_include_tag "/assets/gojs/extensions/jquery.min" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/jquery-ui.min" %>
-
     <%= javascript_include_tag "/assets/gojs/extensions/HyperlinkText" %>
     <%= javascript_include_tag "/assets/gojs/extensions/spectrum" %>
     <%= javascript_include_tag "/assets/gojs/extensions/DataInspector" %>
@@ -56,34 +47,22 @@
     <%= javascript_include_tag "/assets/gojs/extensions/layout_continuousForceDirected" %>
     <%= javascript_include_tag "/assets/gojs/extensions/layout_timeline" %>
     <%= javascript_include_tag "/assets/gojs/extensions/layout_genogram" %>
-
     <%= javascript_include_tag "/assets/gojs/extensions/font-list" %>
-
     <%= javascript_include_tag "/assets/propertiesjs/toastr.min" %>
     <%= javascript_include_tag "/assets/propertiesjs/propertiesJS" %>
     <%= javascript_include_tag "/assets/propertiesjs/handlebars.min" %>
     <%= javascript_include_tag "/assets/propertiesjs/TweenMax.min" %>
-
     <%= javascript_include_tag "/assets/echarts/echarts.min" %>
     <%= javascript_include_tag "/assets/echarts/china" %>
     <%= javascript_include_tag "/assets/echarts/world" %>
-
     <%= javascript_include_tag "/assets/echarts/echarts.demo.01" %>
     <%= javascript_include_tag "/assets/echarts/echarts.demo.02" %>
-
     <%= javascript_include_tag "/assets/layer/build/layer" %>
-
     <%= javascript_include_tag "/assets/jsplumb/jsplumb" %>
     <%= javascript_include_tag "/assets/jsplumb/jsplumbtoolkit" %>
-
     <%= javascript_include_tag "/assets/jsplumb/jsplumb.demos" %>
-
     <%= javascript_include_tag "/assets/ag-grid/ag-grid-enterprise" %>
     <%= javascript_include_tag "/assets/ag-grid/ag-grid-doc" %>
-
-    <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag "/assets/bootstrap/dist/js/bootstrap.min" %>
-    <%= yield :draw%>
 
 
 
