@@ -1,1 +1,0 @@
-require("../../../todomvc/angular2_es2015");
