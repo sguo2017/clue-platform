@@ -1,0 +1,9 @@
+/*
+ *
+ //下一行代表递归查找当前目录下面的所有样式文件并且引入
+ *= require_tree .
+ *
+ */
+@import "bootstrap-sprockets";
+// @import "bootstrap";
+// @import "jquery-ui";

@@ -1,5 +1,4 @@
 class ToolsController < ApplicationController
-  layout "draw",:only => [:index]
 
   def index
   end

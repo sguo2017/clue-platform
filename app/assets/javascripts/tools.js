@@ -1,4 +1,4 @@
-document.addEventListener('turbolinks:load',function(){
+$(document).on('turbolinks:load',function(){
   $('.add-analysis-tool .add-analysis-item').click(function(){
     if($(this).hasClass('active')){
       $(this).removeClass('active');

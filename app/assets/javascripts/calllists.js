@@ -34,37 +34,3 @@ var calllistDrawing = {
     goTools.commitTransaction("generateTree");
   }
 };
-
-// document.addEventListener('turbolinks:load',function(){
-//   draw();
-// });
-function draw(){
-  var type=getQueryString('type');
-  var sources=getQueryString('sources');
-  if(!type || !sources)return;
-  switch(type){
-    case 'calllist':
-      drawCalllist(sources);
-      break;
-    default:
-      true;
-  }
-}
-
-function drawCalllist(sources){
-    switch (sources) {
-    case 'excel':
-      calllistDrawing.rawNodesArray=excelUtils.nodesForGoJs;
-      calllistDrawing.rawLinksArray=excelUtils.linksForGoJs;
-      calllistDrawing.formatData();
-      calllistDrawing.force_directed();
-      break;
-    case 'db':
-      calllistDrawing.getDataFromServer();
-      calllistDrawing.force_directed();
-      break;
-    default:
-      calllistDrawing.force_directed();
-  }
-
-}
