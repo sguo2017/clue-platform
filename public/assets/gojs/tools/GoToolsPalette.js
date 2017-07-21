@@ -6,7 +6,7 @@
 * A Palette linked to a specified GoTools
 */
 
-/* 
+/*
 * GoTools Palette Constructor
 * @param {HTMLDivElement|string} div A reference to a div or its ID as a string.
 * @param {GoTools} goTools A valid instance of GoTools
@@ -22,9 +22,9 @@ function GoToolsPalette(div, goTools, nodeDataArray) {
     this.toolManager.contextMenuTool.isEnabled = false;
     this.initial();
     this.changePalette("floor_planner");
-
+    jQuery("#tab_link_operation").tab('show');
     goTools.palettes.push(this);
-} 
+}
 
 go.Diagram.inherit(GoToolsPalette, go.Palette);
 
@@ -587,5 +587,11 @@ GoToolsPalette.prototype.changePalette = function(type){
 	if(!$('#tab_palette').hasClass("active")){
 		$("#tab_link_palette").tab('show');
 	}
+	this.model.nodeDataArray = this.getPaletteNodeData(type);
+}
+GoToolsPalette.prototype.initPalette = function(type){
+  if(!$('#tab_palette').hasClass("active")){
+    $("#tab_link_palette").tab('show');
+  }
 	this.model.nodeDataArray = this.getPaletteNodeData(type);
 }
