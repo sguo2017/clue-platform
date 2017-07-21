@@ -6,19 +6,19 @@ GoTools.prototype.changeLayout = function(type){
       this.layout = $$(go.GridLayout);
       $("#tab_layout_grid_link").tab("show");
       break;
-    case "tree": 
+    case "tree":
       this.layout = $$(go.TreeLayout);
       $("#tab_layout_tree_link").tab("show");
       break;
-    case "circular": 
-      this.layout = $$(WheelLayout);
+    case "circular":
+      this.layout = $$(go.CircularLayout);
       $("#tab_layout_circular_link").tab("show");
       break;
-    case "layeredDigraph": 
+    case "layeredDigraph":
       this.layout = $$(go.LayeredDigraphLayout);
       $("#tab_layout_layeredDigraph_link").tab("show");
       break;
-    case "forceDirected": 
+    case "forceDirected":
       this.layout = $$(go.ForceDirectedLayout);
       $("#tab_layout_forceDirected_link").tab("show");
       break;
@@ -220,7 +220,7 @@ GoTools.prototype.triggerTreeLayout = function(){
   }
 
   this.commitTransaction("change tree Layout");
-}  
+}
 
 GoTools.prototype.triggerCircularLayout = function(){
   this.startTransaction("change circular Layout");
