@@ -11,11 +11,15 @@ class CalllistsController < ApplicationController
   #若没有指定batch(批次)参数,则导出全部
   def export
     if(params['batch']).present?
-      formatted = gojs_format(Calllist.where(:batch => params['batch']))
+      origin = Calllist.where(:batch => params['batch'])
+      lite = origin.select{|c| !c.from_num.nil? and !c.to_num.nil?}
+                   .map{ |c| {:from_num => c.from_num, :to_num => c.to_num }}
     else
-      formatted = gojs_format(Calllist.all)
+      origin = Calllist.all
+      lite = origin.select{|c| !c.from_num.nil? and !c.to_num.nil?}
+                   .map{ |c| {:from_num => c.from_num, :to_num => c.to_num }}
     end
-    render :json => {:msg=>"calllist was successfully exported!",:success=>true,:data=>formatted}
+    render :json => {:msg=>"calllist was successfully exported!",:success=>true,:data=>lite}
   end
 
   #从excel文件导入数据,并且保存到数据库,前端通过表单上传excel格式的文件
@@ -121,15 +125,5 @@ class CalllistsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def calllist_params
       params.require(:calllist).permit(:from_num, :to_num)
-    end
-
-    def gojs_format(rows)
-      links = rows.select{|c| !c.from_num.nil? and !c.to_num.nil?}.map{ |c| {:from_num => c.from_num, :to_num => c.to_num }}
-      nodes = Set.new
-      links.each do |l|
-        nodes.add(l[:from_num])
-        nodes.add(l[:to_num])
-      end
-      return {:nodes => nodes,:links => links}
     end
 end

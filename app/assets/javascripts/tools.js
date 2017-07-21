@@ -7,7 +7,7 @@ $(document).on('turbolinks:load',function(){
     }
   });
   $('#btn-to-draw-excel').click(function(){
-    excelUtils.checkAndDraw();
+    excelUtils.checkSelectedColumns();
     excelUtils.saveDataToServer();
   });
 });
@@ -17,8 +17,6 @@ var excelUtils = {
   columns: null,
   fromColumn: null,
   toColumn: null,
-  nodesForGoJs: null,
-  linksForGoJs: null,
   bacth: null,
   init: function(){
     if($('#upload_excel_field').length==0 && $('#upload_excel_field')[0].files.length==0) return;
@@ -146,27 +144,13 @@ var excelUtils = {
     $("#calllist_table thead tr th:nth-child("+(columnIndex)+")").removeClass().addClass(colorClass);
     $("#calllist_table tbody tr td:nth-child("+(columnIndex)+")").removeClass().addClass(colorClass);
   },
-  checkAndDraw: function(){
+  checkSelectedColumns: function(){
     if(this.fromColumn==null || this.toColumn==null || this.fromColumn==this.toColumn){
       alert('请正确选择主叫号码与被叫号码!');
       return false;
     }else{
-      this.formatData();
+      return true;
     }
-  },
-  formatData: function(){
-    this.linksForGoJs=[];
-    this.nodesForGoJs=[];
-    var outer=this;
-    this.rows.forEach(function(x){
-      outer.linksForGoJs.push({from_num: x[outer.fromColumn],to_num: x[outer.toColumn]});
-      if(outer.nodesForGoJs.indexOf(x[outer.fromColumn])<0){
-        outer.nodesForGoJs.push(x[outer.fromColumn]);
-      }
-      if(outer.nodesForGoJs.indexOf(x[outer.toColumn])<0){
-        outer.nodesForGoJs.push(x[outer.toColumn]);
-      }
-    });
   },
   saveDataToServer: function(){
     var fromColumn=this.fromColumn;
