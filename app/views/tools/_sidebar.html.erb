@@ -1,38 +1,34 @@
-
 <div class="tools_sidebar">
 	<div class="panel panel-default" style="height: 100%">
 		<div class="panel-heading" style="padding:0;margin:0;z-index:4">
 			<ul id="myTabs" class="nav nav-tabs" role="tablist">
-				  <li role="presentation" class="active"><a href="#tab_diagram_operation" id="tab_link_operation" role="tab" data-toggle="tab" aria-controls="tab_diagram_operation" aria-expanded="true" style="border-left: 0px;">操作</a></li>
-			    <li role="presentation"><a href="#tab_palette" id="tab_link_palette" role="tab" data-toggle="tab" aria-controls="tab_palette" aria-expanded="true">图元</a></li>
-		      <li role="presentation" class="dropdown">
-		        <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">库 <span class="caret"></span></a>
-		        <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-		        	<li><a onclick="goTools.palette.changePalette('floor_planner')">室内设计</a></li>
-		          	<li><a onclick="goTools.palette.changePalette('circuit')">电子电路</a></li>
-				    <li><a onclick="goTools.palette.changePalette('floor')">室内平面图</a></li>
-				    <li><a onclick="goTools.palette.changePalette('flowchart')">流程图</a></li>
-				    <li><a onclick="goTools.palette.changePalette('shape')">形状</a></li>
-				    <li><a onclick="goTools.palette.changePalette('icon')">图标</a></li>
-				    <li><a onclick="goTools.palette.changePalette('pipe')">管道</a></li>
-				    <li><a onclick="goTools.palette.changePalette('seating')">坐席</a></li>
-				    <li><a onclick="goTools.palette.changePalette('font-awesome')">FontAwesome</a></li>
-				    <li><a onclick="goTools.palette.changePalette('glyphicons')">Glyphicons</a></li>
-		        </ul>
-		      </li>
-		      <li role="presentation"><a href="#tab_debugInspector" role="tab" data-toggle="tab" aria-controls="tab_debugInspector" aria-expanded="true">属性</a></li>
-		      <li role="presentation"><a href="#tab_layout" id="tab_layout_link" role="tab" data-toggle="tab" aria-controls="tab_layout" aria-expanded="true">布局</a></li>
-		    </ul>
+				<li role="presentation" class="active"><a href="#tab_palette" id="tab_link_palette" role="tab" data-toggle="tab" aria-controls="tab_palette" aria-expanded="true" style="border-left: 0px;">图元</a></li>
+				<li role="presentation" class="dropdown">
+					<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">库 <span class="caret"></span></a>
+					<ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+						<li><a onclick="goTools.palette.changePalette('floor_planner')">室内设计</a></li>
+						<li><a onclick="goTools.palette.changePalette('circuit')">电子电路</a></li>
+						<li><a onclick="goTools.palette.changePalette('floor')">室内平面图</a></li>
+						<li><a onclick="goTools.palette.changePalette('flowchart')">流程图</a></li>
+						<li><a onclick="goTools.palette.changePalette('shape')">形状</a></li>
+						<li><a onclick="goTools.palette.changePalette('icon')">图标</a></li>
+						<li><a onclick="goTools.palette.changePalette('pipe')">管道</a></li>
+						<li><a onclick="goTools.palette.changePalette('seating')">坐席</a></li>
+						<li><a onclick="goTools.palette.changePalette('font-awesome')">FontAwesome</a></li>
+						<li><a onclick="goTools.palette.changePalette('glyphicons')">Glyphicons</a></li>
+					</ul>
+				</li>
+				<li role="presentation"><a href="#tab_diagram_operation" id="tab_link_operation" role="tab" data-toggle="tab" aria-controls="tab_diagram_operation" aria-expanded="true">操作</a></li>
+				<li role="presentation"><a href="#tab_debugInspector" role="tab" data-toggle="tab" aria-controls="tab_debugInspector" aria-expanded="true">属性</a></li>
+				<li role="presentation"><a href="#tab_layout" id="tab_layout_link" role="tab" data-toggle="tab" aria-controls="tab_layout" aria-expanded="true">布局</a></li>
+			</ul>
 		</div>
 		<div class="panel-body tab-content" style="padding-bottom: 0px;">
-			  <div role="tabpanel" class="tab-pane fade in active" id="tab_diagram_operation" aria-labelledby="home-tab">
-          <h1>Java</h1>
+			<div role="tabpanel" class="tab-pane fade in active" id="tab_palette" aria-labelledby="profile-tab">
+				<div id="tools_main_palette" style="width:100%;height:66%;">
+					<!--input id="furnitureSearchBar" placeholder="Search Furniture" oninput="ui.searchFurniture()" /-->
 				</div>
-		    <div role="tabpanel" class="tab-pane fade" id="tab_palette" aria-labelledby="profile-tab">
-		    	<div id="tools_main_palette" style="width:100%;height:66%;">
-		    		<!--input id="furnitureSearchBar" placeholder="Search Furniture" oninput="ui.searchFurniture()" /-->
-		    	</div>
-		    	<div class="panel panel-default" style="height:34%">
+				<div class="panel panel-default" style="height:34%">
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-4">
@@ -40,17 +36,17 @@
 							</div>
 							<div class="col-xs-8 text-right">
 								<div class="dropdown dropdown-margin-top">
-								  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								    Dropdown
-								    <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu"	 aria-labelledby="dropdownMenu1">
-								    <li><a onclick="">Action</a></li>
-								    <li><a onclick="">Another action</a></li>
-								    <li><a onclick="">Something else here</a></li>
-								    <li role="separator" class="divider"></li>
-								    <li><a onclick="">Separated link</a></li>
-								  </ul>
+									<button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Dropdown
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu"	 aria-labelledby="dropdownMenu1">
+										<li><a onclick="">Action</a></li>
+										<li><a onclick="">Another action</a></li>
+										<li><a onclick="">Something else here</a></li>
+										<li role="separator" class="divider"></li>
+										<li><a onclick="">Separated link</a></li>
+									</ul>
 								</div>
 							</div>
 						</div>
@@ -59,37 +55,85 @@
 
 					</div>
 				</div>
-		    </div>
-		    <div role="tabpanel" class="tab-pane fade" id="tab_debugInspector" aria-labelledby="home-tab">
-		        <div class="inspector-container" id="debugInspector" style="width:100%;height:100%;overflow:hidden;">
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="tab_diagram_operation" aria-labelledby="home-tab" style="padding:10px 24px 10px;">
+				<form class="form-horizontal" role="form" onkeydown="if(event.keyCode==13)return false;">
+					<div class='form-group'>
+						<label class="control-label">频次筛选:</label>
+					</div>
+					<div class="form-group row-fluid">
+						<div class="col-sm-6">
+							<select class="form-control" id='fitler-method'>
+								<option value="gt">大于</option>
+								<option value="gte">大于等于</option>
+								<option value="lt">小于</option>
+								<option value="lte">小于等于</option>
+								<option value="eq">等于</option>
+								<option value="neq">不等于</option>
+							</select>
+						</div>
+						<div class="col-sm-6">
+							<select class="form-control col-sm-6" id='fitler-type'>
+								<option value="renew">重新筛选</option>
+								<option value="continuous">连续筛选</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<input type="text" class="form-control" id="filter-feq" placeholder="输入频率"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="button" class="btn btn-primary" id="btn-filter-feq">确定</button>
+					</div>
+					<div class='form-group'>
+						<label class="control-label">
+							<input type="checkbox" id="check-diaplay-max">显示频率最大路径(取消所有选择)
+						</label>
+					</div>
+					<div class='form-group'>
+						<label class="control-label">
+							<input type="checkbox" id="check-diaplay-connected">显示相连路径(选择1个点)
+						</label>
+					</div>
+					<div class='form-group'>
+						<label class="control-label">
+							<input type="checkbox" id="check-diaplay-between">显示两点之间所有路径(选择2个点)
+						</label>
+					</div>
+				</form>
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="tab_debugInspector" aria-labelledby="home-tab">
+				<div class="inspector-container" id="debugInspector" style="width:100%;height:100%;overflow:hidden;">
 				</div>
-		    </div>
-		    <div role="tabpanel" class="tab-pane fade" id="tab_layout" aria-labelledby="home-tab">
-		    	<ul id="myTabs2" class="nav nav-tabs" role="tablist" style="display:none">
-			      <li role="presentation"><a href="#tab_layout_grid" id="tab_layout_grid_link" role="tab" data-toggle="tab" aria-controls="tab_layout_grid" aria-expanded="true">网格</a></li>
-			      <li role="presentation"><a href="#tab_layout_tree" id="tab_layout_tree_link" role="tab" data-toggle="tab" aria-controls="tab_layout_tree" aria-expanded="true">树</a></li>
-			      <li role="presentation"><a href="#tab_layout_circular" id="tab_layout_circular_link" role="tab" data-toggle="tab" aria-controls="tab_layout_circular" aria-expanded="true">圆形</a></li>
-			      <li role="presentation"><a href="#tab_layout_layeredDigraph" id="tab_layout_layeredDigraph_link" role="tab" data-toggle="tab" aria-controls="tab_layout_layeredDigraph" aria-expanded="true">圆形</a></li>
-			      <li role="presentation"><a href="#tab_layout_forceDirected" id="tab_layout_forceDirected_link" role="tab" data-toggle="tab" aria-controls="tab_layout_forceDirected" aria-expanded="true">力导向</a></li>
-			    </ul>
-		        <div class="tab-content" style="width:100%;height:100%;overflow:auto;background-color: aliceblue;">
-		        	<div role="tabpanel" class="tab-pane fade in active" id="tab_layout_grid" style="padding:20px;">
-		        		<%= render "layout_grid" %>
-		        	</div>
-		        	<div role="tabpanel" class="tab-pane fade" id="tab_layout_tree" style="padding:20px;">
-		        		<%= render "layout_tree" %>
-		        	</div>
-		        	<div role="tabpanel" class="tab-pane fade" id="tab_layout_circular" style="padding:20px;">
-		        		<%= render "layout_circular" %>
-		        	</div>
-		        	<div role="tabpanel" class="tab-pane fade" id="tab_layout_layeredDigraph" style="padding:20px;">
-		        		<%= render "layout_layeredDigraph" %>
-		        	</div>
-		        	<div role="tabpanel" class="tab-pane fade" id="tab_layout_forceDirected" style="padding:20px;">
-		        		<%= render "layout_forceDirected" %>
-		        	</div>
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="tab_layout" aria-labelledby="home-tab">
+				<ul id="myTabs2" class="nav nav-tabs" role="tablist" style="display:none">
+					<li role="presentation"><a href="#tab_layout_grid" id="tab_layout_grid_link" role="tab" data-toggle="tab" aria-controls="tab_layout_grid" aria-expanded="true">网格</a></li>
+					<li role="presentation"><a href="#tab_layout_tree" id="tab_layout_tree_link" role="tab" data-toggle="tab" aria-controls="tab_layout_tree" aria-expanded="true">树</a></li>
+					<li role="presentation"><a href="#tab_layout_circular" id="tab_layout_circular_link" role="tab" data-toggle="tab" aria-controls="tab_layout_circular" aria-expanded="true">圆形</a></li>
+					<li role="presentation"><a href="#tab_layout_layeredDigraph" id="tab_layout_layeredDigraph_link" role="tab" data-toggle="tab" aria-controls="tab_layout_layeredDigraph" aria-expanded="true">圆形</a></li>
+					<li role="presentation"><a href="#tab_layout_forceDirected" id="tab_layout_forceDirected_link" role="tab" data-toggle="tab" aria-controls="tab_layout_forceDirected" aria-expanded="true">力导向</a></li>
+				</ul>
+				<div class="tab-content" style="width:100%;height:100%;overflow:auto;background-color: aliceblue;">
+					<div role="tabpanel" class="tab-pane fade in active" id="tab_layout_grid" style="padding:20px;">
+						<%= render "layout_grid" %>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="tab_layout_tree" style="padding:20px;">
+						<%= render "layout_tree" %>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="tab_layout_circular" style="padding:20px;">
+						<%= render "layout_circular" %>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="tab_layout_layeredDigraph" style="padding:20px;">
+						<%= render "layout_layeredDigraph" %>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="tab_layout_forceDirected" style="padding:20px;">
+						<%= render "layout_forceDirected" %>
+					</div>
 				</div>
-		    </div>
+			</div>
 		</div>
 	</div>
 </div>

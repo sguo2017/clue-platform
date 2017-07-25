@@ -35,7 +35,7 @@ var calllistDataPreparing = {
       }
       var key=f+''+t;
       if(linksMap[key]){
-        linksMap[key].text++;
+        linksMap[key].feq++;
       }else{
         linksMap[key]=outer.renderLinks(f,t);
       }
@@ -54,7 +54,7 @@ var calllistDataPreparing = {
     }
   },
   renderLinks: function(from_num,to_num){
-    return {from: from_num, to: to_num, text: 1 };
+    return {from: from_num, to: to_num, feq: 1 };
   },
   renderNodes: function(num){
     return {key: num, fill: go.Brush.randomColor()};

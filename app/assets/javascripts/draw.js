@@ -59,7 +59,8 @@ function drawCalllist(sources){
         go.Shape,
         "circle", // 预定义的形状通过字符串来标示
         { /* 设置Shape的属性 */
-          strokeWidth: 2,
+          name: "OBJSHAPE",
+          strokeWidth: 4,
           stroke: "#7B7B7B"
         },
         // 绑定举例：
@@ -84,6 +85,7 @@ function drawCalllist(sources){
         $$(
            go.Shape,
            {
+             name: "OBJSHAPE",
              strokeWidth: 4,
              stroke: "#7B7B7B"
            }
@@ -91,13 +93,14 @@ function drawCalllist(sources){
         $$(
           go.TextBlock,
           {
+            name: "TEXTBLOCK",
             segmentIndex: 0,
             segmentFraction: 0.8,
             stroke: "black",
             font: "bold 12pt serif",
             background: "lightblue"
           },
-          new go.Binding("text", "text")
+          new go.Binding("text", "feq")
         )
       )
     );
@@ -124,4 +127,5 @@ function force_directed(){
   goTools.model.nodeDataArray = calllistDataPreparing.nodesArray;
   goTools.model.linkDataArray = calllistDataPreparing.linksArray;
   goTools.commitTransaction("generateTree");
+  goTools.layout = $$(go.Layout);
 }

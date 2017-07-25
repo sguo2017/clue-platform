@@ -22,7 +22,6 @@ function GoToolsPalette(div, goTools, nodeDataArray) {
     this.toolManager.contextMenuTool.isEnabled = false;
     this.initial();
     this.changePalette("floor_planner");
-    jQuery("#tab_link_operation").tab('show');
     goTools.palettes.push(this);
 }
 
