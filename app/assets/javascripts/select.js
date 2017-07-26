@@ -9,6 +9,7 @@ $(document).on("turbolinks:load",function(){
       var feq=$("#filter-feq").val();
       frequencyFilter(feq,filterMethod,filterType);
     });
+    $("#btn-reset-feq").click(resetFilter);
   }
 });
 
@@ -100,17 +101,15 @@ function setLinksBetween (selections,color,width) {
 function frequencyFilter(feq,method,type){
   switch (type) {
     case "continuous":  //连续筛选
-    if(!feq ){
-      goTools.nodes.each(function(node){node.visible=true});
-      goTools.links.each(function(link){link._visible_=true});
-    }
-    break;
+      if(!feq ){
+        resetFilter();
+      }
+      break;
     case "renew":  //重新筛选
-    goTools.nodes.each(function(node){node.visible=true});
-    goTools.links.each(function(link){link._visible_=true});
-    break;
+      resetFilter();
+      break;
     default:
-    true;
+      true;
   }
   feq=feq.toString();
   goTools.links.each(function(link){
@@ -129,6 +128,11 @@ function frequencyFilter(feq,method,type){
       node.visible=false;
     }
   });
+}
+
+function resetFilter(){
+  goTools.nodes.each(function(node){node.visible=true});
+  goTools.links.each(function(link){link._visible_=true});
 }
 
 function setFeqMax(color,width){
