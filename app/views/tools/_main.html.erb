@@ -24,9 +24,12 @@
 					  </div>
 				</div>
 				<div class="col-xs-4 text-right">
-					<button class="btn btn-link btn-xs" id="btn-data-import"><span class="fa fa-camera-retro" aria-hidden="true"></span> 数据导入</button>
-					<button class="btn btn-link btn-xs" id="btn-data-save"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 图表保存</button>
-					<button class="btn btn-link btn-xs" id="btn-image-export"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 图表导出</button>
+					<form class="hidden" enctype="multipart/form-data">
+						<input type="file" class="hidden" id="field-data-import"/>
+					</form>
+					<a class="btn btn-link btn-xs" id="btn-data-import"><span class="fa fa-camera-retro" aria-hidden="true"></span> 数据导入</a>
+					<a class="btn btn-link btn-xs" id="btn-data-save" download="save.model" rel="external nofollow"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 数据保存</a>
+					<a class="btn btn-link btn-xs" id="btn-image-export"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 导出图片</a>
 				</div>
 			</div>
 		</div>

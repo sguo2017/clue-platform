@@ -1,17 +1,25 @@
 $(document).on("turbolinks:load",function(){
   if(typeof(goTools)!=="undefined"){ //goTools是否已经初始化
-    highLightMainFunction();
-    goTools.addDiagramListener("ChangedSelection",highLightMainFunction);
-    $("#tab_diagram_operation :checkbox").change(highLightMainFunction);///////
-    $("#btn-filter-feq").click(function(){
-      var filterMethod=$("#fitler-method").val();
-      var filterType=$("#fitler-type").val();
-      var feq=$("#filter-feq").val();
-      frequencyFilter(feq,filterMethod,filterType);
-    });
-    $("#btn-reset-feq").click(resetFilter);
+    bindHighLighEvents();
+    bindFeqEvents();
   }
 });
+
+function bindHighLighEvents(){
+  highLightMainFunction();
+  goTools.addDiagramListener("ChangedSelection",highLightMainFunction);  //选择改变时
+  $("#tab_diagram_operation :checkbox").change(highLightMainFunction);  //复选框改变时
+}
+
+function  bindFeqEvents(){
+  $("#btn-filter-feq").click(function(){
+    var filterMethod=$("#fitler-method").val();
+    var filterType=$("#fitler-type").val();
+    var feq=$("#filter-feq").val();
+    frequencyFilter(feq,filterMethod,filterType);
+  });
+  $("#btn-reset-feq").click(resetFilter);
+}
 
 function highLightMainFunction(){
   var ogirinColor="#7B7B7B";
