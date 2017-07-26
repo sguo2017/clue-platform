@@ -1,12 +1,15 @@
 $(document).on("turbolinks:load",function(){
-  goTools.addDiagramListener("ChangedSelection",highLightMainFunction);
-  $("#tab_diagram_operation :checkbox").change(highLightMainFunction);///////
-  $("#btn-filter-feq").click(function(){
-    var filterMethod=$("#fitler-method").val();
-    var filterType=$("#fitler-type").val();
-    var feq=$("#filter-feq").val();
-    frequencyFilter(feq,filterMethod,filterType);
-  });
+  if(typeof(goTools)!=="undefined"){ //goTools是否已经初始化
+    highLightMainFunction();
+    goTools.addDiagramListener("ChangedSelection",highLightMainFunction);
+    $("#tab_diagram_operation :checkbox").change(highLightMainFunction);///////
+    $("#btn-filter-feq").click(function(){
+      var filterMethod=$("#fitler-method").val();
+      var filterType=$("#fitler-type").val();
+      var feq=$("#filter-feq").val();
+      frequencyFilter(feq,filterMethod,filterType);
+    });
+  }
 });
 
 function highLightMainFunction(){
