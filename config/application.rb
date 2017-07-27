@@ -14,5 +14,9 @@ module CluePlatform
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    # rails g 命令不生产资源文件
+    config.generators do |g|
+      g.assets false
+    end
   end
 end

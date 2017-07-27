@@ -24,11 +24,20 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
+  # js压缩器
   config.assets.js_compressor = :uglifier
+  # css压缩器
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  # 允许实时编译，生产环境中找不到预编译的文件时，退回到AssetPipline实时重新编译
+  config.assets.compile = true
+
+  #设置预编译文件的路径（public/some_other_path）否则默认public/assets
+  # config.assets.prefix = "/some_other_path"
+
+  #开启/禁用 GZip 压缩静态资源文件
+  config.assets.gzip = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -89,5 +98,3 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
-
-

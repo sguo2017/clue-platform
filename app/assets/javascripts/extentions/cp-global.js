@@ -12,7 +12,7 @@ function submitFormWithImage(fileFieldId) {
       fetch(url, {
         method: 'POST',
         //mode: "cors",
-        headers: { 
+        headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
            },
@@ -36,8 +36,6 @@ function submitFormWithImage(fileFieldId) {
     }).done(function(responseData) {console.log('responseData', responseData)}).fail(function(error) {
       alert("服务器连接失败，请重试！");
       console.error('error', error)
-    }); 
+    });
   }
 }
-
-

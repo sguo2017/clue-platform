@@ -1,5 +1,5 @@
 //= require_self
-//= require_tree .
+//= require_tree ./for_draw_page
 
 $(document).on("turbolinks:load",function(){
   go_tools_init();

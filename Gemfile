@@ -64,3 +64,4 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 gem 'roo'
+gem "yui-compressor"

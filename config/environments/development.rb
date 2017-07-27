@@ -40,7 +40,13 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  config.assets.debug = false
+
+  #设置预编译文件的路径（public/some_other_path）否则默认public/assets
+  # config.assets.prefix = "/some_other_path"
+
+  #开启/禁用 GZip 压缩静态资源文件
+  config.assets.gzip = false
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
