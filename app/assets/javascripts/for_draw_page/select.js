@@ -19,6 +19,7 @@ function  bindFeqEvents(){
     frequencyFilter(feq,filterMethod,filterType);
   });
   $("#btn-reset-feq").click(resetFilter);
+  $(document).on("filter",highLightMainFunction);//自定义事件
 }
 
 function highLightMainFunction(){
@@ -90,7 +91,18 @@ function setAllConnect (selections,color,width) {
   if (sel instanceof go.Node) {
     sel.highlight= {color,width};
     sel.linksConnected.each(function(link) { link.highlight = {color,width}; });
-    sel.findNodesConnected().each(function(node) { node.highlight = {color,width};});
+    sel.findNodesConnected().each(function(node) {
+      var isLinksAllVisible=false;
+      sel.findLinksBetween(node).each(function(l){
+        if(l.visible){
+          isLinksAllVisible=true;
+          return;
+        }
+      });
+      if(isLinksAllVisible){
+        node.highlight = {color,width};
+      }
+    });
   }
 }
 
@@ -107,27 +119,32 @@ function setLinksBetween (selections,color,width) {
 }
 
 function frequencyFilter(feq,method,type){
+  feq=feq.toString();
   switch (type) {
     case "continuous":  //连续筛选
       if(!feq ){
         resetFilter();
+        return;
       }
+      goTools.links.each(function(link){
+        var text=link.findObject("TEXTBLOCK").text;
+        link.visible=link.visible && text.compareTo(feq,method);
+      });
       break;
     case "renew":  //重新筛选
       resetFilter();
+      goTools.links.each(function(link){
+        var text=link.findObject("TEXTBLOCK").text;
+        link.visible=text.compareTo(feq,method);
+      });
       break;
     default:
       true;
   }
-  feq=feq.toString();
-  goTools.links.each(function(link){
-    var text=link.findObject("TEXTBLOCK").text;
-    link._visible_=text.compareTo(feq,method);
-  });
   goTools.nodes.each(function(node){
     var lonely=true;
     node.linksConnected.each(function(link){
-      if(link._visible_){
+      if(link.visible){
         lonely=false;
         return;
       }
@@ -136,25 +153,33 @@ function frequencyFilter(feq,method,type){
       node.visible=false;
     }
   });
+  $(document).trigger("filter");
 }
 
 function resetFilter(){
   goTools.nodes.each(function(node){node.visible=true});
-  goTools.links.each(function(link){link._visible_=true});
+  goTools.links.each(function(link){link.visible=true});
+  $(document).trigger("filter");
 }
 
 function setFeqMax(color,width){
-  var maxLink={target:null,value:-999};
+  var maxLinks={targets:[],value:-999};
   goTools.links.each(function(link){
-    var feq=link.findObject("TEXTBLOCK").text;
-    if(feq>maxLink["value"]) {
-      maxLink["target"]=link;
-      maxLink["value"]=feq;
+    var feq=parseInt(link.findObject("TEXTBLOCK").text);
+    if(link.visible && feq>maxLinks["value"]) {
+      maxLinks["targets"]=[link];
+      maxLinks["value"]=feq;
+    }else if(link.visible && feq==maxLinks["value"]){
+      maxLinks["targets"].push(link);
     }
   });
-  var target=maxLink["target"];
-  target.highlight={color,width};
-  target.fromNode.highlight={color,width};
-  target.toNode.highlight={color,width};
-  return [target,target.fromNode,target.toNode];
+  var targets=maxLinks["targets"];
+  var toBeHighLights=[];
+  targets.forEach(function(t){
+    t.highlight={color,width};
+    t.fromNode.highlight={color,width};
+    t.toNode.highlight={color,width};
+    toBeHighLights.push(t,t.fromNode,t.toNode);
+  });
+  return toBeHighLights;
 }

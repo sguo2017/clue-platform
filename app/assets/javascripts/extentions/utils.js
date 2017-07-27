@@ -5,27 +5,28 @@ function getQueryString(name){
 }
 
 String.prototype.compareTo= function (another,_method_){
-  another=another.toString();
+  var thisInt=parseInt(this);
+  var anotherInt=parseInt(another);
   switch (_method_.toString()) {
     case "gt":
-    return this>another;
-    break;
+      return thisInt>anotherInt;
+      break;
     case "gte":
-    return this>=another;
-    break;
+      return thisInt>=anotherInt;
+      break;
     case "lt":
-    return this<another;
-    break;
+      return thisInt<anotherInt;
+      break;
     case "lte":
-    return this<=another;
-    break;
+      return thisInt<=anotherInt;
+      break;
     case "eq":
-    return this===another;
-    break;
+      return thisInt==anotherInt;
+      break;
     case "neq":
-    return this!=another;
-    break;
+      return thisInt!=anotherInt;
+      break;
     default:
-    return false;
+      return false;
   }
 }
