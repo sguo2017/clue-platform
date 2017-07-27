@@ -11,7 +11,7 @@ function bindHighLighEvents(){
   $("#tab_diagram_operation :checkbox").change(highLightMainFunction);  //复选框改变时
 }
 
-function  bindFeqEvents(){
+function bindFeqEvents(){
   $("#btn-filter-feq").click(function(){
     var filterMethod=$("#fitler-method").val();
     var filterType=$("#fitler-type").val();
@@ -23,128 +23,158 @@ function  bindFeqEvents(){
 }
 
 function highLightMainFunction(){
-  var ogirinColor="#7B7B7B";
-  var originWidth=4;
+  goTools.clearHighlighteds();
   var displayMax=$("#check-diaplay-max").is(":checked");
   var displayCon=$("#check-diaplay-connected").is(":checked");
   var displayBtw=$("#check-diaplay-between").is(":checked");
   var selections=goTools.selection;
   if(displayMax && selections.count===0){
-    doHighLight(selections,"DISPLAY_MAX","red",ogirinColor,15,originWidth);
+    setFeqMax();
   }else if(displayCon && selections.count===1){
-    doHighLight(selections,"ALL_CONNECT","red",ogirinColor,10,originWidth);
+    setAllConnected(selections);
   }else if(displayBtw && selections.count===2){
-    doHighLight(selections,"LINKS_BETWEEN","red",ogirinColor,10,originWidth);
-  }else{
-    unHighLightAll(ogirinColor,originWidth);
+    var sa=selections.toArray();
+    setAllPaths(findAllPaths(sa[0],sa[1]));
   }
 }
 
-function doHighLight(selections,type,color,originColor,width,originWidth) {
-  goTools.nodes.each(function(node) { node.highlight = {color:originColor,width:originWidth};});
-  goTools.links.each(function(link) { link.highlight = {color:originColor,width:originWidth};});
-  var targets=null;
-  switch (type) {
-    case "ALL_CONNECT": setAllConnect(selections,color,width); break;
-    case "LINKS_BETWEEN": setLinksBetween(selections,color,width);break;
-    case "DISPLAY_MAX": setFeqMax(color,width);break;
-  }
-  highLightExec(targets);
-}
-
-function highLightExec(targets){
-  function lightIt(obj){
-    var hlt = obj.highlight;
-    var shp = obj.findObject("OBJSHAPE");
-    shp.stroke = hlt["color"];
-    shp.strokeWidth = hlt["width"];
-  }
-  if(targets instanceof Array && targets.size>0){
-    targets.forEach(function(t){
-      lightIt(t);
-    });
-  }else{
-    goTools.nodes.each(function(node) {
-      lightIt(node);
-    });
-    goTools.links.each(function(link) {
-      lightIt(link);
-    });
-  }
-}
-
-function unHighLightAll(originColor,originWidth){
-  goTools.nodes.each(function(node) {
-    var shp = node.findObject("OBJSHAPE");
-    shp.stroke = originColor;
-    shp.strokeWidth = originWidth;
+function setFeqMax(){
+  var maxLinks={targets:[],value:-999};
+  goTools.links.each(function(link){
+    if(link.can_show!=false){
+      var feq=parseInt(link.findObject("TEXTBLOCK").text);
+      if(link.visible && feq>maxLinks["value"]) {
+        maxLinks["targets"]=[link];
+        maxLinks["value"]=feq;
+      }else if(link.visible && feq==maxLinks["value"]){
+        maxLinks["targets"].push(link);
+      }
+    }
   });
-  goTools.links.each(function(link) {
-    var shp = link.findObject("OBJSHAPE");
-    shp.stroke = originColor;
-    shp.strokeWidth = originWidth;
+  var targets=maxLinks["targets"];
+  targets.forEach(function(t){
+    lightIt(t);
+    lightIt(t.fromNode);
+    lightIt(t.toNode);
   });
 }
 
-function setAllConnect (selections,color,width) {
+function setAllConnected (selections) {
   var sel=selections.first();
   if (sel instanceof go.Node) {
-    sel.highlight= {color,width};
-    sel.linksConnected.each(function(link) { link.highlight = {color,width}; });
+    lightIt(sel);
+    sel.linksConnected.each(function(link) {
+      if(link.can_show!=false && link.visible){
+        lightIt(link);
+      }
+    });
     sel.findNodesConnected().each(function(node) {
       var isLinksAllVisible=false;
       sel.findLinksBetween(node).each(function(l){
-        if(l.visible){
+        if(l.can_show!=false && l.visible){
           isLinksAllVisible=true;
           return;
         }
       });
       if(isLinksAllVisible){
-        node.highlight = {color,width};
+        lightIt(node);
       }
     });
   }
 }
 
-function setLinksBetween (selections,color,width) {
-  var selArray=selections.toArray();
-  var first=selArray[0];
-  var second=selArray[1];
-  var links=first.findLinksTo(second);
-  if (first instanceof go.Node &&second instanceof go.Node) {
-    first.highlight= {color,width};
-    second.highlight= {color,width};
-    links.each(function(link){link.highlight = {color,width};});
+function setAllPaths(paths){
+  function isInterrupt(path){
+    var interupt=false;
+    for(var i=0;i<path.count-1;i++){
+      links=path.elt(i).findLinksBetween(path.elt(i+1));
+      var hasVisibleLinks=false;
+      links.each(function(link){
+        if(link.can_show!=false && link.visible){
+          hasVisibleLinks=true;
+          return;
+        }
+      });
+      if(!hasVisibleLinks){
+        interupt=true;
+        break;
+      }
+    }
+    return interupt;
   }
+  paths.each(function(path){
+    if(!isInterrupt(path)){
+      for(var i=0;i<path.count-1;i++){
+        lightIt(path.elt(i));
+        links=path.elt(i).findLinksBetween(path.elt(i+1));
+        links.each(function(link){
+          if(link.can_show!=false && link.visible){
+            lightIt(link);
+          }
+        });
+      }
+      lightIt(path.elt(path.count-1));
+    }
+  });
+}
+
+function findAllPaths(begin, end) {
+  var stack = new go.List(go.Node);
+  var coll = new go.List(go.List);
+  function find(source, end) {
+    source.findNodesOutOf().each(function(n) {
+      if (n === source) return;  // ignore reflexive links
+      if (n === end) {  // success
+        var path = stack.copy();
+        path.add(end);  // finish the path at the end node
+        coll.add(path);  // remember the whole path
+      } else if (!stack.contains(n)) {  // inefficient way to check having visited
+        stack.add(n);  // remember that we've been here for this path (but not forever)
+        find(n, end);
+        stack.removeAt(stack.count - 1);
+      }  // else might be a cycle
+    });
+  }
+  stack.add(begin);  // start the path at the begin node
+  find(begin, end);
+  return coll;
+}
+
+function lightIt(obj){
+  obj.isHighlighted=true;
 }
 
 function frequencyFilter(feq,method,type){
   feq=feq.toString();
   switch (type) {
     case "continuous":  //连续筛选
-      if(!feq ){
-        resetFilter();
-        return;
-      }
-      goTools.links.each(function(link){
+    if(!feq ){
+      resetFilter();
+      return;
+    }
+    goTools.links.each(function(link){
+      if(link.can_show!=false){
         var text=link.findObject("TEXTBLOCK").text;
         link.visible=link.visible && text.compareTo(feq,method);
-      });
-      break;
+      }
+    });
+    break;
     case "renew":  //重新筛选
-      resetFilter();
-      goTools.links.each(function(link){
+    resetFilter();
+    goTools.links.each(function(link){
+      if(link.can_show!=false){
         var text=link.findObject("TEXTBLOCK").text;
         link.visible=text.compareTo(feq,method);
-      });
-      break;
+      }
+    });
+    break;
     default:
-      true;
+    true;
   }
   goTools.nodes.each(function(node){
     var lonely=true;
     node.linksConnected.each(function(link){
-      if(link.visible){
+      if(link.can_show!=false && link.visible){
         lonely=false;
         return;
       }
@@ -158,28 +188,10 @@ function frequencyFilter(feq,method,type){
 
 function resetFilter(){
   goTools.nodes.each(function(node){node.visible=true});
-  goTools.links.each(function(link){link.visible=true});
-  $(document).trigger("filter");
-}
-
-function setFeqMax(color,width){
-  var maxLinks={targets:[],value:-999};
   goTools.links.each(function(link){
-    var feq=parseInt(link.findObject("TEXTBLOCK").text);
-    if(link.visible && feq>maxLinks["value"]) {
-      maxLinks["targets"]=[link];
-      maxLinks["value"]=feq;
-    }else if(link.visible && feq==maxLinks["value"]){
-      maxLinks["targets"].push(link);
+    if(link.can_show!=false){
+      link.visible=true
     }
   });
-  var targets=maxLinks["targets"];
-  var toBeHighLights=[];
-  targets.forEach(function(t){
-    t.highlight={color,width};
-    t.fromNode.highlight={color,width};
-    t.toNode.highlight={color,width};
-    toBeHighLights.push(t,t.fromNode,t.toNode);
-  });
-  return toBeHighLights;
+  $(document).trigger("filter");
 }
