@@ -26,4 +26,5 @@ function go_tools_init() {
   // Palettes
   goTools.palette = new GoToolsPalette("tools_main_palette", goTools);
   document.isGoToolsInit=true;
+  return true;
 }

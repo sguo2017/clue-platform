@@ -10,22 +10,16 @@ String.prototype.compareTo= function (another,_method_){
   switch (_method_.toString()) {
     case "gt":
       return thisInt>anotherInt;
-      break;
     case "gte":
       return thisInt>=anotherInt;
-      break;
     case "lt":
       return thisInt<anotherInt;
-      break;
     case "lte":
       return thisInt<=anotherInt;
-      break;
     case "eq":
       return thisInt==anotherInt;
-      break;
     case "neq":
       return thisInt!=anotherInt;
-      break;
     default:
       return false;
   }

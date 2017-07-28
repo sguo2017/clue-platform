@@ -87,7 +87,7 @@ function setAllPaths(paths){
   function isInterrupt(path){
     var interupt=false;
     for(var i=0;i<path.count-1;i++){
-      links=path.elt(i).findLinksBetween(path.elt(i+1));
+      var links=path.elt(i).findLinksBetween(path.elt(i+1));
       var hasVisibleLinks=false;
       links.each(function(link){
         if(link.can_show!=false && link.visible){
@@ -106,7 +106,7 @@ function setAllPaths(paths){
     if(!isInterrupt(path)){
       for(var i=0;i<path.count-1;i++){
         lightIt(path.elt(i));
-        links=path.elt(i).findLinksBetween(path.elt(i+1));
+        var links=path.elt(i).findLinksBetween(path.elt(i+1));
         links.each(function(link){
           if(link.can_show!=false && link.visible){
             lightIt(link);

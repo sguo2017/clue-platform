@@ -5,8 +5,8 @@ function submitFormWithImage(fileFieldId) {
     formObj.submit();
     return;
   } else {
-      let formData = new FormData();
-      let url = '/calllists/import';
+      var formData = new FormData();
+      var url = '/calllists/import';
       formData.append("file", input_file.files[0]);
       /* 改为ajax方式
       fetch(url, {

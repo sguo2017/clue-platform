@@ -25,17 +25,18 @@ var excelUtils = {
     $('#file_name_wrap').val(file.name);
     var form = new FormData();
     form.append('file',file);
+    var outer = this;
     $.ajax({
       url:"/calllists/read_from_excel",
       type:"post",
       data:form,
       processData:false, //important
       contentType:false  //important
-    }).done(responseData => {
-      this.rows = responseData['data'];
-      this.buildTableHeader();
-      this.buildSelectOptions();
-      this.buildTableRows();
+    }).done(function(responseData){
+      outer.rows = responseData['data'];
+      outer.buildTableHeader();
+      outer.buildSelectOptions();
+      outer.buildTableRows();
     });
   },
   getColumns: function (){
@@ -160,7 +161,7 @@ var excelUtils = {
     $.ajax({
       url: '/calllists/save_from_json',
       data: {'data':callData},
-      method: 'post',
+      method: 'post'
     }).done(function(response){
       if(response['success']){
         outer.batch=response['batch'];

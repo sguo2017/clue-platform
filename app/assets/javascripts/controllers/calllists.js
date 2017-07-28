@@ -8,11 +8,13 @@ var calllistDataPreparing = {
   linksArray: null,
   nodesArray: null,
   getDataFromServer: function(){
-    let url = '/calllists/export';
-    $.ajax({url: url,async: false}).done((response) =>{
-      this.rawRows = response['data'];
-      this.fromColumn = "from_num";
-      this.toColumn = "to_num";
+    var url = '/calllists/export';
+    var outer = this;
+    $.ajax({url: url,async: false}).done(function(response){
+      console.log(response['data']);
+      outer.rawRows = response['data'];
+      outer.fromColumn = "from_num";
+      outer.toColumn = "to_num";
     });
   },
   formatData: function(){
@@ -23,9 +25,9 @@ var calllistDataPreparing = {
       var f=row[outer.fromColumn];
       var t=row[outer.toColumn];
       if(f>t){
-        var tmp=a;
-        a=b;
-        b=tmp;
+        var tmp=f;
+        f=t;
+        t=tmp;
       }
       if(!nodesMap[f]){
         nodesMap[f]=outer.renderNodes(f);
@@ -42,14 +44,14 @@ var calllistDataPreparing = {
     });
     this.linksArray=[];
     this.nodesArray=[];
-    for(var key in linksMap){
-      if(linksMap[key]){
-        this.linksArray.push(linksMap[key]);
+    for(var keyLink in linksMap){
+      if(linksMap[keyLink]){
+        this.linksArray.push(linksMap[keyLink]);
       }
     }
-    for(var key in nodesMap){
-      if(nodesMap[key]){
-        this.nodesArray.push(nodesMap[key])
+    for(var keyNode in nodesMap){
+      if(nodesMap[keyNode]){
+        this.nodesArray.push(nodesMap[keyNode])
       }
     }
   },
