@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718020527) do
+ActiveRecord::Schema.define(version: 20170731032255) do
 
   create_table "calllists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "from_num"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170718020527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "batch"
+    t.string "note"
   end
 
   create_table "cases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

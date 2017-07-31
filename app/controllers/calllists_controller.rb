@@ -1,6 +1,5 @@
 class CalllistsController < ApplicationController
   before_action :login_required, :only => [:index,:show,:new,:edit,:create]
-  #protect_from_forgery :except => :import
   #protect_from_forgery :except => :export
   protect_from_forgery :except => :process_excel
 
@@ -22,18 +21,6 @@ class CalllistsController < ApplicationController
     render :json => {:msg=>"calllist was successfully exported!",:success=>true,:data=>lite}
   end
 
-  #从excel文件导入数据,并且保存到数据库,前端通过表单上传excel格式的文件
-  #注意这里上传的excel文件字段命名必须与callist的命名一致(含有from_num,to_num即可)
-  #否自字段无法识别,会被忽略掉,数据不会导入
-  def import
-    saved = Calllist.import(params[:file])
-    if saved
-       render :json => {:msg => "file was successfully imported!",:success =>true,:data=>saved}
-    else
-       render :json =>{:msg => "file do not contain correct columns!",:success =>true,:data=>[]}
-    end
-  end
-
   #从前端上传的excel文件中读取数据而不保存,并且按照原始的json格式返回({name1:value1,name2:value2,...})
   def read_from_excel
     data = Calllist.read(params[:file])
@@ -42,15 +29,17 @@ class CalllistsController < ApplicationController
 
   def save_from_json
     array = params[:data].values
+    note = params[:note]
     batch =  current_user.id.to_s + Time.now.strftime('_%Y_%m_%d_') + Time.now.to_i.to_s
     if current_user
       Calllist.transaction do
         array.each do |row|
           row['batch'] = batch
+          row['note'] = note
           Calllist.create!(row)
         end
       end
-      render :json => {:msg =>"data saved successfully!",:success =>true,:batch => batch}
+      render :json => {:msg =>"data saved successfully!",:success =>true,:batch => batch,:note => note}
     else
       render :json => {:msg =>"failed to get user info,you need to login!",:success =>false}
     end

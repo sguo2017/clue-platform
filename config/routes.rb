@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :cases
   resources :suspects_teams
   resources :calllists  do
-    collection { post :import }
     collection { get :export }
     collection { post :read_from_excel }
     collection { post :save_from_json }

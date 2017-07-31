@@ -1,195 +1,386 @@
 <div class="bread-nav-wrap">
-		<ul class="bread-nav clearfix">
-			<li class="bread-nav-item home">
-				<a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
-			</li>
-			<li class="bread-nav-item">
-				<a class="link-item" href="<%= tools_home_path %>">分析工具</a>
-			</li>
-			<li class="bread-nav-item">
-				<a class="link-item" href="">新建分析</a>
-			</li>
-			<li class="bread-nav-item">
-				<span class="link-item">手工导入</span>
-			</li>
-		</ul>
-	</div>
-	<!-- 路径导航 end -->
-	<%= render 'leftside', tools: @tools %>
-	<!-- left-side end -->
-	<div class="container-18">
-		<div class="panel panel-default clearfix">
-			<div class="inner-panel-heading">
-				<div class="panel-title">
-					新建分析
-				</div>
-			</div>
-			<div class="inner-panel-body">
-				<div class="row">
-					<form action="" class="">
-						<div class="col-md-3">
-							<label class="" for="">分析名称</label>
-							<div class="mt5"><input class="form-control" type="text" value="张三通话分析"></div>
-						</div>
-						<div class="col-md-3">
-							<label class="" for="">关联案件</label>
-							<div class="mt5">
-								<input class="form-control" type="text" value="117走私案">
-							</div>
-
-						</div>
-						<div class="col-md-5">
-							<label class="" for="">通话时间区间</label>
-							<div class="input-group mt5">
-								<input class="form-control" type="text" value="2017-12-12">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar text-primary"></span>
-								</span>
-								<span class="input-group-addon no-bd">
-									到
-								</span>
-								<input class="form-control" type="text" value="2017-12-12">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar text-primary"></span>
-								</span>
-							</div>
-
-
-						</div>
-					</form>
-				</div>
-			</div>
-
- 			<div class="inner-panel-subheading">
-				<span class="inner-panel-subtitle">分析类型</span>
-			</div>
-			<div class="inner-panel-body">
-				<div class="add-analysis-tool">
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-relation"></span>
-						<div class="mt5">通话关系</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-home"></span>
-						<div class="mt5">银行交易</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-mony2"></span>
-						<div class="mt5">资金流转</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-car2"></span>
-						<div class="mt5">物流往来</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-mony"></span>
-						<div class="mt5">消费情况</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-person-pic"></span>
-						<div class="mt5">人员画像</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-other"></span>
-						<div class="mt5">其他</div>
-					</a>
-				</div>
-			</div>
-
-
-			<div class="inner-panel-subheading">
-				<span class="inner-panel-subtitle">数据导入</span>
-			</div>
-			<div class="inner-panel-body">
-				<ul class="sub-nav clearfix">
-					<li class="sub-nav-item active">
-						<a href="<%= tools_add_manual_path %>">手工导入</a>
-					</li>
-					<li class="sub-nav-item">
-						<a href="<%= tools_add_info_path %>">情报资料库</a>
-					</li>
-				</ul>
-				<form id = "read_from_excel" action="/calllists/process_excel" enctype="multipart/form-data" method="post">
-					<div class="row block-mt">
-						<div class="col-xs-3">
-							<label for="">文件导入</label>
-							<div class="input-group mt5">
-								<input id='file_name_wrap' class="form-control" type="text" readonly="readonly">
-								<input id='upload_excel_field' class="hidden" name="excel_call_list" type="file" onchange="excelUtils.init();">
-								<span class="input-group-addon" onclick="$('#upload_excel_field').click();">
-									<span class="glyphicon glyphicon-folder-open text-primary"></span>
-								</span>
-							</div>
-						</div>
-						<div class="col-xs-3">
-							<label for="">
-							<span class="text-primary aliconfont icon-dot1"></span>
-							主叫号码</label>
-							<select class="form-control mt5" name="" id="from_selector">
-                <option value=""></option>
-							</select>
-						</div>
-						<div class="col-xs-3">
-							<label for="">
-							<span class="text-warning aliconfont icon-dot1"></span>
-							被叫号码
-							</label>
-							<select class="form-control mt5" name="" id="to_selector">
-								<<option value=""></option>
-							</select>
-						</div>
-					</div>
-				</form>
-				<div class="clearfix">
-					<div class="pull-right mt15">
-						<button class="btn btn-primary btn-sm">包括已选行</button>
-						<button class="btn btn-default btn-sm ml10">排除已选行</button>
-					</div>
-					<ul class="nav nav-tabs block-mt">
-					    <li class="active"><a href="#">sheet1</a></li>
-					    <!-- <li><a href="#">sheet2</a></li>
-					    <li><a href="#">sheet3</a></li> -->
-					</ul>
-				</div>
-
-				<table class="table table-hover thead-bg block-mt" id="calllist_table">
-					<thead>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-				<!-- <ul class="pagination">
-					<li>
-						<a href="#">
-							<span>«</span>
-						</a>
-					</li>
-					<li class="active">
-						<a href="#">1</a>
-					</li>
-					<li>
-						<a href="#">2</a>
-					</li>
-					<li>
-						<a href="#">3</a>
-					</li>
-					<li>
-						<a href="#">4</a>
-					</li>
-					<li>
-						<a href="#">5</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>»</span>
-						</a>
-					</li>
-				</ul> -->
-
-				<div class="mt5">
-					<a class="btn btn-primary btn-long" id="btn-to-draw-excel" href="/tools/index?type=calllist&sources=excel">确定</a>
-					<a class="btn btn-default btn-long ml10">取消</a>
-				</div>
+	<ul class="bread-nav clearfix">
+		<li class="bread-nav-item home">
+			<a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
+		</li>
+		<li class="bread-nav-item">
+			<a class="link-item" href="<%= tools_home_path %>">分析工具</a>
+		</li>
+		<li class="bread-nav-item">
+			<a class="link-item" href="">新建分析</a>
+		</li>
+		<li class="bread-nav-item">
+			<span class="link-item">手工导入</span>
+		</li>
+	</ul>
+</div>
+<!-- 路径导航 end -->
+<%= render 'leftside', tools: @tools %>
+<!-- left-side end -->
+<div class="container-18">
+	<div class="panel panel-default clearfix">
+		<div class="inner-panel-heading">
+			<div class="panel-title">
+				新建分析
 			</div>
 		</div>
+		<div class="inner-panel-body">
+			<div class="row">
+				<form action="" class="">
+					<div class="col-md-3">
+						<label class="" for="">分析名称</label>
+						<div class="mt5"><input class="form-control" type="text" value="张三通话分析"/></div>
+					</div>
+					<div class="col-md-3">
+						<label class="" for="">关联案件</label>
+						<div class="mt5">
+							<input class="form-control" type="text" value="117走私案"/>
+						</div>
+
+					</div>
+					<div class="col-md-5">
+						<label class="" for="">通话时间区间</label>
+						<div class="input-group mt5">
+							<input class="form-control" type="text" value="2017-12-12"/>
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar text-primary"></span>
+							</span>
+							<span class="input-group-addon no-bd">
+								到
+							</span>
+							<input class="form-control" type="text" value="2017-12-12"/>
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar text-primary"></span>
+							</span>
+						</div>
+
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="inner-panel-subheading">
+			<span class="inner-panel-subtitle">分析类型</span>
+		</div>
+		<div class="inner-panel-body">
+			<div class="add-analysis-tool">
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-relation"></span>
+					<div class="mt5">通话关系</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-home"></span>
+					<div class="mt5">银行交易</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-mony2"></span>
+					<div class="mt5">资金流转</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-car2"></span>
+					<div class="mt5">物流往来</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-mony"></span>
+					<div class="mt5">消费情况</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-person-pic"></span>
+					<div class="mt5">人员画像</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-other"></span>
+					<div class="mt5">其他</div>
+				</a>
+			</div>
+		</div>
+
+
+		<div class="inner-panel-subheading">
+			<span class="inner-panel-subtitle">数据导入</span>
+		</div>
+		<div class="inner-panel-body" id="vue-excel-app">
+			<ul class="sub-nav clearfix">
+				<li class="sub-nav-item active">
+					<a href="<%= tools_add_manual_path %>">手工导入</a>
+				</li>
+				<li class="sub-nav-item">
+					<a href="<%= tools_add_info_path %>">情报资料库</a>
+				</li>
+			</ul>
+			<form id = "read_from_excel" action="/calllists/process_excel" enctype="multipart/form-data" method="post">
+				<div class="row block-mt">
+					<div class="col-xs-3">
+						<label for="">文件导入</label>
+						<div class="input-group mt5">
+							<input id='file_name_wrap' class="form-control" type="text" readonly="readonly" placeholder="请选择文件"/>
+							<input id='upload_excel_field' class="hidden" name="excel_call_list" type="file" v-on:change="workbook.init()"/>
+							<span class="input-group-addon" onclick="$('#upload_excel_field').click();">
+								<span class="glyphicon glyphicon-folder-open text-primary"></span>
+							</span>
+						</div>
+					</div>
+					<div
+					v-for="(sheet,sIndex) in workbook.sheets"
+					v-bind:class="{hidden: isHidden(sIndex)}"
+					>
+					<div class="col-xs-3">
+						<label for=""><span class="text-primary aliconfont icon-dot1"></span>主叫号码</label>
+						<select class="form-control mt5" v-model='selectedColumns.from[sIndex]'>
+							<option disabled value="">请选择</option>
+							<option v-for='(header,hIndex) in sheet.headers' v-bind:value="hIndex">{{header}}</option>
+						</select>
+					</div>
+					<div class="col-xs-3">
+						<label for=""><span class="text-warning aliconfont icon-dot1"></span>被叫号码</label>
+						<select class="form-control mt5" v-model='selectedColumns.to[sIndex]'>
+							<option disabled value="">请选择</option>
+							<option v-for='(header,hIndex) in sheet.headers' v-bind:value="hIndex">{{header}}</option>
+						</select>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</form>
+		<div v-if='workbook.hasInit' class="clearfix">
+			<div
+			v-for="(sheet,sIndex) in workbook.sheets"
+			v-bind:class="{hidden: isHidden(sIndex)}"
+			class="pull-right mt15">
+			<label class>
+				<input type="checkbox" v-model='includeHeaders[sIndex]' v-on:change='changeHeader(sIndex)'/>包含表头
+			</label>
+			<label>
+				<input type="radio" v-model='includeCheked[sIndex]' value='include'/>包括已选行
+			</label>
+			<label>
+				<input type="radio" v-model='includeCheked[sIndex]' value='exclude'/>排除已选行
+			</label>
+		</div>
+		<ul class="nav nav-tabs block-mt">
+			<li
+			v-for='(sn,snIndex) in workbook.sheetsNames'
+			v-bind:class='{active: !isHidden(snIndex)}'
+			v-on:click="switchSheet(snIndex)"
+			><a>{{sn}}</a></li>
+		</ul>
 	</div>
+
+	<table
+	is='my-table'
+	v-for='(sheet,sIndex) in workbook.sheets'
+	v-bind:sheet='sheet'
+	v-bind:selected-columns='selectedColumns'
+	v-bind:sheet-index='sIndex'
+	v-bind:checked-items='checkedItems'
+	v-bind:check-all-status='checkAllStatus'
+	v-bind:class='{hidden: isHidden(sIndex)}'
+	v-bind:key='sheet.id'
+	>
+</table>
+<!-- <ul class="pagination">
+<li>
+<a href="#">
+<span>«</span>
+</a>
+</li>
+<li class="active">
+<a href="#">1</a>
+</li>
+<li>
+<a href="#">2</a>
+</li>
+<li>
+<a href="#">3</a>
+</li>
+<li>
+<a href="#">4</a>
+</li>
+<li>
+<a href="#">5</a>
+</li>
+<li>
+<a href="#">
+<span>»</span>
+</a>
+</li>
+</ul> -->
+
+<div v-if='workbook.hasInit' class="mt5">
+	<form class="form-inline" style="display:inline">
+		<label class='control-label'>同时保存到数据库</label>
+		<input type="checkbox" v-model="saveToDb" v-on:change="changeDataNoteStatus" />
+		<input type="text" id="data-note" disabled="disabled" v-model="dataNote" class="form-control" placeholder="起个备注">
+		<a class="btn btn-primary btn-long" v-on:click='submit' href="/tools/index?type=calllist&sources=excel">确定</a>
+		<a class="btn btn-default btn-long ml10" v-on:click='reload'>取消</a>
+	</form>
+</div>
+</div>
+</div>
+</div>
+<script>
+var TABLE = {
+	props: ["sheet","sheetIndex","selectedColumns","checkedItems","checkAllStatus"],
+	template:"\
+	<table class='table table-hover thead-bg block-mt'>\
+	<thead>\
+	<tr>\
+	<th>\
+	<div>\
+	<input type='checkbox' v-model='checkAllStatus[sheetIndex]' v-on:change='changeAllChecks'/>\
+	</div>\
+	</th>\
+	<th \
+	v-for='(header,hIndex) in sheet.headers'\
+	v-bind:key='header'>\
+	{{header}}\
+	</th>\
+	</tr>\
+	</thead>\
+	<tbody>\
+	<tr v-for='(row,rIndex) in sheet.rows' v-bind:key='row.toString()'>\
+	<td>\
+	<div>\
+	<input type='checkbox' v-model='checkedItems[sheetIndex][rIndex]'/>\
+	</div>\
+	</td>\
+	<td v-for='(col,cIndex) in row' v-bind:key='col' v-bind:class='classObject(cIndex)'>{{col}}</td>\
+	</tr>\
+	</tbody>\
+	</table>\
+	",
+	methods: {
+		classObject: function (cIndex) {
+			var outer = this;
+			var a = {
+				'text-label': outer.selectedColumns.from[outer.sheetIndex]!==cIndex && outer.selectedColumns.to[outer.sheetIndex]!==cIndex,
+				'text-warning': outer.selectedColumns.from[outer.sheetIndex]===cIndex,
+				'text-primary': outer.selectedColumns.to[outer.sheetIndex]===cIndex
+			};
+			return a;
+		},
+		changeAllChecks: function(){
+			var status = this.checkAllStatus[this.sheetIndex];
+			var target = this.checkedItems[this.sheetIndex];
+			for(var i=0;i<target.length;i++){
+				Vue.set(target,i,status);
+			}
+		}
+	}
+}
+var workbook=new Workbook();
+var app = new Vue({
+	el: "#vue-excel-app",
+	components: {
+		"my-table":TABLE
+	},
+	data: {
+		workbook: workbook,
+		activeTable: 0,
+		selectedColumns: {from:[],to:[]},
+		includeHeaders: [],
+		includeCheked: [],
+		checkedItems:[],
+		checkAllStatus:[],
+		saveToDb: false,
+		dataNote: ''
+
+	},
+
+	watch: {
+		'workbook.id': function(){
+			var len = workbook.sheets.length;
+			this.selectedColumns={from: [],to: []};
+			for(var i=0;i<len;i++){
+				this.selectedColumns.from.push('');
+				this.selectedColumns.to.push('');
+				this.includeHeaders.push(true);
+				this.includeCheked.push('include');
+				var checked=[];
+				for(var j=0;j<this.workbook.sheets[i].rows.length;j++){
+					checked.push(true);
+				}
+				this.checkedItems.push(checked);
+				this.checkAllStatus.push(true);
+			}
+		}
+	},
+	methods: {
+		switchSheet: function(sheetIndex){
+			this.activeTable=sheetIndex;
+		},
+		isHidden: function(targetIndex){
+			return this.activeTable!==targetIndex;
+		},
+		isDisabled: function(){
+			return !this.saveToDb?'disabled':'' ;
+		},
+		changeHeader: function(sIndex){
+			var origin = this.workbook.sheets[sIndex].includeHeaders;
+			this.workbook.sheets[sIndex].includeHeaders = !origin;
+			this.workbook.sheets[sIndex].setHeaders();
+			this.workbook.sheets[sIndex].setRows();
+		},
+		submit: function(event){
+			var from = this.selectedColumns.from[this.activeTable];
+			var to = this.selectedColumns.to[this.activeTable];
+			if(from !== '' && to !== '' && from !== to){
+				this.saveDataToServer();
+				this.passData();
+			}else{
+				alert("请选择正确的主叫号码与被叫号码！");
+				event.preventDefault();
+			}
+		},
+		reload: function(){
+			Turbolinks.visit(location);
+		},
+		changeDataNoteStatus: function(){
+			if(!this.saveToDb){
+				$("#data-note").attr('disabled','disabled');
+			}else{
+				$("#data-note").removeAttr('disabled');
+			}
+		},
+		passData: function(){
+			var fromColumnIndex=this.selectedColumns.from[this.activeTable];
+			var toColumnIndex=this.selectedColumns.to[this.activeTable];
+			var selected = this.checkedItems[this.activeTable];
+			var isIncludeCheked = this.includeCheked[this.activeTable]==='include';
+			var callData=this.workbook.sheets[this.activeTable].rows
+			.filter(function(row,index){
+				if(isIncludeCheked){
+			    return selected[index];
+			  }else{
+			    return !selected[index];
+			  }
+			})
+			.map(function(row){return {'from_num':row[fromColumnIndex],'to_num':row[toColumnIndex]}});
+			calllistDataPreparing.fromColumn = 'from_num';
+			calllistDataPreparing.toColumn = 'to_num';
+			calllistDataPreparing.rawRows = callData;
+		},
+		saveDataToServer: function(){
+			var fromColumnIndex=this.selectedColumns.from[this.activeTable];
+			var toColumnIndex=this.selectedColumns.to[this.activeTable];
+			var selected = this.checkedItems[this.activeTable];
+			var isIncludeCheked = this.includeCheked[this.activeTable]==='include';
+			var callData=this.workbook.sheets[this.activeTable].rows
+			.filter(function(row,index){
+				if(isIncludeCheked){
+			    return selected[index];
+			  }else{
+			    return !selected[index];
+			  }
+			})
+			.map(function(row){return {'from_num':row[fromColumnIndex],'to_num':row[toColumnIndex]}});
+			$.ajax({
+				url: '/calllists/save_from_json',
+				data: {'data':callData,note: this.dataNote},
+				method: 'post'
+			});
+		}
+	}
+});
+</script>

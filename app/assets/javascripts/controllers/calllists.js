@@ -2,9 +2,9 @@
 // All this logic will automatically be available in application.js.
 
 var calllistDataPreparing = {
-  rawRows: null,
-  fromColumn: null,
-  toColumn: null,
+  rawRows: [],
+  fromColumn: "from_num",
+  toColumn: "to_num",
   linksArray: null,
   nodesArray: null,
   getDataFromServer: function(){

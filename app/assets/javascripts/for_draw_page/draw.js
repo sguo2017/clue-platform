@@ -93,9 +93,6 @@ function drawCalllist(sources){
     );
     switch (sources) {
     case 'excel':
-      calllistDataPreparing.rawRows=excelUtils.rows;
-      calllistDataPreparing.fromColumn=excelUtils.fromColumn;
-      calllistDataPreparing.toColumn=excelUtils.toColumn;
       calllistDataPreparing.formatData();
       force_directed();
       break;
