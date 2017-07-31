@@ -93,6 +93,7 @@ function drawCalllist(sources){
     );
     switch (sources) {
     case 'excel':
+      calllistDataPreparing.getDataFromLocal();
       calllistDataPreparing.formatData();
       force_directed();
       break;
@@ -112,6 +113,11 @@ function force_directed(){
   goTools.model.linkDataArray = makeLinksTwoDirections(calllistDataPreparing.linksArray);
   goTools.commitTransaction("generateTree");
   goTools.layout = $$(go.Layout);
+  setTimeout(function(){
+    if(calllistDataPreparing.nodesArray.length<=0 && calllistDataPreparing.linksArray.length<=0){
+      alert('没有数据');
+    }
+  },0);
 }
 
 function makeLinksTwoDirections(links){

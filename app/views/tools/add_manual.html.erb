@@ -357,9 +357,9 @@ var app = new Vue({
 			  }
 			})
 			.map(function(row){return {'from_num':row[fromColumnIndex],'to_num':row[toColumnIndex]}});
-			calllistDataPreparing.fromColumn = 'from_num';
-			calllistDataPreparing.toColumn = 'to_num';
-			calllistDataPreparing.rawRows = callData;
+			sessionStorage.setItem('call_list_raw_rows',JSON.stringify(callData))
+			sessionStorage.setItem('call_list_from_column','from_num')
+			sessionStorage.setItem('call_list_to_column','to_num')
 		},
 		saveDataToServer: function(){
 			var fromColumnIndex=this.selectedColumns.from[this.activeTable];

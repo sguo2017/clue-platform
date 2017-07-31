@@ -15,7 +15,18 @@ var calllistDataPreparing = {
       outer.rawRows = response['data'];
       outer.fromColumn = "from_num";
       outer.toColumn = "to_num";
+      if(!outer.rawRows){
+        outer.rawRows = [];
+      }
     });
+  },
+  getDataFromLocal: function(){
+    this.rawRows = JSON.parse(sessionStorage.getItem('call_list_raw_rows'));
+    this.fromColumn = sessionStorage.getItem('call_list_from_column');
+    this.toColumn = sessionStorage.getItem('call_list_to_column');
+    if(!this.rawRows){
+      this.rawRows = [];
+    }
   },
   formatData: function(){
     var linksMap = {};
