@@ -17,6 +17,7 @@
     <%= stylesheet_link_tag "/assets/layer/build/skin/default/layer", :media => "all" %>
     <%= stylesheet_link_tag "/assets/jsplumb/jsplumbtoolkit-defaults", :media => "all" %>
     <%= stylesheet_link_tag "/assets/jsplumb/jsplumb.demos", :media => "all" %>
+    <%= yield :in_page_style %>
 
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "application_for_draw"%>

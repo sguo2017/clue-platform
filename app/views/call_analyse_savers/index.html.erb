@@ -1,0 +1,78 @@
+<div class="analysis-wrap">
+  <div class="bread-nav-wrap">
+    <ul class="bread-nav clearfix">
+      <li class="bread-nav-item home">
+        <a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
+      </li>
+      <li class="bread-nav-item">
+        <a class="link-item" href="">分析工具</a>
+      </li>
+      <li class="bread-nav-item">
+        <span class="link-item">话单分析</span>
+      </li>
+    </ul>
+  </div>
+  <!-- 路径导航 end -->
+  <div class="left-side left-side-inverse column-18">
+    <div class="left-side-heading">
+      <div class="heading-title">
+        <a class="pull-right small" href="">回首页</a>
+        嫌疑犯
+      </div>
+      <div class="input-group">
+        <input type="text" class="form-control" value="搜索">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button">
+            搜
+          </button>
+        </span>
+      </div>
+    </div>
+    <ul class="analysis-img-list">
+      <% @cas_of_user.each do |cas| %>
+      <li class="list-item cas-list-item <%= 'active' if cas.id == @cas_of_user.first().id %>"
+        data-cas-id="<%= cas.id %>"
+        data-cas-data-url="<%= cas.data_url %>"
+        data-cas-title="<%= cas.title %>"
+        data-cas-created-at="<%= cas.created_at %>"
+        >
+        <a class="img-wrap">
+          <%= image_tag(cas.image_url,:class=>'analyse-img-overview')%>
+          <div class="img-title"><%= cas.title %></div>
+        </a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <!-- left-side end -->
+  
+  <div class="container-18">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="inner-panel">
+          <div class="paner-heading">
+            <div class="panel-title" id="cas_title"></div>
+            <div class="small text-gray mt10">
+              <span id="cas_date"></span>
+              &nbsp;<span class="text-capitalize"></span><%= current_user.email %>
+            </div>
+          </div>
+          <div class="mt10" id="cas_diagram">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="panel">
+          <div class="inner-panel-body">
+            <div class="panel-title">
+              操作面板
+            </div>
+            <hr style="margin-left:0;margin-right:0;"/>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

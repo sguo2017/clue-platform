@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     collection { post :read_from_excel }
     collection { post :save_from_json }
   end
+  resources :call_analyse_savers do
+    collection {get :default}
+  end
 
 
 

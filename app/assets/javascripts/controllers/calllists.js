@@ -11,7 +11,6 @@ var calllistDataPreparing = {
     var url = '/calllists/export';
     var outer = this;
     $.ajax({url: url,async: false}).done(function(response){
-      console.log(response['data']);
       outer.rawRows = response['data'];
       outer.fromColumn = "from_num";
       outer.toColumn = "to_num";

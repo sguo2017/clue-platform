@@ -5,6 +5,7 @@ class ToolsController < ApplicationController
   #首页
   def home
     @tools_type = "home"
+    @cas_of_user=CallAnalyseSaver.where(:user_id=>current_user.id).order("created_at desc").limit(6)
   end
   #新增情报资料库
   def add_info

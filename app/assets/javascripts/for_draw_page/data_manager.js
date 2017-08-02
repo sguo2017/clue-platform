@@ -49,3 +49,49 @@ function importFromFile(event){
     }
   };
 }
+
+function dataUrlToBlob(dataUrl) {
+  var arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+  bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  while(n--){
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], {type:mime});
+}
+
+function saveAnalyseResult(dataUrl,imageUrl,title){
+  $.ajax({
+    url: "/call_analyse_savers",
+    method: "POST",
+    data: {call_analyse_saver: {data_url: dataUrl,image_url: imageUrl,title: title}}
+  }).done(function(response){
+    alert("成功保存数据到服务器！");
+  }).error(function(response){
+    alert("保存失败");
+  });
+}
+
+function saveDataToFastDFS(title){
+  var formData = new FormData();
+  var url = 'http://123.56.157.233:9090/FastDFSWeb/servlet/imageUploadServlet';
+  var data = new Blob([goTools.model.toJson()],{type: 'text/plain'});
+  var imageDataUrl = goTools.makeImageData({
+    size: new go.Size(160, 120)
+  });
+  var image = dataUrlToBlob(imageDataUrl);
+  formData.append('data',data,'data.json');
+  formData.append('image',image,'image.png');
+  fetch(url, {
+    method: 'POST',
+    mode: "cors",
+    body: formData
+  })
+  .then(function(response){return response.json();})
+  .then(function(json){
+    var dataUrl = json["data"];
+    var imageUrl = json["image"];
+    saveAnalyseResult(dataUrl,imageUrl,title);
+  }).catch(function(error){
+    alert("服务器连接失败，请重试！");
+  });
+}

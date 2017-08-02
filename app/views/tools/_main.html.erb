@@ -1,71 +1,131 @@
-<div class="tools_main">
+<div id = "app" class="tools_main">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="panel-title row">
 				<div class="col-xs-8">
-					  <label href="#">滚轮操作</label>
-					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
-						  <button type="button" class="btn btn-default" onclick="goTools.toolManager.mouseWheelBehavior = go.ToolManager.WheelScroll;">平移</button>
-						  <button type="button" class="btn btn-default" onclick="goTools.toolManager.mouseWheelBehavior = go.ToolManager.WheelZoom;">缩放</button>
-					  </div>
-					  <label href="#">操作方式</label>
-					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
-						  <button type="button" class="btn btn-default" onclick="goTools.goToolsUI.adjustScale('+')">放大</button>
-						  <button type="button" class="btn btn-default" onclick="goTools.goToolsUI.adjustScale('-')">缩小</button>
-					  </div>
-					  <label href="#">布局方式</label>
-					  <div class="btn-group btn-group-xs" role="group" aria-label="...">
-					      <button type="button" class="btn btn-default" onclick="goTools.changeLayout('grid');">网格</button>
-						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('tree');">树形</button>
-						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('layeredDigraph');">层次</button>
-						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('forceDirected');">力导向</button>
-						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('circular');">圆形</button>
-						  <button type="button" class="btn btn-default" onclick="goTools.changeLayout('default');">自由</button>
-					  </div>
+					<label href="#">滚轮操作</label>
+					<div class="btn-group btn-group-xs" role="group" aria-label="...">
+						<button type="button" class="btn btn-default" onclick="goTools.toolManager.mouseWheelBehavior = go.ToolManager.WheelScroll;">平移</button>
+						<button type="button" class="btn btn-default" onclick="goTools.toolManager.mouseWheelBehavior = go.ToolManager.WheelZoom;">缩放</button>
+					</div>
+					<label href="#">操作方式</label>
+					<div class="btn-group btn-group-xs" role="group" aria-label="...">
+						<button type="button" class="btn btn-default" onclick="goTools.goToolsUI.adjustScale('+')">放大</button>
+						<button type="button" class="btn btn-default" onclick="goTools.goToolsUI.adjustScale('-')">缩小</button>
+					</div>
+					<label href="#">布局方式</label>
+					<div class="btn-group btn-group-xs" role="group" aria-label="...">
+						<button type="button" class="btn btn-default" onclick="goTools.changeLayout('grid');">网格</button>
+						<button type="button" class="btn btn-default" onclick="goTools.changeLayout('tree');">树形</button>
+						<button type="button" class="btn btn-default" onclick="goTools.changeLayout('layeredDigraph');">层次</button>
+						<button type="button" class="btn btn-default" onclick="goTools.changeLayout('forceDirected');">力导向</button>
+						<button type="button" class="btn btn-default" onclick="goTools.changeLayout('circular');">圆形</button>
+						<button type="button" class="btn btn-default" onclick="goTools.changeLayout('default');">自由</button>
+					</div>
 				</div>
 				<div class="col-xs-4 text-right">
 					<form class="hidden" enctype="multipart/form-data">
 						<input type="file" class="hidden" id="field-data-import"/>
 					</form>
 					<a class="btn btn-link btn-xs" id="btn-data-import"><span class="fa fa-camera-retro" aria-hidden="true"></span> 数据导入</a>
-					<a class="btn btn-link btn-xs" id="btn-data-save" download="save.model" rel="external nofollow"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 数据保存</a>
+					<button class="btn btn-link btn-xs"  @click="showModal=true"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> 数据保存</span></a>
 					<a class="btn btn-link btn-xs" id="btn-image-export"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 导出图片</a>
 				</div>
 			</div>
 		</div>
 		<div class="panel-body" style="padding-bottom: 0px;">
 			<ul id="tab_main" class="nav nav-tabs" role="tablist" style="display:none">
-		      <li role="presentation"><a href="#tab_main_diagram_1" id="tab_main_diagram_1_link" role="tab" data-toggle="tab" aria-controls="tab_main_diagram_1" aria-expanded="true">拓扑图</a></li>
-		      <li role="presentation"><a href="#tab_main_diagram_2" id="tab_main_diagram_2_link" role="tab" data-toggle="tab" aria-controls="tab_main_diagram_2" aria-expanded="true">统计图表</a></li>
-		       <li role="presentation"><a href="#tab_main_diagram_4" id="tab_main_diagram_4_link" role="tab" data-toggle="tab" aria-controls="tab_main_diagram_4" aria-expanded="true">jsplumb</a></li>
-		    </ul>
-	        <div class="tab-content" style="width:100%;height:100%;overflow:auto;">
-	        	<div role="tabpanel" class="tab-pane in active" id="tab_main_diagram_1" style="width:100%;height:100%">
-	        		<div id="tools_main_diagram" style="width:100%; height:100%"></div>
-	        	</div>
-	        	<div role="tabpanel" class="tab-pane" id="tab_main_diagram_2" style="width:100%;height:100%">
-	        		<div id="tools_main_echart" style="width:100%; height:100%"></div>
-	        	</div>
-	        	<div role="tabpanel" class="tab-pane" id="tab_main_diagram_4" style="width:100%;height:100%;overflow:hidden;background-color:white;">
-			        <%= render "jsplumb" %>
-		        </div>
+				<li role="presentation"><a href="#tab_main_diagram_1" id="tab_main_diagram_1_link" role="tab" data-toggle="tab" aria-controls="tab_main_diagram_1" aria-expanded="true">拓扑图</a></li>
+				<li role="presentation"><a href="#tab_main_diagram_2" id="tab_main_diagram_2_link" role="tab" data-toggle="tab" aria-controls="tab_main_diagram_2" aria-expanded="true">统计图表</a></li>
+				<li role="presentation"><a href="#tab_main_diagram_4" id="tab_main_diagram_4_link" role="tab" data-toggle="tab" aria-controls="tab_main_diagram_4" aria-expanded="true">jsplumb</a></li>
+			</ul>
+			<div class="tab-content" style="width:100%;height:100%;overflow:auto;">
+				<div role="tabpanel" class="tab-pane in active" id="tab_main_diagram_1" style="width:100%;height:100%">
+					<div id="tools_main_diagram" style="width:100%; height:100%"></div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="tab_main_diagram_2" style="width:100%;height:100%">
+					<div id="tools_main_echart" style="width:100%; height:100%"></div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="tab_main_diagram_4" style="width:100%;height:100%;overflow:hidden;background-color:white;">
+					<%= render "jsplumb" %>
+				</div>
 			</div>
 		</div>
 		<div id="contextMenu">
 			<ul>
-			  <li id="cut" onclick="goTools.cxcommand(event)"><a href="#" target="_self">剪切</a></li>
-			  <li id="copy" onclick="goTools.cxcommand(event)"><a href="#" target="_self">拷贝</a></li>
-			  <li id="paste" onclick="goTools.cxcommand(event)"><a href="#" target="_self">粘贴</a></li>
-			  <li id="delete" onclick="goTools.cxcommand(event)"><a href="#" target="_self">删除</a></li>
-			  <li id="color" class="hasSubMenu"><a href="#" target="_self">颜色</a>
-			    <ul class="subMenu" id="colorSubMenu">
-			        <li style="background: crimson;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">红色</a></li>
-			        <li style="background: chartreuse;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">绿色</a></li>
-			        <li style="background: aquamarine;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">蓝色</a></li>
-			        <li style="background: gold;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">黄色</a></li>
-			    </ul>
-			  </li>
+				<li id="cut" onclick="goTools.cxcommand(event)"><a href="#" target="_self">剪切</a></li>
+				<li id="copy" onclick="goTools.cxcommand(event)"><a href="#" target="_self">拷贝</a></li>
+				<li id="paste" onclick="goTools.cxcommand(event)"><a href="#" target="_self">粘贴</a></li>
+				<li id="delete" onclick="goTools.cxcommand(event)"><a href="#" target="_self">删除</a></li>
+				<li id="color" class="hasSubMenu"><a href="#" target="_self">颜色</a>
+					<ul class="subMenu" id="colorSubMenu">
+						<li style="background: crimson;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">红色</a></li>
+						<li style="background: chartreuse;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">绿色</a></li>
+						<li style="background: aquamarine;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">蓝色</a></li>
+						<li style="background: gold;" onclick="goTools.cxcommand(event, 'color')"><a href="#" target="_self">黄色</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
+	<div>
+		<modal v-if="showModal" @close="showModal = false">
+			<h3 slot="header">保存数据</h3>
+			<div slot="body">
+				<div class="form-group">
+					<label class="control-label">保存到本地
+						<input type="radio" class="" v-model="saveToWhere" value='local'/>
+					</label>
+					<label  class="control-label">保存到服务器
+						<input type="radio" class="" v-model="saveToWhere" value='server'/>
+					</label>
+				</div>
+				<div class="form-group" v-if="saveToWhere==='server'">
+					<input type="text" v-model="title" class="form-control" placeholder="请输入存档名称"/>
+				</div>
+				<div v-if="saveToWhere==='local'">
+					<a class="btn btn-danger btn-long" v-bind:href="downloadLink" style="margin-left:82.5px;" download='save.json'>点击下载</a>
+				</div>
+			</div>
+			<div slot="footer">
+				<button class="btn btn-primary" @click="saveData">
+					确定
+				</button>
+				<button class="btn btn-default" @click="showModal=false">
+					取消
+				</button>
+			</div>
+		</modal>
+	</div>
 </div>
+<script>
+// register modal component
+Vue.component('modal', {
+	template: '#modal-template'
+})
+
+// start app
+var app = new Vue({
+	el: '#app',
+	data: {
+		showModal: false,
+		title: '',
+		saveToWhere: ''
+	},
+	methods: {
+		saveData: function(){
+			if(this.saveToWhere==="server"){
+				saveDataToFastDFS(this.title);
+			}
+			this.showModal = false;
+		}
+	},
+	computed: {
+		downloadLink: function(){
+			var data=goTools.model.toJson();
+			var l= ("data:text/txt;charset=utf-8,"+data);
+			return l;
+		}
+	}
+})
+</script>
