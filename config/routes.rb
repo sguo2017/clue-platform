@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     collection { get :export }
     collection { post :read_from_excel }
     collection { post :save_from_json }
+    collection { get :load_note_options }
+    collection { get :load_date_options }
+    collection { get :load_batch_options }
   end
   resources :call_analyse_savers do
     collection {get :default}

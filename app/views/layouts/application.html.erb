@@ -8,65 +8,16 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/common/style/mystyle", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/gojs/extensions/spectrum", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/gojs/extensions/DataInspector", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/gojs/extensions/DebugInspector", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/propertiesjs/propertiesJS", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/propertiesjs/toastr.min", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/layer/build/skin/default/layer", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/jsplumb/jsplumbtoolkit-defaults", :media => "all" %>
-    <%= stylesheet_link_tag "/assets/jsplumb/jsplumb.demos", :media => "all" %>
     <%= yield :in_page_style %>
 
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "application_for_draw"%>
-    <%= javascript_include_tag "/assets/gojs/go.js" %>
-    <%= javascript_include_tag "/assets/vue" %>
-    <%= javascript_include_tag "/assets/gojs/tools/FloorPlanner-WallBuildingTool" %>
-    <%= javascript_include_tag "/assets/gojs/tools/FloorPlanner-WallReshapingTool" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoTools" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsUI" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsPalette" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsLayout" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsNodeTemplateMap" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsLinkTemplateMap" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsGroupTemplateMap" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsFilesSystem" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsDiagramRuler" %>
-    <%= javascript_include_tag "/assets/gojs/tools/GoToolsDemos" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/HyperlinkText" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/spectrum" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/DataInspector" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/DebugInspector" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/ExtendedBrush" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/icons" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/link_bar" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/link_message" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/link_dimensioning" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/link_balloon" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/layout_sankey" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/layout_wheel" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/layout_continuousForceDirected" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/layout_timeline" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/layout_genogram" %>
-    <%= javascript_include_tag "/assets/gojs/extensions/font-list" %>
-    <%= javascript_include_tag "/assets/common/javascript/swiper-3.4.1.min" %>
-    <%= javascript_include_tag "/assets/propertiesjs/toastr.min" %>
-    <%= javascript_include_tag "/assets/propertiesjs/propertiesJS" %>
-    <%= javascript_include_tag "/assets/propertiesjs/handlebars.min" %>
-    <%= javascript_include_tag "/assets/propertiesjs/TweenMax.min" %>
-    <%= javascript_include_tag "/assets/echarts/echarts.min" %>
-    <%= javascript_include_tag "/assets/echarts/china" %>
-    <%= javascript_include_tag "/assets/echarts/world" %>
-    <%= javascript_include_tag "/assets/echarts/echarts.demo.01" %>
-    <%= javascript_include_tag "/assets/echarts/echarts.demo.02" %>
-    <%= javascript_include_tag "/assets/layer/build/layer" %>
-    <%= javascript_include_tag "/assets/jsplumb/jsplumb" %>
-    <%= javascript_include_tag "/assets/jsplumb/jsplumbtoolkit" %>
-    <%= javascript_include_tag "/assets/jsplumb/jsplumb.demos" %>
-    <%= javascript_include_tag "/assets/ag-grid/ag-grid-enterprise" %>
-    <%= javascript_include_tag "/assets/ag-grid/ag-grid-doc" %>
+    <%= javascript_include_tag "application_gojs"%>
+
+
+
+
+
 
 
 
@@ -86,7 +37,7 @@
             <span class="icon-bar"></span>
         </button>
           <a class="navbar-brand" href="#">
-          <%= image_tag("/assets/common/images/headbar_logo.png")%>
+          <%= image_tag("headbar_logo.png")%>
           </a>
       </div>
       <div class="navbar-collapse collapse" id="navbar-collapse-id">
@@ -147,7 +98,7 @@
                 <a class="user-block" data-toggle="dropdown">
                   <div class="user-img">
                     <!-- <img class="img-circle" src="../less/images/people1.png" alt=""> -->
-                    <%= image_tag("/assets/common/images/people1.png",:class=>"img-circle")%>
+                    <%= image_tag("people1.png",:class=>"img-circle")%>
                   </div>
                   <div>
                     <span class="caret"></span>

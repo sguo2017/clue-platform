@@ -1,108 +1,109 @@
 <div class="bread-nav-wrap">
-		<ul class="bread-nav clearfix">
-			<li class="bread-nav-item home">
-				<a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
-			</li>
-			<li class="bread-nav-item">
-				<a class="link-item" href="">分析工具</a>
-			</li>
-			<li class="bread-nav-item">
-				<span class="link-item">新建分析</span>
-			</li>
-		</ul>
-	</div>
-	<!-- 路径导航 end -->
-	<%= render 'leftside', tools: @tools %>
-	<!-- left-side end -->
-	<div class="container-18">
-		<div class="panel panel-default">
-			<div class="inner-panel-heading">
-				<div class="panel-title">
-					新建分析
-				</div>
+	<ul class="bread-nav clearfix">
+		<li class="bread-nav-item home">
+			<a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
+		</li>
+		<li class="bread-nav-item">
+			<a class="link-item" href="">分析工具</a>
+		</li>
+		<li class="bread-nav-item">
+			<span class="link-item">新建分析</span>
+		</li>
+	</ul>
+</div>
+<!-- 路径导航 end -->
+<%= render 'leftside', tools: @tools %>
+<!-- left-side end -->
+<div class="container-18">
+	<div class="panel panel-default">
+		<div class="inner-panel-heading">
+			<div class="panel-title">
+				新建分析
 			</div>
-			<div class="inner-panel-body">
-				<div class="row">
-					<form action="" class="">
-						<div class="col-xs-3">
-							<label class="" for="">分析名称</label>
-							<div class="mt5"><input class="form-control" type="text"></div>
+		</div>
+		<div class="inner-panel-body">
+			<div class="row">
+				<form action="" class="">
+					<div class="col-xs-3">
+						<label class="" for="">分析名称</label>
+						<div class="mt5"><input class="form-control" type="text"></div>
+					</div>
+					<div class="col-xs-3">
+						<label class="" for="">关联案件</label>
+						<div class="mt5">
+							<input class="form-control" type="text">
 						</div>
-						<div class="col-xs-3">
-							<label class="" for="">关联案件</label>
-							<div class="mt5">
-								<input class="form-control" type="text">
-							</div>
 
+					</div>
+					<div class="col-xs-5">
+						<label class="" for="">通话时间区间</label>
+						<div class="input-group mt5">
+							<input class="form-control" type="text">
+							<span class="input-group-addon right-radius">
+								<span class="glyphicon glyphicon-calendar text-primary"></span>
+							</span>
+							<span class="input-group-addon no-bd">
+								到
+							</span>
+							<input class="form-control" type="text">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar text-primary"></span>
+							</span>
 						</div>
-						<div class="col-xs-5">
-							<label class="" for="">通话时间区间</label>
-							<div class="input-group mt5">
-								<input class="form-control" type="text">
-								<span class="input-group-addon right-radius">
-									<span class="glyphicon glyphicon-calendar text-primary"></span>
-								</span>
-								<span class="input-group-addon no-bd">
-									到
-								</span>
-								<input class="form-control" type="text">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar text-primary"></span>
-								</span>
-							</div>
-						</div>
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
+		</div>
 
-			<div class="inner-panel-subheading">
-				<span class="inner-panel-subtitle">分析类型</span>
+		<div class="inner-panel-subheading">
+			<span class="inner-panel-subtitle">分析类型</span>
+		</div>
+		<div class="inner-panel-body">
+			<div class="add-analysis-tool">
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-relation"></span>
+					<div class="mt5">通话关系</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-home"></span>
+					<div class="mt5">银行交易</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-mony2"></span>
+					<div class="mt5">资金流转</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-car2"></span>
+					<div class="mt5">物流往来</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-mony"></span>
+					<div class="mt5">消费情况</div>
+				</a>
+				<a class="add-analysis-item activ activee" href="">
+					<span class="aliconfont icon-person-pic"></span>
+					<div class="mt5">人员画像</div>
+				</a>
+				<a class="add-analysis-item" href="">
+					<span class="aliconfont icon-other"></span>
+					<div class="mt5">其他</div>
+				</a>
 			</div>
-			<div class="inner-panel-body">
-				<div class="add-analysis-tool">
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-relation"></span>
-						<div class="mt5">通话关系</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-home"></span>
-						<div class="mt5">银行交易</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-mony2"></span>
-						<div class="mt5">资金流转</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-car2"></span>
-						<div class="mt5">物流往来</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-mony"></span>
-						<div class="mt5">消费情况</div>
-					</a>
-					<a class="add-analysis-item activ activee" href="">
-						<span class="aliconfont icon-person-pic"></span>
-						<div class="mt5">人员画像</div>
-					</a>
-					<a class="add-analysis-item" href="">
-						<span class="aliconfont icon-other"></span>
-						<div class="mt5">其他</div>
-					</a>
-				</div>
-			</div>
+		</div>
 
-			<div class="inner-panel-subheading">
-				<span class="inner-panel-subtitle">数据导入</span>
-			</div>
-			<div class="inner-panel-body">
-				<ul class="sub-nav clearfix">
-					<li class="sub-nav-item">
-						<a href="<%= tools_add_manual_path %>">手工导入</a>
-					</li>
-					<li class="sub-nav-item active">
-						<a href="<%= tools_add_info_path %>">情报资料库</a>
-					</li>
-				</ul>
+		<div class="inner-panel-subheading">
+			<span class="inner-panel-subtitle">数据导入</span>
+		</div>
+		<div class="inner-panel-body">
+			<ul class="sub-nav clearfix">
+				<li class="sub-nav-item">
+					<a href="<%= tools_add_manual_path %>">手工导入</a>
+				</li>
+				<li class="sub-nav-item active">
+					<a href="<%= tools_add_info_path %>">情报资料库</a>
+				</li>
+			</ul>
+			<div id="data-screen-app">
 				<div class="add-analysis-tool block-mt">
 					<a class="add-analysis-item" href="javascript:void(0);">
 						<span class="aliconfont icon-file2"></span>
@@ -121,15 +122,98 @@
 						<div class="mt5">物流往来</div>
 					</a>
 				</div>
-				<div class="mt20">
-					<%= link_to t('.confirm',:default => t("确定")) ,tools_index_path(:type=>:calllist,:sources=>'db'),:class=>"btn btn-primary btn-long" %>
-					<%= link_to t('.cancel', :default => t("取消")),
-                tools_rlat_path, :class => 'btn btn-default btn-long ml10' %>
-					<!-- <button class="btn btn-default btn-long ml10">取消</button> -->
+				<div class="block-mt screen-analysis-data">
+					<div class="col-sm-12">数据筛选</div>
+					<div class="data-filter col-sm-4">
+						<div class="col-sm-12">
+							<label><input type="checkbox" v-model="isNoteSelected" @change="loadNoteOptions"/>备注</label>
+						</div>
+						<template v-if="isNoteSelected">
+							<div class="col-sm-6" >
+								<select multiple>
+									<option v-for="opt in noteOptions">{{opt}}</option>
+								</select>
+							</div>
+							<div class="col-sm-6" >
+								<%= image_tag('extensions/images/ui-icons_444444_256x240.png')%>
+							</div>
+						</template>
+					</div>
+					<!-- <div class="data-filter col-sm-4">
+					<div class="col-sm-12">
+					<label><input type="checkbox" v-model="isDateSelected"/>日期</label>
 				</div>
-			</div>
-
-
-
+				<div class="col-sm-6">
+				<select class="form-control" v-model="dateSelected" multiple>
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+			</select>
 		</div>
+		<div class="col-sm-6">
+		test
 	</div>
+</div> -->
+<!-- <div class="data-filter col-sm-4">
+<div class="col-sm-12">
+<label><input type="checkbox" v-model="isBatchSelected"/>批次</label>
+</div>
+<div class="col-sm-6">
+<select class="form-control" v-model="batchSelected" multiple>
+<option>A</option>
+<option>B</option>
+<option>C</option>
+<option>A</option>
+</select>
+</div>
+<div class="col-sm-6">
+test
+</div>
+</div> -->
+<div class="clearfix"></div>
+</div>
+<div class="mt20">
+	<%= link_to t('.confirm',:default => t("确定")) ,tools_index_path(:type=>:calllist,:sources=>'db'),:class=>"btn btn-primary btn-long" %>
+	<%= link_to t('.cancel', :default => t("取消")),
+	tools_rlat_path, :class => 'btn btn-default btn-long ml10' %>
+	<!-- <button class="btn btn-default btn-long ml10">取消</button> -->
+</div>
+</div>
+<script>
+new Vue({
+	el: '#data-screen-app',
+	data: {
+		isNoteSelected: false,
+		isDateSelected: false,
+		isBatchSelected: false,
+		noteOptions: [],
+		dataOptions: [],
+		batchOptions: [],
+		noteSelected: [],
+		dateSelected: [],
+		batchSelected: []
+	},
+	methods: {
+		loadNoteOptions: function (){
+			if(this.isNoteSelected){
+				var outer = this;
+				$.ajax({
+					url: "/calllists/load_note_options",
+					method: "get"
+				}).done(function(response){
+					outer.noteOptions=response['data'];
+				}).error(function(err){
+					alert("数据加载失败！");
+					console.log(err);
+				});
+			}
+		}//
+	}
+})
+</script>
+</div>
+
+
+
+</div>
+</div>

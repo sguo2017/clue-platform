@@ -105,6 +105,21 @@ class CalllistsController < ApplicationController
     end
   end
 
+  def load_note_options
+    note = Calllist.order('created_at desc').select('note').select{|x| x.note.present?}.map{|x| x.note}
+    render :json =>{:msg => "数据获取成功", :success => true, :type => 'note', :data => note}
+  end
+
+  def load_date_options
+    date = Calllist.order('created_at desc').select('created_at').select{|x| x.created_at.present?}.map{|x| x.created_at}
+    render :json =>{:msg => "数据获取成功", :success => true, :type => 'date', :data => date}
+  end
+
+  def load_batch_options
+    batch = Calllist.order('created_at desc').select('batch').select{|x| x.batch.present?}.map{|x| x.batch}
+    render :json =>{:msg => "数据获取成功", :success => true, :type => 'batch', :data => batch}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calllist

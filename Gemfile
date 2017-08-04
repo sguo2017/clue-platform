@@ -64,4 +64,5 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 gem 'roo'
-gem "yui-compressor"
+gem 'layer-rails' #弹窗插件
+gem 'swiper-rails'  #触摸滑动插件

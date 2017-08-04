@@ -14,9 +14,12 @@
 //= require jquery-ui
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require layer
+//= require swiper
 //= require bootstrap
 //= require turbolinks
 //= require_self
 //= require cable
 //= require_tree ./extentions
 //= require_tree ./controllers
+//= require vue
