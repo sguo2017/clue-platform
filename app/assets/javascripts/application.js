@@ -20,6 +20,6 @@
 //= require turbolinks
 //= require_self
 //= require cable
-//= require_tree ./extentions
+//= require_tree ./extensions
 //= require_tree ./controllers
 //= require vue

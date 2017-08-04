@@ -9,8 +9,12 @@ class CalllistsController < ApplicationController
   #直接从数据库中导出calllist的数据(导出为{link:[{}...],node:[{}...]}的格式)
   #若没有指定batch(批次)参数,则导出全部
   def export
-    if(params['batch']).present?
-      origin = Calllist.where(:batch => params['batch'])
+    filters = params["filters"]
+    if filters.present?
+      origin = Calllist.all
+      origin = origin.where(:note => filters["note_filters"].split(",")) if filters["note_filters"].present?
+      origin = origin.where(:created_at => filters["date_filters"].split(",")) if filters["date_filters"].present?
+      origin = origin.where(:batch => filters["batch_filters"].split(",")) if filters["batch_filters"].present?
       lite = origin.select{|c| !c.from_num.nil? and !c.to_num.nil?}
                    .map{ |c| {:from_num => c.from_num, :to_num => c.to_num }}
     else
@@ -106,17 +110,17 @@ class CalllistsController < ApplicationController
   end
 
   def load_note_options
-    note = Calllist.order('created_at desc').select('note').select{|x| x.note.present?}.map{|x| x.note}
+    note = Calllist.order('created_at desc').select('DISTINCT(note)').select{|x| x.note.present?}.map{|x| x.note}
     render :json =>{:msg => "数据获取成功", :success => true, :type => 'note', :data => note}
   end
 
   def load_date_options
-    date = Calllist.order('created_at desc').select('created_at').select{|x| x.created_at.present?}.map{|x| x.created_at}
+    date = Calllist.order('created_at desc').select('DISTINCT(created_at)').select{|x| x.created_at.present?}.map{|x| x.created_at}
     render :json =>{:msg => "数据获取成功", :success => true, :type => 'date', :data => date}
   end
 
   def load_batch_options
-    batch = Calllist.order('created_at desc').select('batch').select{|x| x.batch.present?}.map{|x| x.batch}
+    batch = Calllist.order('created_at desc').select('DISTINCT(batch)').select{|x| x.batch.present?}.map{|x| x.batch}
     render :json =>{:msg => "数据获取成功", :success => true, :type => 'batch', :data => batch}
   end
 

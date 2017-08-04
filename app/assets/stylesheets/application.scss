@@ -1,12 +1,12 @@
 /*
- *
- //下一行代表递归查找当前目录下面的所有样式文件并且引入
- *= require_tree .
- *= require_tree ../../../vendor/assets/gojs
- *
- */
-@import "bootstrap-sprockets";
-@import "layer";
-@import "swiper";
-// @import "bootstrap";
-// @import "jquery-ui";
+********注意引入文件的顺序防止样式被覆盖***************
+*
+*= reruire bootstrap-sprockets
+*= require layer
+*= reruire swiper
+*= require_tree ../../../vendor/assets/gojs
+*= require_directory ./
+*= require_tree ./controllers
+*
+*
+*/

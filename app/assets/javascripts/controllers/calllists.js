@@ -7,16 +7,31 @@ var calllistDataPreparing = {
   toColumn: "to_num",
   linksArray: null,
   nodesArray: null,
+  readFiltersFromStorage: function(){
+    var noteFilters= sessionStorage.getItem("ca_note_filters") || '';
+    var dateFilters= sessionStorage.getItem("ca_date_filters") || '';
+    var batchFilters= sessionStorage.getItem("ca_batch_filters") || '';
+    var filters={
+      note_filters: noteFilters,
+      date_filters: dateFilters,
+      batch_filters: batchFilters
+    };
+    return {"filters": filters};
+  },
   getDataFromServer: function(){
     var url = '/calllists/export';
+    var filters = this.readFiltersFromStorage();
     var outer = this;
-    $.ajax({url: url,async: false}).done(function(response){
+    $.ajax({url: url,async: false,data: filters}).done(function(response){
       outer.rawRows = response['data'];
       outer.fromColumn = "from_num";
       outer.toColumn = "to_num";
       if(!outer.rawRows){
         outer.rawRows = [];
       }
+    }).error(function(e){
+      alert("数据获取失败");
+      console.log(e);
     });
   },
   getDataFromLocal: function(){
