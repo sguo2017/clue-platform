@@ -239,7 +239,7 @@ var TABLE = {
 	</tr>\
 	</thead>\
 	<tbody>\
-	<tr v-for='(row,rIndex) in sheet.rows' v-bind:key='row.toString()'>\
+	<tr v-for='(row,rIndex) in sheet.rows' v-bind:key='row.toString()' @dblclick='dbclick(rIndex)'>\
 	<td>\
 	<div>\
 	<input type='checkbox' v-model='checkedItems[sheetIndex][rIndex]'/>\
@@ -266,6 +266,9 @@ var TABLE = {
 			for(var i=0;i<target.length;i++){
 				Vue.set(target,i,status);
 			}
+		},
+		dbclick: function(rowIndex){
+			Vue.set(this.checkedItems[this.sheetIndex],rowIndex,!this.checkedItems[this.sheetIndex][rowIndex]);
 		}
 	}
 }
