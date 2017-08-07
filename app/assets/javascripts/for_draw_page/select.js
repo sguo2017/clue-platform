@@ -2,6 +2,7 @@ $(document).on("turbolinks:load",function(){
   if(typeof(goTools)!=="undefined"){ //goTools是否已经初始化
     bindHighLighEvents();
     bindFeqEvents();
+    bindHideEvents();
   }
 });
 
@@ -19,7 +20,18 @@ function bindFeqEvents(){
     frequencyFilter(feq,filterMethod,filterType);
   });
   $("#btn-reset-feq").click(resetFilter);
-  $(document).on("filter",highLightMainFunction);//自定义事件
+}
+
+function bindHideEvents(){
+  $("#btn-hide-unselected").click(hideUnselected);
+  $("#btn-show-unselected").click(showUnselected);
+  $("#btn-hide-unhlighted").click(hideUnhighLighted);
+  $("#btn-show-unhlighted").click(showUnhighLighted);
+  $("#btn-reset-all").click(function(){
+    resetFilter();
+    showUnselected();
+    showUnhighLighted();
+  });
 }
 
 function highLightMainFunction(){
@@ -41,12 +53,12 @@ function highLightMainFunction(){
 function setFeqMax(){
   var maxLinks={targets:[],value:-999};
   goTools.links.each(function(link){
-    if(link.can_show!=false){
+    if(link.visible){
       var feq=parseInt(link.findObject("TEXTBLOCK").text);
-      if(link.visible && feq>maxLinks["value"]) {
+      if(feq>maxLinks["value"]) {
         maxLinks["targets"]=[link];
         maxLinks["value"]=feq;
-      }else if(link.visible && feq==maxLinks["value"]){
+      }else if(feq==maxLinks["value"]){
         maxLinks["targets"].push(link);
       }
     }
@@ -64,19 +76,19 @@ function setAllConnected (selections) {
   if (sel instanceof go.Node) {
     lightIt(sel);
     sel.linksConnected.each(function(link) {
-      if(link.can_show!=false && link.visible){
+      if(link.visible){
         lightIt(link);
       }
     });
     sel.findNodesConnected().each(function(node) {
       var isLinksAllVisible=false;
       sel.findLinksBetween(node).each(function(l){
-        if(l.can_show!=false && l.visible){
+        if(l.visible){
           isLinksAllVisible=true;
           return;
         }
       });
-      if(isLinksAllVisible){
+      if(isLinksAllVisible && node.visible){
         lightIt(node);
       }
     });
@@ -90,7 +102,7 @@ function setAllPaths(paths){
       var links=path.elt(i).findLinksBetween(path.elt(i+1));
       var hasVisibleLinks=false;
       links.each(function(link){
-        if(link.can_show!=false && link.visible){
+        if(link.visible){
           hasVisibleLinks=true;
           return;
         }
@@ -108,7 +120,7 @@ function setAllPaths(paths){
         lightIt(path.elt(i));
         var links=path.elt(i).findLinksBetween(path.elt(i+1));
         links.each(function(link){
-          if(link.can_show!=false && link.visible){
+          if(link.visible){
             lightIt(link);
           }
         });
@@ -145,6 +157,13 @@ function lightIt(obj){
 }
 
 function frequencyFilter(feq,method,type){
+  function setFeqHide(link,value){
+    var model = goTools.model;
+    var data =  link.data;
+    var new_visible_attr = copy(data.visible_attr);
+    new_visible_attr.hidden_by_feq = value;
+    model.setDataProperty(data,"visible_attr",new_visible_attr);
+  }
   feq=feq.toString();
   switch (type) {
     case "continuous":  //连续筛选
@@ -153,18 +172,18 @@ function frequencyFilter(feq,method,type){
       return;
     }
     goTools.links.each(function(link){
-      if(link.can_show!=false){
+      if(link.visible_attr.can_show){
         var text=link.findObject("TEXTBLOCK").text;
-        link.visible=link.visible && text.compareTo(feq,method);
+        setFeqHide(link,!text.compareTo(feq,method));
       }
     });
     break;
     case "renew":  //重新筛选
     resetFilter();
     goTools.links.each(function(link){
-      if(link.can_show!=false){
+      if(link.visible_attr.can_show){
         var text=link.findObject("TEXTBLOCK").text;
-        link.visible=text.compareTo(feq,method);
+        setFeqHide(link,!text.compareTo(feq,method));
       }
     });
     break;
@@ -174,24 +193,124 @@ function frequencyFilter(feq,method,type){
   goTools.nodes.each(function(node){
     var lonely=true;
     node.linksConnected.each(function(link){
-      if(link.can_show!=false && link.visible){
+      if(link.visible){
         lonely=false;
         return;
       }
     });
     if(lonely){
-      node.visible=false;
+      var model = goTools.model;
+      var data =  node.data;
+      var new_visible_attr = copy(data.visible_attr);
+      new_visible_attr.hidden_by_feq = true;
+      model.setDataProperty(data,"visible_attr",new_visible_attr);
     }
   });
-  $(document).trigger("filter");
+  highLightMainFunction();
 }
 
 function resetFilter(){
-  goTools.nodes.each(function(node){node.visible=true});
-  goTools.links.each(function(link){
-    if(link.can_show!=false){
-      link.visible=true
+  goTools.nodes.each(function(node){
+    if(node.visible_attr.can_show){
+      var model = goTools.model;
+      var data =  node.data;
+      var new_visible_attr = copy(data.visible_attr);
+      new_visible_attr.hidden_by_feq = false;
+      model.setDataProperty(data,"visible_attr",new_visible_attr);
     }
   });
-  $(document).trigger("filter");
+  goTools.links.each(function(link){
+    if(link.visible_attr.can_show){
+      var model = goTools.model;
+      var data =  link.data;
+      var new_visible_attr = copy(data.visible_attr);
+      new_visible_attr.hidden_by_feq = false;
+      model.setDataProperty(data,"visible_attr",new_visible_attr);
+    }
+  });
+  highLightMainFunction();
+}
+
+function hideUnselected(){
+  var model = goTools.model;
+  goTools.nodes.each(function(node){
+    if(!node.isSelected && node.visible_attr.can_show){
+      var data =  node.data;
+      var new_visible_attr = copy(data.visible_attr);
+      new_visible_attr.hidden_by_sel = true;
+      model.setDataProperty(data,"visible_attr",new_visible_attr);
+      node.linksConnected.each(function(link){
+        if(link.visible){
+          var ldata =  link.data;
+          var lnew_visible_attr = copy(ldata.visible_attr);
+          lnew_visible_attr.hidden_by_sel = true;
+          model.setDataProperty(ldata,"visible_attr",lnew_visible_attr);
+        }
+      });
+    }
+  });
+  highLightMainFunction();
+}
+
+function showUnselected(){
+  var model = goTools.model;
+  goTools.nodes.each(function(node){
+    if(node.visible_attr.can_show){
+      var data =  node.data;
+      var new_visible_attr = copy(data.visible_attr);
+      new_visible_attr.hidden_by_sel = false;
+      model.setDataProperty(data,"visible_attr",new_visible_attr);
+    }
+  });
+  goTools.links.each(function(link){
+    if(link.visible_attr.can_show){
+      var ldata =  link.data;
+      var lnew_visible_attr = copy(ldata.visible_attr);
+      lnew_visible_attr.hidden_by_sel = false;
+      model.setDataProperty(ldata,"visible_attr",lnew_visible_attr);
+    }
+  });
+  highLightMainFunction();
+}
+
+function hideUnhighLighted(){
+  var model = goTools.model;
+  goTools.nodes.each(function(node){
+    if(!node.isHighlighted && node.visible_attr.can_show){
+      var data =  node.data;
+      var new_visible_attr = copy(data.visible_attr);
+      new_visible_attr.hidden_by_hlight = true;
+      model.setDataProperty(data,"visible_attr",new_visible_attr);
+      node.linksConnected.each(function(link){
+        if(link.visible){
+          var ldata =  link.data;
+          var lnew_visible_attr = copy(ldata.visible_attr);
+          lnew_visible_attr.hidden_by_hlight = true;
+          model.setDataProperty(ldata,"visible_attr",lnew_visible_attr);
+        }
+      });
+    }
+  });
+  highLightMainFunction();
+}
+
+function showUnhighLighted(){
+  var model = goTools.model;
+  goTools.nodes.each(function(node){
+    if(node.visible_attr.can_show){
+      var data =  node.data;
+      var new_visible_attr = copy(data.visible_attr);
+      new_visible_attr.hidden_by_hlight = false;
+      model.setDataProperty(data,"visible_attr",new_visible_attr);
+    }
+  });
+  goTools.links.each(function(link){
+    if(link.visible_attr.can_show){
+      var ldata =  link.data;
+      var lnew_visible_attr = copy(ldata.visible_attr);
+      lnew_visible_attr.hidden_by_hlight = false;
+      model.setDataProperty(ldata,"visible_attr",lnew_visible_attr);
+    }
+  });
+  highLightMainFunction();
 }

@@ -31,3 +31,11 @@ function guid() {
     return v.toString(16);
   });
 }
+
+function copy(obj){
+    var newobj = {};
+    for ( var attr in obj) {
+        newobj[attr] = obj[attr];
+    }
+    return newobj;
+}

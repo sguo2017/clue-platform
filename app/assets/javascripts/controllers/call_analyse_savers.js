@@ -77,14 +77,14 @@ function drawAnalyseDiagram(jsonData,diagramSelector){
 
     analyseDiagram.nodeTemplate = $$(
       go.Node,
-      "Auto", // Node或者Panel的第二个参数可以是Node的类型或者是Panel的类型
-      { /* 在这里设置节点属性 */
-        // background: "#44CCFF"
-      },
-      // 绑定举例: 将节点的location属性绑定到数据的loc属性
-      // new go.Binding("location", "loc"),
+      "Auto",
+      {},
+      new go.Binding("key", "key"),
+      new go.Binding("visible_attr", "visible_attr").makeTwoWay(),
+      new go.Binding("visible", "visible_attr",function(v){
+        return v.can_show&&!v.hidden_by_feq&&!v.hidden_by_hlight&&!v.hidden_by_sel;
+      }),
 
-      // 节点包含的其他图形对象
       $$(
         go.Shape,
         "circle", // 预定义的形状通过字符串来标示
@@ -93,7 +93,6 @@ function drawAnalyseDiagram(jsonData,diagramSelector){
           strokeWidth: 4,
           stroke: "#7B7B7B"
         },
-        // 绑定举例：
         new go.Binding("fill", "fill"),
         new go.Binding("stroke", "isHighlighted", function(h) { return h ? "red" : "#7B7B7B"; }).ofObject(),
         new go.Binding("strokeWidth", "isHighlighted", function(h) { return h ? 10 : 4; }).ofObject()
@@ -118,6 +117,10 @@ function drawAnalyseDiagram(jsonData,diagramSelector){
           layerName: "Background",
           selectable: false
         },
+        new go.Binding("visible_attr", "visible_attr").makeTwoWay(),
+        new go.Binding("visible", "visible_attr",function(v){
+          return v.can_show&&!v.hidden_by_feq&&!v.hidden_by_hlight&&!v.hidden_by_sel;
+        }),
         new go.Binding("visible", "can_show"),
         new go.Binding("can_show", "can_show"),
         $$(
@@ -134,8 +137,6 @@ function drawAnalyseDiagram(jsonData,diagramSelector){
           go.TextBlock,
           {
             name: "TEXTBLOCK",
-            // segmentIndex: 0,
-            // segmentFraction: 0.5,
             stroke: "black",
             font: "bold 12pt serif",
             background: "lightblue"
@@ -156,7 +157,6 @@ function drawAnalyseDiagram(jsonData,diagramSelector){
     } finally {
       analyseDiagram.layout = $$(go.Layout);
     }
-
   }
 
   function loadModelData(url,diagramSelector){
@@ -168,7 +168,7 @@ function drawAnalyseDiagram(jsonData,diagramSelector){
     .then(function(json){drawAnalyseDiagram(json,diagramSelector);})
     .catch(function(err){console.log(err);alert("从服务器获取数据失败，请重试！");});
   }
-
+  
   function changeItem(selector){
     selector=$(selector);
     selector.siblings(".active").removeClass('active');

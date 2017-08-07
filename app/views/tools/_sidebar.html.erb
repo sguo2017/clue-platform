@@ -86,9 +86,9 @@
 					</div>
 					<div class="form-group">
 						<div style="width:103.5px;margin:0 auto;">
-						<button type="button" class="btn btn-primary" id="btn-filter-feq">筛选</button>
-						<button type="button" class="btn btn-default" id="btn-reset-feq">还原</button>
-					</div>
+							<button type="button" class="btn btn-primary" id="btn-filter-feq">筛选</button>
+							<button type="button" class="btn btn-default" id="btn-reset-feq">还原</button>
+						</div>
 					</div>
 					<div class='form-group'>
 						<label class="control-label">
@@ -105,15 +105,22 @@
 							<input type="checkbox" checked="checked" id="check-diaplay-between">显示两点之间所有路径(选择2个点)
 						</label>
 					</div>
-					<div class='form-group'>
-						<label class="control-label">
-							<input type="checkbox" id="check-hide-unhighlighted">隐藏高亮之外的节点
-						</label>
+					<div class="form-group">
+						<div class="btn-group">
+							<button type="button" id="btn-hide-unselected" class="btn btn-primary">隐藏非选择</button>
+							<button type="button" id="btn-show-unselected" class="btn btn-primary">还原隐藏</button>
+						</div>
 					</div>
-					<div class='form-group'>
-						<label class="control-label">
-							<input type="checkbox" id="check-hide-unselected">隐藏选择之外的节点
-						</label>
+					<div class="form-group">
+						<div class="btn-group">
+							<button type="button" id="btn-hide-unhlighted" class="btn btn-warning">隐藏非高亮</button>
+							<button type="button" id="btn-show-unhlighted" class="btn btn-warning">还原隐藏</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="btn-group">
+							<button type="button" id="btn-reset-all" class="btn btn-success">一键还原</button>
+						</div>
 					</div>
 				</form>
 			</div>
