@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  tactic_id: 1
+  type: 
+  executor: MyString
+  status: MyString
+  finished_time: 2017-08-09 10:02:42
+  start_time_limit: 2017-08-09 10:02:42
+  end_time_limit: 2017-08-09 10:02:42
+  description: MyString
+
+two:
+  name: MyString
+  tactic_id: 1
+  type: 
+  executor: MyString
+  status: MyString
+  finished_time: 2017-08-09 10:02:42
+  start_time_limit: 2017-08-09 10:02:42
+  end_time_limit: 2017-08-09 10:02:42
+  description: MyString

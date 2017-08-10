@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731071535) do
+ActiveRecord::Schema.define(version: 20170809020242) do
 
   create_table "call_analyse_savers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
@@ -63,6 +63,36 @@ ActiveRecord::Schema.define(version: 20170731071535) do
     t.string "addr"
     t.string "account"
     t.string "photo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tactic_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "tactic_id"
+    t.string "category"
+    t.string "executor"
+    t.string "status"
+    t.timestamp "finished_time"
+    t.timestamp "start_time"
+    t.timestamp "end_time"
+    t.text "description"
+    t.string "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tactics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "case_id"
+    t.integer "created_by"
+    t.string "status"
+    t.string "flow_image_url"
+    t.string "flow_data_url"
+    t.string "executive_team"
+    t.text "description"
+    t.timestamp "start_time"
+    t.timestamp "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

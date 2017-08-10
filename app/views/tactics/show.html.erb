@@ -1,199 +1,147 @@
 <div class="bread-nav-wrap">
-		<ul class="bread-nav clearfix">
-			<li class="bread-nav-item home">
-				<a class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
-			</li>
-			<li class="bread-nav-item even">
-				<a class="link-item" href="">战法管理</a>
-			</li>
-			<li class="bread-nav-item">
-				<span class="link-item" href="">战法详情</span>
-			</li>
-		</ul>
-	</div>
-	<!-- 路径导航 end -->
-	<div class="container-0-36">
-		<div class="column-36 right-side">
-			<div class="inner-panel">
-				<div class="panel-heading">
-					<div class="panel-title">节点信息（6）</div>
+	<ul class="bread-nav clearfix">
+		<li class="bread-nav-item home">
+			<a class="link-item" href="">
+				<span class="glyphicon glyphicon-home"></span>
+			</a>
+		</li>
+		<li class="bread-nav-item even">
+			<a class="link-item" href="">战法管理</a>
+		</li>
+		<li class="bread-nav-item">
+			<span class="link-item" href="">战法详情</span>
+		</li>
+	</ul>
+</div>
+<!-- 路径导航 end -->
+<div class="" id="tactic-app" v-bind:data-tactic-id="<%= @tactic.id %>">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<!-- 头部 -->
+			<div class="title-conponent">
+				<div class="pull-right">
+					<button class="btn btn-primary ml10">查看进度</button>
+					<button class="btn btn-default ml10">转为经典战法</button>
+					<button class="btn btn-danger ml10">删除战法</button>
 				</div>
-				<div class="panel-body">
-					<form class="form-horizontal" action="">
-						<div class="form-group">
-							<label class="col-xs-4 control-label text-right" for="">字段名称</label>
-							<div class="col-xs-8">
-								<input class="form-control" type="text">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-xs-4 control-label text-right" for="">字段名称</label>
-							<div class="col-xs-8">
-								<input class="form-control" type="text">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-xs-4 control-label text-right" for="">长字段名称</label>
-							<div class="col-xs-8">
-								<input class="form-control" type="text">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-xs-4 control-label text-right" for="">字段名称</label>
-							<div class="col-xs-8">
-								<input class="form-control" type="text">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-xs-4 control-label text-right" for="">字段名称</label>
-							<div class="col-xs-8">
-								<input class="form-control" type="text">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-xs-4 control-label text-right" for="">字段名称</label>
-							<div class="col-xs-8">
-								<input class="form-control" type="text">
-							</div>
-						</div>
-					</form>
+				<strong class="f26"><%= @tactic.name %></strong>
+				<span class="label label-success ml10"><%= @tactic.status %></span>
+			</div>
+			<div class="mt10">
+				<%= @tactic.description %>
+			</div>
+			<div class="clearfix">
+				<div class="col-md-3 col-xs-6 mt10">
+					<span class="aliconfont icon-people f16 text-gray"></span>
+					 执行队伍: <%= @tactic.executive_team %>
 				</div>
-
-				<div class="panel-heading">
-					<div class="panel-title">代办事物（3）</div>
+				<div class="col-md-3 col-xs-6 mt10">
+					<span class="aliconfont icon-people f16 text-gray"></span>
+					 关联案件: <%= @tactic.case.name %>
 				</div>
-				<div class="panel-body">
-					<ul class="media-list">
-						<li class="media media-img40">
-							<div class="media-left">
-								<%= image_tag("people1.png",:class => 
-								"media-object img-circle")%>
-							</div>
-							<div class="media-body">
-								<div class="title-conponent">
-									<a class="f16 text-muted" href="">LinkName 环节</a>
-									<div class="label label-success">已完成</div>
-								</div>
-								<div class="text-gray">Person Name_Lisa Guzman</div>
-								<div class="mt5">
-									Keytar McSweeney's Williamsburg, readymade leggings try-hard 90's street art letterpress hoodie occupy Wes Anderson Banksy.
-								</div>
-								<div class="mt5">
-									<span class="glyphicon glyphicon-calendar text-primary"></span>
-									2012-12-12
-								</div>
-							</div>
-						</li>
-						<li class="media media-img40">
-							<div class="media-left">
-								<%= image_tag("people1.png",:class =>
-								"media-object img-circle")%>
-							</div>
-							<div class="media-body">
-								<div class="title-conponent">
-									<a class="f16 text-muted" href="">LinkName 环节</a>
-									<div class="label label-success">已完成</div>
-								</div>
-								<div class="text-gray">Person Name_Lisa Guzman</div>
-								<div class="mt5">
-									Keytar McSweeney's Williamsburg, readymade leggings try-hard 90's street art letterpress hoodie occupy Wes Anderson Banksy.
-								</div>
-								<div class="mt5">
-									<span class="glyphicon glyphicon-calendar text-primary"></span>
-									2012-12-12
-								</div>
-							</div>
-						</li>
-						<li class="media media-img40">
-							<div class="media-left">
-								<%= image_tag("people1.png",:class =>
-								"media-object img-circle")%>
-							</div>
-							<div class="media-body">
-								<div class="title-conponent">
-									<a class="f16 text-muted" href="">LinkName 环节</a>
-									<div class="label label-success">已完成</div>
-								</div>
-								<div class="text-gray">Person Name_Lisa Guzman</div>
-								<div class="mt5">
-									Keytar McSweeney's Williamsburg, readymade leggings try-hard 90's street art letterpress hoodie occupy Wes Anderson Banksy.
-								</div>
-								<div class="mt5">
-									<span class="glyphicon glyphicon-calendar text-primary"></span>
-									2012-12-12
-								</div>
-							</div>
-						</li>
-						<li class="media media-img40">
-							<div class="media-left">
-								<%= image_tag("people1.png",:class =>
-								"media-object img-circle")%>
-							</div>
-							<div class="media-body">
-								<div class="title-conponent">
-									<a class="f16 text-muted" href="">LinkName 环节</a>
-									<div class="label label-success">已完成</div>
-								</div>
-								<div class="text-gray">Person Name_Lisa Guzman</div>
-								<div class="mt5">
-									Keytar McSweeney's Williamsburg, readymade leggings try-hard 90's street art letterpress hoodie occupy Wes Anderson Banksy.
-								</div>
-								<div class="mt5">
-									<span class="glyphicon glyphicon-calendar text-primary"></span>
-									2012-12-12
-								</div>
-							</div>
-						</li>
-					</ul>
+				<div class="col-md-3 col-xs-6 mt10">
+					待办任务
+					<span class="text-warning"><%= @unfinished_count %></span>
+					<span class="line-space">|</span>
+					已办任务
+					<span class="text-primary mt10"><%= @finished_count %></span>
+				</div>
+				<div class="col-md-3 col-xs-6 mt10">
+					<span class=" glyphicon glyphicon-calendar text-primary"></span>
+						&nbsp;
+					<span class="text-gray">
+						开始:<%= @tactic.start_time.strftime('%Y/%m/%d') %>--结束:<%= @tactic.end_time.strftime('%Y/%m/%d') %>
+					</span>
 				</div>
 			</div>
-		</div>
-		<!-- right-side end -->
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="title-conponent">
-	        		<div class="pull-right">
-	        			<button class="btn btn-primary ml10">查看进度</button>
-	        			<button class="btn btn-default ml10">转为经典战法</button>
-	        			<button class="btn btn-danger ml10">删除战法</button>
-	        		</div>
-	        		<strong class="f26">Thumbnail label</strong>
-	        		<span class="label label-success ml10">已完成</span>
-	        	</div>
-	        	<div class="mt10">
-	        		The monkey-rope is found in all whalers; but it was only in the Pequod that the monkey and his holder were ever tied together. This improvement upon the original usage was introduced by no less a man than Stubb, in order to afford the imperilled harpooneer the strongest possible guarantee for the faithfulness and vigilance of his monkey-rope holder.
-	        	</div>
-	        	<div class="clearfix">
-	        		<div class="col-md-3 col-xs-6 mt10">
-	        			<span class="aliconfont icon-people f16 text-gray"></span>
-	        			Executive Team 执行队伍
-	        		</div>
-	        		<div class="col-md-3 col-xs-6 mt10">
-	        			<span class="aliconfont icon-people f16 text-gray"></span>
-	        			Executive Team 执行队伍
-	        		</div>
-	        		<div class="col-md-3 col-xs-6 mt10">
-	        			代办任务
-	        			<span class="text-warning">8</span>
-	        			<span class="line-space">|</span>
-	        			已办任务
-	        			<span class="text-primary mt10">8</span>
-	        		</div>
-	        		<div class="col-md-3 col-xs-6 mt10">
-	        			<span class=" glyphicon glyphicon-calendar text-primary"></span>&nbsp;<span class="text-gray">开始:2017年1月4日--结束:2017年12月10日</span>
-	        		</div>
-	        	</div>
+			<!-- 头部结束 -->
+			<div class="clearfix"></div>
+			<!-- 左边图元 -->
+			<div class="block-mt" id="tactics-flow-palette"></div>
+			<!-- 中间画板 -->
+			<div class="block-mt" id="tactics-flow-container"></div>
+			<!-- 右边信息栏 -->
+			<div class="block-mt" id="tactics-flow-info">
+				<div class="inner-panel">
+					<div class="panel-body">
+						<div class="panel-title">任务信息:</div>
+						<form class="form-horizontal" style="padding:20px;">
+							<div class="hidden">
+								<input id="current-task-id" class="hidden" type="text" @click="changeCurrentTask"/>
+							</div>
+							<div class="form-group">
+								<label class="control-label">名称:</label>
+								<input class="form-control" type="text" v-model="currentTask.name" :readonly="!isTaskEditing"/>
+							</div>
+							<div class="form-group">
+								<label class="control-label">状态:</label>
+								<input class="form-control" type="text" v-model="currentTask.status" :readonly="!isTaskEditing"/>
+							</div>
 
+							<div class="form-group">
+								<label class="control-label">执行人:</label>
+								<input class="form-control" type="text" v-model="currentTask.executor" :readonly="!isTaskEditing"/>
+							</div>
 
-	        	<div class="block-mt">
-	        		<%= image_tag("methrod-opration.png",width: '100%')%>
-	        		<!-- <img style="width: 100%" src="../less/images/methrod-opration.png" alt=""> -->
-	        	</div>
+							<div class="form-group">
+								<label class="control-label">完成时间:</label>
+								<input class="form-control" type="text" v-model="currentTask.finished_time" :readonly="true"/>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">创建时间:</label>
+								<input class="form-control" type="text" v-model="currentTask.created_at" :readonly="true"/>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">时间限制:</label>
+								<input class="form-control" type="text" :readonly="!isTaskEditing"/>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">任务描述:</label>
+								<textarea class="form-control" rows="3" v-model="currentTask.description" :readonly="!isTaskEditing"></textarea>
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn"
+								v-bind:class="{'btn-primary': !isTaskEditing,'btn-warning': isTaskEditing}"
+								@click="editOrSave"
+								:disabled="isTaskEditLock"
+								>
+									{{isTaskEditing ? "保存" : "编辑"}}
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- 右边信息栏结束 -->
+			<div class="clearfix"></div>
+			<div class="block-mt" id="tactics-task-table">
+				<div class="block-mt mt5">
+					<h4>任务列表:</h4>
+				</div>
+				<table class='table table-hover thead-bg'>
+					<thead>
+						<tr>
+							<th v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{header}}</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="task in tasks">
+							<td v-for="key in Object.keys(task)" v-if="columnBlacklist.indexOf(key)<0">{{task[key]}}</td>
+							<td>
+								<button class="btn btn-xs btn-success" :disabled="task.status==='已完成'" @click="finishTask(task.id)">
+									完成
+								</button>
+								<button class="btn btn-xs btn-danger" @click="deleteTask(task.id)">删除</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-
 	</div>
+
+</div>

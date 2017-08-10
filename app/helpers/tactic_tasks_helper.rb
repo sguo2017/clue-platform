@@ -1,0 +1,2 @@
+module TacticTasksHelper
+end

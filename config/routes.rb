@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :tactic_tasks
+  resources :tactics do
+    get "get_tactic_tasks"
+  end
   resources :cases
   resources :suspects_teams
   resources :calllists  do

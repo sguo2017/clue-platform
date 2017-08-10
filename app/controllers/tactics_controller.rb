@@ -12,6 +12,11 @@ class TacticsController < ApplicationController
   def show
   end
 
+  def get_tactic_tasks
+    @tactic = Tactic.find(params[:tactic_id])
+    render :json => @tactic.tactic_tasks
+  end
+
   # GET /tactics/new
   def new
     @tactic = Tactic.new
@@ -25,7 +30,6 @@ class TacticsController < ApplicationController
   # POST /tactics.json
   def create
     @tactic = Tactic.new(tactic_params)
-
     respond_to do |format|
       if @tactic.save
         format.html { redirect_to @tactic, notice: 'Tactic was successfully created.' }
@@ -64,11 +68,14 @@ class TacticsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tactic
-      # @tactic = Tactic.find(params[:id])
+      @tactic = Tactic.find(params[:id])
+      tasks = @tactic.tactic_tasks
+      @finished_count = tasks.select{|x| x.status == "已完成"}.size
+      @unfinished_count= tasks.size - @finished_count
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tactic_params
-      params.fetch(:tactic, {})
+        params.require(:tactic_task).permit(:name, :case_id, :created_by, :flow_image_url, :flow_data_url, :executive_team, :description, :start_time, :end_time)
     end
 end
