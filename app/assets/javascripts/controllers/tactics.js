@@ -257,6 +257,8 @@ function setFlowChatrt() {
         // converting back using the Point.stringify static method.
         new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
         new go.Binding("task_id", "task_id").makeTwoWay(),
+        new go.Binding("width", "width").makeTwoWay(),
+        new go.Binding("height", "height").makeTwoWay(),
         {
           // the Node.location is at the center of each node
           locationSpot: go.Spot.Center,
