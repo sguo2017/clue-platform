@@ -32,6 +32,7 @@ function initVue() {
   vvv = new Vue({
     el: "#tactic-app",
     data: {
+      tacticFlowchart:null,
       tasks: [],
       taskHeaders: [],
       currentTask: {},
@@ -41,8 +42,8 @@ function initVue() {
     },
     mounted: function() {
       if ($("#tactics-flow-container").length > 0) {
-        setFlowChatrt();
-        myDiagram.addDiagramListener("ChangedSelection", this.setCurrentTaskId);
+        this.tacticFlowchart = setFlowChatrt();
+        this.tacticFlowchart.addDiagramListener("ChangedSelection", this.setCurrentTaskId);
       }
       var outer = this;
       $.ajax({
@@ -73,11 +74,11 @@ function initVue() {
         }
       },
       isSelectedOneNode: function() {
-        var sels = myDiagram.selection;
+        var sels = this.tacticFlowchart.selection;
         return (sels.count === 1 && sels.first() instanceof go.Node);
       },
       getFirstSelected: function() {
-        return myDiagram.selection.first();
+        return this.tacticFlowchart.selection.first();
       },
       setCurrentTaskId: function() {
         if (this.isSelectedOneNode()) {
@@ -89,17 +90,17 @@ function initVue() {
       },
       updateTaskIdOfNodeData: function(taskId,target){
         if(target instanceof go.Node){
-          myDiagram.model.setDataProperty(target.data,"task_id",parseInt(taskId));
+          this.tacticFlowchart.model.setDataProperty(target.data,"task_id",parseInt(taskId));
         }else{
           var targetId = parseInt(target);
           var targetNode;
-          myDiagram.nodes.each(function(node){
+          this.tacticFlowchart.nodes.each(function(node){
             if(node.data.task_id == targetId){
               targetNode = node;
               return;
             }
           });
-          myDiagram.model.setDataProperty(targetNode.data,"task_id",parseInt(taskId));
+          this.tacticFlowchart.model.setDataProperty(targetNode.data,"task_id",parseInt(taskId));
         }
       },
       changeCurrentTask: function(event) {
@@ -139,7 +140,7 @@ function initVue() {
             if(!isUpdate){ //创建对象时
               outer.tasks.push(response["data"]);
               $("#current-task-id").val(response["data"].id);
-              outer.updateTaskIdOfNodeData(response["data"].id, myDiagram.selection.first());
+              outer.updateTaskIdOfNodeData(response["data"].id, outer.tacticFlowchart.selection.first());
             }
             outer.isTaskEditing = !outer.isTaskEditing;
           });  // end ajax
@@ -184,15 +185,58 @@ function initVue() {
           });
         }
 
+      },
+      saveFlowchart: function(){
+        var outer = this;
+        var data = new Blob([this.tacticFlowchart.model.toJson()],{type: 'text/plain'});
+        var formData = new FormData();
+        var url = 'http://123.56.157.233:9090/FastDFSWeb/servlet/imageUploadServlet';
+        var imageDataUrl = this.tacticFlowchart.makeImageData({
+          size: new go.Size(240, 120)
+        });
+        var image = dataUrlToBlob(imageDataUrl);
+        formData.append('data',data,'data.json');
+        formData.append('image',image,'image.png');
+        fetch(url, {
+          method: 'POST',
+          mode: "cors",
+          body: formData
+        })
+        .then(function(response){return response.json();})
+        .then(function(json){
+          var dataUrl = json["data"];
+          var imageUrl = json["image"];
+          $.ajax({
+            url: '/tactics/'+outer.tacticId(),
+            method: "PATCH",
+            dataType: "JSON",
+            data: {tactic:{flow_image_url:imageUrl,flow_data_url:dataUrl}}
+          })
+          .done(function(){
+            $("#tactics-flow-container").data("flowDataUrl",dataUrl);
+            alert("保存成功！");
+          })
+          .error(function(){alert("服务器发生错误！");});
+        }).catch(function(){
+          alert("文件服务器连接失败，请重试！");
+        });
+      },
+      exportFlowImage:function(){
+        var img = this.tacticFlowchart.makeImageData({
+          maxSize: new go.Size(Infinity, Infinity),//去掉默认最大2000*2000的限制
+          scale:1  //显示整个图片而非可见部分
+        });
+        window.open(img);
       }
     }
   });
 }
 
 function setFlowChatrt() {
+  var tacticFlowchart;
   function init() {
     var $$ = go.GraphObject.make; // for conciseness in defining templates
-    myDiagram = $$(go.Diagram, "tactics-flow-container", // must name or refer to the DIV HTML element
+    tacticFlowchart = $$(go.Diagram, "tactics-flow-container", // must name or refer to the DIV HTML element
       {
         initialContentAlignment: go.Spot.Center,
         allowDrop: true, // must be true to accept drops from the Palette
@@ -253,7 +297,7 @@ function setFlowChatrt() {
     }
     // define the Node templates for regular nodes
     var lightText = 'whitesmoke';
-    myDiagram.nodeTemplateMap.add("", // the default category
+    tacticFlowchart.nodeTemplateMap.add("", // the default category
       $$(go.Node, "Spot", nodeStyle(),
         // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
         $$(go.Panel, "Auto",
@@ -285,7 +329,7 @@ function setFlowChatrt() {
         makePort("R", go.Spot.Right, true, true),
         makePort("B", go.Spot.Bottom, true, true)
       ));
-    myDiagram.nodeTemplateMap.add("Start",
+    tacticFlowchart.nodeTemplateMap.add("Start",
       $$(go.Node, "Spot", nodeStyle(),
         $$(go.Panel, "Auto",
           $$(go.Shape, "Circle", {
@@ -309,7 +353,7 @@ function setFlowChatrt() {
         makePort("R", go.Spot.Right, true, false),
         makePort("B", go.Spot.Bottom, true, false)
       ));
-    myDiagram.nodeTemplateMap.add("End",
+    tacticFlowchart.nodeTemplateMap.add("End",
       $$(go.Node, "Spot", nodeStyle(),
         $$(go.Panel, "Auto",
           $$(go.Shape, "Circle", {
@@ -333,7 +377,7 @@ function setFlowChatrt() {
         makePort("R", go.Spot.Right, false, true),
         makePort("B", go.Spot.Bottom, false, true)
       ));
-    myDiagram.nodeTemplateMap.add("Comment",
+    tacticFlowchart.nodeTemplateMap.add("Comment",
       $$(go.Node, "Auto", nodeStyle(),
         $$(go.Shape, "File", {
           fill: "#EFFAB4",
@@ -354,7 +398,7 @@ function setFlowChatrt() {
         // no ports, because no links are allowed to connect with a comment
       ));
     // replace the default Link template in the linkTemplateMap
-    myDiagram.linkTemplate =
+    tacticFlowchart.linkTemplate =
       $$(go.Link, // the whole link panel
         {
           routing: go.Link.AvoidsNodes,
@@ -426,15 +470,15 @@ function setFlowChatrt() {
       if (label !== null) label.visible = (e.subject.fromNode.data.figure === "Diamond");
     }
     // temporary links used by LinkingTool and RelinkingTool are also orthogonal:
-    myDiagram.toolManager.linkingTool.temporaryLink.routing = go.Link.Orthogonal;
-    myDiagram.toolManager.relinkingTool.temporaryLink.routing = go.Link.Orthogonal;
+    tacticFlowchart.toolManager.linkingTool.temporaryLink.routing = go.Link.Orthogonal;
+    tacticFlowchart.toolManager.relinkingTool.temporaryLink.routing = go.Link.Orthogonal;
     load(); // load an initial diagram from some JSON text
     // initialize the Palette that is on the left side of the page
     myPalette =
       $$(go.Palette, "tactics-flow-palette", // must name or refer to the DIV HTML element
         {
           "animationManager.duration": 800, // slightly longer than default (600ms) animation
-          nodeTemplateMap: myDiagram.nodeTemplateMap, // share the templates used by myDiagram
+          nodeTemplateMap: tacticFlowchart.nodeTemplateMap, // share the templates used by tacticFlowchart
           model: new go.GraphLinksModel([ // specify the contents of the Palette
             {
               category: "Start",
@@ -465,7 +509,7 @@ function setFlowChatrt() {
       go.Diagram.prototype.doFocus.call(this);
       window.scrollTo(x, y);
     }
-    myDiagram.doFocus = customFocus;
+    tacticFlowchart.doFocus = customFocus;
     myPalette.doFocus = customFocus;
   } // end init
 
@@ -479,194 +523,18 @@ function setFlowChatrt() {
       port.stroke = (show ? "white" : null);
     });
   }
-  // Show the diagram's model in JSON format that the user may edit
-  function save() {
-    //  document.getElementById("mySavedModel").value = myDiagram.model.toJson();
-    //  myDiagram.isModified = false;
-  }
 
   function load() {
-    var json = {
-      "class": "go.GraphLinksModel",
-      "linkFromPortIdProperty": "fromPort",
-      "linkToPortIdProperty": "toPort",
-      "nodeDataArray": [{
-          "task_id": 1,
-          "fill": "yellow",
-          "stroke": "green",
-          "category": "Comment",
-          "loc": "360 -10",
-          "text": "Kookie Brittle",
-          "key": -13
-        },
-        {
-          "task_id": 2,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": -1,
-          "category": "Start",
-          "loc": "175 0",
-          "text": "Start"
-        },
-        {
-          "task_id": 3,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 0,
-          "loc": "0 77",
-          "text": "Preheat oven to 375 F"
-        },
-        {
-          "task_id": 4,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 1,
-          "loc": "175 100",
-          "text": "In a bowl, blend: 1 cup margarine, 1.5 teaspoon vanilla, 1 teaspoon salt"
-        },
-        {
-          "task_id": 5,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 2,
-          "loc": "175 190",
-          "text": "Gradually beat in 1 cup sugar and 2 cups sifted flour"
-        },
-        {
-          "task_id": 6,
-          "font": " 11pt Helvetica, Arial, sans-serif",
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 3,
-          "loc": "175 270",
-          "text": "Mix in 6 oz (1 cup) Nestle's Semi-Sweet Chocolate Morsels"
-        },
-        {
-          "task_id": 7,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 4,
-          "loc": "175 370",
-          "text": "Press evenly into ungreased 15x10x1 pan"
-        },
-        {
-          "task_id": 8,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 5,
-          "loc": "352 85",
-          "text": "Finely chop 1/2 cup of your choice of nuts"
-        },
-        {
-          "task_id": 9,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 6,
-          "loc": "175 440",
-          "text": "Sprinkle nuts on top"
-        },
-        {
-          "task_id": 10,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 7,
-          "loc": "175 500",
-          "text": "Bake for 25 minutes and let cool"
-        },
-        {
-          "task_id": 11,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": 8,
-          "loc": "175 570",
-          "text": "Cut into rectangular grid"
-        },
-        {
-          "task_id": 12,
-          "fill": "yellow",
-          "stroke": "green",
-          "key": -2,
-          "category": "End",
-          "loc": "175 640",
-          "text": "Enjoy!"
-        }
-      ],
-      "linkDataArray": [{
-          "from": 1,
-          "to": 2,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": 2,
-          "to": 3,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": 3,
-          "to": 4,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": 4,
-          "to": 6,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": 6,
-          "to": 7,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": 7,
-          "to": 8,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": 8,
-          "to": -2,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": -1,
-          "to": 0,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": -1,
-          "to": 1,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": -1,
-          "to": 5,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": 5,
-          "to": 4,
-          "fromPort": "B",
-          "toPort": "T"
-        },
-        {
-          "from": 0,
-          "to": 4,
-          "fromPort": "B",
-          "toPort": "T"
-        }
-      ]
-    }
-
-    myDiagram.model = go.Model.fromJson(json);
+    var dataUrl = $("#tactics-flow-container").data("flowDataUrl");
+    fetch(dataUrl, {
+      method: 'GET',
+      mode: "cors"
+    })
+    .then(function(response){return response.json();})
+    .then(function(json){
+      tacticFlowchart.model = go.Model.fromJson(json);
+    });
   }
   // add an SVG rendering of the diagram at the end of this page
+  return tacticFlowchart;
 }
