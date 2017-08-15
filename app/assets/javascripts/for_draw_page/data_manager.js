@@ -69,7 +69,7 @@ function saveDataToFastDFS(title){
   var imageDataUrl = goTools.makeImageData({
     size: new go.Size(160, 120)
   });
-  var image = dataUrlToBlob(imageDataUrl);
+  var image = imageDataUrl.toBlob();
   formData.append('data',data,'data.json');
   formData.append('image',image,'image.png');
   fetch(url, {

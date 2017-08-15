@@ -234,7 +234,7 @@ DEPENDENCIES
   devise
   devise-bootstrap-views
   devise-i18n
-  font-awesome-rails (~> 4.7, >= 4.7.0.2)
+  font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
   jquery-turbolinks

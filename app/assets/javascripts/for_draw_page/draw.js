@@ -8,8 +8,8 @@ $(document).on("turbolinks:load", function(){
 
 function draw(status){
   if(!status) return;
-  var type=getQueryString('type');
-  var sources=getQueryString('sources');
+  var type=window.location.href.getQueryString('type');
+  var sources=window.location.href.getQueryString('sources');
   switch(type){
     case 'calllist':
     drawCalllist(sources);
@@ -127,7 +127,7 @@ function drawCalllist(sources){
 
   function setExtraNodeAttr(nodes){
     return nodes.map(function(node){
-      var node = copy(node);
+      var node = shallowCopy(node);
       node.visible_attr = {can_show:true,hidden_by_feq:false,hidden_by_hlight:false,hidden_by_sel:false};
       return node;
     });
@@ -135,13 +135,13 @@ function drawCalllist(sources){
 
   function setExtraLinkAttr(links){
     var show= links.map(function(link){
-      var result = copy(link);
+      var result = shallowCopy(link);
       result.visible_attr = {can_show:true,hidden_by_feq:false,hidden_by_hlight:false,hidden_by_sel:false};
       return result;
     });
 
     var hide =links.map(function(link){
-      var result = copy(link);
+      var result = shallowCopy(link);
       var temp = result.from;
       result.from = result.to;
       result.to = temp;

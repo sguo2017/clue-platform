@@ -160,7 +160,7 @@ function frequencyFilter(feq,method,type){
   function setFeqHide(link,value){
     var model = goTools.model;
     var data =  link.data;
-    var new_visible_attr = copy(data.visible_attr);
+    var new_visible_attr = shallowCopy(data.visible_attr);
     new_visible_attr.hidden_by_feq = value;
     model.setDataProperty(data,"visible_attr",new_visible_attr);
   }
@@ -201,7 +201,7 @@ function frequencyFilter(feq,method,type){
     if(lonely){
       var model = goTools.model;
       var data =  node.data;
-      var new_visible_attr = copy(data.visible_attr);
+      var new_visible_attr = shallowCopy(data.visible_attr);
       new_visible_attr.hidden_by_feq = true;
       model.setDataProperty(data,"visible_attr",new_visible_attr);
     }
@@ -214,7 +214,7 @@ function resetFilter(){
     if(node.visible_attr.can_show){
       var model = goTools.model;
       var data =  node.data;
-      var new_visible_attr = copy(data.visible_attr);
+      var new_visible_attr = shallowCopy(data.visible_attr);
       new_visible_attr.hidden_by_feq = false;
       model.setDataProperty(data,"visible_attr",new_visible_attr);
     }
@@ -223,7 +223,7 @@ function resetFilter(){
     if(link.visible_attr.can_show){
       var model = goTools.model;
       var data =  link.data;
-      var new_visible_attr = copy(data.visible_attr);
+      var new_visible_attr = shallowCopy(data.visible_attr);
       new_visible_attr.hidden_by_feq = false;
       model.setDataProperty(data,"visible_attr",new_visible_attr);
     }
@@ -236,13 +236,13 @@ function hideUnselected(){
   goTools.nodes.each(function(node){
     if(!node.isSelected && node.visible_attr.can_show){
       var data =  node.data;
-      var new_visible_attr = copy(data.visible_attr);
+      var new_visible_attr = shallowCopy(data.visible_attr);
       new_visible_attr.hidden_by_sel = true;
       model.setDataProperty(data,"visible_attr",new_visible_attr);
       node.linksConnected.each(function(link){
         if(link.visible){
           var ldata =  link.data;
-          var lnew_visible_attr = copy(ldata.visible_attr);
+          var lnew_visible_attr = shallowCopy(ldata.visible_attr);
           lnew_visible_attr.hidden_by_sel = true;
           model.setDataProperty(ldata,"visible_attr",lnew_visible_attr);
         }
@@ -257,7 +257,7 @@ function showUnselected(){
   goTools.nodes.each(function(node){
     if(node.visible_attr.can_show){
       var data =  node.data;
-      var new_visible_attr = copy(data.visible_attr);
+      var new_visible_attr = shallowCopy(data.visible_attr);
       new_visible_attr.hidden_by_sel = false;
       model.setDataProperty(data,"visible_attr",new_visible_attr);
     }
@@ -265,7 +265,7 @@ function showUnselected(){
   goTools.links.each(function(link){
     if(link.visible_attr.can_show){
       var ldata =  link.data;
-      var lnew_visible_attr = copy(ldata.visible_attr);
+      var lnew_visible_attr = shallowCopy(ldata.visible_attr);
       lnew_visible_attr.hidden_by_sel = false;
       model.setDataProperty(ldata,"visible_attr",lnew_visible_attr);
     }
@@ -278,13 +278,13 @@ function hideUnhighLighted(){
   goTools.nodes.each(function(node){
     if(!node.isHighlighted && node.visible_attr.can_show){
       var data =  node.data;
-      var new_visible_attr = copy(data.visible_attr);
+      var new_visible_attr = shallowCopy(data.visible_attr);
       new_visible_attr.hidden_by_hlight = true;
       model.setDataProperty(data,"visible_attr",new_visible_attr);
       node.linksConnected.each(function(link){
         if(link.visible){
           var ldata =  link.data;
-          var lnew_visible_attr = copy(ldata.visible_attr);
+          var lnew_visible_attr = shallowCopy(ldata.visible_attr);
           lnew_visible_attr.hidden_by_hlight = true;
           model.setDataProperty(ldata,"visible_attr",lnew_visible_attr);
         }
@@ -299,7 +299,7 @@ function showUnhighLighted(){
   goTools.nodes.each(function(node){
     if(node.visible_attr.can_show){
       var data =  node.data;
-      var new_visible_attr = copy(data.visible_attr);
+      var new_visible_attr = shallowCopy(data.visible_attr);
       new_visible_attr.hidden_by_hlight = false;
       model.setDataProperty(data,"visible_attr",new_visible_attr);
     }
@@ -307,7 +307,7 @@ function showUnhighLighted(){
   goTools.links.each(function(link){
     if(link.visible_attr.can_show){
       var ldata =  link.data;
-      var lnew_visible_attr = copy(ldata.visible_attr);
+      var lnew_visible_attr = shallowCopy(ldata.visible_attr);
       lnew_visible_attr.hidden_by_hlight = false;
       model.setDataProperty(ldata,"visible_attr",lnew_visible_attr);
     }

@@ -61,26 +61,59 @@
 				<ul>
 					<li title="保存流程图"><span class="fa fa-floppy-o" @click="saveFlowchart"></span></li>
 					<li title="导出图片"><span class="fa fa-file-image-o" @click="exportFlowImage"></span></li>
-					<li title="加粗"><span class="fa fa-bold"></span></li>
-					<li title="下划线"><span class="fa fa-underline"></span></li>
-					<li title="斜体"><span class="fa fa-italic"></span></li>
-					<li title="字体大小"><span class="fa fa-font"></span></li>
-					<li title="字体颜色"><span class="fa fa-paint-brush"></span></li>
-					<li title="左对齐"><span class="fa fa-align-left"></span></li>
-					<li title="居中"><span class="fa fa-align-center"></span></li>
-					<li title="右对齐"><span class="fa fa-align-right"></span></li>
-					<li title="填充颜色"><span class="fa fa-square"></span></li>
-					<li title="轮廓颜色"><span class="fa fa-square-o"></span></li>
-					<li title="轮廓大小"><span class="fa fa-window-maximize"></span></li>
-					<li title="线条大小"><span><strong>/</strong></span></li>
-					<li title="线条样式"><span class="fa fa-ellipsis-h"></span></li>
-					<li title="线条颜色"><span class="fa fa-magic"></span></li>
-					<li title="箭头样式"><span class="fa fa-long-arrow-up"></span></li>
-					<li title="撤销"><span class="fa fa-undo"></span></li>
-					<li title="重做"><span class="fa fa-repeat"></span></li>
+					<li title="加粗" :class="{active: fontWeight == 'bold'}" @click="setFlowchartStyle('fontWeight')"><span class="fa fa-bold"></span></li>
+					<li title="下划线" :class="{active: isUnderline}" @click="setFlowchartStyle('isUnderline')"><span class="fa fa-underline"></span></li>
+					<li title="斜体" :class="{active: fontStyle == 'italic'}" @click="setFlowchartStyle('fontStyle')"><span class="fa fa-italic"></span></li>
+					<li title="字体大小" @click="pickFontSize"><span class="fa fa-font"></span></li>
+					<li title="字体颜色" @click="pickFontColor"><span class="fa fa-paint-brush"></span></li>
+					<li title="左对齐" :class="{active: textAlign == 'left'}" @click="setFlowchartStyle('textAlign','left')"><span class="fa fa-align-left"></span></li>
+					<li title="居中" :class="{active: textAlign == 'center'}" @click="setFlowchartStyle('textAlign','center')"><span class="fa fa-align-center"></span></li>
+					<li title="右对齐" :class="{active: textAlign == 'right'}" @click="setFlowchartStyle('textAlign','right')"><span class="fa fa-align-right"></span></li>
+					<li title="填充颜色" @click="pickNodeFill"><span class="fa fa-square"></span></li>
+					<li title="轮廓颜色" @click="pickNodeOutlineColor"><span class="fa fa-square-o"></span></li>
+					<li title="轮廓大小" @click="pickNodeOutlineWidth"><span class="fa fa-window-maximize"></span></li>
+					<li title="线条大小" @click="pickLineWidth"><span><strong>/</strong></span></li>
+					<li title="线条颜色" @click="pickLineColor"><span class="fa fa-magic"></span></li>
+					<li title="箭头样式" @click="pickArrow"><span class="fa fa-long-arrow-up"></span></li>
 				</ul>
 			</div>
+
 			<div class="clearfix"></div>
+			<div id="body-container">
+				<div id="data-adjust-panel" v-if="showDataAdjustPanel">
+					<button type="button" class="close" @click="showDataAdjustPanel=false" >&times;</button>
+					<div class="inner-options" v-if="showSizePicker">
+						<button v-for="size in sizeArray" class="btn btn-default" @click="setFlowchartStyle(sizeTarget,size+'px');showDataAdjustPanel=false;">{{size}}px</button>
+						<label style="margin-left:5px;">手动输入
+							<input type="text" size="4" v-model="inputSize"/>px
+						</label>
+						<button
+						class="btn btn-primary"
+						@click="setFlowchartStyle(sizeTarget,inputSize+'px');showDataAdjustPanel=false;">
+						确定
+					</button>
+				</div>
+				<div class="inner-options" v-if="showColorPicker">
+					<div
+					class="color-card"
+					v-for="color in colorArray"
+					:style="{backgroundColor: color}"
+					@click="setFlowchartStyle(colorTarget,color);showDataAdjustPanel=false;"
+					></div>
+					<div class="color-input">
+						<label>
+							取色器
+							<input type="color"
+							v-model="inputColor"
+							@change="setFlowchartStyle(colorTarget,inputColor);showDataAdjustPanel=false;"/>
+						</label>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+				<div class="inner-options" v-if="showArrowPicker">
+					<button v-for="arrow in arrowArray" class="btn btn-default" @click="setFlowchartStyle('arrowStyle',arrow.value);showDataAdjustPanel=false;">{{arrow.name}}</button>
+				</div>
+			</div>
 			<!-- 左边图元 -->
 			<div id="tactics-flow-palette"></div>
 			<!-- 中间画板 -->
@@ -132,33 +165,34 @@
 					</div>
 				</form>
 			</div>
-			<!-- 右边信息栏结束 -->
-			<div class="clearfix"></div>
-			<div class="block-mt" id="tactics-task-table">
-				<div class="block-mt mt5">
-					<h4>任务列表:</h4>
-				</div>
-				<table class='table table-hover thead-bg'>
-					<thead>
-						<tr>
-							<th v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{header}}</th>
-							<th>操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-for="task in tasks">
-							<td v-for="key in Object.keys(task)" v-if="columnBlacklist.indexOf(key)<0">{{task[key]}}</td>
-							<td>
-								<button class="btn btn-xs btn-success" :disabled="task.status==='已完成'" @click="finishTask(task.id)">
-									完成
-								</button>
-								<button class="btn btn-xs btn-danger" @click="deleteTask(task.id)">删除</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+		</div>
+		<!-- 右边信息栏结束 -->
+		<div class="clearfix"></div>
+		<div class="block-mt" id="tactics-task-table">
+			<div class="block-mt mt5">
+				<h4>任务列表:</h4>
 			</div>
+			<table class='table table-hover thead-bg'>
+				<thead>
+					<tr>
+						<th v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{header}}</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="task in tasks">
+						<td v-for="key in Object.keys(task)" v-if="columnBlacklist.indexOf(key)<0">{{task[key]}}</td>
+						<td>
+							<button class="btn btn-xs btn-success" :disabled="task.status==='已完成'" @click="finishTask(task.id)">
+								完成
+							</button>
+							<button class="btn btn-xs btn-danger" @click="deleteTask(task.id)">删除</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
+</div>
 
 </div>
