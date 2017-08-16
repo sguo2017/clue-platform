@@ -31,22 +31,22 @@
 				<%= @tactic.description %>
 			</div>
 			<div class="clearfix">
-				<div class="col-md-3 col-xs-6 mt10">
+				<div class="col-md-2 col-xs-6 mt10">
 					<span class="aliconfont icon-people f16 text-gray"></span>
 					执行队伍:
 					<%= @tactic.executive_team %>
 				</div>
-				<div class="col-md-3 col-xs-6 mt10">
+				<div class="col-md-4 col-xs-6 mt10">
 					<span class="aliconfont icon-people f16 text-gray"></span>
 					关联案件:
-					<%= @tactic.case.name %>
+					<%= @tactic.cases.map{|x| x.name}.join(",") %>
 				</div>
 				<div class="col-md-3 col-xs-6 mt10">
 					待办任务
-					<span class="text-warning"><%= @unfinished_count %></span>
+					<span class="text-warning"><%= @tactic.unfinished_task_count %></span>
 					<span class="line-space">|</span>
 					已办任务
-					<span class="text-primary mt10"><%= @finished_count %></span>
+					<span class="text-primary mt10"><%= @tactic.finished_task_count %></span>
 				</div>
 				<div class="col-md-3 col-xs-6 mt10">
 					<span class=" glyphicon glyphicon-calendar text-primary"></span>
@@ -172,16 +172,16 @@
 			<div class="block-mt mt5">
 				<h4>任务列表:</h4>
 			</div>
-			<table class='table table-hover thead-bg'>
+			<table class='table table-hover thead-bg' v-if="tasks.length>0">
 				<thead>
 					<tr>
-						<th v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{header}}</th>
+						<th v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{taskHeadersTranslator.$get(header)}}</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr v-for="task in tasks">
-						<td v-for="key in Object.keys(task)" v-if="columnBlacklist.indexOf(key)<0">{{task[key]}}</td>
+						<td v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{task[header]}}</td>
 						<td>
 							<button class="btn btn-xs btn-success" :disabled="task.status==='已完成'" @click="finishTask(task.id)">
 								完成

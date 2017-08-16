@@ -27,9 +27,17 @@ class TacticTasksController < ApplicationController
     @tactic_task = TacticTask.new(tactic_task_params)
     respond_to do |format|
       if @tactic_task.save
-        format.any { render json: {msg: "创建成功!",success: true,data: @tactic_task }}
+        format.any { render json: {
+            msg: "创建成功!",
+            success: true,
+            data: {
+              headers: TacticTask.attribute_names,
+              task: @tactic_task
+            }
+          }
+        }
       else
-        format.any { render json: {msg: "创建失败!",success: false},status: :unprocessable_entity}
+        format.any { render json: {msg: "创建失败!", success: false}, status: :unprocessable_entity}
       end
     end
   end
@@ -39,9 +47,17 @@ class TacticTasksController < ApplicationController
   def update
     respond_to do |format|
       if @tactic_task.update(tactic_task_params)
-        format.any { render json: {msg: "更新成功!",success: true,data: @tactic_task }}
+        format.any { render json: {
+            msg: "更新成功!",
+            success: true,
+            data: {
+              headers: TacticTask.attribute_names,
+              task: @tactic_task
+            }
+          }
+        }
       else
-        format.any { render json: {msg: "更新失败!",success: false},status: :unprocessable_entity}
+        format.any { render json: {msg: "更新失败!", success: false}, status: :unprocessable_entity}
       end
     end
   end
@@ -57,13 +73,13 @@ class TacticTasksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tactic_task
-      @tactic_task = TacticTask.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tactic_task
+    @tactic_task = TacticTask.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tactic_task_params
-      params.require(:tactic_task).permit(:name, :tactic_id, :category, :executor, :status, :finished_time, :start_time, :end_time, :description, :order)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tactic_task_params
+    params.require(:tactic_task).permit(:name, :tactic_id, :category, :executor, :status, :finished_time, :start_time, :end_time, :description, :order)
+  end
 end

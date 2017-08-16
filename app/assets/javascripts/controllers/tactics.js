@@ -5,33 +5,23 @@ $(document).on("turbolinks:load", function() {
 });
 
 function initVue() {
-  function translateTask(origin) {
-    switch (origin) {
-      case "name":
-        return "名称";
-      case "category":
-        return "类型";
-      case "executor":
-        return "执行人";
-      case "status":
-        return "状态";
-      case "finished_time":
-        return "完成时间";
-      case "start_time":
-        return "开始时间";
-      case "end_time":
-        return "结束时间";
-      case "description":
-        return "描述";
-      case "created_at":
-        return "创建时间";
-      default:
-        return origin;
-    }
-  }
   vvv = new Vue({
     el: "#tactic-app",
     data: {
+      taskHeadersTranslator: {
+        "name": "名称",
+        "category": "类型",
+        "executor": "执行人",
+        "status": "状态",
+        "finished_time": "完成时间",
+        "start_time": "开始时间",
+        "end_time": "结束时间",
+        "description": "描述",
+        "created_at": "创建时间",
+        $get: function(key){
+          return (key && this[key]) ? this[key] : key;
+        }
+      },
       tacticFlowchart: null,
       tasks: [],
       taskHeaders: [],
@@ -93,11 +83,10 @@ function initVue() {
         url: "/tactics/" + this.tacticId() + "/get_tactic_tasks",
         method: "get"
       }).done(function(response) {
-        if (response) {
-          outer.tasks = response;
-        }
-        if (outer.tasks.length > 0) {
-          outer.taskHeaders = Object.keys(outer.tasks[0]).map(translateTask);
+        var data = response["data"];
+        if (data) {
+          outer.tasks = data["tasks"] || [];
+          outer.taskHeaders = data["headers"] || [];
         }
       });
     },
@@ -107,9 +96,8 @@ function initVue() {
       },
       findTaskById: function(taskId) {
         if (taskId && this.tasks) {
-          taskId = taskId.toString();
           var result = this.tasks.filter(function(x) {
-            return x.id.toString() === taskId
+            return x.id == taskId
           });
           if (result.length == 1) {
             return result[0];
@@ -185,31 +173,36 @@ function initVue() {
               "tactic_task": this.currentTask
             }
           }).done(function(response) {
-            if (!isUpdate) { //创建对象时
-              outer.tasks.push(response["data"]);
-              $("#current-task-id").val(response["data"].id);
-              outer.updateTaskIdOfNodeData(response["data"].id, outer.tacticFlowchart.selection.first());
+            var data = response["data"];
+            if(data){
+              if (!isUpdate && data["headers"] && data["task"]) { //创建对象时
+                outer.taskHeaders.length == 0 && (outer.taskHeaders = data["headers"]);
+                outer.tasks.push(data["task"]);
+                $("#current-task-id").val(data["task"].id);
+                outer.updateTaskIdOfNodeData(data["task"].id, outer.tacticFlowchart.selection.first());
+              }
+              outer.isTaskEditing = !outer.isTaskEditing;
+            }else{
+              alert("保存失败，请重试！");
             }
-            outer.isTaskEditing = !outer.isTaskEditing;
           }); // end ajax
         } else {
           this.isTaskEditing = !this.isTaskEditing;
         } //end if
       }, //end function
       deleteTask: function(taskId) {
-        taskId = taskId.toString();
         var outer = this,
           conf = confirm("确定删除这个任务吗？");
         if (conf) {
           $.ajax({
-            url: "/tactic_tasks/" + taskId,
+            url: "/tactic_tasks/" + (taskId || ''),
             method: "DELETE",
             dataType: "json"
           }).done(function() {
             var targetIndex = outer.tasks.indexOf(outer.findTaskById(taskId));
             if (targetIndex >= 0) {
               outer.tasks.splice(targetIndex, 1);
-              if (outer.currentTask.id.toString() == taskId) {
+              if (outer.currentTask && outer.currentTask.id == taskId) {
                 outer.currentTask = {};
                 $("#current-task-id").val('');
                 outer.updateTaskIdOfNodeData('', taskId);
@@ -220,12 +213,11 @@ function initVue() {
 
       },
       finishTask: function(taskId) {
-        taskId = taskId.toString();
         var outer = this,
           conf = confirm("确定完成这个任务吗？");
         if (conf) {
           $.ajax({
-            url: "/tactic_tasks/" + taskId,
+            url: "/tactic_tasks/" + (taskId || ''),
             method: "PATCH",
             dataType: "json",
             data: {
@@ -787,7 +779,7 @@ function setFlowChatrt() {
 
   function load() {
     var dataUrl = $("#tactics-flow-container").data("flowDataUrl");
-    fetch(dataUrl, {
+    dataUrl && fetch(dataUrl, {
         method: 'GET',
         mode: "cors"
       })

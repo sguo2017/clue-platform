@@ -4,7 +4,7 @@ class TacticsController < ApplicationController
   # GET /tactics
   # GET /tactics.json
   def index
-    #@tactics = Tactic.all
+    @tactics = Tactic.all
   end
 
   # GET /tactics/1
@@ -14,7 +14,14 @@ class TacticsController < ApplicationController
 
   def get_tactic_tasks
     @tactic = Tactic.find(params[:tactic_id])
-    render :json => @tactic.tactic_tasks
+    render :json => {
+      :msg=>"获取成功！",
+      :success => true,
+      :data => {
+        :headers => TacticTask.attribute_names,
+        :tasks => @tactic.tactic_tasks
+        }
+      }
   end
 
   # GET /tactics/new
@@ -69,9 +76,6 @@ class TacticsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tactic
       @tactic = Tactic.find(params[:id])
-      tasks = @tactic.tactic_tasks
-      @finished_count = tasks.select{|x| x.status == "已完成"}.size
-      @unfinished_count= tasks.size - @finished_count
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

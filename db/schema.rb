@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809020242) do
+ActiveRecord::Schema.define(version: 20170816073523) do
 
   create_table "call_analyse_savers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20170809020242) do
     t.string "photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cases_tactics", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "tactic_id", null: false
+    t.bigint "case_id", null: false
+    t.index ["case_id", "tactic_id"], name: "index_cases_tactics_on_case_id_and_tactic_id"
+    t.index ["tactic_id", "case_id"], name: "index_cases_tactics_on_tactic_id_and_case_id"
   end
 
   create_table "suspects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -84,7 +91,6 @@ ActiveRecord::Schema.define(version: 20170809020242) do
 
   create_table "tactics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
-    t.integer "case_id"
     t.integer "created_by"
     t.string "status"
     t.string "flow_image_url"
@@ -95,6 +101,7 @@ ActiveRecord::Schema.define(version: 20170809020242) do
     t.timestamp "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -38,251 +38,69 @@
   <!-- left-side end -->
   <div class="container-18 carousel-wrap">
     <div class="clearfix">
-      <div class="col-md-6 col-xs-12">
-        <div class="thumbnail">
-          <div class="carousel-tag">缉毒</div>
-          <!-- 插件开始 -->
-              <div class="swiper-container">
-                <div class="swiper-wrapper" style="width: 100%;height: auto;">
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel1.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel2.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel3.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel4.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel3.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel2.png")%>
-                    </div>
+      <% @tactics.each do |tactic| %>
+        <div class="col-md-6 col-xs-12">
+          <div class="thumbnail">
+            <div class="carousel-tag"><%= tactic.category %></div>
+            <!-- 插件开始 -->
+                <div class="swiper-container">
+                  <div class="swiper-wrapper" style="width: 100%;height: auto;">
+                      <div class="swiper-slide">
+                        <%= image_tag("carousel1.png")%>
+                      </div>
+                      <div class="swiper-slide">
+                        <%= image_tag("carousel2.png")%>
+                      </div>
+                      <div class="swiper-slide">
+                        <%= image_tag("carousel3.png")%>
+                      </div>
+                      <div class="swiper-slide">
+                        <%= image_tag("carousel4.png")%>
+                      </div>
+                      <div class="swiper-slide">
+                        <%= image_tag("carousel3.png")%>
+                      </div>
+                      <div class="swiper-slide">
+                        <%= image_tag("carousel2.png")%>
+                      </div>
+                  </div>
+                  <div class="swiper-pagination"></div>
                 </div>
-                <div class="swiper-pagination"></div>
-              </div>
 
-              <!--插件结束  -->
-              <div class="caption">
-                <div class="title-conponent">
-                  <span class="pull-right text-gray">
-                    <span class="glyphicon glyphicon-calendar text-primary"></span>&nbsp;开始2017年1月4日--结束2017年12月10日
-                  </span>
-                  <strong class="f16">Thumbnail label</strong>
-                  <span class="label label-success ml10">已完成</span>
-                </div>
-                <div>The monkey-rope is found in all whalers; but it was only in the Pequod that the monkey and his holder were ever tied together. This improvement upon the original usage was introduced by no less a man than Stubb, in order to afford the imperilled harpooneer the strongest possible guarantee for the faithfulness and vigilance of his monkey-rope holder.</div>
-                <div class="row">
-                  <div class="col-xs-4 mt10">
-                    <span class="aliconfont icon-people f16 text-gray"></span>
-                    Executive Team 执行队伍
+                <!--插件结束  -->
+                <div class="caption">
+                  <div class="title-conponent">
+                    <span class="pull-right text-gray">
+                      <span class="glyphicon glyphicon-calendar text-primary"></span>
+                      &nbsp;开始<%= tactic.start_time.strftime('%Y/%m/%d %H:%M:%S') %>--结束<%= tactic.end_time.strftime('%Y/%m/%d %H:%M:%S') %>
+                    </span>
+                    <strong class="f16"><%= tactic.name %></strong>
+                    <span class="label <%= tactic.has_finish? ? 'label-success' : 'label-danger' %> ml10">
+                      <%= tactic.status %>
+                    </span>
                   </div>
-                  <div class="col-xs-4 mt10">
-                    <span class="aliconfont icon-people f16 text-gray"></span>
-                    Executive Team 执行队伍
+                  <div><%= tactic.description %></div>
+                  <div class="row">
+                    <div class="col-xs-4 mt10">
+                      <span class="aliconfont icon-people f16 text-gray"></span>
+                        执行队伍：<%= tactic.executive_team %>
+                    </div>
                   </div>
-                </div>
-                <div class="block-mt">
-                  <span class="pull-right mt10">
-                    代办任务
-                    <span class="text-warning">8</span>
-                    <span class="line-space">|</span>
-                    已办任务
-                    <span class="text-primary">8</span>
-                  </span>
-                  <a href="#" class="btn btn-primary btn-long" role="button">查看进度</a>
-                  <a href="#" class="btn btn-default ml10" role="button">转为经典战法</a>
-                </div>
-              </div>
-          </div>
-      </div>
-      <div class="col-md-6 col-xs-12">
-        <div class="thumbnail">
-          <div class="carousel-tag">缉毒</div>
-          <!-- 插件开始 -->
-              <div class="swiper-container">
-                <div class="swiper-wrapper" style="width: 100%;height: auto;">
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel1.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel2.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel3.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel4.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel3.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel2.png")%>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-              </div>
-              <!--插件结束  -->
-              <div class="caption">
-                <div class="title-conponent">
-                  <span class="pull-right text-gray">
-                    <span class=" glyphicon glyphicon-calendar text-primary"></span>&nbsp;开始2017年1月4日--结束2017年12月10日
-                  </span>
-                  <strong class="f16">Thumbnail label</strong>
-                  <span class="label label-success ml10">已完成</span>
-                </div>
-                <div>The monkey-rope is found in all whalers; but it was only in the Pequod that the monkey and his holder were ever tied together. This improvement upon the original usage was introduced by no less a man than Stubb, in order to afford the imperilled harpooneer the strongest possible guarantee for the faithfulness and vigilance of his monkey-rope holder.</div>
-                <div class="row">
-                  <div class="col-xs-4 mt10">
-                    <span class="aliconfont icon-people f16 text-gray"></span>
-                    Executive Team 执行队伍
-                  </div>
-                  <div class="col-xs-4 mt10">
-                    <span class="aliconfont icon-people f16 text-gray"></span>
-                    Executive Team 执行队伍
+                  <div class="block-mt">
+                    <span class="pull-right mt10">
+                      待办任务
+                      <span class="text-warning"><%= tactic.unfinished_task_count %></span>
+                      <span class="line-space">|</span>
+                      已办任务
+                      <span class="text-primary"><%= tactic.finished_task_count %></span>
+                    </span>
+                    <%= link_to "编辑战法", tactic, {:class=>"btn btn-primary btn-long" ,:role=>"button"} %>
+                    <%= link_to "查看进度", tactic, {:class=>"btn btn-default ml10", :role=>"button"} %>
                   </div>
                 </div>
-                <div class="block-mt">
-                  <span class="pull-right mt10">
-                    代办任务
-                    <span class="text-warning">8</span>
-                    <span class="line-space">|</span>
-                    已办任务
-                    <span class="text-primary">8</span>
-                  </span>
-                  <a href="#" class="btn btn-primary btn-long" role="button">查看进度</a>
-                  <a href="#" class="btn btn-default ml10" role="button">转为经典战法</a>
-                </div>
-              </div>
-          </div>
-      </div>
-      <div class="col-md-6 col-xs-12">
-        <div class="thumbnail">
-          <div class="carousel-tag">缉毒</div>
-          <!-- 插件开始 -->
-              <div class="swiper-container">
-                <div class="swiper-wrapper" style="width: 100%;height: auto;">
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel1.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel2.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel3.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel4.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel3.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel2.png")%>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-              </div>
-              <!--插件结束  -->
-              <div class="caption">
-                <div class="title-conponent">
-                  <span class="pull-right text-gray">
-                    <span class=" glyphicon glyphicon-calendar text-primary"></span>&nbsp;开始2017年1月4日--结束2017年12月10日
-                  </span>
-                  <strong class="f16">Thumbnail label</strong>
-                  <span class="label label-success ml10">已完成</span>
-                </div>
-                <div>The monkey-rope is found in all whalers; but it was only in the Pequod that the monkey and his holder were ever tied together. This improvement upon the original usage was introduced by no less a man than Stubb, in order to afford the imperilled harpooneer the strongest possible guarantee for the faithfulness and vigilance of his monkey-rope holder.</div>
-                <div class="row">
-                  <div class="col-xs-4 mt10">
-                    <span class="aliconfont icon-people f16 text-gray"></span>
-                    Executive Team 执行队伍
-                  </div>
-                  <div class="col-xs-4 mt10">
-                    <span class="aliconfont icon-people f16 text-gray"></span>
-                    Executive Team 执行队伍
-                  </div>
-                </div>
-                <div class="block-mt">
-                  <span class="pull-right mt10">
-                    代办任务
-                    <span class="text-warning">8</span>
-                    <span class="line-space">|</span>
-                    已办任务
-                    <span class="text-primary">8</span>
-                  </span>
-                  <a href="#" class="btn btn-primary btn-long" role="button">查看进度</a>
-                  <a href="#" class="btn btn-default ml10" role="button">转为经典战法</a>
-                </div>
-              </div>
-          </div>
-      </div>
-      <div class="col-md-6 col-xs-12">
-        <div class="thumbnail">
-          <div class="carousel-tag">缉毒</div>
-          <!-- 插件开始 -->
-              <div class="swiper-container">
-                <div class="swiper-wrapper" style="width: 100%;height: auto;">
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel1.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel2.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel3.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel4.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel3.png")%>
-                    </div>
-                    <div class="swiper-slide">
-                      <%= image_tag("carousel2.png")%>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-              </div>
-              <!--插件结束  -->
-              <div class="caption">
-                <div class="title-conponent">
-                  <span class="pull-right text-gray">
-                    <span class=" glyphicon glyphicon-calendar text-primary"></span>&nbsp;开始2017年1月4日--结束2017年12月10日
-                  </span>
-                  <strong class="f16">Thumbnail label</strong>
-                  <span class="label label-success ml10">已完成</span>
-                </div>
-                <div>The monkey-rope is found in all whalers; but it was only in the Pequod that the monkey and his holder were ever tied together. This improvement upon the original usage was introduced by no less a man than Stubb, in order to afford the imperilled harpooneer the strongest possible guarantee for the faithfulness and vigilance of his monkey-rope holder.</div>
-                <div class="row">
-                  <div class="col-xs-4 mt10">
-                    <span class="aliconfont icon-people f16 text-gray"></span>
-                    Executive Team 执行队伍
-                  </div>
-                  <div class="col-xs-4 mt10">
-                    <span class="aliconfont icon-people f16 text-gray"></span>
-                    Executive Team 执行队伍
-                  </div>
-                </div>
-                <div class="block-mt">
-                  <span class="pull-right mt10">
-                    代办任务
-                    <span class="text-warning">8</span>
-                    <span class="line-space">|</span>
-                    已办任务
-                    <span class="text-primary">8</span>
-                  </span>
-                  <a href="#" class="btn btn-primary btn-long" role="button">查看进度</a>
-                  <a href="#" class="btn btn-default ml10" role="button">转为经典战法</a>
-                </div>
-              </div>
-          </div>
-      </div>
+            </div>
+        </div>
+      <% end %>
     </div>
 
   </div>
