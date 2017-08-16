@@ -83,13 +83,13 @@ go.Diagram.prototype.getDiagramElemStyle = function() {
     return x.findObject("TEXTOBJECT")
   });
 
-  var isAllFontStyleSame = selsTextObjArr.allSame(function(x) {return fontParser(x.font).fontStyle || ""});
-  var isAllFontVariantSame = selsTextObjArr.allSame(function(x) {return fontParser(x.font).fontVariant || ""});
-  var isAllFontWeightSame = selsTextObjArr.allSame(function(x) {return fontParser(x.font).fontWeight || ""});
-  var isAllFontSizeSame = selsTextObjArr.allSame(function(x) {return fontParser(x.font).fontSize || ""});
-  var isAllFontFamilySame = selsTextObjArr.allSame(function(x) {return fontParser(x.font).fontFamily || ""});
-  var isAllUnderlineSame = selsTextObjArr.allSame(function(x) {return x.isUnderline || false});
-  var isAllTextAlignSame = selsTextObjArr.allSame(function(x) {return x.textAlign || ""});
+  var isAllFontStyleSame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontStyle) || ""});
+  var isAllFontVariantSame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontVariant) || ""});
+  var isAllFontWeightSame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontWeight) || ""});
+  var isAllFontSizeSame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontSize) || ""});
+  var isAllFontFamilySame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontFamily) || ""});
+  var isAllUnderlineSame = selsTextObjArr.allSame(function(x) {return (x && x.isUnderline) || false});
+  var isAllTextAlignSame = selsTextObjArr.allSame(function(x) {return (x && x.textAlign) || ""});
   // var isAllTextColorSame = selsTextObjArr.allSame(function(x) {return x.stroke || ""});
   // var isAllNodeFillSame = selArr.allSame(function(x) {return x.fill || ""});
   // var isAllNodeOutlineColorSame = selArr.allSame(function(x) {return x.stroke || ""});

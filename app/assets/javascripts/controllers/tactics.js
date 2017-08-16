@@ -374,6 +374,7 @@ function setFlowChatrt() {
         new go.Binding("width", "width").makeTwoWay(),
         new go.Binding("height", "height").makeTwoWay(),
         {
+          zOrder: 0,
           // the Node.location is at the center of each node
           locationSpot: go.Spot.Center,
           // handle mouse enter/leave events to show/hide the ports
@@ -544,6 +545,24 @@ function setFlowChatrt() {
         )
       )
     );
+    tacticFlowchart.nodeTemplateMap.add("Outline",
+    $$(go.Node, "Spot", nodeStyle(),
+      new go.Binding("zOrder", "zOrder").makeTwoWay(), //叠放次序
+      // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+      $$(go.Panel, "Auto",
+        $$(go.Shape, "Rectangle", {
+            name: "NODEFILLSHAPE",
+            fill: "rgba(255,255,255,0)",
+            stroke: "gray",
+            strokeWidth: 2
+          },
+          new go.Binding("fill", "nodeColor").makeTwoWay(), //填充颜色
+          new go.Binding("stroke", "nodeOutlineColor").makeTwoWay(), //边框颜色
+          new go.Binding("strokeWidth", "nodeOutlineWidth").makeTwoWay() //边框大小
+        )
+      )
+    )
+  );
     // replace the default Link template in the linkTemplateMap
     tacticFlowchart.linkTemplate =
       $$(go.Link, // the whole link panel
@@ -674,6 +693,12 @@ function setFlowChatrt() {
             {
               category: "Comment",
               text: "备注"
+            },
+            {
+              category: "Outline",
+              width: 60,
+              height: 30,
+              zOrder: -1
             }
           ])
         });
