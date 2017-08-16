@@ -515,6 +515,39 @@ function setFlowChatrt() {
         makePort("B", go.Spot.Bottom, false, true)
       )
     );
+    tacticFlowchart.nodeTemplateMap.add("Circle",
+      $$(go.Node, "Spot", nodeStyle(),
+        $$(go.Panel, "Auto",
+          $$(go.Shape, "Circle", {
+              name: "NODEFILLSHAPE",
+              minSize: new go.Size(40, 40),
+              fill: "#00A9C9",
+              stroke: null
+            },
+            new go.Binding("fill", "nodeColor").makeTwoWay(), //填充颜色
+            new go.Binding("stroke", "nodeOutlineColor").makeTwoWay(), //边框颜色
+            new go.Binding("strokeWidth", "nodeOutlineWidth").makeTwoWay(), //边框大小
+            new go.Binding("figure", "figure")
+          ),
+          $$(go.TextBlock,{
+              name: "TEXTOBJECT",
+              stroke: lightText,
+              editable: true
+            },
+            new go.Binding("font", "font").makeTwoWay(),
+            new go.Binding("stroke", "textColor").makeTwoWay(),
+            new go.Binding("text", "text").makeTwoWay(),
+            new go.Binding("isUnderline", "isUnderline").makeTwoWay(),
+            new go.Binding("textAlign", "textAlign").makeTwoWay()
+          )
+        ),
+        // three named ports, one on each side except the top, all output only:
+        makePort("T", go.Spot.Top, true, true),
+        makePort("L", go.Spot.Left, true, true),
+        makePort("R", go.Spot.Right, true, true),
+        makePort("B", go.Spot.Bottom, true, true)
+      )
+    );
     tacticFlowchart.nodeTemplateMap.add("Comment",
       $$(go.Node, "Auto", nodeStyle(),
         $$(go.Shape, "File", {
@@ -701,6 +734,10 @@ function setFlowChatrt() {
             },
             {
               text: "步骤"
+            },
+            {
+              category: "Circle",
+              text: "圆形"
             },
             {
               text: "条件?",
