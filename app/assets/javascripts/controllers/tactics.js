@@ -563,6 +563,26 @@ function setFlowChatrt() {
       )
     )
   );
+    tacticFlowchart.nodeTemplateMap.add("Textbox",
+    $$(go.Node, "Spot", nodeStyle(),
+      $$(go.Panel, "Auto",
+        $$(go.TextBlock, {
+            name: "TEXTOBJECT",
+            margin: 5,
+            wrap: go.TextBlock.WrapFit,
+            textAlign: "left",
+            editable: true,
+            stroke: '#454545'
+          },
+          new go.Binding("font", "font").makeTwoWay(),
+          new go.Binding("stroke", "textColor").makeTwoWay(),
+          new go.Binding("text", "text").makeTwoWay(),
+          new go.Binding("isUnderline", "isUnderline").makeTwoWay(),
+          new go.Binding("textAlign", "textAlign").makeTwoWay()
+        )
+      )
+    )
+  );
     // replace the default Link template in the linkTemplateMap
     tacticFlowchart.linkTemplate =
       $$(go.Link, // the whole link panel
@@ -699,7 +719,11 @@ function setFlowChatrt() {
               width: 60,
               height: 30,
               zOrder: -1
-            }
+            },
+            {
+              category: "Textbox",
+              text: "文本框"
+            },
           ])
         });
     // The following code overrides GoJS focus to stop the browser from scrolling
