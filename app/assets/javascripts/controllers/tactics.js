@@ -399,7 +399,7 @@ function setFlowChatrt() {
       return $$(go.Shape, "Circle", {
         fill: "transparent",
         stroke: null, // this is changed to "white" in the showPorts function
-        desiredSize: new go.Size(8, 8),
+        desiredSize: new go.Size(12, 12),
         alignment: spot,
         alignmentFocus: spot, // align the port on the main Shape
         portId: name, // declare this object to be a "port"
@@ -431,9 +431,9 @@ function setFlowChatrt() {
               name: "TEXTOBJECT",
               stroke: lightText,
               margin: 8,
-              maxSize: new go.Size(160, NaN),
               wrap: go.TextBlock.WrapFit,
-              editable: true
+              editable: true,
+              minSize: new go.Size(20,NaN)
             },
             new go.Binding("font", "font").makeTwoWay(),
             new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -454,7 +454,6 @@ function setFlowChatrt() {
         $$(go.Panel, "Auto",
           $$(go.Shape, "Circle", {
               name: "NODEFILLSHAPE",
-              minSize: new go.Size(40, 40),
               fill: "#79C900",
               stroke: null
             },
@@ -466,7 +465,8 @@ function setFlowChatrt() {
           $$(go.TextBlock, "Start", {
               name: "TEXTOBJECT",
               stroke: lightText,
-              editable: true
+              editable: true,
+              minSize: new go.Size(20,NaN)
             },
             new go.Binding("font", "font").makeTwoWay(),
             new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -487,7 +487,6 @@ function setFlowChatrt() {
         $$(go.Panel, "Auto",
           $$(go.Shape, "Circle", {
               name: "NODEFILLSHAPE",
-              minSize: new go.Size(40, 40),
               fill: "#DC3C00",
               stroke: null
             },
@@ -499,7 +498,8 @@ function setFlowChatrt() {
           $$(go.TextBlock, "End", {
               name: "TEXTOBJECT",
               stroke: lightText,
-              editable: true
+              editable: true,
+              minSize: new go.Size(20,NaN)
             },
             new go.Binding("font", "font").makeTwoWay(),
             new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -520,7 +520,6 @@ function setFlowChatrt() {
         $$(go.Panel, "Auto",
           $$(go.Shape, "Circle", {
               name: "NODEFILLSHAPE",
-              minSize: new go.Size(40, 40),
               fill: "#00A9C9",
               stroke: null
             },
@@ -532,7 +531,8 @@ function setFlowChatrt() {
           $$(go.TextBlock,{
               name: "TEXTOBJECT",
               stroke: lightText,
-              editable: true
+              editable: true,
+              minSize: new go.Size(20,NaN)
             },
             new go.Binding("font", "font").makeTwoWay(),
             new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -562,13 +562,12 @@ function setFlowChatrt() {
         ),
         $$(go.TextBlock, {
             name: "TEXTOBJECT",
-            margin: 5,
-            maxSize: new go.Size(200, NaN),
             wrap: go.TextBlock.WrapFit,
+            margin: 8,
             textAlign: "center",
             editable: true,
-            font: "normal normal normal 10px sans-serif",
-            stroke: '#454545'
+            stroke: '#454545',
+            minSize: new go.Size(20,NaN)
           },
           new go.Binding("font", "font").makeTwoWay(),
           new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -601,11 +600,11 @@ function setFlowChatrt() {
       $$(go.Panel, "Auto",
         $$(go.TextBlock, {
             name: "TEXTOBJECT",
-            margin: 5,
             wrap: go.TextBlock.WrapFit,
             textAlign: "left",
             editable: true,
-            stroke: '#454545'
+            stroke: '#454545',
+            minSize: new go.Size(20,NaN)
           },
           new go.Binding("font", "font").makeTwoWay(),
           new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -700,7 +699,6 @@ function setFlowChatrt() {
             {
               textAlign: "center",
               name: "TEXTOBJECT",
-              font: "normal normal normal 10px sans-serif",
               stroke: "#333333",
               editable: true
             },
