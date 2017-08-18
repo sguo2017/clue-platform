@@ -4,6 +4,29 @@ $(document).on("turbolinks:load", function() {
   }
 });
 
+function Task(obj){
+  this.id = null;
+  this.name = null;
+  this.tactic_id = null;
+  this.category = null;
+  this.executor = null;
+  this.status = null;
+  this.finished_time = null;
+  this.start_time = null;
+  this.end_time = null;
+  this.description = null;
+  this.order = null;
+  this.temp_guid = null;
+  this._modify_ = null;
+  this.created_at = null;
+  this.updated_at = null;
+  if(obj){ //从JSON对象构建Task
+    for(var key in obj){
+      this[key] !== undefined && (this[key] = obj[key]);
+    }
+  }
+}
+
 function initVue() {
   vvv = new Vue({
     el: "#tactic-app",
@@ -25,10 +48,10 @@ function initVue() {
       tacticFlowchart: null,
       tasks: [],
       taskHeaders: [],
-      currentTask: {},
+      currentTask: new Task(),
       isTaskEditLock: true,
       isTaskEditing: false,
-      columnBlacklist: ["id", "tactic_id", "order", "updated_at"],
+      columnBlacklist: ["id", "tactic_id", "order", "updated_at","created_at"],
       fontStyle: "",
       fontVariant: "",
       fontWeight: "",
@@ -75,7 +98,7 @@ function initVue() {
     mounted: function() {
       if ($("#tactics-flow-container").length > 0) {
         this.tacticFlowchart = setFlowChatrt();
-        this.tacticFlowchart.addDiagramListener("ChangedSelection", this.setCurrentTaskId);
+        this.tacticFlowchart.addDiagramListener("ChangedSelection", this.changeCurrentTask);
         this.tacticFlowchart.addDiagramListener("ChangedSelection", this.updateFlowchartStyle);
       }
       var outer = this;
@@ -85,19 +108,21 @@ function initVue() {
       }).done(function(response) {
         var data = response["data"];
         if (data) {
-          outer.tasks = data["tasks"] || [];
+          outer.tasks = (data["tasks"] || []).map(function(x){x._modify_="none";return new Task(x);});
           outer.taskHeaders = data["headers"] || [];
         }
       });
     },
     methods: {
-      tacticId: function() {
+      tacticId: function() { //查找战法id
         return $("#tactic-app").data("tacticId");
       },
-      findTaskById: function(taskId) {
-        if (taskId && this.tasks) {
+      //根据标识符查找data数组中的任务对象，已存在的任务通过传入id查找，新创建的任务由于还没有保存到服务器
+      //因此还不具有id,但会被分配一个临时的guid，以便对这个任务进行标识，通过传入guid进行查找
+      findTaskByIdOrTempGuid: function(taskIdOrTempGuid) {
+        if (taskIdOrTempGuid) {
           var result = this.tasks.filter(function(x) {
-            return x.id == taskId
+            return (x.id == taskIdOrTempGuid || x.temp_guid == taskIdOrTempGuid);
           });
           if (result.length == 1) {
             return result[0];
@@ -107,130 +132,127 @@ function initVue() {
         }
         return null;
       },
-      isSelectedOneNode: function() {
+      isSelectedOneNode: function() { //是否选择了一个节点
         var sels = this.tacticFlowchart.selection;
         return (sels.count === 1 && sels.first() instanceof go.Node);
       },
-      getFirstSelected: function() {
+      getFirstSelected: function() { //获得选取的第一个节点
         return this.tacticFlowchart.selection.first();
       },
-      setCurrentTaskId: function() {
-        if (this.isSelectedOneNode()) {
-          $("#current-task-id").val(this.getFirstSelected().data["task_id"]);
-        } else {
-          $("#current-task-id").val('');
-        }
-        $("#current-task-id").click();
-      },
-      updateTaskIdOfNodeData: function(taskId, target) {
-        if (target instanceof go.Node) {
-          this.tacticFlowchart.model.setDataProperty(target.data, "task_id", parseInt(taskId));
-        } else {
-          var targetId = parseInt(target);
-          var targetNode;
-          this.tacticFlowchart.nodes.each(function(node) {
-            if (node.data.task_id == targetId) {
-              targetNode = node;
-              return;
-            }
-          });
-          this.tacticFlowchart.model.setDataProperty(targetNode.data, "task_id", parseInt(taskId));
-        }
-      },
-      changeCurrentTask: function(event) {
-        var currentTaskId = event.target.value;
-        var target = this.findTaskById(currentTaskId);
-        if (target) {
-          this.currentTask = target;
+      changeCurrentTask: function() { // 改变当前任务(节点选择改变时触发)
+        if(this.isSelectedOneNode()){ //选择一个节点
+          var targetId = this.getFirstSelected().data['task_id'];
+          if(targetId){//该节点已经绑定任务
+            var target = this.findTaskByIdOrTempGuid(targetId);
+            this.currentTask = (target ? target : new Task());
+          }else{
+            this.currentTask = new Task();
+          }
           this.isTaskEditLock = false; //允许编辑
-        } else if (this.isSelectedOneNode()) {
-          this.currentTask = {};
-          this.isTaskEditLock = false; //允许编辑
-        } else {
-          this.currentTask = {};
+        }else { //选择0个或多个节点
+          this.currentTask = new Task();
           this.isTaskEditLock = true; //禁止编辑
         }
-        this.isTaskEditing = false;
+        this.isTaskEditing = false;  //重置编辑按钮状态
       },
-      editOrSave: function() {
-        if (this.isTaskEditing) { //编辑状态下
-          var url, method, isUpdate, outer = this;
-          if (this.currentTask.id) {
-            url = "/tactic_tasks/" + this.currentTask.id;
-            method = "PATCH";
-            isUpdate = true;
-          } else {
-            url = "/tactic_tasks";
-            method = "POST";
-            isUpdate = false;
-            this.currentTask.tactic_id = this.tacticId();
+      //创建任务后,使用临时生成的guid将节点与任务进行绑定
+      //target是目标节点对象
+      createTaskIdentifyOfNodeData: function(guid, target) {
+        if (target instanceof go.Node) { //创建任务后
+          this.tacticFlowchart.model.setDataProperty(target.data, "task_id", guid);
+        }
+      },
+      //删除任务后，删除节点内部的关联任务标识符，解除绑定
+      //identify有可能是是任务id(已持久化的任务)，也有可能是临时分配的guid(未持久化的任务)
+      deleteTaskIdentifyOfNodeData: function(identify){
+        var targetNode;
+        this.tacticFlowchart.nodes.each(function(node) {
+          if (node.data.task_id == identify) {
+            targetNode = node;
+            return;
           }
-          $.ajax({
-            url: url,
-            method: method,
-            dataType: "json",
-            data: {
-              "tactic_task": this.currentTask
-            }
-          }).done(function(response) {
-            var data = response["data"];
-            if(data){
-              if (!isUpdate && data["headers"] && data["task"]) { //创建对象时
-                outer.taskHeaders.length == 0 && (outer.taskHeaders = data["headers"]);
-                outer.tasks.push(data["task"]);
-                $("#current-task-id").val(data["task"].id);
-                outer.updateTaskIdOfNodeData(data["task"].id, outer.tacticFlowchart.selection.first());
-              }
-              outer.isTaskEditing = !outer.isTaskEditing;
-            }else{
-              alert("保存失败，请重试！");
-            }
-          }); // end ajax
-        } else {
+        });
+        targetNode && this.tacticFlowchart.model.setDataProperty(targetNode.data, "task_id", null);
+      },
+      saveOrUpdate: function() {
+        if (this.isTaskEditing) { //编辑状态下
+          if (this.currentTask.id) { //该任务是经过持久化的，标识为更新
+            this.currentTask._modify_ = "updated";
+          }else if(this.currentTask.temp_guid){ //该任务是已创建但未经过持久化的，标识为创建
+            this.currentTask._modify_ = "created";
+          }else { //该任务还未被创建，执行创建
+            this.currentTask._modify_ = "created";
+            this.currentTask.tactic_id = this.tacticId();
+            this.currentTask.status = "未完成";
+            this.currentTask.temp_guid = guid();
+            this.tasks.push(this.currentTask);
+            // 更新节点内部数据
+            this.createTaskIdentifyOfNodeData(this.currentTask.temp_guid, this.getFirstSelected());
+          }
           this.isTaskEditing = !this.isTaskEditing;
+        } else {
+          this.isTaskEditing = !this.isTaskEditing; // 进入编辑状态
         } //end if
       }, //end function
-      deleteTask: function(taskId) {
-        var outer = this,
-          conf = confirm("确定删除这个任务吗？");
-        if (conf) {
-          $.ajax({
-            url: "/tactic_tasks/" + (taskId || ''),
-            method: "DELETE",
-            dataType: "json"
-          }).done(function() {
-            var targetIndex = outer.tasks.indexOf(outer.findTaskById(taskId));
-            if (targetIndex >= 0) {
-              outer.tasks.splice(targetIndex, 1);
-              if (outer.currentTask && outer.currentTask.id == taskId) {
-                outer.currentTask = {};
-                $("#current-task-id").val('');
-                outer.updateTaskIdOfNodeData('', taskId);
-              }
-            }
-          });
+      deleteTask: function(task) {
+        var conf = confirm("确定删除这个任务吗？");
+        if (conf && task) {
+          if(task._modify_ == "created"){//要删除的任务没有经过持久化
+            this.tasks.splice(this.tasks.indexOf(task),1);
+            task.temp_guid && this.currentTask.temp_guid == task.temp_guid && (this.currentTask = new Task());
+          }else{//要删除的任务是经过持久化的
+            task._modify_ = "deleted";
+            task.id && this.currentTask.id == task.id && (this.currentTask = new Task());
+          }
+          this.deleteTaskIdentifyOfNodeData(task.id || task.temp_guid);
         }
-
       },
-      finishTask: function(taskId) {
-        var outer = this,
-          conf = confirm("确定完成这个任务吗？");
-        if (conf) {
-          $.ajax({
-            url: "/tactic_tasks/" + (taskId || ''),
-            method: "PATCH",
-            dataType: "json",
-            data: {
-              tactic_task: {
-                status: "已完成"
-              }
+      //持久化任务变更以及保存流程图更改。
+      //分两步，首先保存任务变更，其次保存流程图数据
+      //因为对于新创建的任务，还未持久化，无法知道该任务在数据库中的id，
+      //所以是使用一个临时的guid来将流程图节点与任务库进行绑定，
+      //等到任务变更保存了，读取到服务器返回的新创建的任务的id时，
+      //更新流程图节点与任务的绑定(将guid换为id),最后才保存流程图数据到文件服务器
+      persistChanges: function(){
+        // 获取变更过的任务
+        var changes = this.tasks.filter(function(x){return x._modify_  && x._modify_ != "none"});
+        var outer = this;
+        $.ajax({
+          url: "/tactics/"+this.tacticId()+"/persist_tasks",
+          method: "POST",
+          dataType: "JSON",
+          data: {tactic_tasks: changes}
+        }).done(function(response){
+          // 获取返回状态以及数据
+          if(response["success"] && response["data"]){
+            //createdIds是服务器返回的[{guid:,id:}..]数组
+            //指明了之前新创建的临时分配guid的任务对象在数据库中生最终成的id是什么
+            //然后根据这个最终持久化的id去替换流程图中节点数据的task_id,建立真正的绑定
+            //最后再保存流程图数据
+            var createdIds = response["data"]["created_ids"];
+            var tasks = response["data"]["tasks"];
+            if(createdIds && tasks){ //数据非空检验
+              var guid_id_map = new go.Map(); //对于新创建的任务，用来存储(guid,id)键值对
+              createdIds.forEach(function(x){guid_id_map.add(x.guid,x.id);});
+              outer.tacticFlowchart.nodes.each(function(node){
+                var task_id = node.data["task_id"];
+                if(guid_id_map.getValue(task_id)){
+                  //更新绑定值
+                  outer.tacticFlowchart.model.setDataProperty(node.data, "task_id", guid_id_map.getValue(task_id));
+                }
+              });
+              //更新任务列表
+              outer.tasks = tasks.map(function(x){x._modify_ = "none";return new Task(x);});
+              $("#finished_task_span").text(response["data"]["finished_task_count"]);
+              $("#unfinished_task_span").text(response["data"]["unfinished_task_count"]);
             }
-          }).done(function() {
-            var target = outer.findTaskById(taskId);
-            if (target) target.status = "已完成";
-          });
-        }
-
+            //更新当前任务状态，重置编辑表单
+            outer.changeCurrentTask();
+            outer.saveFlowchart();
+          }else{
+            alert("服务器错误，保存失败！");
+          }
+        }).error(function(){alert("未知错误，保存失败！")});
       },
       saveFlowchart: function() {
         var outer = this;

@@ -12,6 +12,7 @@ class TacticsController < ApplicationController
   def show
   end
 
+  #GET /tactics/1/get_tactic_tasks
   def get_tactic_tasks
     @tactic = Tactic.find(params[:tactic_id])
     render :json => {
@@ -20,9 +21,46 @@ class TacticsController < ApplicationController
       :data => {
         :headers => TacticTask.attribute_names,
         :tasks => @tactic.tactic_tasks
-        }
       }
+    }
   end
+
+  #GET /tactics/1/persist_tasks
+  def persist_tasks
+    #无论是哪种情况，只要保存成功，那么返回的json数据中必须包含当前战法的所有任务的数组(response.data.tasks)
+    #因为前端需要根据这个任务数组去刷新一次前端的任务列表，即使任务列表是空数组，前端也需要依赖这个数组去进行同步
+    @tactic = Tactic.find(params[:tactic_id])
+    created_ids = []
+    tactic_tasks = params[:tactic_tasks]
+    #当前端任务没有修改时，params[:tactic_tasks]参数为nil值，需要做特殊处理
+    if tactic_tasks.blank?
+      render json: {msg: "保存成功", success: true, data: {created_ids: [], tasks: @tactic.tactic_tasks, finished_task_count: @tactic.finished_task_count, unfinished_task_count: @tactic.unfinished_task_count}}
+      return
+    else
+      tactic_tasks = tactic_tasks.values
+    end
+    begin
+      TacticTask.transaction do
+        tactic_tasks.each do |t|
+          if t["_modify_"] == "updated"
+            TacticTask.find(t["id"]).update(tactic_task_params(t))
+          elsif t["_modify_"] == "created"
+            created = TacticTask.create!(tactic_task_params(t))
+            created_ids.push({:guid => t["temp_guid"],:id => created.id})
+          elsif t["_modify_"] == "deleted"
+            TacticTask.find(t["id"]).delete
+          end
+        end
+      end
+    rescue
+      logger.debug $!
+      logger.debug $@
+      render json: {msg: "保存失败", success: false},status: :unprocessable_entity
+      return
+    end
+    render json: {msg: "保存成功", success: true, data: {created_ids: created_ids, tasks: @tactic.tactic_tasks,finished_task_count: @tactic.finished_task_count,unfinished_task_count: @tactic.unfinished_task_count}}
+  end
+
 
   # GET /tactics/new
   def new
@@ -73,13 +111,18 @@ class TacticsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tactic
-      @tactic = Tactic.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tactic
+    @tactic = Tactic.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tactic_params
-        params.require(:tactic).permit(:name, :case_id, :created_by, :flow_image_url, :flow_data_url, :executive_team, :description, :start_time, :end_time)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tactic_params
+    params.require(:tactic).permit(:name, :created_by, :status,:category, :flow_image_url, :flow_data_url, :executive_team, :description, :start_time, :end_time)
+  end
+
+  def tactic_task_params(hash)
+    white_list = [:name, :tactic_id, :category, :executor, :status, :finished_time, :start_time, :end_time, :description, :order]
+    hash.select{ |k,v| white_list.include?(k.to_sym) }
+  end
 end

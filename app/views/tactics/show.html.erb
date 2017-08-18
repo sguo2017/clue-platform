@@ -43,10 +43,10 @@
 				</div>
 				<div class="col-md-3 col-xs-6 mt10">
 					待办任务
-					<span class="text-warning"><%= @tactic.unfinished_task_count %></span>
+					<span class="text-warning" id="unfinished_task_span"><%= @tactic.unfinished_task_count %></span>
 					<span class="line-space">|</span>
 					已办任务
-					<span class="text-primary mt10"><%= @tactic.finished_task_count %></span>
+					<span class="text-primary mt10" id="finished_task_span"><%= @tactic.finished_task_count %></span>
 				</div>
 				<div class="col-md-3 col-xs-6 mt10">
 					<span class=" glyphicon glyphicon-calendar text-primary"></span>
@@ -59,7 +59,6 @@
 			<!-- 头部结束 -->
 			<div class="block-mt" id="flowchart-toolsbar">
 				<ul>
-					<li title="保存流程图"><span class="fa fa-floppy-o" @click="saveFlowchart"></span></li>
 					<li title="导出图片"><span class="fa fa-file-image-o" @click="exportFlowImage"></span></li>
 					<li title="加粗" :class="{active: fontWeight == 'bold'}" @click="setFlowchartStyle('fontWeight')"><span class="fa fa-bold"></span></li>
 					<li title="下划线" :class="{active: isUnderline}" @click="setFlowchartStyle('isUnderline')"><span class="fa fa-underline"></span></li>
@@ -76,6 +75,9 @@
 					<li title="线条颜色" @click="pickLineColor"><span class="fa fa-magic"></span></li>
 					<li title="箭头样式" @click="pickArrow"><span class="fa fa-long-arrow-up"></span></li>
 				</ul>
+				<span  style="float:right;margin-right:5px;">
+					<button class="btn btn-xs btn-primary" type="button" @click="persistChanges">保存流程图和任务</button>
+				</span>
 			</div>
 
 			<div class="clearfix"></div>
@@ -122,16 +124,18 @@
 			<div id="tactics-flow-info">
 				<h4>任务信息:</h4>
 				<form class="form-horizontal">
-					<div class="hidden">
-						<input id="current-task-id" class="hidden" type="text" @click="changeCurrentTask"/>
-					</div>
 					<div class="form-group">
 						<label class="control-label">名称:</label>
 						<input class="form-control" type="text" v-model="currentTask.name" :readonly="!isTaskEditing"/>
 					</div>
 					<div class="form-group">
-						<label class="control-label">状态:</label>
-						<input class="form-control" type="text" v-model="currentTask.status" :readonly="!isTaskEditing"/>
+						<label class="control-label">类型:</label>
+						<select class="form-control" v-model="currentTask.category" :readonly="!isTaskEditing">
+							<option value="资料采集">资料采集</option>
+							<option value="场地勘察">场地勘察</option>
+							<option value="实战行动">实战行动</option>
+							<option value="其他任务">其他任务</option>
+						</select>
 					</div>
 
 					<div class="form-group">
@@ -140,18 +144,13 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">完成时间:</label>
-						<input class="form-control" type="text" v-model="currentTask.finished_time" :readonly="true"/>
+						<label class="control-label">开始时间:</label>
+						<input class="form-control" type="text" v-model="currentTask.start_time" :readonly="!isTaskEditing"/>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label">创建时间:</label>
-						<input class="form-control" type="text" v-model="currentTask.created_at" :readonly="true"/>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">时间限制:</label>
-						<input class="form-control" type="text" :readonly="!isTaskEditing"/>
+						<label class="control-label">结束时间:</label>
+						<input class="form-control" type="text" v-model="currentTask.end_time" :readonly="!isTaskEditing"/>
 					</div>
 
 					<div class="form-group">
@@ -159,8 +158,8 @@
 						<textarea class="form-control" rows="2" v-model="currentTask.description" :readonly="!isTaskEditing"></textarea>
 					</div>
 					<div class="form-group">
-						<button type="button" class="btn" v-bind:class="{'btn-primary': !isTaskEditing,'btn-warning': isTaskEditing}" @click="editOrSave" :disabled="isTaskEditLock">
-							{{isTaskEditing ? "保存" : "编辑"}}
+						<button type="button" class="btn" v-bind:class="{'btn-primary': !isTaskEditing,'btn-warning': isTaskEditing}" @click="saveOrUpdate" :disabled="isTaskEditLock">
+							{{isTaskEditing ? "锁定" : "编辑"}}
 						</button>
 					</div>
 				</form>
@@ -180,13 +179,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="task in tasks">
+					<tr v-for="task in tasks" v-if="task._modify_ != 'deleted'">
 						<td v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{task[header]}}</td>
 						<td>
-							<button class="btn btn-xs btn-success" :disabled="task.status==='已完成'" @click="finishTask(task.id)">
-								完成
-							</button>
-							<button class="btn btn-xs btn-danger" @click="deleteTask(task.id)">删除</button>
+							<button class="btn btn-xs btn-danger" @click="deleteTask(task)">删除</button>
 						</td>
 					</tr>
 				</tbody>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :tactic_tasks
   resources :tactics do
     get "get_tactic_tasks"
+    post "persist_tasks"
   end
   resources :cases
   resources :suspects_teams
