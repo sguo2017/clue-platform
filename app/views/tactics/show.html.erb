@@ -52,7 +52,7 @@
 					<span class=" glyphicon glyphicon-calendar text-primary"></span>
 					&nbsp;
 					<span class="text-gray">
-						开始:<%= @tactic.start_time.strftime('%Y/%m/%d') %>--结束:<%= @tactic.end_time.strftime('%Y/%m/%d') %>
+						开始:<%= @tactic.start_time && @tactic.start_time.strftime('%Y/%m/%d') %>--结束:<%= @tactic.end_time && @tactic.end_time.strftime('%Y/%m/%d') %>
 					</span>
 				</div>
 			</div>

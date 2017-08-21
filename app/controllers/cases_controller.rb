@@ -5,6 +5,11 @@ class CasesController < ApplicationController
   # GET /cases.json
   def index
     @cases = Case.all
+    respond_to do |format|
+      format.html {render :index}
+      format.js{render json: {msg: "获取成功", success: true, data: @cases}}
+      format.json{render json: {msg: "获取成功", success: true, data: @cases}}
+    end
   end
 
   # GET /cases/1

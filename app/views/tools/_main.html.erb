@@ -99,14 +99,20 @@
 	</div>
 </div>
 <script>
-// register modal component
-Vue.component('modal', {
-	template: '#modal-template'
-})
-
+var Modal = {
+	template: "#modal-template",
+	data: function(){
+		return {
+			modalWidth: "300px"
+		};
+	}
+};
 // start app
 var app = new Vue({
 	el: '#app',
+	components: {
+		'modal': Modal
+	},
 	data: {
 		showModal: false,
 		title: '',

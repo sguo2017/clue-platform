@@ -1,8 +1,10 @@
-<div class="bg-backing-darken">
-<div class="bread-nav-wrap">
+<div id="tactics-index-app" class="bg-backing-darken">
+  <div class="bread-nav-wrap">
     <ul class="bread-nav clearfix">
       <li class="bread-nav-item home">
-        <a class="link-item" class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
+        <a class="link-item" class="link-item" href="/position_decisions/index">
+          <span class="glyphicon glyphicon-home"></span>
+        </a>
       </li>
       <li class="bread-nav-item">
         <span class="link-item">战法管理</span>
@@ -10,7 +12,7 @@
     </ul>
   </div>
   <!-- 路径导航 end -->
-  <div class="left-side left-side-inverse column-18">
+  <div class="left-side left-side-inverse column-18" v-bind:style="leftSidebarPosition">
     <div class="left-side-heading">
       <div class="heading-title">
         <a class="pull-right small" href="">回首页</a>
@@ -20,7 +22,7 @@
         <input type="text" class="form-control" value="搜索">
         <span class="input-group-btn">
           <button class="btn btn-primary" type="button">
-          搜
+            搜
           </button>
         </span>
       </div>
@@ -34,93 +36,155 @@
       <button class="btn btn-normal btn-block" type="button">贩卖</button>
       <button class="btn btn-normal btn-block" type="button">通缉</button>
     </div>
+    <div id="wrap-btn-new-tactic">
+      <button type="button" id="btn-new-tactic" class="btn btn-warning btn-block" @click="showModal=true">新建战法</button>
+    </div>
   </div>
   <!-- left-side end -->
   <div class="container-18 carousel-wrap">
     <div class="clearfix">
       <% @tactics.each do |tactic| %>
-        <div class="col-md-6 col-xs-12">
-          <div class="thumbnail">
-            <div class="carousel-tag"><%= tactic.category %></div>
-            <!-- 插件开始 -->
-                <div class="swiper-container">
-                  <div class="swiper-wrapper" style="width: 100%;height: auto;">
-                      <div class="swiper-slide">
-                        <%= image_tag("carousel1.png")%>
-                      </div>
-                      <div class="swiper-slide">
-                        <%= image_tag("carousel2.png")%>
-                      </div>
-                      <div class="swiper-slide">
-                        <%= image_tag("carousel3.png")%>
-                      </div>
-                      <div class="swiper-slide">
-                        <%= image_tag("carousel4.png")%>
-                      </div>
-                      <div class="swiper-slide">
-                        <%= image_tag("carousel3.png")%>
-                      </div>
-                      <div class="swiper-slide">
-                        <%= image_tag("carousel2.png")%>
-                      </div>
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-
-                <!--插件结束  -->
-                <div class="caption">
-                  <div class="title-conponent">
-                    <span class="pull-right text-gray">
-                      <span class="glyphicon glyphicon-calendar text-primary"></span>
-                      &nbsp;开始<%= tactic.start_time.strftime('%Y/%m/%d %H:%M:%S') %>--结束<%= tactic.end_time.strftime('%Y/%m/%d %H:%M:%S') %>
-                    </span>
-                    <strong class="f16"><%= tactic.name %></strong>
-                    <span class="label <%= tactic.has_finish? ? 'label-success' : 'label-danger' %> ml10">
-                      <%= tactic.status %>
-                    </span>
-                  </div>
-                  <div><%= tactic.description %></div>
-                  <div class="row">
-                    <div class="col-xs-4 mt10">
-                      <span class="aliconfont icon-people f16 text-gray"></span>
-                        执行队伍：<%= tactic.executive_team %>
-                    </div>
-                  </div>
-                  <div class="block-mt">
-                    <span class="pull-right mt10">
-                      待办任务
-                      <span class="text-warning"><%= tactic.unfinished_task_count %></span>
-                      <span class="line-space">|</span>
-                      已办任务
-                      <span class="text-primary"><%= tactic.finished_task_count %></span>
-                    </span>
-                    <%= link_to "编辑战法", tactic, {:class=>"btn btn-primary btn-long" ,:role=>"button"} %>
-                    <%= link_to "查看进度", tactic, {:class=>"btn btn-default ml10", :role=>"button"} %>
-                  </div>
-                </div>
+      <div class="col-md-6 col-xs-12">
+        <div class="thumbnail">
+          <div class="carousel-tag"><%= tactic.category %></div>
+          <!-- 插件开始 -->
+          <div class="swiper-container">
+            <div class="swiper-wrapper" style="width: 100%;height: auto;">
+              <div class="swiper-slide">
+                <%= image_tag("carousel1.png")%>
+              </div>
+              <div class="swiper-slide">
+                <%= image_tag("carousel2.png")%>
+              </div>
+              <div class="swiper-slide">
+                <%= image_tag("carousel3.png")%>
+              </div>
+              <div class="swiper-slide">
+                <%= image_tag("carousel4.png")%>
+              </div>
+              <div class="swiper-slide">
+                <%= image_tag("carousel3.png")%>
+              </div>
+              <div class="swiper-slide">
+                <%= image_tag("carousel2.png")%>
+              </div>
             </div>
+            <div class="swiper-pagination"></div>
+          </div>
+
+          <!--插件结束  -->
+          <div class="caption">
+            <div class="title-conponent">
+              <span class="pull-right text-gray">
+                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                &nbsp;开始<%= tactic.start_time && tactic.start_time.strftime('%Y/%m/%d %H:%M:%S') %>--结束<%= tactic.end_time && tactic.end_time.strftime('%Y/%m/%d %H:%M:%S') %>
+              </span>
+              <strong class="f16"><%= tactic.name %></strong>
+              <span class="label <%= tactic.has_finish? ? 'label-success' : 'label-danger' %> ml10">
+                <%= tactic.status %>
+              </span>
+            </div>
+            <div><%= tactic.description %></div>
+            <div class="row">
+              <div class="col-xs-4 mt10">
+                <span class="aliconfont icon-people f16 text-gray"></span>
+                执行队伍：<%= tactic.executive_team %>
+              </div>
+            </div>
+            <div class="block-mt">
+              <span class="pull-right mt10">
+                待办任务
+                <span class="text-warning"><%= tactic.unfinished_task_count %></span>
+                <span class="line-space">|</span>
+                已办任务
+                <span class="text-primary"><%= tactic.finished_task_count %></span>
+              </span>
+              <%= link_to "编辑战法", tactic, {:class=>"btn btn-primary btn-long" ,:role=>"button"} %>
+              <%= link_to "查看进度", tactic, {:class=>"btn btn-default ml10", :role=>"button"} %>
+            </div>
+          </div>
         </div>
+      </div>
       <% end %>
     </div>
-
   </div>
-  <script>
-  $(document).on("turbolinks:load",function(){
-    var mySwiper = new Swiper('.swiper-container',{
-      effect : 'coverflow',
-      slidesPerView: 3,
-      centeredSlides: true,
-      pagination : '.swiper-pagination',
-      paginationClickable :true,
-      coverflow: {
-        rotate: 10,//两边的图片跟y轴的角度，角度越大，视角所见就越小,默认为50
-        stretch: 40,//每个slide之间的拉伸值，越大slide靠得越紧。 默认0。
-        depth: 50,//slide的位置深度。值越大z轴距离越远，看起来越小。 默认100。
-        modifier: 2,
-        slideShadows : false//开启slide阴影。默认 true。
-
-      }
-    });
-  });
-  </script>
+  <div id="new-tactic-modal">
+    <modal v-if="showModal" @close="showModal = false" v-on:show='loadCases'>
+      <div slot="header">
+        <h3>新建战法</h3>
+      </div>
+      <div slot="body" class="panel panel-default">
+        <div class="panel-body">
+          <form id="new-tactic-form" class="form-horizontal" role="form" action="/tactics" method="POST">
+            <%= tag(:input, :type => "hidden", :name =>request_forgery_protection_token.to_s, :value =>form_authenticity_token) %>
+            <div class="form-group">
+              <div class="col-sm-6">
+                <label class="control-label">战法名称<a class="text-danger">*</a></label>
+                <input type="text" class="form-control" name="tactic[name]" placeholder="请输入战法名称" required="required">
+              </div>
+              <div class="col-sm-6">
+                <label class="control-label">战法类型<a class="text-danger">*</a></label>
+                <select class="form-control" name="tactic[category]">
+                  <option value="缉毒">缉毒</option>
+                  <option value="盗窃">盗窃</option>
+                  <option value="抢劫">抢劫</option>
+                  <option value="杀人">杀人</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label">关联案件(可多选)</label>
+                <select class="form-control" v-model="selectedCase" @change="addCase">
+                  <option disabled value="">请选择</option>
+                  <option v-for="c in cases" :value="c.id">{{c.name}}</option>
+                </select>
+                <ul class="case-list">
+                  <li class="case-item" v-for="sc in selectedCases" v-if="sc">
+                    <span class="case-view">
+                      {{sc | caseFilter(cases)}}
+                      <button type="button" class="btn btn-close" @click="removeCase(sc)">×</button>
+                    </span>
+                  </li>
+                  <div class="clearfix"></div>
+                </ul>
+                <input class="hidden" type="text" name="tactic[cases]" :value="selectedCases | blankFilter">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label">执行队伍</label>
+                <input type="text" class="form-control" name="tactic[executive_team]" placeholder="执行队伍">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-6">
+                <label class="control-label">开始时间</label>
+                <input type="text" class="form-control" name="tactic[start_time]" placeholder="请输入开始时间">
+              </div>
+              <div class="col-sm-6">
+                <label class="control-label">结束时间</label>
+                <input type="text" class="form-control" name="tactic[end_time]" placeholder="请输入结束时间">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label">战法描述</label>
+                <textarea class="form-control" name="tactic[description]" placeholder="请输入战法描述" rows=3></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div slot="footer">
+        <div class="form-group">
+          <div class="col-sm-offset-9 col-sm-3">
+            <button type="submit" class="btn btn-primary" form="new-tactic-form">确定</button>
+            <button type="button" class="btn btn-default" @click="showModal=false">取消</button>
+          </div>
+        </div>
+      </div>
+    </modal>
   </div>
+</div>
+<%= render "/vue_templates/modal" %>

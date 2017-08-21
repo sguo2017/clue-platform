@@ -75,9 +75,10 @@ class TacticsController < ApplicationController
   # POST /tactics.json
   def create
     @tactic = Tactic.new(tactic_params)
+    @tactic.cases<<Case.where(:id => params["tactic"]["cases"].split(','))
     respond_to do |format|
       if @tactic.save
-        format.html { redirect_to @tactic, notice: 'Tactic was successfully created.' }
+        format.html { redirect_to @tactic, notice: '成功创建战法' }
         format.json { render :show, status: :created, location: @tactic }
       else
         format.html { render :new }

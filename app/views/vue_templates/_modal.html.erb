@@ -2,7 +2,7 @@
   <transition name="modal">
     <div class="vue-modal-mask">
       <div class="vue-modal-wrapper">
-        <div class="vue-modal-container">
+        <div class="vue-modal-container" v-bind:style="{width: modalWidth}">
 
           <div class="vue-modal-header">
             <slot name="header">
@@ -49,7 +49,6 @@
 }
 
 .vue-modal-container {
-  width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

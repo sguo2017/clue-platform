@@ -89,3 +89,27 @@
   line-height: 30px;
   margin-left: 5px;
 }
+#wrap-btn-new-tactic{
+  position:fixed;
+  bottom:0;
+  width:180px;
+}
+#btn-new-tactic{
+  border-radius:0 !important;
+  font-weight: bold;
+}
+#new-tactic-modal .case-list{
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#new-tactic-modal .case-item{
+  float: left;
+  background-color: rgb(221, 221, 221);
+  margin: 2px;
+  padding-left: 12px;
+}
+#new-tactic-modal .case-view{
+  display: inline-block;
+}
