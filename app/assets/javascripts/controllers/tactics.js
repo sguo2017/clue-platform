@@ -811,6 +811,8 @@ function setFlowChatrt() {
       .then(function(json) {
         tacticFlowchart.model = go.Model.fromJson(json);
       });
+      tacticFlowchart.model.linkFromPortIdProperty = "fromPort";
+      tacticFlowchart.model.linkToPortIdProperty = "toPort";
   }
   // add an SVG rendering of the diagram at the end of this page
   return tacticFlowchart;
