@@ -14,6 +14,9 @@ class PositionDecisionsController < ApplicationController
     @suspects = Suspect.all
     @suspects_teams = SuspectsTeam.all
     @cases = Case.all
+    if @user.position == "action" #执行岗
+      @tactic_tasks = TacticTask.all
+    end
      #@user.position = "decision"
      #@user.position = "action"
   end
