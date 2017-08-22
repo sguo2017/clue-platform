@@ -1,18 +1,3 @@
-<%= content_for :in_page_style do%>
-<style>
-
-  .zoom {
-    display: inline-block;
-    position: relative;
-  }
-
-  .zoom img {
-    display: block;
-  }
-
-</style>
-<% end %>
-
 <div class="bread-nav-wrap">
   <ul class="bread-nav clearfix">
     <li class="bread-nav-item home">
@@ -29,9 +14,9 @@
   </ul>
 </div>
 
-<div class="block-mt">
-  <div style="width:49%;position:relative;float:left;">
-    <div class="panel">
+<div id="progress-container-wrap">
+  <div id="progress-left-container">
+    <div id="progress-tactic-panel" class="panel">
       <div class="inner-panel-body">
         <div class="panel-title">
           战法概览
@@ -40,35 +25,51 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td><i class="fa fa-user-plus" aria-hidden="true"></i> 执行队伍</td>
+              <td>
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                执行队伍</td>
               <td><%= @tactic.executive_team %></td>
             </tr>
             <tr>
-              <td><i class="fa fa-link" aria-hidden="true"></i> 关联案件</td>
+              <td>
+                <i class="fa fa-link" aria-hidden="true"></i>
+                关联案件</td>
               <td><%= @tactic.cases.map{|x| x.name}.join(",") %></td>
             </tr>
             <tr>
-              <td><i class="fa fa-check-circle" aria-hidden="true"></i> 已办任务</td>
-              <td><span class="text-primary"><%= @tactic.finished_task_count %></span></td>
+              <td>
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                已办任务</td>
+              <td>
+                <span class="text-primary"><%= @tactic.finished_task_count %></span>
+              </td>
             </tr>
             <tr>
-              <td><i class="fa fa-exclamation-circle" aria-hidden="true"></i> 待办任务</td>
-              <td><span class="text-warning"><%= @tactic.unfinished_task_count %></span></td>
+              <td>
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                待办任务</td>
+              <td>
+                <span class="text-warning"><%= @tactic.unfinished_task_count %></span>
+              </td>
             </tr>
             <tr>
-              <td><i class="fa fa-calendar" aria-hidden="true"></i> 开始时间</td>
+              <td>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                开始时间</td>
               <td><%= @tactic.start_time && @tactic.start_time.strftime('%Y/%m/%d') %></td>
             </tr>
             <tr>
-              <td><i class="fa fa-calendar" aria-hidden="true"></i> 结束时间</td>
+              <td>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                结束时间</td>
               <td><%= @tactic.end_time && @tactic.end_time.strftime('%Y/%m/%d') %></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <div class="block-mt"></div>
-    <div class="panel">
+    <div class="mt5"></div>
+    <div id="progress-tactic-task-panel" class="panel">
       <div class="inner-panel-body">
         <div class="panel-title">
           任务概览
@@ -98,11 +99,10 @@
         </table>
       </div>
     </div>
-    <!-- <div style="position:absolute;width:100%;left:0;height:100%;background-color:white;"></div> -->
   </div>
 
-  <div style="width:50%;float:right;">
-    <div class="panel">
+  <div id="progress-right-container">
+    <div id="progress-flow-image-panel" class="panel">
       <div class="inner-panel-body">
         <div class="panel-title">
           战法流程图
@@ -113,7 +113,7 @@
           <div class="color-card-flat div-danger">未完成</div>
           <div class="color-card-flat div-primary">无任务</div>
           <div class="clearfix"></div>
-        <div>
+        </div>
         <div class="mt5">
           提示：鼠标悬浮至图片之上可以局部放大
         </div>
@@ -125,10 +125,7 @@
   </div>
   <div class="clearfix"></div>
 </div>
-</div>
 <div class="hidden">
-<div id="go-model-data">
-  <%= @go_model.to_json %>
-</div>
-<div id="tactic-hidden-flowchart"></div>
+  <div id="go-model-data"><%= @go_model.to_json %></div>
+  <div id="tactic-hidden-flowchart"></div>
 </div>
