@@ -1,0 +1,53 @@
+  <form id= "uploadForm" >   
+        <input type="file" name="file" id = "file"/>
+        <input type="button" value="上传" onclick="doUpload()" />  
+  </form>
+<%= form_for @tactic_task do |form| %>
+  <div class="field">
+    <p>附件名：<input type="text" name="tactic_task[attachment_name]" value=<%=@tactic_task.attachment_name%> id="tactic_task_attachment_name"/></p>
+    <input type="hidden" name="tactic_task[attachment_url]" id="fileurl" value=<%=@tactic_task.attachment_url%> />
+  </div>
+  <p>完成情况：
+  <select name="tactic_task[status]" id="tactic_task_status">
+    <% if @tactic_task.status == "未完成" %>
+      <option value="未完成" selected>未完成</option>
+      <option value="已完成">完成</option>
+    <% else @tactic_task.status == "已完成"  %>
+      <option value="未完成">未完成</option>
+      <option value="已完成" selected>完成</option>
+    <% end %>
+  </select></p>
+  <div class="actions">
+    <input type="submit" name="commit" value="更新">
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  function doUpload() {
+    var file = $("#file")[0].files[0];
+    if(!file) return;
+    var formData = new FormData();
+    formData.append("file",file);
+    var url = 'http://123.56.157.233:9090/FastDFSWeb/servlet/imageUploadServlet';
+    fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      body: formData
+    })
+    .then(function(response){return response.json();})
+    .then(function(json){
+      var fileUrl = json["file"];
+      if(!fileUrl)
+        alert("上传失败")
+      else
+      {
+        $("#fileurl").val(fileUrl);
+        alert("上传成功")
+      }
+    }).catch(function(error){
+      alert("服务器连接失败，请重试！");
+    }); 
+}  
+
+
+</script>
