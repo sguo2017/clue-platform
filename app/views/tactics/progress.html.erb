@@ -1,0 +1,134 @@
+<%= content_for :in_page_style do%>
+<style>
+
+  .zoom {
+    display: inline-block;
+    position: relative;
+  }
+
+  .zoom img {
+    display: block;
+  }
+
+</style>
+<% end %>
+
+<div class="bread-nav-wrap">
+  <ul class="bread-nav clearfix">
+    <li class="bread-nav-item home">
+      <a class="link-item" href="">
+        <span class="glyphicon glyphicon-home"></span>
+      </a>
+    </li>
+    <li class="bread-nav-item even">
+      <a class="link-item" href="">战法管理</a>
+    </li>
+    <li class="bread-nav-item">
+      <span class="link-item" href="">战法进度</span>
+    </li>
+  </ul>
+</div>
+
+<div class="block-mt">
+  <div style="width:49%;position:relative;float:left;">
+    <div class="panel">
+      <div class="inner-panel-body">
+        <div class="panel-title">
+          战法概览
+        </div>
+        <hr/>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td><i class="fa fa-user-plus" aria-hidden="true"></i> 执行队伍</td>
+              <td><%= @tactic.executive_team %></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-link" aria-hidden="true"></i> 关联案件</td>
+              <td><%= @tactic.cases.map{|x| x.name}.join(",") %></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-check-circle" aria-hidden="true"></i> 已办任务</td>
+              <td><span class="text-primary"><%= @tactic.finished_task_count %></span></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-exclamation-circle" aria-hidden="true"></i> 待办任务</td>
+              <td><span class="text-warning"><%= @tactic.unfinished_task_count %></span></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-calendar" aria-hidden="true"></i> 开始时间</td>
+              <td><%= @tactic.start_time && @tactic.start_time.strftime('%Y/%m/%d') %></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-calendar" aria-hidden="true"></i> 结束时间</td>
+              <td><%= @tactic.end_time && @tactic.end_time.strftime('%Y/%m/%d') %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="block-mt"></div>
+    <div class="panel">
+      <div class="inner-panel-body">
+        <div class="panel-title">
+          任务概览
+        </div>
+        <hr/>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>名称</th>
+              <th>类型</th>
+              <th>执行人</th>
+              <th>状态</th>
+              <th>完成时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @tactic.tactic_tasks.order(:status).each do |t| %>
+            <tr class="<%= t.status=='已完成' ? 'success' : 'warning'%>">
+              <td><%= t.name %></td>
+              <td><%= t.category %></td>
+              <td><%= t.executor %></td>
+              <td><%= t.status %></td>
+              <td><%= t.finished_time && t.finished_time.strftime('%Y/%m/%d') %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- <div style="position:absolute;width:100%;left:0;height:100%;background-color:white;"></div> -->
+  </div>
+
+  <div style="width:50%;float:right;">
+    <div class="panel">
+      <div class="inner-panel-body">
+        <div class="panel-title">
+          战法流程图
+        </div>
+        <hr/>
+        <div>
+          <div class="color-card-flat div-success">已完成</div>
+          <div class="color-card-flat div-danger">未完成</div>
+          <div class="color-card-flat div-primary">无任务</div>
+          <div class="clearfix"></div>
+        <div>
+        <div class="mt5">
+          提示：鼠标悬浮至图片之上可以局部放大
+        </div>
+        <span id="flowchart-image-wrap" class="zoom">
+          <img id="flowchart-image" alt="战法任务流程图" class="img-responsive"/>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+</div>
+<div class="hidden">
+<div id="go-model-data">
+  <%= @go_model.to_json %>
+</div>
+<div id="tactic-hidden-flowchart"></div>
+</div>

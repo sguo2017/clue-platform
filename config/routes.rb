@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :tactics do
     get "get_tactic_tasks"
     post "persist_tasks"
+    get "progress"
   end
   resources :cases
   resources :suspects_teams

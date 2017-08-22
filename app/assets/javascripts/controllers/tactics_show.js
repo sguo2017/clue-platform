@@ -51,7 +51,7 @@ function initVue() {
       currentTask: new Task(),
       isTaskEditLock: true,
       isTaskEditing: false,
-      columnBlacklist: ["id", "tactic_id", "order", "updated_at","created_at"],
+      columnBlacklist: ["id", "tactic_id", "order", "updated_at","created_at","attachment_url","attachment_name"],
       fontStyle: "",
       fontVariant: "",
       fontWeight: "",
@@ -97,7 +97,7 @@ function initVue() {
     },
     mounted: function() {
       if ($("#tactics-flow-container").length > 0) {
-        this.tacticFlowchart = setFlowChatrt();
+        this.tacticFlowchart = setFlowchart();
         this.tacticFlowchart.addDiagramListener("ChangedSelection", this.changeCurrentTask);
         this.tacticFlowchart.addDiagramListener("ChangedSelection", this.updateFlowchartStyle);
       }
@@ -362,7 +362,7 @@ function initVue() {
   });
 }
 
-function setFlowChatrt() {
+function setFlowchart() {
   var tacticFlowchart;
 
   function init() {

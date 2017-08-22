@@ -27,6 +27,7 @@
 //= require_self
 //= require_tree ./controllers
 //= require_tree ./for_draw_page
+//= require jquery-zoom
 
 $(document).on("turbolinks:load",function(){
   go_tools_init();

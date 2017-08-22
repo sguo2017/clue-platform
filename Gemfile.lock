@@ -86,6 +86,7 @@ GEM
       railties (>= 3.2, < 5.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    httpclient (2.8.3)
     i18n (0.8.6)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -235,6 +236,7 @@ DEPENDENCIES
   devise-bootstrap-views
   devise-i18n
   font-awesome-rails
+  httpclient
   jbuilder (~> 2.5)
   jquery-rails
   jquery-turbolinks

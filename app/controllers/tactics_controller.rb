@@ -61,6 +61,26 @@ class TacticsController < ApplicationController
     render json: {msg: "保存成功", success: true, data: {created_ids: created_ids, tasks: @tactic.tactic_tasks,finished_task_count: @tactic.finished_task_count,unfinished_task_count: @tactic.unfinished_task_count}}
   end
 
+  #GET /tactics/1/progress
+  def progress
+    @tactic = Tactic.find(params[:tactic_id])
+    fetcher = HTTPClient.new
+    if @tactic.flow_data_url
+      res = fetcher.get(@tactic.flow_data_url).content
+      @go_model = JSON.parse(res)
+      @go_model["nodeDataArray"].each do |node|
+        if node["task_id"].present?
+          task_id = node["task_id"]
+          task = TacticTask.find(task_id)
+          node["nodeColor"] = task.status == "已完成" ? "green" : "red"
+        elsif node["category"].blank?
+          node["nodeColor"] = "blue"
+        end
+      end
+    end
+    render :progress
+  end
+
 
   # GET /tactics/new
   def new
