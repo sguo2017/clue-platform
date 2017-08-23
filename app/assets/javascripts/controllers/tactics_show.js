@@ -142,14 +142,20 @@ function initTacticShowVue() {
       },
       changeCurrentTask: function() { // 改变当前任务(节点选择改变时触发)
         if(this.isSelectedOneNode()){ //选择一个节点
-          var targetId = this.getFirstSelected().data['task_id'];
-          if(targetId){//该节点已经绑定任务
-            var target = this.findTaskByIdOrTempGuid(targetId);
-            this.currentTask = (target ? target : new Task());
+          var sel = this.getFirstSelected();
+          if(sel.category === '' && sel.findObject("NODEFILLSHAPE").figure !== "Diamond"){ //该节点是任务节点
+            var targetId = sel.data['task_id'];
+            if(targetId){//该节点已经绑定任务
+              var target = this.findTaskByIdOrTempGuid(targetId);
+              this.currentTask = (target ? target : new Task());
+            }else{
+              this.currentTask = new Task();
+            }
+            this.isTaskEditLock = false; //允许编辑
           }else{
             this.currentTask = new Task();
+            this.isTaskEditLock = true; //非任务节点，禁止编辑编辑
           }
-          this.isTaskEditLock = false; //允许编辑
         }else { //选择0个或多个节点
           this.currentTask = new Task();
           this.isTaskEditLock = true; //禁止编辑
@@ -757,7 +763,7 @@ function setFlowchart() {
               text: "开始"
             },
             {
-              text: "步骤"
+              text: "任务节点"
             },
             {
               category: "Circle",

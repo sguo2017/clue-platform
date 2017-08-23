@@ -20,9 +20,11 @@
 			<!-- 头部 -->
 			<div class="title-conponent">
 				<div class="pull-right">
-					<button class="btn btn-primary ml10">查看进度</button>
-					<button class="btn btn-default ml10">转为经典战法</button>
-					<button class="btn btn-danger ml10">删除战法</button>
+					<%= link_to "查看进度", tactic_progress_path(@tactic), :class => "btn btn-primary ml10" %>
+					<a class="btn btn-default ml10">转为经典战法</a>
+					<%=link_to "删除战法", tactic_path(@tactic), :method => "delete",
+					:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) },
+					:class => "btn btn-danger ml10" %>
 				</div>
 				<strong class="f26"><%= @tactic.name %></strong>
 				<span class="label label-success ml10"><%= @tactic.status %></span>
@@ -123,6 +125,7 @@
 			<!-- 右边信息栏 -->
 			<div id="tactics-flow-info">
 				<h4>任务信息:</h4>
+				(只有任务节点才可以绑定任务)
 				<form class="form-horizontal">
 					<div class="form-group">
 						<label class="control-label">名称:</label>

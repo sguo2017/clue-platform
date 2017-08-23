@@ -100,7 +100,7 @@
                 <span class="text-primary"><%= tactic.finished_task_count %></span>
               </span>
               <%= link_to "编辑战法", tactic, {:class=>"btn btn-primary btn-long" ,:role=>"button"} %>
-              <%= link_to "查看进度", tactic, {:class=>"btn btn-default ml10", :role=>"button"} %>
+              <%= link_to "查看进度", tactic_progress_path(tactic), {:class=>"btn btn-default ml10", :role=>"button"} %>
             </div>
           </div>
         </div>
