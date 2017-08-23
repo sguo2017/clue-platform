@@ -8,6 +8,7 @@
 *= require_directory ./
 *= require_tree ./controllers
 *= require font-awesome
+*= require bootstrap-datepicker
 *
 *
 */
@@ -18,4 +19,7 @@
 hr{
   margin-left:0;
   margin-right:0;
+}
+.datepicker.datepicker-dropdown.dropdown-menu{
+  background-color: white !important;
 }

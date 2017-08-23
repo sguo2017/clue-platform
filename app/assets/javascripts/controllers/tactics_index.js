@@ -13,6 +13,9 @@ function initTacticsIndexVue() {
     created: function(){
       this.$emit('show');
     },
+    mounted: function(){
+      initDatePicker();
+    },
     data: function(){
       return {
         modalWidth: "600px"

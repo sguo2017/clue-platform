@@ -96,6 +96,7 @@ function initTacticShowVue() {
 
     },
     mounted: function() {
+      initDatePicker();
       if ($("#tactics-flow-container").length > 0) {
         this.tacticFlowchart = setFlowchart();
         this.tacticFlowchart.addDiagramListener("ChangedSelection", this.changeCurrentTask);
