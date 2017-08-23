@@ -1,6 +1,6 @@
 $(document).on("turbolinks:load", function() {
   if ($("#tactic-app").length > 0) {
-    initVue();
+    initTacticShowVue();
   }
 });
 
@@ -27,7 +27,7 @@ function Task(obj){
   }
 }
 
-function initVue() {
+function initTacticShowVue() {
   vvv = new Vue({
     el: "#tactic-app",
     data: {
@@ -100,6 +100,7 @@ function initVue() {
         this.tacticFlowchart = setFlowchart();
         this.tacticFlowchart.addDiagramListener("ChangedSelection", this.changeCurrentTask);
         this.tacticFlowchart.addDiagramListener("ChangedSelection", this.updateFlowchartStyle);
+        this.tacticFlowchart.addDiagramListener("SelectionDeleted", this.deleteTaskOnNodeDeleted);
       }
       var outer = this;
       $.ajax({
@@ -194,9 +195,8 @@ function initVue() {
           this.isTaskEditing = !this.isTaskEditing; // 进入编辑状态
         } //end if
       }, //end function
-      deleteTask: function(task) {
-        var conf = confirm("确定删除这个任务吗？");
-        if (conf && task) {
+      deleteTask: function(task,noConf) {
+        if ((!noConf && confirm("确定删除这个任务吗？") && task) || (noConf && task)) {
           if(task._modify_ == "created"){//要删除的任务没有经过持久化
             this.tasks.splice(this.tasks.indexOf(task),1);
             task.temp_guid && this.currentTask.temp_guid == task.temp_guid && (this.currentTask = new Task());
@@ -206,6 +206,18 @@ function initVue() {
           }
           this.deleteTaskIdentifyOfNodeData(task.id || task.temp_guid);
         }
+      },
+      //为了保证一致性，当节点删除时，同时删除关联的任务，节点删除可以撤销，但任务不可以
+      deleteTaskOnNodeDeleted: function(diagramEvent){
+        var deleted = diagramEvent.subject;
+        var outer = this;
+        deleted.each(function(x){
+          if(x instanceof go.Node && x.data["task_id"]){
+            var task = outer.findTaskByIdOrTempGuid(x.data["task_id"]); //查找任务
+            outer.deleteTask(task,true); //删除任务
+            x.data["task_id"] = null; //删除绑定的任务
+          }
+        });
       },
       //持久化任务变更以及保存流程图更改。
       //分两步，首先保存任务变更，其次保存流程图数据
