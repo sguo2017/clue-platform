@@ -36,20 +36,6 @@
                     </tr>
                     <tr>
                         <th>
-                            执行人员:
-                        </th>
-                        <td>
-                            <%= @tactic_task.executor %>
-                        </td>
-                        <th>
-                            状态:
-                        </th>
-                        <td>
-                            <%= @tactic_task.status %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             开始执行时间:
                         </th>
                         <td>
@@ -84,10 +70,10 @@
                             <%= @tactic_task.order %>
                         </td>
                         <th>
-                            任务详情:
+                            状态:
                         </th>
                         <td>
-                            <%= @tactic_task.created_at %>
+                            <%= @tactic_task.status %>
                         </td>
                     </tr>
                 </table>
