@@ -314,7 +314,9 @@ function setHiddenFlowchart() {
 
     function load() {
       var model_data = JSON.parse($("#go-model-data").text());
-      tacticFlowchart.model = go.Model.fromJson(model_data);
+      if(model_data){
+        tacticFlowchart.model = go.Model.fromJson(model_data);
+      }
     }
 
     load();
@@ -337,7 +339,11 @@ function setHiddenFlowchart() {
         maxSize: new go.Size(Infinity, Infinity), //去掉默认最大2000*2000的限制
         scale: 1 //显示整个图片而非可见部分
       });
-      $("#flowchart-image").attr("src", imageDataURL);
+      if(imageDataURL === "data:,"){
+        $("#flowchart-image").attr("alt", "暂无图片");
+      }else{
+        $("#flowchart-image").attr("src", imageDataURL);
+      }
       $("#flowchart-image-wrap").zoom({
         onZoomIn: function() {
           $("#flowchart-image").css("opacity", "0");
