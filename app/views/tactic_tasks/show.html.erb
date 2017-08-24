@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">已办任务详情</div>
+        </div>
+        <div class="panel-body">
+            <div>
+                <table class="table table-show-data">
+                    <tr>
+                        <th>
+                            序号:
+                        </th>
+                        <td>
+                            <%= @tactic_task.id %>
+                        </td>
+                        <th>
+                            主号码:
+                        </th>
+                        <td>
+                            <%= @tactic_task.tactic_id %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            对方号码:
+                        </th>
+                        <td>
+                            <%= @tactic_task.name %>
+                        </td>
+                        <th>
+                            信息来源:
+                        </th>
+                        <td>
+                            <%= @tactic_task.category %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            执行人员:
+                        </th>
+                        <td>
+                            <%= @tactic_task.executor %>
+                        </td>
+                        <th>
+                            状态:
+                        </th>
+                        <td>
+                            <%= @tactic_task.status %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            开始执行时间:
+                        </th>
+                        <td>
+                            <%= @tactic_task.start_time %>
+                        </td>
+                        <th>
+                            执行结束时间:
+                        </th>
+                        <td>
+                            <%= @tactic_task.end_time %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            任务完成时限:
+                        </th>
+                        <td>
+                            <%= @tactic_task.finished_time %>
+                        </td>
+                        <th>
+                            任务详情:
+                        </th>
+                        <td>
+                            <%= @tactic_task.description %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            任务完成时限:
+                        </th>
+                        <td>
+                            <%= @tactic_task.order %>
+                        </td>
+                        <th>
+                            任务详情:
+                        </th>
+                        <td>
+                            <%= @tactic_task.created_at %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="text-left block-mt">
+                <%= link_to '返回', url= "/position_decisions/index?position=action",
+                :class=>'btn btn-default mr10' %>
+            </div>
+        </div>
+    </div>
+</div>

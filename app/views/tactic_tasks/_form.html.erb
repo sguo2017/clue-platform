@@ -1,53 +1,68 @@
-  <form id= "uploadForm" >   
-        <input type="file" name="file" id = "file"/>
-        <input type="button" value="上传" onclick="doUpload()" />  
-  </form>
-<%= form_for @tactic_task do |form| %>
-  <div class="field">
-    <p>附件名：<input type="text" name="tactic_task[attachment_name]" value=<%=@tactic_task.attachment_name%> id="tactic_task_attachment_name"/></p>
-    <input type="hidden" name="tactic_task[attachment_url]" id="fileurl" value=<%=@tactic_task.attachment_url%> />
-  </div>
-  <p>完成情况：
-  <select name="tactic_task[status]" id="tactic_task_status">
-    <% if @tactic_task.status == "未完成" %>
-      <option value="未完成" selected>未完成</option>
-      <option value="已完成">完成</option>
-    <% else @tactic_task.status == "已完成"  %>
-      <option value="未完成">未完成</option>
-      <option value="已完成" selected>完成</option>
-    <% end %>
-  </select></p>
-  <div class="actions">
-    <input type="submit" name="commit" value="更新">
-  </div>
-<% end %>
-
+<div class="container">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title">上传附件</div>
+        </div>
+        <div class="panel-body">
+            <%= label_tag(:url, "附件名:", class: "col-xs-2 control-label")%>
+                <div class="col-xs-4">
+                    <form id="uploadForm" , class: "form-horizontal">
+                        <input type="file" name="file" id="file" class="form-control" />
+                        <input type="button" value="上传" onclick="doUpload()" class="btn btn-warning" />
+                    </form>
+                </div>
+                <%= form_for @tactic_task do |form| %>
+                    <div class="clearfix form-list">
+                        <%= label_tag(:tltle, "附件名:", class: "col-xs-2 control-label") %>
+                            <div class="col-xs-4">
+                                <input type="text" name="tactic_task[attachment_name]" value=<%=@tactic_task.attachment_name%> id="tactic_task_attachment_name" class="form-control" /></p>
+                                <input type="hidden" name="tactic_task[attachment_url]" id="fileurl" value=<%=@tactic_task.attachment_url%> />
+                            </div>
+                            <%= label_tag(:image, "完成情况:", class: "col-xs-2 control-label") %>
+                                <div class="col-xs-4">
+                                    <select name="tactic_task[status]" id="tactic_task_status" class="form-control">
+                                        <% if @tactic_task.status == "未完成" %>
+                                            <option value="未完成" selected>未完成</option>
+                                            <option value="已完成">完成</option>
+                                            <% else @tactic_task.status == "已完成"  %>
+                                                <option value="未完成">未完成</option>
+                                                <option value="已完成" selected>完成</option>
+                                                <% end %>
+                                    </select>
+                                </div>
+                    </div>
+                    <div class="block-mt">
+                        <%= submit_tag("修改", class: "btn btn-warning") %>
+                            <%= link_to t('.cancel', :default => t("取消")),
+                url= "/position_decisions/index?position=action", :class => 'btn btn-default' %>
+                    </div>
+                    <% end %>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
-  function doUpload() {
+function doUpload() {
     var file = $("#file")[0].files[0];
-    if(!file) return;
+    if (!file) return;
     var formData = new FormData();
-    formData.append("file",file);
+    formData.append("file", file);
     var url = 'http://123.56.157.233:9090/FastDFSWeb/servlet/imageUploadServlet';
     fetch(url, {
-      method: 'POST',
-      mode: "cors",
-      body: formData
-    })
-    .then(function(response){return response.json();})
-    .then(function(json){
-      var fileUrl = json["file"];
-      if(!fileUrl)
-        alert("上传失败")
-      else
-      {
-        $("#fileurl").val(fileUrl);
-        alert("上传成功")
-      }
-    }).catch(function(error){
-      alert("服务器连接失败，请重试！");
-    }); 
-}  
-
-
+            method: 'POST',
+            mode: "cors",
+            body: formData
+        })
+        .then(function(response) { return response.json(); })
+        .then(function(json) {
+            var fileUrl = json["file"];
+            if (!fileUrl)
+                alert("上传失败")
+            else {
+                $("#fileurl").val(fileUrl);
+                alert("上传成功")
+            }
+        }).catch(function(error) {
+            alert("服务器连接失败，请重试！");
+        });
+}
 </script>
