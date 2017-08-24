@@ -34,12 +34,12 @@
 			</div>
 			<div class="clearfix">
 				<div class="col-md-2 col-xs-6 mt10">
-					<span class="aliconfont icon-people f16 text-gray"></span>
+					<i class="fa fa-user-plus" aria-hidden="true"></i>
 					执行队伍:
 					<%= @tactic.executive_team %>
 				</div>
 				<div class="col-md-4 col-xs-6 mt10">
-					<span class="aliconfont icon-people f16 text-gray"></span>
+					<i class="fa fa-link" aria-hidden="true"></i>
 					关联案件:
 					<%= @tactic.cases.map{|x| x.name}.join(",") %>
 				</div>
@@ -51,9 +51,9 @@
 					<span class="text-primary mt10" id="finished_task_span"><%= @tactic.finished_task_count %></span>
 				</div>
 				<div class="col-md-3 col-xs-6 mt10">
-					<span class=" glyphicon glyphicon-calendar text-primary"></span>
+					<i class="fa fa-calendar" aria-hidden="true"></i>
 					&nbsp;
-					<span class="text-gray">
+					<span>
 						开始:<%= @tactic.start_time && @tactic.start_time.strftime('%Y/%m/%d') %>--结束:<%= @tactic.end_time && @tactic.end_time.strftime('%Y/%m/%d') %>
 					</span>
 				</div>
