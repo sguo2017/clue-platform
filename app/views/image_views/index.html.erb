@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>查看图片</title>
+  </head>
+  <body onload="loadImage()">
+    <div>
+      <img id="image-tag" />
+    </div>
+  </body>
+  <script>
+    function loadImage(){
+      var src = sessionStorage.getItem("image-view-page-src");
+      if(src){
+        var imageTag = document.getElementById("image-tag");
+        imageTag.src = src;
+      }
+    }
+  </script>
+<html>

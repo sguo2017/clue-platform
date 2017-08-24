@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   post "users/search", to: "users/users#search"
 
+  resources :image_views, only: [:index]
+
 
   get 'excel/index'
 

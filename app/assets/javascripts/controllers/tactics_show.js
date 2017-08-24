@@ -340,7 +340,8 @@ function initTacticShowVue() {
           maxSize: new go.Size(Infinity, Infinity), //去掉默认最大2000*2000的限制
           scale: 1 //显示整个图片而非可见部分
         });
-        window.open(img);
+        sessionStorage.setItem("image-view-page-src",img);
+        window.open("/image_views");
       },
       pick: function(showPanel, showSize, showColor, showArrow) {
         this.showDataAdjustPanel = showPanel;
