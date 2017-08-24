@@ -4,7 +4,16 @@ class TacticsController < ApplicationController
   # GET /tactics
   # GET /tactics.json
   def index
-    @tactics = Tactic.all
+    classic = params["classic"]
+    category = params["category"]
+    if classic.present?
+      @tactics = Tactic.where(:classic => classic.to_i)
+    elsif category.present?
+      @tactics = Tactic.where(:category => category)
+    else
+      @tactics = Tactic.all
+    end
+    @tactics = @tactics.order("created_at desc").page(params[:page]).per(8)
   end
 
   # GET /tactics/1
@@ -164,7 +173,7 @@ class TacticsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def tactic_params
-    params.require(:tactic).permit(:name, :created_by, :status,:category, :flow_image_url, :flow_data_url, :executive_team, :description, :start_time, :end_time)
+    params.require(:tactic).permit(:name, :created_by, :status,:category, :flow_image_url, :flow_data_url, :executive_team, :description, :start_time, :end_time, :classic)
   end
 
   def tactic_task_params(hash)

@@ -21,7 +21,7 @@
 			<div class="title-conponent">
 				<div class="pull-right">
 					<%= link_to "查看进度", tactic_progress_path(@tactic), :class => "btn btn-primary ml10" %>
-					<a class="btn btn-default ml10">转为经典战法</a>
+					<a class="btn btn-default ml10" @click="makeTacticClassic">转为经典战法</a>
 					<%=link_to "删除战法", tactic_path(@tactic), :method => "delete",
 					:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) },
 					:class => "btn btn-danger ml10" %>

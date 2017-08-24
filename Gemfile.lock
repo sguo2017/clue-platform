@@ -100,6 +100,21 @@ GEM
       turbolinks
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    kaminari (1.0.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.1)
+      kaminari-activerecord (= 1.0.1)
+      kaminari-core (= 1.0.1)
+    kaminari-actionview (1.0.1)
+      actionview
+      kaminari-core (= 1.0.1)
+    kaminari-activerecord (1.0.1)
+      activerecord
+      kaminari-core (= 1.0.1)
+    kaminari-core (1.0.1)
+    kaminari-i18n (0.4.0)
+      kaminari
+      rails
     layer-rails (0.1.1)
     less (2.6.0)
       commonjs (~> 0.2.7)
@@ -241,6 +256,8 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
+  kaminari
+  kaminari-i18n
   layer-rails
   listen (>= 3.0.5, < 3.2)
   mysql2

@@ -434,6 +434,16 @@ function initTacticShowVue() {
         this.showSearchModal=false;
         this.selectedUsersTemp = (this.currentTask.user && this.currentTask.user.slice(0)) || []
         this.usersSearchResult = [];
+      },
+      makeTacticClassic: function(){
+        var outer = this;
+        var id = this.tacticId();
+        $.ajax({
+          url: "/tactics/" + this.tacticId(),
+          method: "PATCH",
+          data: {tactic: {classic: 1},id: this.tacticId()},
+          dataType: "JSON"
+        }).done(function(){alert("操作成功！")}).error(function(){alert("操作失败！")});
       }
     },
     filters:{
