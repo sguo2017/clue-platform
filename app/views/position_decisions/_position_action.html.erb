@@ -1,109 +1,101 @@
 <div class="bread-nav-wrap">
-    <ul class="bread-nav clearfix">
-        <li class="bread-nav-item home">
-            <a class="link-item" class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
-        </li>
-        <li class="bread-nav-item">
-            <span class="link-item" href="">执行岗</span>
-        </li>
-    </ul>
+  <ul class="bread-nav clearfix">
+    <li class="bread-nav-item home">
+      <a class="link-item" class="link-item" href=""><span class="glyphicon glyphicon-home"></span></a>
+    </li>
+    <li class="bread-nav-item">
+      <span class="link-item" href="">执行岗</span>
+    </li>
+  </ul>
 </div>
 <!-- 路径导航 end -->
-<div class="block-mtb">
-    <div class="clearfix">
-        <div class="col-md-4">
-            <%= render 'sideleft', position_decision: @position_decision  %>
-        </div>
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="inner-panel-heading">
-                    <span class="pull-right">
-							更多
-						</span>
-                    <span class="panel-title">待办任务</span>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-hover thead-bg">
-                        <tr>
-                            <th>序号</th>
-                            <th>任务编号</th>
-                            <th>任务标题</th>
-                            <th>任务完成时限</th>
-                            <th>任务类别</th>
-                            <th>操作</th>
-                        </tr>
-                        <% @tactic_tasks.each do |t|%>
-                            <%if t.status == "未完成"%>
-                                <tr>
-                                    <td>
-                                        <%=t.id%>
-                                    </td>
-                                    <td>
-                                        <%=t.tactic_id%>
-                                    </td>
-                                    <td>
-                                        <%=t.name%>
-                                    </td>
-                                    <td>
-                                        <%=t.end_time%>
-                                    </td>
-                                    <td>
-                                        <%=t.category%>
-                                    </td>
-                                    <td>
-                                        <%= link_to '上传附件', edit_tactic_task_path(t) %>
-                                    </td>
-                                </tr>
-                                <%end%>
-                                    <%end%>
-                    </table>
-                </div>
-            </div>
-            <div class="panel panel-default block-mt">
-                <div class="inner-panel-heading">
-                    <span class="pull-right">
-							更多
-						</span>
-                    <span class="panel-title">已办任务</span>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-hover thead-bg">
-                        <tr>
-                            <th>序号</th>
-                            <th class="text-primary">任务编号</th>
-                            <th class="text-warning">任务标题</th>
-                            <th>任务完成时限</th>
-                            <th>任务类别</th>
-                            <th>操作</th>
-                        </tr>
-                        <% @tactic_tasks.each do |t|%>
-                            <%if t.status == "已完成"%>
-                                <tr>
-                                    <td>
-                                        <%=t.id%>
-                                    </td>
-                                    <td>
-                                        <%=t.tactic_id%>
-                                    </td>
-                                    <td>
-                                        <%=t.name%>
-                                    </td>
-                                    <td>
-                                        <%=t.finished_time%>
-                                    </td>
-                                    <td>
-                                        <%=t.category%>
-                                    </td>
-                                    <td>
-                                        <%= link_to '查看详情', tactic_task_path(t) %>
-                                    </td>
-                                </tr>
-                                <%end%>
-                                    <%end%>
-                    </table>
-                </div>
-            </div>
-        </div>
+<div class="block-mt">
+  <div class="clearfix">
+    <div class="col-md-4">
+      <%= render 'sideleft', position_decision: @position_decision  %>
     </div>
+    <div class="col-md-8">
+      <div class="panel panel-default">
+        <div class="inner-panel-heading">
+          <span class="pull-right">
+            更多
+          </span>
+          <span class="panel-title">待办任务</span>
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover thead-bg">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>类别</th>
+                <th>时限</th>
+                <th>执行人</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @unfinished_task.each do |uft| %>
+              <tr>
+                <td><%= uft.id %></td>
+                <td><%= uft.name %></td>
+                <td><%= uft.category %></td>
+                <td>
+                  <%=
+                  ((uft.start_time && uft.start_time.strftime('%Y/%m/%d')) || '无限制') +
+                  "--" +
+                  ((uft.end_time && uft.end_time.strftime('%Y/%m/%d')) || '无限制')
+                  %>
+                </td>
+                <td><%= uft.user.select(:name).map{|u| u.name}.join(",") %></td>
+                <td><%= link_to '编辑任务', edit_tactic_task_path(uft) %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel panel-default block-mt">
+        <div class="inner-panel-heading">
+          <span class="pull-right">
+            更多
+          </span>
+          <span class="panel-title">已办任务</span>
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover thead-bg">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>类别</th>
+                <th>时限</th>
+                <th>执行人</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @finished_task.each do |ft| %>
+              <tr>
+                <td><%= ft.id %></td>
+                <td><%= ft.name %></td>
+                <td><%= ft.category %></td>
+                <td>
+                  <%=
+                  ((ft.start_time && ft.start_time.strftime('%Y/%m/%d')) || '无限制') +
+                  "--" +
+                  ((ft.end_time && ft.end_time.strftime('%Y/%m/%d')) || '无限制')
+                  %>
+                </td>
+                <td><%= ft.user.select(:name).map{|u| u.name}.join(",") %></td>
+                <td><%= link_to '查看详情', tactic_task_path(ft) %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>

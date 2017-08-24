@@ -1,1 +1,139 @@
-<%= render 'form', tactic_task: @tactic_task %>
+<div class="bread-nav-wrap">
+  <ul class="bread-nav clearfix">
+    <li class="bread-nav-item home">
+      <a class="link-item" href="">
+        <span class="glyphicon glyphicon-home"></span>
+      </a>
+    </li>
+    <li class="bread-nav-item even">
+      <a class="link-item" href="">任务管理</a>
+    </li>
+    <li class="bread-nav-item">
+      <span class="link-item" href="">编辑任务</span>
+    </li>
+  </ul>
+</div>
+
+<div class="block-mt">
+  <div class="col-sm-6">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="panel-title">基本信息</div>
+        <hr/>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered table-condensed">
+          <tbody>
+            <tr>
+              <td><strong>ID</strong></td>
+              <td><%= @tactic_task.id %></td>
+            </tr>
+            <tr>
+              <td><strong>名称</strong></td>
+              <td><%= @tactic_task.name %></td>
+            </tr>
+            <tr>
+              <td><strong>执行者</strong></td>
+              <td><%= @tactic_task.user.select(:name).map{|u|u.name}.join(",") %></td>
+            </tr>
+            <tr>
+              <td><strong>战法名称</strong></td>
+              <td><%= Tactic.find(@tactic_task.tactic_id).name %></td>
+            </tr>
+            <tr>
+              <td><strong>类型</strong></td>
+              <td><%= @tactic_task.category %></td>
+            </tr>
+            <tr>
+              <td><strong>状态</strong></td>
+              <td><%= @tactic_task.status %></td>
+            </tr>
+            <tr>
+              <td><strong>开始时限</strong></td>
+              <td><%= @tactic_task.start_time && @tactic_task.start_time.strftime('%Y/%m/%d') %></td>
+            </tr>
+            <tr>
+              <td><strong>完成时限</strong></td>
+              <td><%= @tactic_task.end_time && @tactic_task.end_time.strftime('%Y/%m/%d') %></td>
+            </tr>
+            <tr>
+              <td><strong>描述</strong></td>
+              <td><%= @tactic_task.description %></td>
+            </tr>
+            <tr>
+              <td><strong>创建时间</strong></td>
+              <td><%= @tactic_task.created_at.strftime('%Y/%m/%d') %></td>
+            </tr>
+            <tr>
+              <td><strong>附件名称</strong></td>
+              <td><%= @tactic_task.attachment_name %></td>
+            </tr>
+            <tr>
+              <td><strong>附件下载</strong></td>
+              <td><%= link_to '点击下载', @tactic_task.attachment_url if  @tactic_task.attachment_url %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="panel-title">编辑任务</div>
+        <hr/>
+      </div>
+      <div class="panel-body">
+        <div class="col-sm-12">
+          <%= form_tag({controller: "tactic_tasks", action: "update"},{method: "patch",class: "form-horizontal", id: "edit-tactic-task-form"})  do %>
+            <div class="form-group">
+              <label class="control-label">选择附件：</label>
+              <input type="file" id="tactic-task-attachment" class="form-control"/>
+              <input class="hidden" type="text" name="tactic_task[attachment_name]" />
+              <input class="hidden" type="text" name="tactic_task[attachment_url]" />
+            </div>
+            <div class="form-group">
+              <label class="control-label">完成状况：</label>
+              <select id="tactic-task-status" name="tactic_task[status]" class="form-control">
+                <option value="未完成">未完成</option>
+                <option value="已完成">已完成</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="button" onclick="updateTacticTask()" class="btn btn-primary">提交</button>
+              <%= link_to "返回", position_decisions_index_path, class: "btn btn-default" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function updateTacticTask() {
+    var file = $("#tactic-task-attachment")[0].files[0];
+    if (!file) return;
+    var fileName = file.name;
+    var formData = new FormData();
+    formData.append("file", file);
+    var url = 'http://123.56.157.233:9090/FastDFSWeb/servlet/imageUploadServlet';
+    fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      body: formData
+    }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      var fileUrl = json["file"];
+      if (fileUrl){
+        $("#edit-tactic-task-form input[name='tactic_task[attachment_url]']").val(fileUrl);
+        $("#edit-tactic-task-form input[name='tactic_task[attachment_name]']").val(fileName);
+        $("#edit-tactic-task-form").submit();
+      }else{
+        alert("文件上传失败,请重试！");
+      }
+    }).catch(function () {
+      alert("文件服务器连接失败，请重试！");
+    });
+  }
+</script>

@@ -46,8 +46,10 @@ class TacticTasksController < ApplicationController
   # PATCH/PUT /tactic_tasks/1.json
   def update
     respond_to do |format|
-      if @tactic_task.update(tactic_task_params)
-        format.any { render json: {
+      origin_params = tactic_task_params
+      origin_params["finished_time"] = Time.now if origin_params["status"] == "已完成"
+      if @tactic_task.update(origin_params)
+        format.json { render json: {
             msg: "更新成功!",
             success: true,
             data: {
@@ -56,6 +58,7 @@ class TacticTasksController < ApplicationController
             }
           }
         }
+        format.html{ redirect_to position_decisions_index_path, notice: "更新成功"}
       else
         format.any { render json: {msg: "更新失败!", success: false}, status: :unprocessable_entity}
       end

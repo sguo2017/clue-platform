@@ -15,7 +15,9 @@ class PositionDecisionsController < ApplicationController
     @suspects_teams = SuspectsTeam.all
     @cases = Case.all
     if @user.position == "action" #执行岗
-      @tactic_tasks = TacticTask.all
+      tasks = current_user.tactic_task.to_a
+      @finished_task = tasks.select{|x| x.status == "已完成"}
+      @unfinished_task = tasks.select{|x| x.status != "已完成"}
     end
      #@user.position = "decision"
      #@user.position = "action"
