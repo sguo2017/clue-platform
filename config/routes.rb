@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     collection {get :default}
   end
 
+  post "users/search", to: "users/users#search"
 
 
   get 'excel/index'

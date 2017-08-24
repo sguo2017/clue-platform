@@ -15,12 +15,14 @@ class TacticsController < ApplicationController
   #GET /tactics/1/get_tactic_tasks
   def get_tactic_tasks
     @tactic = Tactic.find(params[:tactic_id])
+    headers = TacticTask.attribute_names*1
+    headers.push("user")
     render :json => {
       :msg=>"获取成功！",
       :success => true,
       :data => {
-        :headers => TacticTask.attribute_names,
-        :tasks => @tactic.tactic_tasks
+        :headers => headers,
+        :tasks => JSON.parse(@tactic.tactic_tasks.to_json(:include => :user))
       }
     }
   end
@@ -34,7 +36,16 @@ class TacticsController < ApplicationController
     tactic_tasks = params[:tactic_tasks]
     #当前端任务没有修改时，params[:tactic_tasks]参数为nil值，需要做特殊处理
     if tactic_tasks.blank?
-      render json: {msg: "保存成功", success: true, data: {created_ids: [], tasks: @tactic.tactic_tasks, finished_task_count: @tactic.finished_task_count, unfinished_task_count: @tactic.unfinished_task_count}}
+      render json: {
+        msg: "保存成功",
+        success: true,
+        data: {
+          created_ids: [],
+          tasks: JSON.parse(@tactic.tactic_tasks.to_json(:include => :user)),
+          finished_task_count: @tactic.finished_task_count,
+          unfinished_task_count: @tactic.unfinished_task_count
+          }
+        }
       return
     else
       tactic_tasks = tactic_tasks.values
@@ -43,9 +54,15 @@ class TacticsController < ApplicationController
       TacticTask.transaction do
         tactic_tasks.each do |t|
           if t["_modify_"] == "updated"
-            TacticTask.find(t["id"]).update(tactic_task_params(t))
+            target = TacticTask.find(t["id"])
+            target.update(tactic_task_params(t))
+            # 更新用户执行者
+            target.user.clear
+            target.user<<(User.where(:id => t["user"].values.map{|x|x["id"]})) if t["user"].present?
           elsif t["_modify_"] == "created"
             created = TacticTask.create!(tactic_task_params(t))
+            # 更新用户执行者
+            created.user<<(User.where(:id => t["user"].values.map{|x|x["id"]})) if t["user"].present?
             created_ids.push({:guid => t["temp_guid"],:id => created.id})
           elsif t["_modify_"] == "deleted"
             TacticTask.find(t["id"]).delete
@@ -54,11 +71,19 @@ class TacticsController < ApplicationController
       end
     rescue
       logger.debug $!
-      logger.debug $@
       render json: {msg: "保存失败", success: false},status: :unprocessable_entity
       return
     end
-    render json: {msg: "保存成功", success: true, data: {created_ids: created_ids, tasks: @tactic.tactic_tasks,finished_task_count: @tactic.finished_task_count,unfinished_task_count: @tactic.unfinished_task_count}}
+    render json: {
+      msg: "保存成功",
+      success: true,
+      data: {
+        created_ids: created_ids,
+        tasks: JSON.parse(@tactic.tactic_tasks.to_json(:include => :user)),
+        finished_task_count: @tactic.finished_task_count,
+        unfinished_task_count: @tactic.unfinished_task_count
+        }
+      }
   end
 
   #GET /tactics/1/progress
@@ -143,7 +168,7 @@ class TacticsController < ApplicationController
   end
 
   def tactic_task_params(hash)
-    white_list = [:name, :tactic_id, :category, :executor, :status, :finished_time, :start_time, :end_time, :description, :order]
+    white_list = [:name, :tactic_id, :category, :status, :finished_time, :start_time, :end_time, :description, :order]
     hash.select{ |k,v| white_list.include?(k.to_sym) }
   end
 end

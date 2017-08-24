@@ -9,7 +9,7 @@ function Task(obj){
   this.name = null;
   this.tactic_id = null;
   this.category = null;
-  this.executor = null;
+  this.user = null;
   this.status = null;
   this.finished_time = null;
   this.start_time = null;
@@ -28,13 +28,24 @@ function Task(obj){
 }
 
 function initTacticShowVue() {
+  var Modal = {
+    template: "#modal-template",
+    data: function(){
+      return {
+        modalWidth: "600px"
+      }
+    }
+  };
   vvv = new Vue({
     el: "#tactic-app",
+    components: {
+      "modal": Modal
+    },
     data: {
       taskHeadersTranslator: {
         "name": "名称",
         "category": "类型",
-        "executor": "执行人",
+        "user": "执行人",
         "status": "状态",
         "finished_time": "完成时间",
         "start_time": "开始时间",
@@ -92,7 +103,11 @@ function initTacticShowVue() {
       inputSize: "",
       inputColor: "",
       sizeTarget: "",
-      colorTarget: ""
+      colorTarget: "",
+      usersSearchName: null,
+      showSearchModal: false,
+      usersSearchResult: [],
+      selectedUsersTemp: []
 
     },
     mounted: function() {
@@ -162,6 +177,7 @@ function initTacticShowVue() {
           this.isTaskEditLock = true; //禁止编辑
         }
         this.isTaskEditing = false;  //重置编辑按钮状态
+        this.selectedUsersTemp = (this.currentTask.user && this.currentTask.user.slice(0)) || [];
       },
       //创建任务后,使用临时生成的guid将节点与任务进行绑定
       //target是目标节点对象
@@ -376,6 +392,57 @@ function initTacticShowVue() {
             outer[key] = v;
           }
         });
+      },
+      searchUser: function(){
+        if(this.usersSearchName){
+          var outer = this;
+          $.ajax({
+            url: "/users/search",
+            method: "POST",
+            data: {name: this.usersSearchName},
+            dataType: "JSON"
+          }).done(function(response){
+            if(response["data"]){
+              outer.usersSearchResult = response["data"];
+            }
+          })
+        }
+      },
+      addUser: function(user){
+        var isSelected = this.selectedUsersTemp.filter(function(x){return x.id == user.id;}).length == 1;
+        if(!isSelected){
+          this.selectedUsersTemp.push(user);
+        }
+      },
+      removeUser: function(user){
+        var index = -1;
+        for(var i=0;i<this.selectedUsersTemp.length;i++){
+          if(this.selectedUsersTemp[i].id == user.id){
+            index = i;
+          }
+        }
+        if(index > -1){
+          this.selectedUsersTemp.splice(index,1)
+        }
+      },
+      confirmSelectUsers: function(){
+        this.showSearchModal=false;
+        this.usersSearchResult = [];
+        this.currentTask.user = this.selectedUsersTemp.slice(0);
+      },
+      cancleSelectUsers: function(){
+        this.showSearchModal=false;
+        this.selectedUsersTemp = (this.currentTask.user && this.currentTask.user.slice(0)) || []
+        this.usersSearchResult = [];
+      }
+    },
+    filters:{
+      usersToNameStr: function(obj){
+        if(obj instanceof Array){
+          return obj.map(function(x){return x.name ? x.name : '';}).join(",");
+        }else{
+          return obj;
+        }
       }
     }
   });

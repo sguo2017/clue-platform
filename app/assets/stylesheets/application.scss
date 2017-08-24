@@ -13,6 +13,7 @@
 *
 */
 
+//全局样式，important!
 .table, .table th{
   text-align: center;
 }
@@ -22,4 +23,13 @@ hr{
 }
 .datepicker.datepicker-dropdown.dropdown-menu{
   background-color: white !important;
+}
+.blk{
+  display:block;
+}
+.il-blk{
+  display: inline-block;
+}
+.btn-close{
+  background-color: #dddddd;
 }

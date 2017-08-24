@@ -61,23 +61,55 @@
 			<!-- 头部结束 -->
 			<div class="block-mt" id="flowchart-toolsbar">
 				<ul>
-					<li title="导出图片"><span class="fa fa-file-image-o" @click="exportFlowImage"></span></li>
-					<li title="加粗" :class="{active: fontWeight == 'bold'}" @click="setFlowchartStyle('fontWeight')"><span class="fa fa-bold"></span></li>
-					<li title="下划线" :class="{active: isUnderline}" @click="setFlowchartStyle('isUnderline')"><span class="fa fa-underline"></span></li>
-					<li title="斜体" :class="{active: fontStyle == 'italic'}" @click="setFlowchartStyle('fontStyle')"><span class="fa fa-italic"></span></li>
-					<li title="字体大小" @click="pickFontSize"><span class="fa fa-font"></span></li>
-					<li title="字体颜色" @click="pickFontColor"><span class="fa fa-paint-brush"></span></li>
-					<li title="左对齐" :class="{active: textAlign == 'left'}" @click="setFlowchartStyle('textAlign','left')"><span class="fa fa-align-left"></span></li>
-					<li title="居中" :class="{active: textAlign == 'center'}" @click="setFlowchartStyle('textAlign','center')"><span class="fa fa-align-center"></span></li>
-					<li title="右对齐" :class="{active: textAlign == 'right'}" @click="setFlowchartStyle('textAlign','right')"><span class="fa fa-align-right"></span></li>
-					<li title="填充颜色" @click="pickNodeFill"><span class="fa fa-square"></span></li>
-					<li title="轮廓颜色" @click="pickNodeOutlineColor"><span class="fa fa-square-o"></span></li>
-					<li title="轮廓大小" @click="pickNodeOutlineWidth"><span class="fa fa-window-maximize"></span></li>
-					<li title="线条大小" @click="pickLineWidth"><span><strong>/</strong></span></li>
-					<li title="线条颜色" @click="pickLineColor"><span class="fa fa-magic"></span></li>
-					<li title="箭头样式" @click="pickArrow"><span class="fa fa-long-arrow-up"></span></li>
+					<li title="导出图片">
+						<span class="fa fa-file-image-o" @click="exportFlowImage"></span>
+					</li>
+					<li title="加粗" :class="{active: fontWeight == 'bold'}" @click="setFlowchartStyle('fontWeight')">
+						<span class="fa fa-bold"></span>
+					</li>
+					<li title="下划线" :class="{active: isUnderline}" @click="setFlowchartStyle('isUnderline')">
+						<span class="fa fa-underline"></span>
+					</li>
+					<li title="斜体" :class="{active: fontStyle == 'italic'}" @click="setFlowchartStyle('fontStyle')">
+						<span class="fa fa-italic"></span>
+					</li>
+					<li title="字体大小" @click="pickFontSize">
+						<span class="fa fa-font"></span>
+					</li>
+					<li title="字体颜色" @click="pickFontColor">
+						<span class="fa fa-paint-brush"></span>
+					</li>
+					<li title="左对齐" :class="{active: textAlign == 'left'}" @click="setFlowchartStyle('textAlign','left')">
+						<span class="fa fa-align-left"></span>
+					</li>
+					<li title="居中" :class="{active: textAlign == 'center'}" @click="setFlowchartStyle('textAlign','center')">
+						<span class="fa fa-align-center"></span>
+					</li>
+					<li title="右对齐" :class="{active: textAlign == 'right'}" @click="setFlowchartStyle('textAlign','right')">
+						<span class="fa fa-align-right"></span>
+					</li>
+					<li title="填充颜色" @click="pickNodeFill">
+						<span class="fa fa-square"></span>
+					</li>
+					<li title="轮廓颜色" @click="pickNodeOutlineColor">
+						<span class="fa fa-square-o"></span>
+					</li>
+					<li title="轮廓大小" @click="pickNodeOutlineWidth">
+						<span class="fa fa-window-maximize"></span>
+					</li>
+					<li title="线条大小" @click="pickLineWidth">
+						<span>
+							<strong>/</strong>
+						</span>
+					</li>
+					<li title="线条颜色" @click="pickLineColor">
+						<span class="fa fa-magic"></span>
+					</li>
+					<li title="箭头样式" @click="pickArrow">
+						<span class="fa fa-long-arrow-up"></span>
+					</li>
 				</ul>
-				<span  style="float:right;margin-right:5px;">
+				<span style="float:right;margin-right:5px;">
 					<button class="btn btn-xs btn-primary" type="button" @click="persistChanges">保存流程图和任务</button>
 				</span>
 			</div>
@@ -85,113 +117,151 @@
 			<div class="clearfix"></div>
 			<div id="body-container">
 				<div id="data-adjust-panel" v-if="showDataAdjustPanel">
-					<button type="button" class="close" @click="showDataAdjustPanel=false" >&times;</button>
+					<button type="button" class="close" @click="showDataAdjustPanel=false">&times;</button>
 					<div class="inner-options" v-if="showSizePicker">
 						<button v-for="size in sizeArray" class="btn btn-default" @click="setFlowchartStyle(sizeTarget,size+'px');showDataAdjustPanel=false;">{{size}}px</button>
 						<label style="margin-left:5px;">手动输入
 							<input type="text" size="4" v-model="inputSize"/>px
 						</label>
-						<button
-						class="btn btn-primary"
-						@click="setFlowchartStyle(sizeTarget,inputSize+'px');showDataAdjustPanel=false;">
-						确定
-					</button>
-				</div>
-				<div class="inner-options" v-if="showColorPicker">
-					<div
-					class="color-card"
-					v-for="color in colorArray"
-					:style="{backgroundColor: color}"
-					@click="setFlowchartStyle(colorTarget,color);showDataAdjustPanel=false;"
-					></div>
-					<div class="color-input">
-						<label>
-							取色器
-							<input type="color"
-							v-model="inputColor"
-							@change="setFlowchartStyle(colorTarget,inputColor);showDataAdjustPanel=false;"/>
-						</label>
-					</div>
-					<div style="clear: both;"></div>
-				</div>
-				<div class="inner-options" v-if="showArrowPicker">
-					<button v-for="arrow in arrowArray" class="btn btn-default" @click="setFlowchartStyle('arrowStyle',arrow.value);showDataAdjustPanel=false;">{{arrow.name}}</button>
-				</div>
-			</div>
-			<!-- 左边图元 -->
-			<div id="tactics-flow-palette"></div>
-			<!-- 中间画板 -->
-			<div id="tactics-flow-container" data-flow-data-url="<%= @tactic.flow_data_url %>"></div>
-			<!-- 右边信息栏 -->
-			<div id="tactics-flow-info">
-				<h4>任务信息:</h4>
-				(只有任务节点才可以绑定任务)
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label class="control-label">名称:</label>
-						<input class="form-control" type="text" v-model="currentTask.name" :readonly="!isTaskEditing"/>
-					</div>
-					<div class="form-group">
-						<label class="control-label">类型:</label>
-						<select class="form-control" v-model="currentTask.category" :readonly="!isTaskEditing">
-							<option value="资料采集">资料采集</option>
-							<option value="场地勘察">场地勘察</option>
-							<option value="实战行动">实战行动</option>
-							<option value="其他任务">其他任务</option>
-						</select>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">执行人:</label>
-						<input class="form-control" type="text" v-model="currentTask.executor" :readonly="!isTaskEditing"/>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">开始时间:</label>
-						<input class="form-control date-picker" type="text" v-model="currentTask.start_time" :readonly="!isTaskEditing"/>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">结束时间:</label>
-						<input class="form-control date-picker" type="text" v-model="currentTask.end_time" :readonly="!isTaskEditing"/>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">任务描述:</label>
-						<textarea class="form-control" rows="2" v-model="currentTask.description" :readonly="!isTaskEditing"></textarea>
-					</div>
-					<div class="form-group">
-						<button type="button" class="btn" v-bind:class="{'btn-primary': !isTaskEditing,'btn-warning': isTaskEditing}" @click="saveOrUpdate" :disabled="isTaskEditLock">
-							{{isTaskEditing ? "锁定" : "编辑"}}
+						<button class="btn btn-primary" @click="setFlowchartStyle(sizeTarget,inputSize+'px');showDataAdjustPanel=false;">
+							确定
 						</button>
 					</div>
-				</form>
+					<div class="inner-options" v-if="showColorPicker">
+						<div class="color-card" v-for="color in colorArray" :style="{backgroundColor: color}" @click="setFlowchartStyle(colorTarget,color);showDataAdjustPanel=false;"></div>
+						<div class="color-input">
+							<label>
+								取色器
+								<input type="color" v-model="inputColor" @change="setFlowchartStyle(colorTarget,inputColor);showDataAdjustPanel=false;"/>
+							</label>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div class="inner-options" v-if="showArrowPicker">
+						<button v-for="arrow in arrowArray" class="btn btn-default" @click="setFlowchartStyle('arrowStyle',arrow.value);showDataAdjustPanel=false;">{{arrow.name}}</button>
+					</div>
+				</div>
+				<!-- 左边图元 -->
+				<div id="tactics-flow-palette"></div>
+				<!-- 中间画板 -->
+				<div id="tactics-flow-container" data-flow-data-url="<%= @tactic.flow_data_url %>"></div>
+				<!-- 右边信息栏 -->
+				<div id="tactics-flow-info">
+					<h4>任务信息:</h4>
+					(只有任务节点才可以绑定任务)
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="control-label">名称:</label>
+							<input class="form-control" type="text" v-model="currentTask.name" :readonly="!isTaskEditing"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label">类型:</label>
+							<select class="form-control" v-model="currentTask.category" :disabled="!isTaskEditing">
+								<option value="资料采集">资料采集</option>
+								<option value="场地勘察">场地勘察</option>
+								<option value="实战行动">实战行动</option>
+								<option value="其他任务">其他任务</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label">执行人:</label>
+							<input class="hidden" type="text" v-model="currentTask.user" :disabled="!isTaskEditing"/>
+							<input class="form-control" type="text" v-bind:value="currentTask.user | usersToNameStr" @click="showSearchModal=true" :disabled="!isTaskEditing"/>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label">开始时间:</label>
+							<input class="form-control date-picker" type="text" v-model="currentTask.start_time" :readonly="!isTaskEditing"/>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label">结束时间:</label>
+							<input class="form-control date-picker" type="text" v-model="currentTask.end_time" :readonly="!isTaskEditing"/>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label">任务描述:</label>
+							<textarea class="form-control" rows="2" v-model="currentTask.description" :readonly="!isTaskEditing"></textarea>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn" v-bind:class="{'btn-primary': !isTaskEditing,'btn-warning': isTaskEditing}" @click="saveOrUpdate" :disabled="isTaskEditLock">
+								{{isTaskEditing ? "锁定" : "编辑"}}
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- 右边信息栏结束 -->
+			<div class="clearfix"></div>
+			<div class="block-mt" id="tactics-task-table">
+				<div class="block-mt mt5">
+					<h4>任务列表:</h4>
+				</div>
+				<table class='table table-hover thead-bg' v-if="tasks.length>0">
+					<thead>
+						<tr>
+							<th v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{taskHeadersTranslator.$get(header)}}</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="task in tasks" v-if="task._modify_ != 'deleted'">
+							<td v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{task[header] | usersToNameStr}}</td>
+							<td>
+								<button class="btn btn-xs btn-danger" @click="deleteTask(task)">删除</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<!-- 右边信息栏结束 -->
-		<div class="clearfix"></div>
-		<div class="block-mt" id="tactics-task-table">
-			<div class="block-mt mt5">
-				<h4>任务列表:</h4>
+	</div>
+	<div id="search-modal-wrap">
+		<modal v-if="showSearchModal" @close="showSearchModal=false">
+			<div slot="header">
+				<h3>用户搜索</h3>
 			</div>
-			<table class='table table-hover thead-bg' v-if="tasks.length>0">
-				<thead>
-					<tr>
-						<th v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{taskHeadersTranslator.$get(header)}}</th>
-						<th>操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="task in tasks" v-if="task._modify_ != 'deleted'">
-						<td v-for="header in taskHeaders" v-if="columnBlacklist.indexOf(header)<0">{{task[header]}}</td>
-						<td>
-							<button class="btn btn-xs btn-danger" @click="deleteTask(task)">删除</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+			<div slot="body" class="panel panel-default">
+				<div class="panel-body">
+					<form>
+							<div class="input-group">
+								 <input type="text" class="form-control" v-model="usersSearchName" placeholder="输入用户名进行搜索">
+								 <span class="input-group-btn" @click="searchUser">
+										<button type="button" class="btn btn-primary">
+											<i class="glyphicon glyphicon-search"></i>
+										</button>
+								 </span>
+							</div>
+							<div v-if="selectedUsersTemp.length > 0">
+								<hr/>
+								<span>已选择：</span>
+								<span class="blk">
+									<span class="user-selected-label il-blk" v-for="s in selectedUsersTemp">{{s.name}}<button type="button" class="btn btn-close" @click="removeUser(s)">×</button></span>
+								</span>
+							</div>
+							<div v-if="usersSearchResult.length > 0">
+								<hr/>
+								<span>搜索结果：</span>
+								<span class="user-search-result-list blk" v-for="u in usersSearchResult">
+									<span class="user-search-result-text il-blk">{{u.name}}({{u.email}})</span>
+									<span class="user-search-result-btn il-blk"><button type="button" class="btn btn-primary btn-xs" @click="addUser(u)">选择</button></span>
+								</span>
+								<span class="user-search-result-list blk"></span>
+							</div>
+					</form>
+				</div>
+			</div>
+			<div slot="footer">
+				<div class="form-group">
+					<div class="col-sm-offset-9 col-sm-3">
+						<button type="button" class="btn btn-primary" @click="confirmSelectUsers">确定</button>
+						<button type="button" class="btn btn-default" @click="cancleSelectUsers">取消</button>
+					</div>
+				</div>
+			</div>
+		</modal>
 	</div>
 </div>
 
-</div>
+<%= render "/vue_templates/modal" %>

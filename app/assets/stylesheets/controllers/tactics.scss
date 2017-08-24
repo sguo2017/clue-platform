@@ -190,3 +190,23 @@
    margin-top: 5px;
    border:1px solid lightblue;
 }
+#search-modal-wrap .user-selected-label{
+  margin:2px;
+  padding-left:12px;
+  border-radius:4px;
+  background-color:#DDDDDD;
+}
+#search-modal-wrap .user-search-result-list{
+  padding:4px;
+  width:100%;
+  margin-top:2px;
+  border-top:1px solid lightgray
+}
+#search-modal-wrap .user-search-result-text{
+  font-size:20px;
+  text-align:center;
+  width:92%
+}
+#search-modal-wrap .user-search-result-btn{
+  width: 7%;
+}

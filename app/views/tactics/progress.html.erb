@@ -90,7 +90,7 @@
             <tr class="<%= t.status=='已完成' ? 'success' : 'warning'%>">
               <td><%= t.name %></td>
               <td><%= t.category %></td>
-              <td><%= t.executor %></td>
+              <td><%= t.user.map{|x| x.name}.join(",") %></td>
               <td><%= t.status %></td>
               <td><%= t.finished_time && t.finished_time.strftime('%Y/%m/%d') %></td>
             </tr>
