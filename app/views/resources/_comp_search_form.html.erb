@@ -1,7 +1,8 @@
 <!-- 综合搜索表单  -->
 <%= form_tag("/resources/search", method: "get",class: "input-group") do %>
 	<%= hidden_field_tag 'type', @search_type %>
-  	<%= text_field_tag("key","",class: "form-control",:placeholder => '搜索')  %>
+  	<%= text_field_tag("key","",class: "form-control",:placeholder => '搜索',
+  	 					value:@search_text) %>
 	<span class="input-group-btn">
 		<button class="btn btn-primary" type="submit">
 			<span class="glyphicon glyphicon-search"></span>

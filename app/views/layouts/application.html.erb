@@ -81,16 +81,17 @@
                   </ul>
               </li>
           </ul>
-          <form class="navbar-form hidden-sm">
+          <%= form_tag({controller: "resources", action: "search"},{method: "get",class: "navbar-form hidden-sm", id: "edit-tactic-task-form"})  do %>
+          <%= hidden_field_tag :type , "infomation" %>
               <div class="input-group">
-                 <input type="text" class="form-control" placeholder="搜索关键字">
+                 <%= text_field_tag(:text,'',class: "form-control",:placeholder => '搜索关键字')  %>
                  <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary">
                       <i class="glyphicon glyphicon-search"></i>
                     </button>
                  </span>
               </div>
-          </form>
+          <% end %>
         <ul class="nav navbar-nav hidden-md hidden-sm user-tool">
               <li  class="dropdown">
                 <a class="user-block" data-toggle="dropdown">

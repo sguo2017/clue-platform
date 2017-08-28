@@ -12,7 +12,7 @@ class ResourcesController < ApplicationController
   def search
     # @user = current_user
     @search_type = params[:type]
-    puts "搜索类型=" + params[:type].to_s #+ "_关键字=" + params[:key]
+    @search_text = params[:text]
     #@resource = Resource.new(resource_params)
   end
 

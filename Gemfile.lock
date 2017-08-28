@@ -9,7 +9,7 @@ GIT
       sprockets-rails (< 4.0)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://gems.ruby-china.org/
   specs:
     actioncable (5.1.3)
       actionpack (= 5.1.3)
