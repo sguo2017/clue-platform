@@ -30,10 +30,9 @@
     <div class="left-side-btn-menu">
       <%= link_to "全部战法",{:controller=>:tactics,:action=>:index},{:class=>"btn btn-block "+(params[:category].blank? && params[:classic].blank? ? "btn-primary": "btn-normal")} %>
       <%= link_to "经典战法 ",{:controller=>:tactics,:action=>:index,:classic=>1},{:class=>"btn btn-block "+(params[:classic].present? ? "btn-primary": "btn-normal")} %>
-      <%= link_to "缉毒",{:controller=>:tactics,:action=>:index,:category=>"缉毒"},{:class=>"btn btn-block "+(params[:category] =='缉毒'? "btn-primary": "btn-normal")} %>
-      <%= link_to "缉私",{:controller=>:tactics,:action=>:index,:category=>"缉私"},{:class=>"btn btn-block "+(params[:category] =='缉私'? "btn-primary": "btn-normal")} %>
-      <%= link_to "贩卖",{:controller=>:tactics,:action=>:index,:category=>"贩卖"},{:class=>"btn btn-block "+(params[:category] =='贩卖'? "btn-primary": "btn-normal")} %>
-      <%= link_to "通缉",{:controller=>:tactics,:action=>:index,:category=>"通缉"},{:class=>"btn btn-block "+(params[:category] =='通缉'? "btn-primary": "btn-normal")} %>
+      <% TacticCategory.all.each do |c| %>
+          <%= link_to c.name ,{:controller=>:tactics,:action=>:index,:category=>c.id},{:class=>"btn btn-block "+(params[:category] ==c.id ? "btn-primary": "btn-normal")} %>
+      <% end %>
     </div>
     <div id="wrap-btn-new-tactic">
       <button type="button" id="btn-new-tactic" class="btn btn-warning btn-block" @click="showModal=true">新建战法</button>
@@ -135,10 +134,9 @@
               <div class="col-sm-6">
                 <label class="control-label">战法类型<a class="text-danger">*</a></label>
                 <select class="form-control" name="tactic[category]">
-                  <option value="缉毒">缉毒</option>
-                  <option value="盗窃">盗窃</option>
-                  <option value="抢劫">抢劫</option>
-                  <option value="杀人">杀人</option>
+                  <% TacticCategory.all.each do |c| %>
+                    <option value="<%= c.id %>"><%= c.name %></option>
+                  <% end %>
                 </select>
               </div>
             </div>

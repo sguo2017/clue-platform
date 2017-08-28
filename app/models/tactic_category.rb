@@ -1,0 +1,2 @@
+class TacticCategory < ApplicationRecord
+end
