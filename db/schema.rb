@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828024507) do
+ActiveRecord::Schema.define(version: 20170828062116) do
 
   create_table "call_analyse_savers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
@@ -86,9 +86,9 @@ ActiveRecord::Schema.define(version: 20170828024507) do
     t.integer "tactic_id"
     t.string "category"
     t.string "status"
-    t.timestamp "finished_time"
-    t.timestamp "start_time"
-    t.timestamp "end_time"
+    t.date "finished_time"
+    t.date "start_time"
+    t.date "end_time"
     t.text "description"
     t.string "order"
     t.datetime "created_at", null: false
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(version: 20170828024507) do
     t.string "flow_data_url"
     t.string "executive_team"
     t.text "description"
-    t.timestamp "start_time"
-    t.timestamp "end_time"
+    t.date "start_time"
+    t.date "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "category"

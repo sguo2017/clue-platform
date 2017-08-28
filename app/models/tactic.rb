@@ -1,6 +1,6 @@
 class Tactic < ApplicationRecord
   has_and_belongs_to_many :cases
-  has_many :tactic_tasks
+  has_many :tactic_tasks ,dependent:  :destroy
 
   def finished_task_count
     return self.tactic_tasks.where(:status => "已完成").size

@@ -40,13 +40,7 @@
                 <td><%= uft.id %></td>
                 <td><%= uft.name %></td>
                 <td><%= uft.category %></td>
-                <td>
-                  <%=
-                  ((uft.start_time && uft.start_time.strftime('%Y/%m/%d')) || '无限制') +
-                  "--" +
-                  ((uft.end_time && uft.end_time.strftime('%Y/%m/%d')) || '无限制')
-                  %>
-                </td>
+                <td><%= uft.start_time.to_s + "--" +uft.end_time.to_s %></td>
                 <td><%= uft.user.select(:name).map{|u| u.name}.join(",") %></td>
                 <td><%= link_to '编辑任务', edit_tactic_task_path(uft) %></td>
               </tr>
@@ -80,13 +74,7 @@
                 <td><%= ft.id %></td>
                 <td><%= ft.name %></td>
                 <td><%= ft.category %></td>
-                <td>
-                  <%=
-                  ((ft.start_time && ft.start_time.strftime('%Y/%m/%d')) || '无限制') +
-                  "--" +
-                  ((ft.end_time && ft.end_time.strftime('%Y/%m/%d')) || '无限制')
-                  %>
-                </td>
+                <td><%= ft.start_time.to_s + "--" + ft.end_time.to_s %></td>
                 <td><%= ft.user.select(:name).map{|u| u.name}.join(",") %></td>
                 <td><%= link_to '查看详情', tactic_task_path(ft) %></td>
               </tr>

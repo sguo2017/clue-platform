@@ -54,15 +54,15 @@
             </tr>
             <tr>
               <td><strong>开始时限</strong></td>
-              <td><%= @tactic_task.start_time && @tactic_task.start_time.strftime('%Y/%m/%d') %></td>
+              <td><%= @tactic_task.start_time %></td>
             </tr>
             <tr>
               <td><strong>完成时限</strong></td>
-              <td><%= @tactic_task.end_time && @tactic_task.end_time.strftime('%Y/%m/%d') %></td>
+              <td><%= @tactic_task.end_time %></td>
             </tr>
             <tr>
               <td><strong>完成时间</strong></td>
-              <td><%= @tactic_task.finished_time && @tactic_task.finished_time.strftime('%Y/%m/%d') %></td>
+              <td><%= @tactic_task.finished_time %></td>
             </tr>
             <tr>
               <td><strong>描述</strong></td>
@@ -70,7 +70,7 @@
             </tr>
             <tr>
               <td><strong>创建时间</strong></td>
-              <td><%= @tactic_task.created_at.strftime('%Y/%m/%d') %></td>
+              <td><%= @tactic_task.created_at %></td>
             </tr>
             <tr>
               <td><strong>附件名称</strong></td>

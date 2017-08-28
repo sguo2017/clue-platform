@@ -56,13 +56,13 @@
               <td>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 开始时间</td>
-              <td><%= @tactic.start_time && @tactic.start_time.strftime('%Y/%m/%d') %></td>
+              <td><%= @tactic.start_time%></td>
             </tr>
             <tr>
               <td>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 结束时间</td>
-              <td><%= @tactic.end_time && @tactic.end_time.strftime('%Y/%m/%d') %></td>
+              <td><%=@tactic.end_time%></td>
             </tr>
           </tbody>
         </table>
@@ -92,7 +92,7 @@
               <td><%= t.category %></td>
               <td><%= t.user.map{|x| x.name}.join(",") %></td>
               <td><%= t.status %></td>
-              <td><%= t.finished_time && t.finished_time.strftime('%Y/%m/%d') %></td>
+              <td><%= t.finished_time %></td>
             </tr>
             <% end %>
           </tbody>
