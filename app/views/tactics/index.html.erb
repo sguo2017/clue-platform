@@ -31,7 +31,7 @@
       <%= link_to "全部战法",{:controller=>:tactics,:action=>:index},{:class=>"btn btn-block "+(params[:category].blank? && params[:classic].blank? ? "btn-primary": "btn-normal")} %>
       <%= link_to "经典战法 ",{:controller=>:tactics,:action=>:index,:classic=>1},{:class=>"btn btn-block "+(params[:classic].present? ? "btn-primary": "btn-normal")} %>
       <% TacticCategory.all.each do |c| %>
-          <%= link_to c.name ,{:controller=>:tactics,:action=>:index,:category=>c.id},{:class=>"btn btn-block "+(params[:category] ==c.id ? "btn-primary": "btn-normal")} %>
+          <%= link_to c.name ,{:controller=>:tactics,:action=>:index,:category=>c.id},{:class=>"btn btn-block "+(params[:category].to_i == c.id ? "btn-primary": "btn-normal")} %>
       <% end %>
     </div>
     <div id="wrap-btn-new-tactic">
