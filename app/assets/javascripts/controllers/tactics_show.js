@@ -56,7 +56,6 @@ function initTacticShowVue() {
           return (key && this[key]) ? this[key] : key;
         }
       },
-      tacticFlowchart: null,
       tasks: [],
       taskHeaders: [],
       currentTask: new Task(),
@@ -70,13 +69,6 @@ function initTacticShowVue() {
       fontFamily: "",
       isUnderline: "",
       textAlign: "",
-      // textColor: "",
-      // nodeFill: "",
-      // nodeOutlineColor: "",
-      // nodeOutlineWidth: "",
-      // lineWidth: "",
-      // lineColor: "",
-      // arrowStyle: "",
       showDataAdjustPanel: false,
       showSizePicker: false,
       showColorPicker: false,
@@ -108,7 +100,6 @@ function initTacticShowVue() {
       showSearchModal: false,
       usersSearchResult: [],
       selectedUsersTemp: []
-
     },
     mounted: function() {
       initDatePicker();
@@ -470,7 +461,8 @@ function setFlowchart() {
         allowDrop: true, // must be true to accept drops from the Palette
         "LinkDrawn": showLinkLabel, // this DiagramEvent listener is defined below
         "LinkRelinked": showLinkLabel,
-        "animationManager.duration": 800, // slightly longer than default (600ms) animation
+        "animationManager.duration": 200, // 动画时间（默认600ms）
+        'initialAutoScale': go.Diagram.UniformToFill, //自动缩放到合适大小
         "undoManager.isEnabled": true, // enable undo & redo
         'allowZoom': true,
         "toolManager.mouseWheelBehavior": go.ToolManager.WheelZoom //鼠标滚轮定义为缩放
@@ -834,7 +826,7 @@ function setFlowchart() {
     myPalette =
       $$(go.Palette, "tactics-flow-palette", // must name or refer to the DIV HTML element
         {
-          "animationManager.duration": 800, // slightly longer than default (600ms) animation
+          "animationManager.isEnabled": false, // slightly longer than default (600ms) animation
           nodeTemplateMap: tacticFlowchart.nodeTemplateMap, // share the templates used by tacticFlowchart
           model: new go.GraphLinksModel([ // specify the contents of the Palette
             {

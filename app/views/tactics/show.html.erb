@@ -116,7 +116,7 @@
 
 			<div class="clearfix"></div>
 			<div id="body-container">
-				<div id="data-adjust-panel" v-if="showDataAdjustPanel">
+				<div id="data-adjust-panel" v-cloak v-if="showDataAdjustPanel">
 					<button type="button" class="close" @click="showDataAdjustPanel=false">&times;</button>
 					<div class="inner-options" v-if="showSizePicker">
 						<button v-for="size in sizeArray" class="btn btn-default" @click="setFlowchartStyle(sizeTarget,size+'px');showDataAdjustPanel=false;">{{size}}px</button>
@@ -226,7 +226,7 @@
 				<div class="panel-body">
 					<form>
 							<div class="input-group">
-								 <input type="text" class="form-control" v-model="usersSearchName" placeholder="输入用户名进行搜索">
+								 <input type="text" class="form-control" v-model="usersSearchName" placeholder="输入用户名进行搜索"/>
 								 <span class="input-group-btn" @click="searchUser">
 										<button type="button" class="btn btn-primary">
 											<i class="glyphicon glyphicon-search"></i>

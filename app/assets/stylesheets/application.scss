@@ -33,3 +33,7 @@ hr{
 .btn-close{
   background-color: #dddddd;
 }
+// vue 元素编译完成之前不显示，防止闪烁或者出现花括号
+[v-cloak] {
+  display:none !important;
+}
