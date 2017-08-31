@@ -44,7 +44,7 @@
       <% @tactics.each do |tactic| %>
       <div class="col-md-6 col-xs-12">
         <div class="thumbnail">
-          <div class="carousel-tag"><%= tactic.category %></div>
+          <div class="carousel-tag"><%= TacticCategory.find(tactic.category).name %></div>
           <!-- 插件开始 -->
           <div class="swiper-container">
             <div class="swiper-wrapper" style="width: 100%;height: auto;">

@@ -11,9 +11,9 @@ class PositionDecisionsController < ApplicationController
        @user.position = params[:position]
     end
     session[:curr_position] = @user.position
-    @suspects = Suspect.all
-    @suspects_teams = SuspectsTeam.all
-    @cases = Case.all
+    @suspects = Suspect.all.order("created_at DESC").limit(8)
+    @suspects_teams = SuspectsTeam.all.order("created_at DESC").limit(6)
+    @cases = Case.all.order("created_at DESC").limit(4)
     if @user.position == "action" #执行岗
       tasks = current_user.tactic_task.to_a
       @finished_task = tasks.select{|x| x.status == "已完成"}

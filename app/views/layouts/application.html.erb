@@ -81,7 +81,7 @@
                   </ul>
               </li>
           </ul>
-          <%= form_tag({controller: "resources", action: "search"},{method: "get",class: "navbar-form hidden-sm", id: "edit-tactic-task-form"})  do %>
+          <%= form_tag({controller: "resources", action: "search"},{method: "get",class: "navbar-form hidden-sm"})  do %>
           <%= hidden_field_tag :type , "infomation" %>
               <div class="input-group">
                  <%= text_field_tag(:text,'',class: "form-control",:placeholder => '搜索关键字')  %>
