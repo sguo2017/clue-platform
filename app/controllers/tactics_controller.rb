@@ -103,12 +103,16 @@ class TacticsController < ApplicationController
       res = fetcher.get(@tactic.flow_data_url).content
       @go_model = JSON.parse(res)
       @go_model["nodeDataArray"].each do |node|
-        if node["task_id"].present?
+        if node["category"] == "Start"
+          node["nodeColor"] = "#79C900"
+        elsif node["task_id"].present?
           task_id = node["task_id"]
           task = TacticTask.find(task_id)
           node["nodeColor"] = task.status == "已完成" ? "green" : "red"
         elsif node["category"].blank?
-          node["nodeColor"] = "blue"
+          node["nodeColor"] = "gray"
+        elsif node["category"] == "End"
+          node["nodeColor"] = "#DC3C00"
         end
       end
     end

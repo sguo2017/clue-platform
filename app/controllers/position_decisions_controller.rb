@@ -15,7 +15,7 @@ class PositionDecisionsController < ApplicationController
     @suspects_teams = SuspectsTeam.all.order("created_at DESC").limit(6)
     @cases = Case.all.order("created_at DESC").limit(4)
     if @user.position == "action" #执行岗
-      tasks = current_user.tactic_task.to_a
+      tasks = current_user.tactic_task.order("created_at DESC").to_a
       @finished_task = tasks.select{|x| x.status == "已完成"}
       @unfinished_task = tasks.select{|x| x.status != "已完成"}
     end
