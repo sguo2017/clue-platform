@@ -168,7 +168,7 @@ function drawAnalyseDiagram(jsonData,diagramSelector){
     .then(function(json){drawAnalyseDiagram(json,diagramSelector);})
     .catch(function(err){console.log(err);alert("从服务器获取数据失败，请重试！");});
   }
-  
+
   function changeItem(selector){
     selector=$(selector);
     selector.siblings(".active").removeClass('active');

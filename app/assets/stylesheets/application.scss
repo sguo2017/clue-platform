@@ -4,7 +4,6 @@
 *= reruire bootstrap-sprockets
 *= require layer
 *= require swiper
-*= require_tree ../../../vendor/assets/gojs
 *= require_directory ./
 *= require_tree ./controllers
 *= require font-awesome
@@ -14,6 +13,9 @@
 */
 
 //全局样式，important!
+.wrap{
+  height:100%;
+}
 .table, .table th{
   text-align: center;
 }

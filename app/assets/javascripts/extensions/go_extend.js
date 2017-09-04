@@ -6,7 +6,7 @@ go.Diagram.prototype.setFont = function(key, value) {
       var fontObj = fontParser(target.font);
       var keyReg = /^font((Style)|(Variant)|(Weight)|(Size)|(Family))$/;
       if (key && keyReg.test(key) && value != null) {
-        if(value.constructor==String) value =value.toLowerCase();
+        if (value.constructor == String) value = value.toLowerCase();
         fontObj[key] = value;
       }
       target.font = fontObj.toString();
@@ -83,13 +83,27 @@ go.Diagram.prototype.getDiagramElemStyle = function() {
     return x.findObject("TEXTOBJECT")
   });
 
-  var isAllFontStyleSame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontStyle) || ""});
-  var isAllFontVariantSame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontVariant) || ""});
-  var isAllFontWeightSame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontWeight) || ""});
-  var isAllFontSizeSame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontSize) || ""});
-  var isAllFontFamilySame = selsTextObjArr.allSame(function(x) {return (x && fontParser(x.font).fontFamily) || ""});
-  var isAllUnderlineSame = selsTextObjArr.allSame(function(x) {return (x && x.isUnderline) || false});
-  var isAllTextAlignSame = selsTextObjArr.allSame(function(x) {return (x && x.textAlign) || ""});
+  var isAllFontStyleSame = selsTextObjArr.allSame(function(x) {
+    return (x && fontParser(x.font).fontStyle) || ""
+  });
+  var isAllFontVariantSame = selsTextObjArr.allSame(function(x) {
+    return (x && fontParser(x.font).fontVariant) || ""
+  });
+  var isAllFontWeightSame = selsTextObjArr.allSame(function(x) {
+    return (x && fontParser(x.font).fontWeight) || ""
+  });
+  var isAllFontSizeSame = selsTextObjArr.allSame(function(x) {
+    return (x && fontParser(x.font).fontSize) || ""
+  });
+  var isAllFontFamilySame = selsTextObjArr.allSame(function(x) {
+    return (x && fontParser(x.font).fontFamily) || ""
+  });
+  var isAllUnderlineSame = selsTextObjArr.allSame(function(x) {
+    return (x && x.isUnderline) || false
+  });
+  var isAllTextAlignSame = selsTextObjArr.allSame(function(x) {
+    return (x && x.textAlign) || ""
+  });
   // var isAllTextColorSame = selsTextObjArr.allSame(function(x) {return x.stroke || ""});
   // var isAllNodeFillSame = selArr.allSame(function(x) {return x.fill || ""});
   // var isAllNodeOutlineColorSame = selArr.allSame(function(x) {return x.stroke || ""});
@@ -118,9 +132,10 @@ go.Diagram.prototype.getDiagramElemStyle = function() {
 }
 
 go.Diagram.prototype.setDiagramElemStyle = function(key, value, doneCallBack) {
-  if(this.selection.size == 0) return;
-  var outer =this;
-  function setSelTextBlocksAttr(k,v){
+  if (this.selection.size == 0) return;
+  var outer = this;
+
+  function setSelTextBlocksAttr(k, v) {
     outer.selection.each(function(x) {
       if (x.findObject("TEXTOBJECT") && k && v != null) {
         x.findObject("TEXTOBJECT")[k] = v;
@@ -128,7 +143,7 @@ go.Diagram.prototype.setDiagramElemStyle = function(key, value, doneCallBack) {
     });
   }
 
-  function setSelNodesAttr(k,v){
+  function setSelNodesAttr(k, v) {
     outer.selection.each(function(x) {
       if (x instanceof go.Node && x.findObject("NODEFILLSHAPE") && k && v != null) {
         x.findObject("NODEFILLSHAPE")[k] = v;
@@ -139,15 +154,15 @@ go.Diagram.prototype.setDiagramElemStyle = function(key, value, doneCallBack) {
   var style = this.getDiagramElemStyle();
   switch (key) {
     case "fontStyle":
-      if(!value) value = style.fontStyle == "italic" ? "" : "italic";
+      if (!value) value = style.fontStyle == "italic" ? "" : "italic";
       this.setFont("fontStyle", value);
       break;
     case "fontVariant":
-      if(!value) value = style.fontVariant == "small-caps" ? "" : "small-caps";
+      if (!value) value = style.fontVariant == "small-caps" ? "" : "small-caps";
       this.setFont("fontVariant", value);
       break;
     case "fontWeight":
-      if(!value) value = style.fontWeight == "bold" ? "" : "bold";
+      if (!value) value = style.fontWeight == "bold" ? "" : "bold";
       this.setFont("fontWeight", value);
       break;
     case "fontSize":
@@ -157,39 +172,39 @@ go.Diagram.prototype.setDiagramElemStyle = function(key, value, doneCallBack) {
       this.setFont("fontFamily", value);
       break;
     case "isUnderline":
-      if(!value) value = !style.isUnderline;
-      setSelTextBlocksAttr("isUnderline",value);
+      if (!value) value = !style.isUnderline;
+      setSelTextBlocksAttr("isUnderline", value);
       break;
     case "textAlign":
-      setSelTextBlocksAttr("textAlign",value);
+      setSelTextBlocksAttr("textAlign", value);
       break;
     case "textColor":
-      setSelTextBlocksAttr("stroke",value);
+      setSelTextBlocksAttr("stroke", value);
       break;
     case "nodeFill":
-      setSelNodesAttr("fill",value);
+      setSelNodesAttr("fill", value);
       break;
     case "nodeOutlineColor":
-      setSelNodesAttr("stroke",value);
+      setSelNodesAttr("stroke", value);
       break;
     case "nodeOutlineWidth":
-      value = parseInt(value.replace("px",""));
-      setSelNodesAttr("strokeWidth",value);
+      value = parseInt(value.replace("px", ""));
+      setSelNodesAttr("strokeWidth", value);
       break;
     case "lineWidth":
-      value = parseInt(value.replace("px",""));
+      value = parseInt(value.replace("px", ""));
       this.selection.each(function(x) {
         if (x instanceof go.Link && value) {
           x.findObject("LINKSHAPE") && (x.findObject("LINKSHAPE")["strokeWidth"] = value);
-          x.findObject("HIGHLIGHTSHAPE") && (x.findObject("HIGHLIGHTSHAPE")["strokeWidth"] = value+5);
+          x.findObject("HIGHLIGHTSHAPE") && (x.findObject("HIGHLIGHTSHAPE")["strokeWidth"] = value + 5);
           x.findObject("TOARROWSHAPE") && (x.findObject("TOARROWSHAPE")["strokeWidth"] = value);
           x.findObject("FROMARROWSHAPE") && (x.findObject("FROMARROWSHAPE")["strokeWidth"] = value);
         }
       });
       break;
     case "lineColor":
-    this.selection.each(function(x) {
-      if (x instanceof go.Link && value) {
+      this.selection.each(function(x) {
+        if (x instanceof go.Link && value) {
           x.findObject("LINKSHAPE") && (x.findObject("LINKSHAPE")["stroke"] = value);
           x.findObject("TOARROWSHAPE") && (x.findObject("TOARROWSHAPE")["stroke"] = value);
           x.findObject("FROMARROWSHAPE") && (x.findObject("FROMARROWSHAPE")["stroke"] = value);
@@ -226,7 +241,70 @@ go.Diagram.prototype.setDiagramElemStyle = function(key, value, doneCallBack) {
         x[key] = value;
       });
   }
-  if(doneCallBack instanceof Function){
+  if (doneCallBack instanceof Function) {
     doneCallBack(value);
+  }
+}
+
+go.Diagram.prototype.changeLayout = function(layout) {
+  var $$ = go.GraphObject.make;
+  switch (layout) {
+    case "grid":
+      this.layout = $$(go.GridLayout);
+      break;
+    case "tree":
+      this.layout = $$(go.TreeLayout);
+      break;
+    case "circular":
+      this.layout = $$(go.CircularLayout);
+      break;
+    case "layeredDigraph":
+      this.layout = $$(go.LayeredDigraphLayout);
+      break;
+    case "forceDirected":
+      this.layout = $$(go.ForceDirectedLayout);
+      break;
+    case "default":
+      this.layout = $$(go.Layout);
+      break;
+  }
+}
+
+go.Diagram.prototype.changeWheelBehavior = function(wheelBehavior) {
+  switch (wheelBehavior) {
+    case "scroll":
+      this.toolManager.mouseWheelBehavior = go.ToolManager.WheelScroll;
+      break;
+    case "zoom":
+      this.toolManager.mouseWheelBehavior = go.ToolManager.WheelZoom;
+      break;
+    default:
+      break;
+  }
+}
+
+//缩放控制，传入参数为"+"或"-"，每次放大或者缩小10%
+go.Diagram.prototype.adjustScale = function(sign) {
+  this.startTransaction('Change Scale');
+  switch (sign) {
+    case '-':
+      this.scale *= 0.9;
+      break;
+    case '+':
+      this.scale *= 1.1;
+      break;
+  }
+  this.commitTransaction('Change Scale');
+}
+
+go.Diagram.prototype.createOverview = function(div, options) {
+  var $$ = go.GraphObject.make;
+  var overview = $$(go.Overview, div, {
+    observed: this,
+    contentAlignment: go.Spot.Center,
+    maxScale: 0.5
+  });
+  for (var key in options) {
+    overview[key] = options[key];
   }
 }

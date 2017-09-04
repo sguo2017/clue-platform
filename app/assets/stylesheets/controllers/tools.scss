@@ -1,118 +1,84 @@
-// Place all the styles related to the tools controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-.tools_sidebar{
+.tools-sidebar {
 	height: 100%;
 	width: 300px;
 	position: absolute;
 	top: 50;
 	right: 0;
-	z-index:1;
+	z-index: 1;
 }
-.tools_sidebar .panel{
-	height: 33%;
-	margin-bottom: 0px;
+
+.tools-sidebar .panel {
+	margin-bottom: 0;
 	padding-top: 38px;
-	padding-bottom: 0px;
+	padding-bottom: 0;
 	position: relative;
-	border-bottom: 0px;
-	border-right: 0px;
+	border-bottom: 0;
+	border-right: 0;
 }
-.tools_sidebar .panel-heading{
+
+.tools-sidebar .panel-heading {
 	position: absolute;
 	top: 0;
 	width: 100%;
-    z-index: 3;
 }
-.tools_sidebar .panel-default .panel-heading{
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #ddd;
-}
-.tools_sidebar .panel-default .panel-heading .dropdown-margin-top{
-	margin-top: -5px;
-}
-.tools_sidebar .panel-default .panel-heading .nav-tabs{
-	border-bottom: 0;
-	margin-top: -1px;
-}
-.tools_sidebar .panel-default .panel-heading .nav-tabs > li > a {
-	border-radius: 0;
-}
-.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a,
-.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a:hover,
-.tools_sidebar .panel-default .panel-heading .nav-tabs > li.active > a:focus {
 
+.tools-sidebar .panel-default .panel-heading {
+	background-color: #f5f5f5;
+	border-bottom: 1px solid #ddd;
 }
-.tools_sidebar .panel-body{
+
+.tools-sidebar .panel-body {
 	height: 100%;
 	padding: 0;
 	overflow: auto;
 }
-.tools_sidebar .panel-body .tab-pane{
+
+#tools-panel-sidebar {
 	height: 100%;
+}
+
+#tools-panel-sidebar > .panel-heading {
+	padding: 0;
+	margin: 0;
+}
+
+#tools-panel-sidebar > .panel-body {
+	padding-bottom: 0;
+}
+
+#tools-panel-sidebar > .panel-heading .nav-tabs {
+	border-bottom: 0;
+	margin-top: -1px;
+}
+
+#tools-panel-sidebar > .panel-heading .nav-tabs > li > a {
+	border-radius: 0;
+}
+
+#tools-panel-sidebar > .panel-body > .tab-pane {
 	width: 100%;
+	height: 70%;
 	overflow: auto;
 }
-.tools_sidebar .inspector{
-	max-height: none!important;
+
+#tab_diagram_operation {
+	padding: 0 24px;
+}
+
+#tools-panel-overview {
+	width: 100%;
+	height: 30%;
+	overflow: auto;
+}
+
+#tools_main_overview {
 	height: 100%;
-	padding-left: 20px;
-	padding-right: 20px;
-	overflow: auto!important;
+	width: 100%;
+	padding-bottom: 0;
+	background-color: #eee;
 }
-.tools_sidebar .inspector-container{
-	padding: 35px 0px 40px 0px;
-	position: relative;
-}
-.tools_sidebar .inspector-container > select{
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: 34px;
-	padding: 6px 12px;
-}
-.tools_sidebar .inspector-container > select:focus{
-	outline: 0;
-}
-.tools_sidebaar .inspector-container .inspector-button-container{
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-.tools_sidebar .inspector-container,
-.tools_sidebar .inspector-container h3,
-.tools_sidebar .inspector-container h2,
-.tools_sidebar .inspector,
-.tools_sidebar .inspector-section{
-	background-color: white;
-	color: rgb(51, 51, 51);
-}
-.tools_sidebar .inspector input,
-.tools_sidebar .inspector select{
-	background-color: #ede8e8;
-	color: rgb(51, 51, 51);
-}
-.tools_sidebar .inspector-group{
-	border-color: #ede8e8;
-	border-width: 1px;
-}
-.tools_sidebar #tab_layout .form-group{
-	margin-bottom: 0px;
-}
-.tools_sidebar #tab_layout .form-group .control-label{
-	padding-left: 5px;
-	padding-right: 5px;
-	text-align: right;
-	word-wrap: break-word;
-}
-.tools_sidebar #tab_layout .form-group .help-block{
-	color: #c4c2c2;
-	font-weight: normal;
-	font-size: 12px;
-}
-.tools_main{
+
+.tools_main {
 	height: 100%;
 	padding-left: 32px;
 	padding-right: 300px;
@@ -121,51 +87,42 @@
 	left: 0;
 	right: 0;
 }
-.tools_main .panel{
+
+.tools_main .panel {
 	height: 100%;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 	padding-top: 38px;
-	padding-bottom: 0px;
+	padding-bottom: 0;
 	position: relative;
 	border-right: none;
 }
-.tools_main .panel-heading{
+
+.tools_main .panel-heading {
 	position: absolute;
 	top: 0;
 	width: 100%;
 	z-index: 4;
 }
-.tools_main .panel-default .panel-heading{
-    border-bottom: 1px solid #ddd;
-    padding-top: 5px;
-    padding-bottom: 6px;
+
+.tools_main .panel-default .panel-heading {
+	border-bottom: 1px solid #ddd;
+	padding-top: 5px;
+	padding-bottom: 6px;
 }
-.tools_main .panel-default .panel-heading label{
+
+.tools_main .panel-default .panel-heading label {
 	padding-left: 10px;
 	font-size: 12px;
 }
-.tools_main .panel-body{
+
+.tools_main .panel-body {
 	height: 100%;
 	overflow: auto;
 	padding: 0;
 	background-color: #DAE4E4;
 }
 
-.tools_search .panel-body{
-	padding: 0;
-}
-.tools_search .panel-body .navbar-form{
-	margin: 0;
-	padding: 0;
-}
-.tools_search .panel-body .navbar-form .input-group{
-	width: 100%;
-}
-.tools_search .panel-body .navbar-form .input-group input{
-	border-width: 0px;
-}
-
-.tools_menus_vertical{
+.tools_menus_vertical {
 	height: 100%;
 	position: absolute;
 	top: 60px;
@@ -176,64 +133,13 @@
 	border-right: 1px solid rgb(204, 204, 204);
 	z-index: 3;
 }
-.tools_menus_vertical .btn-group-vertical > .btn{
+
+.tools_menus_vertical .btn-group-vertical > .btn {
 	border-left: 0;
 	border-right: 0;
 }
+
 .tools_menus_vertical .btn-group-vertical > .btn:first-child,
-.tools_menus_vertical .btn-group-vertical > .btn:last-child{
+.tools_menus_vertical .btn-group-vertical > .btn:last-child {
 	border-radius: 0;
 }
-
-  #contextMenu {
-    z-index: 300;
-    position: absolute;
-    left: 5px;
-    border: 1px solid #444;
-    background-color: #F5F5F5;
-    display: none;
-    box-shadow: 0 0 10px rgba( 0, 0, 0, .4 );
-    font-size: 14px;
-    font-weight: normal;
-  }
-
-  #contextMenu ul {
-    list-style: none;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-  }
-
-  #contextMenu li a {
-    position: relative;
-    min-width: 60px;
-    color: #444;
-    display: inline-block;
-    padding: 6px;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  #contextMenu li:hover {
-    background: #CEDFF2;
-    color: #EEE;
-  }
-
-  #contextMenu li ul li {
-    display: none;
-  }
-
-  #contextMenu li ul li a {
-    position: relative;
-    min-width: 60px;
-    padding: 6px;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  #contextMenu li:hover ul li {
-    display: block;
-    margin-left: 0px;
-    margin-top: 0px;
-  }
