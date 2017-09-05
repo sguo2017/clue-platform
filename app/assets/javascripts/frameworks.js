@@ -7,7 +7,6 @@
 //= require bootstrap
 //= require vue
 //= require turbolinks
-//= require swiper
 //= require go
 //= require jquery-zoom
 //= require bootstrap-datepicker

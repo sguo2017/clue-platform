@@ -5,3 +5,5 @@
 //= link_tree ../../../vendor/assets/vuejs
 //= link_tree ../../../vendor/assets/plugins
 //= link_tree ../fonts
+//= link swiper.js
+//= link swiper.css

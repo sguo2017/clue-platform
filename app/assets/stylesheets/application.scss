@@ -2,8 +2,6 @@
 ********注意引入文件的顺序防止样式被覆盖***************
 *
 *= reruire bootstrap-sprockets
-*= require layer
-*= require swiper
 *= require_directory ./
 *= require_tree ./controllers
 *= require font-awesome

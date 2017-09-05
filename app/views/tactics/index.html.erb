@@ -1,3 +1,9 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "swiper", "data-turbolinks-track" => "reload" %>
+<% end %>
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag "swiper", "data-turbolinks-track" => "reload"  %>
+<% end %>
 <div id="tactics-index-app" class="bg-backing-darken">
   <div class="bread-nav-wrap">
     <ul class="bread-nav clearfix">
