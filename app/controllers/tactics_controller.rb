@@ -132,8 +132,10 @@ class TacticsController < ApplicationController
   # POST /tactics
   # POST /tactics.json
   def create
-    @tactic = Tactic.new(tactic_params)
-    @tactic.cases<<Case.where(:id => params["tactic"]["cases"].split(','))
+    tps = tactic_params
+    cases_attributes = tps.delete(:cases_attributes)
+    @tactic = Tactic.new(tps)
+    @tactic.cases<<Case.where(id: cases_attributes.values.map{|x| x[:id]}) if cases_attributes
     respond_to do |format|
       if @tactic.save
         format.html { redirect_to @tactic, notice: '成功创建战法' }
@@ -148,9 +150,13 @@ class TacticsController < ApplicationController
   # PATCH/PUT /tactics/1
   # PATCH/PUT /tactics/1.json
   def update
+    tps = tactic_params
+    cases_attributes = tps.delete(:cases_attributes)
+    @tactic.cases.clear
+    @tactic.cases<<Case.where(id: cases_attributes.values.map{|x| x[:id]}) if cases_attributes
     respond_to do |format|
-      if @tactic.update(tactic_params)
-        format.html { redirect_to @tactic, notice: 'Tactic was successfully updated.' }
+      if @tactic.update(tps)
+        format.html { redirect_to @tactic, notice: '成功更新战法' }
         format.json { render :show, status: :ok, location: @tactic }
       else
         format.html { render :edit }
@@ -164,7 +170,7 @@ class TacticsController < ApplicationController
   def destroy
     @tactic.destroy
     respond_to do |format|
-      format.html { redirect_to tactics_url, notice: 'Tactic was successfully destroyed.' }
+      format.html { redirect_to tactics_url, notice: '成功删除战法' }
       format.json { head :no_content }
     end
   end
@@ -177,7 +183,7 @@ class TacticsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def tactic_params
-    params.require(:tactic).permit(:name, :created_by, :status,:category, :flow_image_url, :flow_data_url, :executive_team, :description, :start_time, :end_time, :classic)
+    params.require(:tactic).permit(:name, :created_by, :status,:category, :flow_image_url, :flow_data_url, :executive_team, :description, :start_time, :end_time, :classic, cases_attributes:[:id])
   end
 
   def tactic_task_params(hash)

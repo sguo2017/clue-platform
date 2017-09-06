@@ -1,9 +1,11 @@
-.mt5{
+.mt5 {
   margin-top: 5px;
 }
-.mt10{
+
+.mt10 {
   margin-top: 10px;
 }
+
 #tactics-flow-palette {
   width: 9%;
   height: 590px;
@@ -198,27 +200,54 @@
   position: relative;
   float: right;
 }
-#flowchart-image-wrap{
-   margin-top: 5px;
-   border:1px solid lightblue;
+
+#flowchart-image-wrap {
+  margin-top: 5px;
+  border: 1px solid lightblue;
 }
-#search-modal-wrap .user-selected-label{
-  margin:2px;
-  padding-left:12px;
-  border-radius:4px;
-  background-color:#DDDDDD;
+
+.search-modal-wrap .selected-label {
+  margin: 2px;
+  padding-left: 12px;
+  border-radius: 4px;
+  background-color: #DDDDDD;
 }
-#search-modal-wrap .user-search-result-list{
-  padding:4px;
-  width:100%;
-  margin-top:2px;
-  border-top:1px solid lightgray
+
+.search-modal-wrap .search-result-list {
+  padding: 4px;
+  width: 100%;
+  margin-top: 2px;
+  border-top: 1px solid lightgray;
 }
-#search-modal-wrap .user-search-result-text{
-  font-size:20px;
-  text-align:center;
-  width:92%
+
+.search-modal-wrap .search-result-text {
+  font-size: 20px;
+  text-align: center;
+  width: 92%;
 }
-#search-modal-wrap .user-search-result-btn{
+
+.search-modal-wrap .search-result-btn {
   width: 7%;
+}
+
+#new-tactic-panel {
+  width: 800px;
+  margin: 10px auto 0;
+}
+
+.closable {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.closable-span{
+  display: block;
+  background-color: rgb(221, 221, 221);
+  margin: 2px;
+  padding-left: 12px;
+  border-radius: 3px;
+}
+.closable .btn{
+  box-shadow: none;
 }

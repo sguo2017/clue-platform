@@ -67,6 +67,12 @@ class CasesController < ApplicationController
     end
   end
 
+  def search
+    key = params[:key]
+    result = Case.where(" name like ? ", "%#{key}%")
+    render json: {msg: "获取成功", success: true, data: result}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_case

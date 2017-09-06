@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     post "persist_tasks"
     get "progress"
   end
-  resources :cases
+  resources :cases do
+    collection { get :search}
+  end
   resources :suspects_teams
   resources :calllists  do
     collection { get :export }

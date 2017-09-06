@@ -1,5 +1,6 @@
 class Tactic < ApplicationRecord
   has_and_belongs_to_many :cases
+  accepts_nested_attributes_for :cases, allow_destroy: true
   has_many :tactic_tasks ,dependent:  :destroy
 
   def finished_task_count

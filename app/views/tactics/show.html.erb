@@ -217,7 +217,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="search-modal-wrap">
+	<div class="search-modal-wrap">
 		<modal v-if="showSearchModal" @close="showSearchModal=false">
 			<div slot="header">
 				<h3>用户搜索</h3>
@@ -235,19 +235,21 @@
 							</div>
 							<div v-if="selectedUsersTemp.length > 0">
 								<hr/>
-								<span>已选择：</span>
-								<span class="blk">
-									<span class="user-selected-label il-blk" v-for="s in selectedUsersTemp">{{s.name}}<button type="button" class="btn btn-close" @click="removeUser(s)">×</button></span>
-								</span>
+								<div>已选择：</div>
+								<div class="closable" v-for="s in selectedUsersTemp">
+									<span class="closable-span">{{s.name}}
+										<button type="button" class="btn btn-close" @click="removeUser(s)">×</button>
+									</span>
+								</div>
 							</div>
 							<div v-if="usersSearchResult.length > 0">
 								<hr/>
 								<span>搜索结果：</span>
-								<span class="user-search-result-list blk" v-for="u in usersSearchResult">
-									<span class="user-search-result-text il-blk">{{u.name}}({{u.email}})</span>
-									<span class="user-search-result-btn il-blk"><button type="button" class="btn btn-primary btn-xs" @click="addUser(u)">选择</button></span>
+								<span class="search-result-list blk" v-for="u in usersSearchResult">
+									<span class="search-result-text il-blk">{{u.name}}({{u.email}})</span>
+									<span class="search-result-btn il-blk"><button type="button" class="btn btn-primary btn-xs" @click="addUser(u)">选择</button></span>
 								</span>
-								<span class="user-search-result-list blk"></span>
+								<span class="search-result-list blk"></span>
 							</div>
 					</form>
 				</div>

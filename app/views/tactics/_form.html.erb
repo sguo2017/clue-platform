@@ -1,17 +1,148 @@
-<%= form_with(model: tactic, local: true) do |form| %>
-  <% if tactic.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(tactic.errors.count, "error") %> prohibited this tactic from being saved:</h2>
+<%= form_for @tactic, :html => { :class => "form-horizontal tactic-edit-or-created-form" } do |f| %>
 
-      <ul>
-      <% tactic.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
+<% if @tactic.errors.any? %>
+<div id="error_expl" class="panel panel-danger">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= pluralize(@tactic.errors.count, "error") %>
+      prohibited this tactic from being saved:</h3>
   </div>
+  <div class="panel-body">
+    <ul>
+      <% @tactic.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 <% end %>
+
+<div class="form-group col-sm-12">
+  <div class="col-sm-6">
+    <%= f.label "名称", :class => 'control-label' %>
+    <i class="text-danger">*</i>
+    <div class="">
+      <%= f.text_field :name, {:class => 'form-control',:required => :required} %>
+    </div>
+    <%=f.error_span(:name) %>
+  </div>
+  <div class="col-sm-6">
+    <%= f.label "分类", :class => 'control-label' %>
+    <i class="text-danger">*</i>
+    <div class="">
+      <%= f.collection_select(:category, TacticCategory.all, :id, :name,
+      { :prompt => '请选择',
+        :selected => TacticCategory.where(id: @tactic.category).map{ |x| [x.id,x.name]}.flatten},
+      {:class=>"form-control",:required => :required }) %>
+    </div>
+    <%=f.error_span(:category) %>
+  </div>
+</div>
+<div class="form-group col-sm-12">
+  <div class="col-sm-12" style="margin-bottom:10px;">
+    <label class="control-label">关联案件&nbsp;</label>
+    <button type="button" class="btn btn-warning btn-xs" @click="showSearchModal=true">添加</button>
+    <template v-for="(c,index) in cases">
+      <input class="hidden" type="text" :name="'tactic[cases_attributes]['+index+'][id]'" v-bind:value="c.id"/>
+    </template>
+  </div>
+  <div id="associated-case-fields" class="col-sm-12" data-associated-cases="<%= @tactic.cases.map{|c|{id: c.id,name: c.name}}.to_json %>">
+    <div class="closable" v-for="c in cases">
+      <span class="closable-span">{{c.name}}
+        <button type="button" class="btn btn-close" @click="removeCase(c.id)">×</button>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="form-group col-sm-12">
+  <div class="col-sm-12">
+    <%= f.label "执行队伍", :class => 'control-label' %>
+    <div class="">
+      <%= f.text_field :executive_team, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:executive_team) %>
+  </div>
+</div>
+<div class="form-group col-sm-12">
+  <div class="col-sm-6">
+    <%= f.label "开始时间", :class => 'control-label' %>
+    <div class="">
+      <%= f.text_field :start_time, :class => 'form-control date-picker' %>
+    </div>
+    <%=f.error_span(:start_time) %>
+  </div>
+  <div class="col-sm-6">
+    <%= f.label "结束时间", :class => 'control-label' %>
+    <div class="">
+      <%= f.text_field :end_time, :class => 'form-control date-picker' %>
+    </div>
+    <%=f.error_span(:end_time) %>
+  </div>
+</div>
+<div class="form-group col-sm-12">
+  <div class="col-sm-12">
+    <%= f.label "描述", :class => 'control-label' %>
+    <div class="">
+      <%= f.text_area :description, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:description) %>
+  </div>
+</div>
+
+<div class="form-group col-sm-12">
+  <div class="col-sm-12 text-right">
+    <%= f.submit "确定", {:class => 'btn btn-primary', :click=>"submitForm"} %>
+    <%= link_to t('.cancel', :default => "取消"),
+                tactics_path, :class => 'btn btn-default' %>
+  </div>
+</div>
+
+<% end %>
+
+<div class="search-modal-wrap">
+  <modal v-if="showSearchModal" @close="showSearchModal=false">
+    <div slot="header">
+      <h3>案件搜索</h3>
+    </div>
+    <div slot="body" class="panel panel-default">
+      <div class="panel-body">
+        <form onkeydown="if(event.keyCode==13)return false;">
+          <div class="input-group">
+            <input type="text" class="form-control" v-model="keyword" placeholder="输入案件名进行搜索"/>
+            <span class="input-group-btn" @click="search">
+              <button type="button" class="btn btn-primary">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+          </div>
+          <hr/>
+          <div>已选择：</div>
+          <div class="closable" v-for="c in cases">
+            <span class="closable-span">{{c.name}}
+              <button type="button" class="btn btn-close" @click="removeCase(c.id)">×</button>
+            </span>
+          </div>
+          <hr/>
+          <div v-if="results.length > 0">
+            <span>搜索结果：</span>
+            <span class="search-result-list blk" v-for="c in results">
+              <span class="search-result-text il-blk">{{c.name}}(id：{{c.id}})</span>
+              <span class="search-result-btn il-blk">
+                <button type="button" class="btn btn-primary btn-xs" @click="addCase(c.id,c.name)" :disabled="caseIndexOf(c.id) > -1">
+                  {{caseIndexOf(c.id) > -1 ? "已选择" : "选择"}}
+                </button>
+              </span>
+            </span>
+            <span class="search-result-list blk"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div slot="footer">
+      <div class="form-group">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary" @click="showSearchModal=false">关闭</button>
+        </div>
+      </div>
+    </div>
+  </modal>
+</div>

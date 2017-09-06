@@ -1,5 +1,30 @@
-<h1>New Tactic</h1>
+<%- model_class = Tactic -%>
+<div id="tactics-form-app">
+  <div class="bread-nav-wrap">
+    <ul class="bread-nav clearfix">
+      <li class="bread-nav-item home">
+        <a class="link-item" href="">
+          <span class="glyphicon glyphicon-home"></span>
+        </a>
+      </li>
+      <li class="bread-nav-item even">
+        <a class="link-item" href="">战法管理</a>
+      </li>
+      <li class="bread-nav-item">
+        <span class="link-item" href="">新建战法</span>
+      </li>
+    </ul>
+  </div>
 
-<%= render 'form', tactic: @tactic %>
+  <div id="new-tactic-panel" class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">新建战法</div>
+      <hr/>
+    </div>
+    <div class="panel-body">
+      <%= render :partial => 'form' %>
+    </div>
+  </div>
 
-<%= link_to 'Back', tactics_path %>
+  <%= render "/vue_templates/modal" %>
+</div>

@@ -41,7 +41,7 @@
       <% end %>
     </div>
     <div id="wrap-btn-new-tactic">
-      <button type="button" id="btn-new-tactic" class="btn btn-warning btn-block" @click="showModal=true">新建战法</button>
+      <%= link_to "新建战法", new_tactic_path, {:type => "button", :id => "btn-new-tactic", :class => "btn btn-warning btn-block"} %>
     </div>
   </div>
   <!-- left-side end -->
@@ -123,82 +123,4 @@
       <%= paginate @tactics %>
     </div>
   </div>
-  <div id="new-tactic-modal">
-    <modal v-if="showModal" @close="showModal = false" v-on:show='loadCases'>
-      <div slot="header">
-        <h3>新建战法</h3>
-      </div>
-      <div slot="body" class="panel panel-default">
-        <div class="panel-body">
-          <form id="new-tactic-form" class="form-horizontal" role="form" action="/tactics" method="POST">
-            <%= tag(:input, :type => "hidden", :name =>request_forgery_protection_token.to_s, :value =>form_authenticity_token) %>
-            <div class="form-group">
-              <div class="col-sm-6">
-                <label class="control-label">战法名称<a class="text-danger">*</a></label>
-                <input type="text" class="form-control" name="tactic[name]" placeholder="请输入战法名称" required="required">
-              </div>
-              <div class="col-sm-6">
-                <label class="control-label">战法类型<a class="text-danger">*</a></label>
-                <select class="form-control" name="tactic[category]">
-                  <% TacticCategory.all.each do |c| %>
-                    <option value="<%= c.id %>"><%= c.name %></option>
-                  <% end %>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <label class="control-label">关联案件(可多选)</label>
-                <select class="form-control" v-model="selectedCase" @change="addCase">
-                  <option disabled value="">请选择</option>
-                  <option v-for="c in cases" :value="c.id">{{c.name}}</option>
-                </select>
-                <ul class="case-list">
-                  <li class="case-item" v-for="sc in selectedCases" v-if="sc">
-                    <span class="case-view">
-                      {{sc | caseFilter(cases)}}
-                      <button type="button" class="btn btn-close" @click="removeCase(sc)">×</button>
-                    </span>
-                  </li>
-                  <div class="clearfix"></div>
-                </ul>
-                <input class="hidden" type="text" name="tactic[cases]" :value="selectedCases | blankFilter">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <label class="control-label">执行队伍</label>
-                <input type="text" class="form-control" name="tactic[executive_team]" placeholder="执行队伍">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6">
-                <label class="control-label">开始时间</label>
-                <input type="text" class="form-control date-picker" name="tactic[start_time]" placeholder="请输入开始时间">
-              </div>
-              <div class="col-sm-6">
-                <label class="control-label">结束时间</label>
-                <input type="text" class="form-control date-picker" name="tactic[end_time]" placeholder="请输入结束时间">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <label class="control-label">战法描述</label>
-                <textarea class="form-control" name="tactic[description]" placeholder="请输入战法描述" rows=3></textarea>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div slot="footer">
-        <div class="form-group">
-          <div class="col-sm-offset-9 col-sm-3">
-            <button type="submit" class="btn btn-primary" form="new-tactic-form">确定</button>
-            <button type="button" class="btn btn-default" @click="showModal=false">取消</button>
-          </div>
-        </div>
-      </div>
-    </modal>
-  </div>
 </div>
-<%= render "/vue_templates/modal" %>
