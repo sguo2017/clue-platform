@@ -98,25 +98,49 @@ class TacticsController < ApplicationController
   #GET /tactics/1/progress
   def progress
     @tactic = Tactic.find(params[:tactic_id])
-    fetcher = HTTPClient.new
-    if @tactic.flow_data_url
-      res = fetcher.get(@tactic.flow_data_url).content
-      @go_model = JSON.parse(res)
-      @go_model["nodeDataArray"].each do |node|
-        if node["category"] == "Start"
-          node["nodeColor"] = "#79C900"
-        elsif node["task_id"].present?
-          task_id = node["task_id"]
-          task = TacticTask.find(task_id)
-          node["nodeColor"] = task.status == "已完成" ? "green" : "red"
-        elsif node["category"].blank?
-          node["nodeColor"] = "gray"
-        elsif node["category"] == "End"
-          node["nodeColor"] = "#DC3C00"
+    
+    begin
+      fetcher = HTTPClient.new
+      if @tactic.flow_data_url
+        res = fetcher.get(@tactic.flow_data_url).content
+        @go_model = JSON.parse(res)
+
+        @go_model["nodeDataArray"].each do |node|
+          # case node["category"]
+          # when "Start"
+          #   node["nodeColor"] = "#79C900"
+          # when "End"
+          #   node["nodeColor"] = "#DC3C00"
+          # else
+          #   if node["task_id"].present?
+          #     task_id = node["task_id"]
+          #     task = TacticTask.find(task_id)
+          #     node["nodeColor"] = task.status == "已完成" ? "green" : "red"
+          #   elsif node["category"].blank?
+          #     node["nodeColor"] = "gray"
+          #   end
+          # end
+
+          if node["category"] == "Start"
+            node["nodeColor"] = "#79C900"
+          elsif node["task_id"].present?
+            task_id = node["task_id"]
+            task = TacticTask.find(task_id)
+            node["nodeColor"] = task.status == "已完成" ? "green" : "red"
+          elsif node["category"].blank?
+            node["nodeColor"] = "gray"
+          elsif node["category"] == "End"
+            node["nodeColor"] = "#DC3C00"
+          end
         end
+
       end
+
+      render :progress
+    rescue
+      redirect_to @tactic, notice: '文件服务器连接失败，请重试'
     end
-    render :progress
+    
   end
 
 
