@@ -18,7 +18,7 @@ function initCalllistAnalyseToolsIndexVue() {
     template: "#modal-template",
     data: function() {
       return {
-        modalWidth: "300px"
+        modalWidth: "600px"
       };
     }
   };
@@ -29,6 +29,7 @@ function initCalllistAnalyseToolsIndexVue() {
     },
     mounted: function() {
       initCalllistAnalyseIndexDiagram();
+      $(':input').labelauty();
     },
     data: {
       showModal: false

@@ -124,21 +124,23 @@
 				</div>
 				<div class="block-mt screen-analysis-data">
 					<div class="col-sm-12">
-						数据筛选
-						<label><input type="checkbox" v-model="isNoteSelected" @change="loadOptions('note')"/>备注&nbsp;</label>
-						<label><input type="checkbox" v-model="isDateSelected" @change="loadOptions('date')"/>日期&nbsp;</label>
-						<label><input type="checkbox" v-model="isBatchSelected" @change="loadOptions('batch')"/>批次&nbsp;</label>
+						<div style="margin-left:-15px;">
+							<span class="blk" style="margin:5px auto;">数据筛选:</span>
+							<span class="il-blk"><input class="labelauty-small" type="checkbox" v-model="isNoteSelected" @change="loadOptions('note')" data-labelauty="备注"></span>
+							<span class="il-blk"><input class="labelauty-small" type="checkbox" v-model="isDateSelected" @change="loadOptions('date')"  data-labelauty="日期"/></span>
+							<span class="il-blk"><input class="labelauty-small" type="checkbox" v-model="isBatchSelected" @change="loadOptions('batch')" data-labelauty="批次"/></span>
+						</div>
 					</div>
 					<div class="data-filter col-sm-4" v-if="isNoteSelected">
 						<div class="col-sm-12">
 							备注
 						</div>
-						<div class="col-sm-6" >
+						<div class="col-sm-6">
 							<select class="ca-multi-select" multiple @change="updateSelected($event,'noteSelected')">
 								<option v-for="opt in noteOptions">{{opt}}</option>
 							</select>
 						</div>
-						<div class="col-sm-6 ca-select-show">
+						<div class="col-sm-6 ca-select-show" style="border: 1px solid lightgray;">
 							<template v-for="sel in noteSelected">
 								<span>{{sel}}</span><br/>
 							</template>
@@ -154,7 +156,7 @@
 								<option v-for="opt in dateOptions">{{opt}}</option>
 							</select>
 						</div>
-						<div class="col-sm-6 ca-select-show">
+						<div class="col-sm-6 ca-select-show" style="border: 1px solid lightgray;">
 							<template v-for="sel in dateSelected">
 								<span>{{sel}}</span><br/>
 							</template>
@@ -170,7 +172,7 @@
 								<option v-for="opt in batchOptions">{{opt}}</option>
 							</select>
 						</div>
-						<div class="col-sm-6 ca-select-show">
+						<div class="col-sm-6 ca-select-show" style="border: 1px solid lightgray;">
 							<template v-for="sel in batchSelected">
 								<span>{{sel}}</span><br/>
 							</template>
@@ -183,91 +185,8 @@
 					<%= link_to t('.confirm',:default => t("确定")) ,tools_index_path(:type=>:calllist,:sources=>'db'),{:class=>"btn btn-primary btn-long",:@click=>"setFilterData"} %>
 					<%= link_to t('.cancel', :default => t("取消")),
 					tools_rlat_path, :class => 'btn btn-default btn-long ml10' %>
-					<!-- <button class="btn btn-default btn-long ml10">取消</button> -->
 				</div>
 			</div>
-			<script>
-			new Vue({
-				el: '#data-screen-app',
-				data: {
-					isNoteSelected: false,
-					isDateSelected: false,
-					isBatchSelected: false,
-					noteOptions: [],
-					dateOptions: [],
-					batchOptions: [],
-					noteSelected: [],
-					dateSelected: [],
-					batchSelected: []
-				},
-				methods: {
-					loadOptions: function (type){
-						var isSelected,options,url;
-						switch (type) {
-							case "note":
-								isSelected = "isNoteSelected";
-								options = "noteOptions";
-								url = "/calllists/load_note_options";
-								break;
-							case "date":
-								isSelected = "isDateSelected";
-								options = "dateOptions";
-								url = "/calllists/load_date_options";
-								break;
-							case "batch":
-								isSelected = "isBatchSelected";
-								options = "batchOptions";
-								url = "/calllists/load_batch_options";
-								break;
-							default:
-								return;
-						}
-						if(this[isSelected]){
-							var outer = this;
-							$.ajax({
-								url: url,
-								method: "get"
-							}).done(function(response){
-								outer[options]=response['data'];
-							}).error(function(err){
-								alert("数据加载失败！");
-								console.log(err);
-							});
-						}
-					},//
-					updateSelected: function(event,target){
-						var selectedValues = Array.prototype.slice.call(event.target.selectedOptions,0).map(function(x){return x.value});
-						var outer = this;
-						selectedValues.forEach(function(x){
-							if(outer[target].indexOf(x)<0){
-								outer[target].push(x);
-							}
-						});
-						this[target] = this[target].filter(function(x){return selectedValues.indexOf(x)>=0;});
-					},//
-					setFilterData: function(){
-						if(this.isNoteSelected){
-							sessionStorage.setItem("ca_note_filters",this.noteSelected);
-						}else{
-							sessionStorage.setItem("ca_note_filters",'');
-						}
-						if(this.isDateSelected){
-							sessionStorage.setItem("ca_date_filters",this.dateSelected);
-						}else{
-							sessionStorage.setItem("ca_date_filters",'');
-						}
-						if(this.isBatchSelected){
-							sessionStorage.setItem("ca_batch_filters",this.batchSelected);
-						}else{
-							sessionStorage.setItem("ca_batch_filters",'');
-						}
-					}
-				}
-			})
-			</script>
 		</div>
-
-
-
 	</div>
 </div>
