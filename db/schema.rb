@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828062116) do
+ActiveRecord::Schema.define(version: 20170907072343) do
 
   create_table "call_analyse_savers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20170828062116) do
     t.string "name"
     t.integer "created_by"
     t.string "status"
-    t.string "flow_image_url"
+    t.string "thumbnail_url"
     t.string "flow_data_url"
     t.string "executive_team"
     t.text "description"

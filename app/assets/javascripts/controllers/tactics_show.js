@@ -36,7 +36,7 @@ function initTacticShowVue() {
       }
     }
   };
-  vvv = new Vue({
+  new Vue({
     el: "#tactic-app",
     components: {
       "modal": Modal
@@ -301,10 +301,15 @@ function initTacticShowVue() {
         });
         var formData = new FormData();
         var url = 'http://123.56.157.233:9090/FastDFSWeb/servlet/imageUploadServlet';
-        var imageDataUrl = this.tacticFlowchart.makeImageData({
-          size: new go.Size(240, 120)
-        });
-        var image = imageDataUrl.toBlob();
+        var imageDataUrl = null;
+        var image = null;
+        if(this.tacticFlowchart.nodes.count > 0){
+          imageDataUrl = this.tacticFlowchart.makeImageData({
+            size: new go.Size(240, 120),
+            background: "white"
+          });
+          image = imageDataUrl.toBlob();
+        }
         formData.append('data', data, 'data.json');
         formData.append('image', image, 'image.png');
         fetch(url, {
@@ -324,7 +329,7 @@ function initTacticShowVue() {
                 dataType: "JSON",
                 data: {
                   tactic: {
-                    flow_image_url: imageUrl,
+                    thumbnail_url: imageUrl,
                     flow_data_url: dataUrl
                   }
                 }
@@ -343,6 +348,7 @@ function initTacticShowVue() {
       exportFlowImage: function() {
         var img = this.tacticFlowchart.makeImageData({
           maxSize: new go.Size(Infinity, Infinity), //去掉默认最大2000*2000的限制
+          background: "white",
           scale: 1 //显示整个图片而非可见部分
         });
         sessionStorage.setItem("image-view-page-src", img);

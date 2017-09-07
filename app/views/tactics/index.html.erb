@@ -54,13 +54,13 @@
           <!-- 插件开始 -->
           <div class="swiper-container">
             <div class="swiper-wrapper" style="width: 100%;height: auto;">
-              <div class="swiper-slide">
+              <!-- <div class="swiper-slide">
                 <%= image_tag("carousel1.png")%>
-              </div>
+              </div> -->
               <div class="swiper-slide">
-                <%= image_tag("carousel2.png")%>
+                <%= image_tag(tactic.thumbnail_url.blank? ? "carousel2.png" : tactic.thumbnail_url, class: "tactic-thumbnail")%>
               </div>
-              <div class="swiper-slide">
+              <!-- <div class="swiper-slide">
                 <%= image_tag("carousel3.png")%>
               </div>
               <div class="swiper-slide">
@@ -71,7 +71,7 @@
               </div>
               <div class="swiper-slide">
                 <%= image_tag("carousel2.png")%>
-              </div>
+              </div> -->
             </div>
             <div class="swiper-pagination"></div>
           </div>

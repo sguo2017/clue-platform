@@ -337,6 +337,7 @@ function setHiddenFlowchart() {
     if ($("#flowchart-image-wrap").length > 0) {
       var imageDataURL = tacticFlowchart.makeImageData({
         maxSize: new go.Size(Infinity, Infinity), //去掉默认最大2000*2000的限制
+        background: "white",
         scale: 1 //显示整个图片而非可见部分
       });
       if(imageDataURL === "data:,"){

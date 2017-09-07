@@ -189,7 +189,7 @@ class TacticsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def tactic_params
-    params.require(:tactic).permit(:name, :created_by, :status,:category, :flow_image_url, :flow_data_url, :executive_team, :description, :start_time, :end_time, :classic, cases_attributes:[:id])
+    params.require(:tactic).permit(:name, :created_by, :status,:category, :thumbnail_url, :flow_data_url, :executive_team, :description, :start_time, :end_time, :classic, cases_attributes:[:id])
   end
 
   def tactic_task_params(hash)
