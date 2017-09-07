@@ -98,29 +98,12 @@ class TacticsController < ApplicationController
   #GET /tactics/1/progress
   def progress
     @tactic = Tactic.find(params[:tactic_id])
-    
     begin
       fetcher = HTTPClient.new
       if @tactic.flow_data_url
         res = fetcher.get(@tactic.flow_data_url).content
         @go_model = JSON.parse(res)
-
         @go_model["nodeDataArray"].each do |node|
-          # case node["category"]
-          # when "Start"
-          #   node["nodeColor"] = "#79C900"
-          # when "End"
-          #   node["nodeColor"] = "#DC3C00"
-          # else
-          #   if node["task_id"].present?
-          #     task_id = node["task_id"]
-          #     task = TacticTask.find(task_id)
-          #     node["nodeColor"] = task.status == "已完成" ? "green" : "red"
-          #   elsif node["category"].blank?
-          #     node["nodeColor"] = "gray"
-          #   end
-          # end
-
           if node["category"] == "Start"
             node["nodeColor"] = "#79C900"
           elsif node["task_id"].present?
@@ -131,17 +114,14 @@ class TacticsController < ApplicationController
             node["nodeColor"] = "gray"
           elsif node["category"] == "End"
             node["nodeColor"] = "#DC3C00"
-          end
-        end
-
-      end
-
+          end  # end if
+        end  # end each
+      end  # end if
       render :progress
     rescue
       redirect_to @tactic, notice: '文件服务器连接失败，请重试'
-    end
-    
-  end
+    end  # end rescue
+  end  #end progress
 
 
   # GET /tactics/new
@@ -159,11 +139,13 @@ class TacticsController < ApplicationController
     tps = tactic_params
     cases_attributes = tps.delete(:cases_attributes)
     @tactic = Tactic.new(tps)
+    @tactic.created_by = current_user.id
+    @tactic.status = ""
     @tactic.cases<<Case.where(id: cases_attributes.values.map{|x| x[:id]}) if cases_attributes
     respond_to do |format|
       if @tactic.save
         format.html { redirect_to @tactic, notice: '成功创建战法' }
-        format.json { render :show, status: :created, location: @tactic }
+        format.json { render json: {data: @tactic}, status: :created, location: @tactic }
       else
         format.html { render :new }
         format.json { render json: @tactic.errors, status: :unprocessable_entity }
@@ -181,7 +163,7 @@ class TacticsController < ApplicationController
     respond_to do |format|
       if @tactic.update(tps)
         format.html { redirect_to @tactic, notice: '成功更新战法' }
-        format.json { render :show, status: :ok, location: @tactic }
+        format.json { render json: {data: @tactic}, status: :ok, location: @tactic }
       else
         format.html { render :edit }
         format.json { render json: @tactic.errors, status: :unprocessable_entity }

@@ -81,7 +81,7 @@
             <div class="title-conponent">
               <strong class="f16"><%= tactic.name %></strong>
               <span class="label <%= tactic.has_finish? ? 'label-success' : 'label-danger' %> ml10">
-                <%= tactic.status %>
+                <%= "" || tactic.status %>
               </span>
             </div>
             <div>
@@ -111,7 +111,7 @@
                 已办任务
                 <span class="text-primary"><%= tactic.finished_task_count %></span>
               </span>
-              <%= link_to "编辑战法", tactic, {:class=>"btn btn-primary btn-long" ,:role=>"button"} %>
+              <%= link_to "战法设计", tactic, {:class=>"btn btn-primary btn-long" ,:role=>"button"} %>
               <%= link_to "查看进度", tactic_progress_path(tactic), {:class=>"btn btn-default ml10", :role=>"button"} %>
             </div>
           </div>

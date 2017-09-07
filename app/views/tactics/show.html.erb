@@ -9,7 +9,7 @@
 			<a class="link-item" href="">战法管理</a>
 		</li>
 		<li class="bread-nav-item">
-			<span class="link-item" href="">战法进度</span>
+			<span class="link-item" href="">战法设计</span>
 		</li>
 	</ul>
 </div>
@@ -21,13 +21,17 @@
 			<div class="title-conponent">
 				<div class="pull-right">
 					<%= link_to "查看进度", tactic_progress_path(@tactic), :class => "btn btn-primary ml10" %>
-					<a class="btn btn-default ml10" @click="makeTacticClassic">转为经典战法</a>
+					<a class="btn btn-default ml10" <%= "data-classic=#{@tactic.classic ? 1 : 0}" %> @click="makeTacticClassic"><%= @tactic.classic ? "从经典战法移除" : "转为经典战法" %></a>
 					<%=link_to "删除战法", tactic_path(@tactic), :method => "delete",
 					:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) },
 					:class => "btn btn-danger ml10" %>
 				</div>
 				<strong class="f26"><%= @tactic.name %></strong>
-				<span class="label label-success ml10"><%= @tactic.status %></span>
+				<span class=>
+					<a class="text-gray" href="<%= edit_tactic_path(@tactic) %>">
+						<i class="fa fa-pencil-square-o" aria-hidden="true" alt="编辑"></i>
+					</a>
+				</span>
 			</div>
 			<div class="mt10">
 				<%= @tactic.description %>
@@ -54,7 +58,8 @@
 					<i class="fa fa-calendar" aria-hidden="true"></i>
 					&nbsp;
 					<span>
-						开始:<%= @tactic.start_time %> -- 结束:<%= @tactic.end_time %>
+						开始:<%= @tactic.start_time %>
+						-- 结束:<%= @tactic.end_time %>
 					</span>
 				</div>
 			</div>
@@ -225,32 +230,34 @@
 			<div slot="body" class="panel panel-default">
 				<div class="panel-body">
 					<form>
-							<div class="input-group">
-								 <input type="text" class="form-control" v-model="usersSearchName" placeholder="输入用户名进行搜索"/>
-								 <span class="input-group-btn" @click="searchUser">
-										<button type="button" class="btn btn-primary">
-											<i class="glyphicon glyphicon-search"></i>
-										</button>
-								 </span>
-							</div>
-							<div v-if="selectedUsersTemp.length > 0">
-								<hr/>
-								<div>已选择：</div>
-								<div class="closable" v-for="s in selectedUsersTemp">
-									<span class="closable-span">{{s.name}}
-										<button type="button" class="btn btn-close" @click="removeUser(s)">×</button>
-									</span>
-								</div>
-							</div>
-							<div v-if="usersSearchResult.length > 0">
-								<hr/>
-								<span>搜索结果：</span>
-								<span class="search-result-list blk" v-for="u in usersSearchResult">
-									<span class="search-result-text il-blk">{{u.name}}({{u.email}})</span>
-									<span class="search-result-btn il-blk"><button type="button" class="btn btn-primary btn-xs" @click="addUser(u)">选择</button></span>
+						<div class="input-group">
+							<input type="text" class="form-control" v-model="usersSearchName" placeholder="输入用户名进行搜索"/>
+							<span class="input-group-btn" @click="searchUser">
+								<button type="button" class="btn btn-primary">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
+						<div v-if="selectedUsersTemp.length > 0">
+							<hr/>
+							<div>已选择：</div>
+							<div class="closable" v-for="s in selectedUsersTemp">
+								<span class="closable-span">{{s.name}}
+									<button type="button" class="btn btn-close" @click="removeUser(s)">×</button>
 								</span>
-								<span class="search-result-list blk"></span>
 							</div>
+						</div>
+						<div v-if="usersSearchResult.length > 0">
+							<hr/>
+							<span>搜索结果：</span>
+							<span class="search-result-list blk" v-for="u in usersSearchResult">
+								<span class="search-result-text il-blk">{{u.name}}({{u.email}})</span>
+								<span class="search-result-btn il-blk">
+									<button type="button" class="btn btn-primary btn-xs" @click="addUser(u)">选择</button>
+								</span>
+							</span>
+							<span class="search-result-list blk"></span>
+						</div>
 					</form>
 				</div>
 			</div>

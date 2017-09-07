@@ -4,7 +4,7 @@ $(document).on("turbolinks:load", function() {
   }
 });
 
-function Task(obj){
+function Task(obj) {
   this.id = null;
   this.name = null;
   this.tactic_id = null;
@@ -20,8 +20,8 @@ function Task(obj){
   this._modify_ = null;
   this.created_at = null;
   this.updated_at = null;
-  if(obj){ //从JSON对象构建Task
-    for(var key in obj){
+  if (obj) { //从JSON对象构建Task
+    for (var key in obj) {
       this[key] !== undefined && (this[key] = obj[key]);
     }
   }
@@ -30,7 +30,7 @@ function Task(obj){
 function initTacticShowVue() {
   var Modal = {
     template: "#modal-template",
-    data: function(){
+    data: function() {
       return {
         modalWidth: "600px"
       }
@@ -52,7 +52,7 @@ function initTacticShowVue() {
         "end_time": "结束时间",
         "description": "描述",
         "created_at": "创建时间",
-        $get: function(key){
+        $get: function(key) {
           return (key && this[key]) ? this[key] : key;
         }
       },
@@ -61,7 +61,7 @@ function initTacticShowVue() {
       currentTask: new Task(),
       isTaskEditLock: true,
       isTaskEditing: false,
-      columnBlacklist: ["id", "tactic_id", "order", "updated_at","created_at","attachment_url","attachment_name"],
+      columnBlacklist: ["id", "tactic_id", "order", "updated_at", "created_at", "attachment_url", "attachment_name"],
       fontStyle: "",
       fontVariant: "",
       fontWeight: "",
@@ -116,7 +116,10 @@ function initTacticShowVue() {
       }).done(function(response) {
         var data = response["data"];
         if (data) {
-          outer.tasks = (data["tasks"] || []).map(function(x){x._modify_="none";return new Task(x);});
+          outer.tasks = (data["tasks"] || []).map(function(x) {
+            x._modify_ = "none";
+            return new Task(x);
+          });
           outer.taskHeaders = data["headers"] || [];
         }
       });
@@ -148,26 +151,26 @@ function initTacticShowVue() {
         return this.tacticFlowchart.selection.first();
       },
       changeCurrentTask: function() { // 改变当前任务(节点选择改变时触发)
-        if(this.isSelectedOneNode()){ //选择一个节点
+        if (this.isSelectedOneNode()) { //选择一个节点
           var sel = this.getFirstSelected();
-          if(sel.category === '' && sel.findObject("NODEFILLSHAPE").figure !== "Diamond"){ //该节点是任务节点
+          if (sel.category === '' && sel.findObject("NODEFILLSHAPE").figure !== "Diamond") { //该节点是任务节点
             var targetId = sel.data['task_id'];
-            if(targetId){//该节点已经绑定任务
+            if (targetId) { //该节点已经绑定任务
               var target = this.findTaskByIdOrTempGuid(targetId);
               this.currentTask = (target ? target : new Task());
-            }else{
+            } else {
               this.currentTask = new Task();
             }
             this.isTaskEditLock = false; //允许编辑
-          }else{
+          } else {
             this.currentTask = new Task();
             this.isTaskEditLock = true; //非任务节点，禁止编辑编辑
           }
-        }else { //选择0个或多个节点
+        } else { //选择0个或多个节点
           this.currentTask = new Task();
           this.isTaskEditLock = true; //禁止编辑
         }
-        this.isTaskEditing = false;  //重置编辑按钮状态
+        this.isTaskEditing = false; //重置编辑按钮状态
         this.selectedUsersTemp = (this.currentTask.user && this.currentTask.user.slice(0)) || [];
       },
       //创建任务后,使用临时生成的guid将节点与任务进行绑定
@@ -179,7 +182,7 @@ function initTacticShowVue() {
       },
       //删除任务后，删除节点内部的关联任务标识符，解除绑定
       //identify有可能是是任务id(已持久化的任务)，也有可能是临时分配的guid(未持久化的任务)
-      deleteTaskIdentifyOfNodeData: function(identify){
+      deleteTaskIdentifyOfNodeData: function(identify) {
         var targetNode;
         this.tacticFlowchart.nodes.each(function(node) {
           if (node.data.task_id == identify) {
@@ -193,9 +196,9 @@ function initTacticShowVue() {
         if (this.isTaskEditing) { //编辑状态下
           if (this.currentTask.id) { //该任务是经过持久化的，标识为更新
             this.currentTask._modify_ = "updated";
-          }else if(this.currentTask.temp_guid){ //该任务是已创建但未经过持久化的，标识为创建
+          } else if (this.currentTask.temp_guid) { //该任务是已创建但未经过持久化的，标识为创建
             this.currentTask._modify_ = "created";
-          }else { //该任务还未被创建，执行创建
+          } else { //该任务还未被创建，执行创建
             this.currentTask._modify_ = "created";
             this.currentTask.tactic_id = this.tacticId();
             this.currentTask.status = "未完成";
@@ -209,12 +212,12 @@ function initTacticShowVue() {
           this.isTaskEditing = !this.isTaskEditing; // 进入编辑状态
         } //end if
       }, //end function
-      deleteTask: function(task,noConf) {
+      deleteTask: function(task, noConf) {
         if ((!noConf && confirm("确定删除这个任务吗？") && task) || (noConf && task)) {
-          if(task._modify_ == "created"){//要删除的任务没有经过持久化
-            this.tasks.splice(this.tasks.indexOf(task),1);
+          if (task._modify_ == "created") { //要删除的任务没有经过持久化
+            this.tasks.splice(this.tasks.indexOf(task), 1);
             task.temp_guid && this.currentTask.temp_guid == task.temp_guid && (this.currentTask = new Task());
-          }else{//要删除的任务是经过持久化的
+          } else { //要删除的任务是经过持久化的
             task._modify_ = "deleted";
             task.id && this.currentTask.id == task.id && (this.currentTask = new Task());
           }
@@ -222,13 +225,13 @@ function initTacticShowVue() {
         }
       },
       //为了保证一致性，当节点删除时，同时删除关联的任务，节点删除可以撤销，但任务不可以
-      deleteTaskOnNodeDeleted: function(diagramEvent){
+      deleteTaskOnNodeDeleted: function(diagramEvent) {
         var deleted = diagramEvent.subject;
         var outer = this;
-        deleted.each(function(x){
-          if(x instanceof go.Node && x.data["task_id"]){
+        deleted.each(function(x) {
+          if (x instanceof go.Node && x.data["task_id"]) {
             var task = outer.findTaskByIdOrTempGuid(x.data["task_id"]); //查找任务
-            outer.deleteTask(task,true); //删除任务
+            outer.deleteTask(task, true); //删除任务
             x.data["task_id"] = null; //删除绑定的任务
           }
         });
@@ -239,46 +242,57 @@ function initTacticShowVue() {
       //所以是使用一个临时的guid来将流程图节点与任务库进行绑定，
       //等到任务变更保存了，读取到服务器返回的新创建的任务的id时，
       //更新流程图节点与任务的绑定(将guid换为id),最后才保存流程图数据到文件服务器
-      persistChanges: function(){
+      persistChanges: function() {
         // 获取变更过的任务
-        var changes = this.tasks.filter(function(x){return x._modify_  && x._modify_ != "none"});
+        var changes = this.tasks.filter(function(x) {
+          return x._modify_ && x._modify_ != "none"
+        });
         var outer = this;
         $.ajax({
-          url: "/tactics/"+this.tacticId()+"/persist_tasks",
+          url: "/tactics/" + this.tacticId() + "/persist_tasks",
           method: "POST",
           dataType: "JSON",
-          data: {tactic_tasks: changes}
-        }).done(function(response){
+          data: {
+            tactic_tasks: changes
+          }
+        }).done(function(response) {
           // 获取返回状态以及数据
-          if(response["success"] && response["data"]){
+          if (response["success"] && response["data"]) {
             //createdIds是服务器返回的[{guid:,id:}..]数组
             //指明了之前新创建的临时分配guid的任务对象在数据库中生最终成的id是什么
             //然后根据这个最终持久化的id去替换流程图中节点数据的task_id,建立真正的绑定
             //最后再保存流程图数据
             var createdIds = response["data"]["created_ids"];
             var tasks = response["data"]["tasks"];
-            if(createdIds && tasks){ //数据非空检验
+            if (createdIds && tasks) { //数据非空检验
               var guid_id_map = new go.Map(); //对于新创建的任务，用来存储(guid,id)键值对
-              createdIds.forEach(function(x){guid_id_map.add(x.guid,x.id);});
-              outer.tacticFlowchart.nodes.each(function(node){
+              createdIds.forEach(function(x) {
+                guid_id_map.add(x.guid, x.id);
+              });
+              outer.tacticFlowchart.nodes.each(function(node) {
                 var task_id = node.data["task_id"];
-                if(guid_id_map.getValue(task_id)){
+                if (guid_id_map.getValue(task_id)) {
                   //更新绑定值
                   outer.tacticFlowchart.model.setDataProperty(node.data, "task_id", guid_id_map.getValue(task_id));
                 }
               });
               //更新任务列表
-              outer.tasks = tasks.map(function(x){x._modify_ = "none";return new Task(x);});
+              outer.tasks = tasks.map(function(x) {
+                x._modify_ = "none";
+                return new Task(x);
+              });
               $("#finished_task_span").text(response["data"]["finished_task_count"]);
               $("#unfinished_task_span").text(response["data"]["unfinished_task_count"]);
             }
             //更新当前任务状态，重置编辑表单
             outer.changeCurrentTask();
             outer.saveFlowchart();
-          }else{
+          } else {
             alert("服务器错误，保存失败！");
           }
-        }).error(function(){alert("未知错误，保存失败！")});
+        }).error(function() {
+          alert("未知错误，保存失败！")
+        });
       },
       saveFlowchart: function() {
         var outer = this;
@@ -331,7 +345,7 @@ function initTacticShowVue() {
           maxSize: new go.Size(Infinity, Infinity), //去掉默认最大2000*2000的限制
           scale: 1 //显示整个图片而非可见部分
         });
-        sessionStorage.setItem("image-view-page-src",img);
+        sessionStorage.setItem("image-view-page-src", img);
         window.open("/image_views");
       },
       pick: function(showPanel, showSize, showColor, showArrow) {
@@ -385,64 +399,80 @@ function initTacticShowVue() {
           }
         });
       },
-      searchUser: function(){
-        if(this.usersSearchName){
+      searchUser: function() {
+        if (this.usersSearchName) {
           var outer = this;
           $.ajax({
             url: "/users/search",
             method: "POST",
-            data: {name: this.usersSearchName},
+            data: {
+              name: this.usersSearchName
+            },
             dataType: "JSON"
-          }).done(function(response){
-            if(response["data"]){
+          }).done(function(response) {
+            if (response["data"]) {
               outer.usersSearchResult = response["data"];
             }
           })
         }
       },
-      addUser: function(user){
-        var isSelected = this.selectedUsersTemp.filter(function(x){return x.id == user.id;}).length == 1;
-        if(!isSelected){
+      addUser: function(user) {
+        var isSelected = this.selectedUsersTemp.filter(function(x) {
+          return x.id == user.id;
+        }).length == 1;
+        if (!isSelected) {
           this.selectedUsersTemp.push(user);
         }
       },
-      removeUser: function(user){
+      removeUser: function(user) {
         var index = -1;
-        for(var i=0;i<this.selectedUsersTemp.length;i++){
-          if(this.selectedUsersTemp[i].id == user.id){
+        for (var i = 0; i < this.selectedUsersTemp.length; i++) {
+          if (this.selectedUsersTemp[i].id == user.id) {
             index = i;
           }
         }
-        if(index > -1){
-          this.selectedUsersTemp.splice(index,1)
+        if (index > -1) {
+          this.selectedUsersTemp.splice(index, 1)
         }
       },
-      confirmSelectUsers: function(){
-        this.showSearchModal=false;
+      confirmSelectUsers: function() {
+        this.showSearchModal = false;
         this.usersSearchResult = [];
         this.currentTask.user = this.selectedUsersTemp.slice(0);
       },
-      cancleSelectUsers: function(){
-        this.showSearchModal=false;
+      cancleSelectUsers: function() {
+        this.showSearchModal = false;
         this.selectedUsersTemp = (this.currentTask.user && this.currentTask.user.slice(0)) || []
         this.usersSearchResult = [];
       },
-      makeTacticClassic: function(){
-        var outer = this;
-        var id = this.tacticId();
+      makeTacticClassic: function(event) {
         $.ajax({
           url: "/tactics/" + this.tacticId(),
           method: "PATCH",
-          data: {tactic: {classic: 1},id: this.tacticId()},
+          data: {
+            tactic: {
+              classic: (-1) * ($(event.currentTarget).data("classic") - 1)
+            },
+            id: this.tacticId()
+          },
           dataType: "JSON"
-        }).done(function(){alert("操作成功！")}).error(function(){alert("操作失败！")});
+        }).done(function(response) {
+          alert("操作成功！");
+          var classic = response["data"]["classic"];
+          $(event.target).html(classic ? "从经典战法移除" : "转为经典战法");
+          $(event.target).data("classic", classic ? 1 : 0);
+        }).error(function() {
+          alert("操作失败！");
+        });
       }
     },
-    filters:{
-      usersToNameStr: function(obj){
-        if(obj instanceof Array){
-          return obj.map(function(x){return x.name ? x.name : '';}).join(",");
-        }else{
+    filters: {
+      usersToNameStr: function(obj) {
+        if (obj instanceof Array) {
+          return obj.map(function(x) {
+            return x.name ? x.name : '';
+          }).join(",");
+        } else {
           return obj;
         }
       }
@@ -536,7 +566,7 @@ function setFlowchart() {
               margin: 8,
               wrap: go.TextBlock.WrapFit,
               editable: true,
-              minSize: new go.Size(20,NaN)
+              minSize: new go.Size(20, NaN)
             },
             new go.Binding("font", "font").makeTwoWay(),
             new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -569,7 +599,7 @@ function setFlowchart() {
               name: "TEXTOBJECT",
               stroke: lightText,
               editable: true,
-              minSize: new go.Size(20,NaN)
+              minSize: new go.Size(20, NaN)
             },
             new go.Binding("font", "font").makeTwoWay(),
             new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -602,7 +632,7 @@ function setFlowchart() {
               name: "TEXTOBJECT",
               stroke: lightText,
               editable: true,
-              minSize: new go.Size(20,NaN)
+              minSize: new go.Size(20, NaN)
             },
             new go.Binding("font", "font").makeTwoWay(),
             new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -631,11 +661,11 @@ function setFlowchart() {
             new go.Binding("strokeWidth", "nodeOutlineWidth").makeTwoWay(), //边框大小
             new go.Binding("figure", "figure")
           ),
-          $$(go.TextBlock,{
+          $$(go.TextBlock, {
               name: "TEXTOBJECT",
               stroke: lightText,
               editable: true,
-              minSize: new go.Size(20,NaN)
+              minSize: new go.Size(20, NaN)
             },
             new go.Binding("font", "font").makeTwoWay(),
             new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -670,7 +700,7 @@ function setFlowchart() {
             textAlign: "center",
             editable: true,
             stroke: '#454545',
-            minSize: new go.Size(20,NaN)
+            minSize: new go.Size(20, NaN)
           },
           new go.Binding("font", "font").makeTwoWay(),
           new go.Binding("stroke", "textColor").makeTwoWay(),
@@ -681,43 +711,43 @@ function setFlowchart() {
       )
     );
     tacticFlowchart.nodeTemplateMap.add("Outline",
-    $$(go.Node, "Spot", nodeStyle(),
-      new go.Binding("zOrder", "zOrder").makeTwoWay(), //叠放次序
-      // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-      $$(go.Panel, "Auto",
-        $$(go.Shape, "Rectangle", {
-            name: "NODEFILLSHAPE",
-            fill: "rgba(255,255,255,0)",
-            stroke: "gray",
-            strokeWidth: 2
-          },
-          new go.Binding("fill", "nodeColor").makeTwoWay(), //填充颜色
-          new go.Binding("stroke", "nodeOutlineColor").makeTwoWay(), //边框颜色
-          new go.Binding("strokeWidth", "nodeOutlineWidth").makeTwoWay() //边框大小
+      $$(go.Node, "Spot", nodeStyle(),
+        new go.Binding("zOrder", "zOrder").makeTwoWay(), //叠放次序
+        // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+        $$(go.Panel, "Auto",
+          $$(go.Shape, "Rectangle", {
+              name: "NODEFILLSHAPE",
+              fill: "rgba(255,255,255,0)",
+              stroke: "gray",
+              strokeWidth: 2
+            },
+            new go.Binding("fill", "nodeColor").makeTwoWay(), //填充颜色
+            new go.Binding("stroke", "nodeOutlineColor").makeTwoWay(), //边框颜色
+            new go.Binding("strokeWidth", "nodeOutlineWidth").makeTwoWay() //边框大小
+          )
         )
       )
-    )
-  );
+    );
     tacticFlowchart.nodeTemplateMap.add("Textbox",
-    $$(go.Node, "Spot", nodeStyle(),
-      $$(go.Panel, "Auto",
-        $$(go.TextBlock, {
-            name: "TEXTOBJECT",
-            wrap: go.TextBlock.WrapFit,
-            textAlign: "left",
-            editable: true,
-            stroke: '#454545',
-            minSize: new go.Size(20,NaN)
-          },
-          new go.Binding("font", "font").makeTwoWay(),
-          new go.Binding("stroke", "textColor").makeTwoWay(),
-          new go.Binding("text", "text").makeTwoWay(),
-          new go.Binding("isUnderline", "isUnderline").makeTwoWay(),
-          new go.Binding("textAlign", "textAlign").makeTwoWay()
+      $$(go.Node, "Spot", nodeStyle(),
+        $$(go.Panel, "Auto",
+          $$(go.TextBlock, {
+              name: "TEXTOBJECT",
+              wrap: go.TextBlock.WrapFit,
+              textAlign: "left",
+              editable: true,
+              stroke: '#454545',
+              minSize: new go.Size(20, NaN)
+            },
+            new go.Binding("font", "font").makeTwoWay(),
+            new go.Binding("stroke", "textColor").makeTwoWay(),
+            new go.Binding("text", "text").makeTwoWay(),
+            new go.Binding("isUnderline", "isUnderline").makeTwoWay(),
+            new go.Binding("textAlign", "textAlign").makeTwoWay()
+          )
         )
       )
-    )
-  );
+    );
     // replace the default Link template in the linkTemplateMap
     tacticFlowchart.linkTemplate =
       $$(go.Link, // the whole link panel
@@ -900,8 +930,8 @@ function setFlowchart() {
       .then(function(json) {
         tacticFlowchart.model = go.Model.fromJson(json);
       });
-      tacticFlowchart.model.linkFromPortIdProperty = "fromPort";
-      tacticFlowchart.model.linkToPortIdProperty = "toPort";
+    tacticFlowchart.model.linkFromPortIdProperty = "fromPort";
+    tacticFlowchart.model.linkToPortIdProperty = "toPort";
   }
   // add an SVG rendering of the diagram at the end of this page
   return tacticFlowchart;
