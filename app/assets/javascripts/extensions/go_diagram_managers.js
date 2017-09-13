@@ -6,7 +6,7 @@ function Manager(diagram) {
   this.diagram = diagram;
   //图表在数据库中的id，绑定在diagram对象的divs上，更新数据时会用到
   this.diagramId = $(this.diagram.div).data("diagram-id");
-  
+
   /*
    *这个方法用来增加触发执行特点操作的dom元素和事件；
    *operation（必须），字符串，要执行的函数的名称（可为null）；
@@ -280,9 +280,6 @@ function DiagramHighlightManager(diagram, options = {}) {
     }
   };
 
-  //高亮更新
-  this.flush();
-
   //高亮频率最大的连线以及节点
   this.flushFeqMax = function() {
     var maxLinks = {
@@ -404,6 +401,9 @@ function DiagramHighlightManager(diagram, options = {}) {
   this.lightIt = function(obj) {
     obj.isHighlighted = true;
   };
+
+  //高亮更新
+  this.flush();
 }
 
 function FrequencyScreenManager(diagram, highlighManager) {

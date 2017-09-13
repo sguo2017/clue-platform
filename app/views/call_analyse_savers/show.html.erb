@@ -1,0 +1,28 @@
+<div class="bread-nav-wrap">
+  <ul class="bread-nav clearfix">
+    <li class="bread-nav-item home">
+      <a class="link-item" href="/position_decisions/index">
+        <span class="glyphicon glyphicon-home"></span>
+      </a>
+    </li>
+    <li class="bread-nav-item">
+      <a class="link-item" href="">分析工具</a>
+    </li>
+    <li class="bread-nav-item">
+      <span class="link-item">话单分析</span>
+    </li>
+  </ul>
+</div>
+<!-- 路径导航 end -->
+<div class="cas-diagram-container">
+  <div class="panel panel-default diagram-header">
+    <div class="panel-heading">
+      <div class="panel-title il-blk"><%= @cas.title %></div>
+      <div class="small text-gray mt10 il-blk">
+        <span>&nbsp;&nbsp;创建日期：<%= @cas.created_at %></span>
+        <span>&nbsp;&nbsp;创建者：<%= current_user.email %></span>
+      </div>
+    </div>
+  </div>
+  <div id="cas_show_diagram" data-diagram-id="<%= @cas.id %>" data-data-url="<%= @cas.data_url%>"></div>
+</div>

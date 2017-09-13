@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907072343) do
+ActiveRecord::Schema.define(version: 20170911054304) do
 
   create_table "call_analyse_savers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(version: 20170907072343) do
     t.bigint "case_id", null: false
     t.index ["case_id", "tactic_id"], name: "index_cases_tactics_on_case_id_and_tactic_id"
     t.index ["tactic_id", "case_id"], name: "index_cases_tactics_on_tactic_id_and_case_id"
+  end
+
+  create_table "extra_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "result_id"
+    t.integer "tactic_task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "suspects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

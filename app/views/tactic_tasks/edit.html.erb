@@ -86,8 +86,18 @@
       <div class="panel-body">
         <div class="col-sm-12">
           <%= form_tag({controller: "tactic_tasks", action: "update"},{method: "patch",class: "form-horizontal", id: "edit-tactic-task-form"})  do %>
+            <% if @tactic_task.should_do_extra_task %>
             <div class="form-group">
-              <label class="control-label">选择附件：</label>
+              <label class="control-label"><%= @tactic_task.category %>：</label>
+              <a class="label label-primary" href="<%= extra_task_jump_to_execute_path(@tactic_task.extra_task) %>">进入<%= @tactic_task.category %></a>
+              <a class="label label-warning" href="<%= extra_task_jump_to_bind_path(@tactic_task.extra_task) %>">选取分析结果</a>
+              <% if @tactic_task.extra_task.result_id.present? %>
+              <a class="label label-success" href="<%= extra_task_jump_to_view_path(@tactic_task.extra_task) %>">查看分析结果</a>
+              <% end %>
+            </div>
+            <% end %>
+            <div class="form-group">
+              <label class="control-label">提交附件：</label>
               <input type="file" id="tactic-task-attachment" class="form-control"/>
               <input class="hidden" type="text" name="tactic_task[attachment_name]" />
               <input class="hidden" type="text" name="tactic_task[attachment_url]" />

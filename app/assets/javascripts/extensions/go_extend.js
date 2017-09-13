@@ -308,3 +308,25 @@ go.Diagram.prototype.createOverview = function(div, options) {
     overview[key] = options[key];
   }
 }
+
+go.Diagram.prototype.changeModel = function(model, options) {
+  if (model) {
+    options || (options = {});
+    if (options.layoutBefore) {
+      this.changeLayout(options.layoutBefore);
+    }
+    try {
+      this.startTransaction("导入数据");
+      go.Model.fromJson(model, this.model);
+      this.commitTransaction("导入数据");
+    } catch (err) {
+      alert("导入失败！");
+      console.log(e);
+      this.rollbackTransaction();
+    } finally {
+      if (options.layoutAfter) {
+        this.changeLayout(options.layoutAfter)
+      }
+    }
+  }
+}

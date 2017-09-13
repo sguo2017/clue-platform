@@ -36,7 +36,11 @@ class CallAnalyseSaversController < ApplicationController
 
   #GET
   def show
-    render :json => @cas
+    respond_to do |format|
+      format.json {render :json => @cas}
+      format.js {render :json => @cas}
+      format.html {render :show}
+    end
   end
 
   def index
