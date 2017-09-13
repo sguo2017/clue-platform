@@ -7,8 +7,8 @@ class PositionDecisionsController < ApplicationController
     #@position_decisions = PositionDecision.all
     session[:curr_position] = nil
     @user = current_user
-    unless  params[:position].blank?
-       @user.position = params[:position]
+    unless params[:position].blank?
+      @user.position = params[:position]
     end
     session[:curr_position] = @user.position
     @suspects = Suspect.all.order("created_at DESC").limit(8)
@@ -19,8 +19,8 @@ class PositionDecisionsController < ApplicationController
       @finished_task = tasks.select{|x| x.status == "已完成"}
       @unfinished_task = tasks.select{|x| x.status != "已完成"}
     end
-     #@user.position = "decision"
-     #@user.position = "action"
+    #@user.position = "decision"
+    #@user.position = "action"
   end
 
   # GET /position_decisions/1
@@ -78,13 +78,13 @@ class PositionDecisionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_position_decision
-      @position_decision = PositionDecision.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_position_decision
+    @position_decision = PositionDecision.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def position_decision_params
-      params.fetch(:position_decision, {})
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def position_decision_params
+    params.fetch(:position_decision, {})
+  end
 end

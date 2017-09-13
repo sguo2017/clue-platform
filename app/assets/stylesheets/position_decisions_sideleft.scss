@@ -1,0 +1,31 @@
+/**
+ * 首页左侧边栏，图片列表
+ */
+
+.imgWrap--chh {
+  position: relative;
+  border: 1px solid #eee;
+}
+
+.imgWrap__a--chh {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.imgWrap__img--chh {
+  display: block;
+  width: auto;
+  max-height: 100%;
+}
+
+.imgWrap--title-chh {
+  padding: 3px 10px;
+  line-height: 18px;
+  color: #fff;
+  background: rgba(35, 39, 44, 0.8);
+}
