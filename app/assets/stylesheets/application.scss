@@ -2,17 +2,39 @@
 ********注意引入文件的顺序防止样式被覆盖***************
 *
 *= reruire bootstrap-sprockets
-*= require_directory ./
+*= require mystyle
+*= require position_decisions_sideleft
 *= require_tree ./controllers
 *= require font-awesome
 *= require bootstrap-datepicker
 *= require jquery-labelauty
-*
-*
 */
 
-//全局样式，important!
-.table, .table th{
+/**
+ * @author Chh 
+ * @desc 覆盖application.html.erb页样式
+ */
+.wrap--chh {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.navbar--chh {
+	z-index: 9999;
+	height: auto;
+}
+
+@media (max-width: 767px) {
+	.navbar-collapse {
+		background-color: #3D4861;
+	}
+}
+
+
+/*
+ * 全局样式，important!
+ */
+.table, .table th {
   text-align: center;
 }
 hr{
@@ -31,7 +53,11 @@ hr{
 .btn-close{
   background-color: #dddddd;
 }
-// vue 元素编译完成之前不显示，防止闪烁或者出现花括号
+
+/* 
+ * vue 
+ * 元素编译完成之前不显示，防止闪烁或者出现花括号
+ */
 [v-cloak] {
   display:none !important;
 }
