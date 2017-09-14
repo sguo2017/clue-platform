@@ -1,26 +1,19 @@
 /*
 ********注意引入文件的顺序防止样式被覆盖***************
 *
-*= reruire bootstrap-sprockets
 *= require mystyle
-*= require position_decisions_sideleft
 *= require_tree ./controllers
 *= require font-awesome
 *= require bootstrap-datepicker
 *= require jquery-labelauty
 */
 
-/**
- * @author Chh 
- * @desc 覆盖application.html.erb页样式
- */
-.wrap--chh {
-	min-width: 0;
-	overflow: hidden;
-}
 
+/**
+ * @author Terry Chan 
+ * @desc 修复因为顶部导航的固定高度，造成度展开错误的bug
+ */
 .navbar--chh {
-	z-index: 9999;
 	height: auto;
 }
 
@@ -29,7 +22,6 @@
 		background-color: #3D4861;
 	}
 }
-
 
 /*
  * 全局样式，important!

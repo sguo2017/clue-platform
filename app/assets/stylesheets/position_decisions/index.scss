@@ -1,0 +1,13 @@
+/*
+* @author Terry Chan 
+*/
+
+@import './_sideleft';
+
+/**
+ * @desc 覆盖application.html.erb页样式
+ */
+.wrap--chh {
+	min-width: 0;
+	overflow: hidden;
+}

@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	首页 | 海关情报研判平台
+<% end %>
+
 <% case @user.position when "decision" %>
     <%= render 'position_decision', position_decision: @position_decision  %>
 <% when "action" %>
