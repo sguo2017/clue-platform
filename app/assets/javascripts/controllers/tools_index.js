@@ -46,7 +46,7 @@ function initCalllistAnalyseToolsIndexVue() {
  *     不应该包含任何DOM操作逻辑，仅仅关心diagram逻辑。
  */
 function initCalllistAnalyseIndexDiagram() {
-  var diagram = judgeCalllistDiagramTypeAndDraw();
+  diagram = judgeCalllistDiagramTypeAndDraw();
   if(!diagram) return;
   //缩略图
   diagram.createOverview("tools_main_overview");
@@ -92,7 +92,7 @@ function initCalllistAnalyseIndexDiagram() {
   ddm.addDOMTrigger("input[name='save-location']", "change", null, {
     doAfter: function() {
       this.setSaveLocation($("input[name='save-location']:checked").val());
-      this.saveLocation === "server" ? $("#div-save-title").show() : $("#div-save-title").hide();
+      this.saveLocation === "server-new" ? $("#div-save-title").show() : $("#div-save-title").hide();
     }
   });
   ddm.addDOMTrigger("#btn-image-export", "click", "exportImage");

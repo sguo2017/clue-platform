@@ -2,7 +2,11 @@
  * 后面各种Manager类的父类
  * 使用寄生组合的方式进行继承
  */
-function Manager() {
+function Manager(diagram) {
+  this.diagram = diagram;
+  //图表在数据库中的id，绑定在diagram对象的divs上，更新数据时会用到
+  this.diagramId = $(this.diagram.div).data("diagram-id");
+
   /*
    *这个方法用来增加触发执行特点操作的dom元素和事件；
    *operation（必须），字符串，要执行的函数的名称（可为null）；
@@ -104,10 +108,9 @@ function Manager() {
 
 
 function DiagramDataManager(diagram, highlightManager) {
-  Manager.call(this);
-  this.diagram = diagram;
+  Manager.call(this,diagram);
   this.highlightManager = highlightManager;
-  this.saveLocation = "server";
+  this.saveLocation = "server-new";
   this.saveTitle = "";
   this.file = null;
 
@@ -118,7 +121,7 @@ function DiagramDataManager(diagram, highlightManager) {
 
   // 设置数据保存位置
   this.setSaveLocation = function(where) {
-    (where === "local" || where === "server") && (this.saveLocation = where);
+    (where === "local" || where === "server-new" || where ==="server-update") && (this.saveLocation = where);
   }
 
   // 设置文件对象
@@ -142,8 +145,8 @@ function DiagramDataManager(diagram, highlightManager) {
       case "local":
         this.saveDataToFile();
         break;
-      case "server":
-        this.saveDataToServer(this.title);
+      case "server-new": case"server-update":
+        this.saveDataToServer();
         break;
       default:
     }
@@ -160,6 +163,23 @@ function DiagramDataManager(diagram, highlightManager) {
 
   //保存数据到服务器（文件数据保存到FastDFS,数据库字段通过Rails后台保存）
   this.saveDataToServer = function() {
+
+    function updateAnalyseResult(diagramId, dataUrl, imageUrl) {
+      $.ajax({
+        url: "/call_analyse_savers/"+diagramId,
+        method: "PATCH",
+        data: {
+          call_analyse_saver: {
+            data_url: dataUrl,
+            image_url: imageUrl
+          }
+        }
+      }).done(function() {
+        alert("成功更新数据！");
+      }).error(function() {
+        alert("保存失败");
+      });
+    }
 
     function saveAnalyseResult(dataUrl, imageUrl, title) {
       $.ajax({
@@ -179,7 +199,7 @@ function DiagramDataManager(diagram, highlightManager) {
       });
     }
 
-    var title = this.title;
+    var outer = this;
     var formData = new FormData();
     var url = 'http://123.56.157.233:9090/FastDFSWeb/servlet/imageUploadServlet';
     var data = new Blob([this.diagram.model.toJson()], {
@@ -202,7 +222,11 @@ function DiagramDataManager(diagram, highlightManager) {
       .then(function(json) {
         var dataUrl = json["data"];
         var imageUrl = json["image"];
-        saveAnalyseResult(dataUrl, imageUrl, title);
+        if(outer.saveLocation === "server-new" || (outer.saveLocation === "server-update" && !outer.diagramId)){
+          saveAnalyseResult(dataUrl, imageUrl, outer.title);
+        }else if(outer.saveLocation === "server-update" && outer.diagramId){
+          updateAnalyseResult(outer.diagramId, dataUrl, imageUrl);
+        }
       }).catch(function() {
         alert("服务器连接失败，请重试！");
       });
@@ -237,8 +261,7 @@ function DiagramDataManager(diagram, highlightManager) {
 }
 
 function DiagramHighlightManager(diagram, options = {}) {
-  Manager.call(this);
-  this.diagram = diagram;
+  Manager.call(this,diagram);
   this.displayMax = options.displayMax || false;
   this.displayCon = options.displayCon || true;
   this.displayBtw = options.displayBtw || true;
@@ -256,9 +279,6 @@ function DiagramHighlightManager(diagram, options = {}) {
       this.flushAllPathsBetween(sa[0], sa[1]);
     }
   };
-
-  //高亮更新
-  this.flush();
 
   //高亮频率最大的连线以及节点
   this.flushFeqMax = function() {
@@ -381,11 +401,13 @@ function DiagramHighlightManager(diagram, options = {}) {
   this.lightIt = function(obj) {
     obj.isHighlighted = true;
   };
+
+  //高亮更新
+  this.flush();
 }
 
 function FrequencyScreenManager(diagram, highlighManager) {
-  Manager.call(this);
-  this.diagram = diagram;
+  Manager.call(this,diagram);
   this.highlighManager = highlighManager;
   this.feq = 1;
   this.type = "renew";
@@ -473,8 +495,7 @@ function FrequencyScreenManager(diagram, highlighManager) {
 }
 
 function DiagramVisibleMnager(diagram, highlighManager) {
-  Manager.call(this);
-  this.diagram = diagram;
+  Manager.call(this,diagram);
   this.highlighManager = highlighManager;
 
   this.hideUnselected = function() {
@@ -564,8 +585,7 @@ function DiagramVisibleMnager(diagram, highlighManager) {
 }
 
 function DiagramLayoutManager(diagram) {
-  Manager.call(this);
-  this.diagram = diagram;
+  Manager.call(this,diagram);
   this.layout = "forceDirected";
   this.wheelBehavior = "zoom";
 

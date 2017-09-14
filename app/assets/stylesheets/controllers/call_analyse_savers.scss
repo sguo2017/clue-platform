@@ -1,27 +1,39 @@
-#cas_diagram {
-  background-color:rgb(234, 233, 233);
-  height:430px;
+#cas_index_diagram {
+  background-color: rgb(234, 233, 233);
+  height: 430px;
   //投影方式 X轴偏移量 Y轴偏移量 阴影模糊半径 阴影扩展半径 阴影颜色;
   //Firefox4.0-
-  -moz-box-shadow:5px 5px 15px 2px gray;
-
+  -moz-box-shadow: 5px 5px 15px 2px gray;
   //Safariand Google chrome10.0-
-  -webkit-box-shadow:5px 5px 15px 2px gray;
-
+  -webkit-box-shadow: 5px 5px 15px 2px gray;
   //Firefox4.0+、 Google chrome 10.0+ 、 Oprea10.5+ and IE9
-  box-shadow:5px 5px 15px 2px gray;
-
+  box-shadow: 5px 5px 15px 2px gray;
 }
 
-.analyse-img-overview{
+#cas_show_diagram {
+  background-color: rgb(234, 233, 233);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.cas-diagram-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.analyse-img-overview {
   background-color: white;
 }
-.ca-multi-select{
+
+.ca-multi-select {
   width: 100%;
   height: 120px !important;
   overflow-x: auto;
 }
-.ca-select-show{
+
+.ca-select-show {
   height: 120px !important;
   overflow: auto;
 }

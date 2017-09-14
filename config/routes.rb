@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :extra_tasks do
+    get "jump_to_execute"
+    get "jump_to_show"
+    get "jump_to_bind"
+  end
   resources :tactic_tasks
   resources :tactics do
     get "get_tactic_tasks"
