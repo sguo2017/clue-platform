@@ -46,7 +46,14 @@
             </tr>
             <tr>
               <td><strong>类型</strong></td>
-              <td><%= @tactic_task.category %></td>
+              <td>
+              <%= @tactic_task.category %>&nbsp;
+              <%=
+                if @tactic_task.extra_task.present? && @tactic_task.extra_task.result_id.present?
+                  link_to "查看结果", extra_task_jump_to_show_path(@tactic_task.extra_task)
+                end
+              %>
+              </td>
             </tr>
             <tr>
               <td><strong>状态</strong></td>
