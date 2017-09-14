@@ -2,57 +2,65 @@
 ********注意引入文件的顺序防止样式被覆盖***************
 *
 *= require mystyle
-*= require_tree ./controllers
 *= require font-awesome
 *= require bootstrap-datepicker
 *= require jquery-labelauty
+*= require swiper
+*= require_tree ./controllers
 */
-
-
-/**
- * @author Terry Chan 
- * @desc 修复因为顶部导航的固定高度，造成度展开错误的bug
- */
-.navbar--chh {
-	height: auto;
+/*
+* 修复因为顶部导航的固定高度，造成度展开错误的bug
+*/
+.wrap {
+	min-width: 0;
+	overflow-x: hidden;
 }
 
+.wrap > .navbar.navbar-inverse {
+	height: auto;
+	z-index: 9999;
+}
 @media (max-width: 767px) {
 	.navbar-collapse {
 		background-color: #3D4861;
 	}
 }
-
 /*
  * 全局样式，important!
  */
-.table, .table th {
-  text-align: center;
-}
-hr{
-  margin-left:0;
-  margin-right:0;
-}
-.datepicker.datepicker-dropdown.dropdown-menu{
-  background-color: white !important;
-}
-.blk{
-  display:block;
-}
-.il-blk{
-  display: inline-block;
-}
-.btn-close{
-  background-color: #dddddd;
+.table,
+.table th {
+	text-align: center;
 }
 
-/* 
- * vue 
+hr {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.datepicker.datepicker-dropdown.dropdown-menu {
+	background-color: white !important;
+}
+
+.blk {
+	display: block;
+}
+
+.il-blk {
+	display: inline-block;
+}
+
+.btn-close {
+	background-color: #dddddd;
+}
+/*
+ * vue
  * 元素编译完成之前不显示，防止闪烁或者出现花括号
  */
 [v-cloak] {
-  display:none !important;
+	display: none !important;
 }
-.label{
-  padding: .2em .6em .2em;
+
+.label {
+	padding: 0.2em 0.6em;
 }

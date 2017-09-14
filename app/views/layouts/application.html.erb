@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="turbolinks-cache-control" content="no-cache">
     <title><%= content_for?(:title) ? yield(:title) : '海关情报研判平台' %></title>
-    
+
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "application", :media => "all", "data-turbolinks-track": "reload" %>
@@ -24,8 +21,8 @@
   </head>
   <body>
 
-    <div class="wrap wrap--chh">
-      <div class="navbar navbar-inverse navbar--chh">
+    <div class="wrap">
+      <div class="navbar navbar-inverse">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-id">
             <span class="icon-bar"></span>

@@ -1,0 +1,39 @@
+/*
+*  首页侧栏缩略图样式
+*/
+.thumbnail-card {
+  display: block;
+  height: auto;
+  border: 1px solid #ddd;
+}
+
+.thumbnail-card:hover {
+  border: 1px solid #478DE0;
+}
+
+.thumbnail-wrap {
+  display: block;
+  height: 100px;
+  line-height: 1.42857143;
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.thumbnail-image {
+  display: block;
+  height: inherit;
+  max-height: 100px;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.thumbnail-caption {
+  display: block;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  text-align: center;
+  line-height: 16px;
+  color: #fff;
+  background: rgba(35, 39, 44, 0.8);
+}
