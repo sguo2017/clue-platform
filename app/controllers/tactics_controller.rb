@@ -117,6 +117,7 @@ class TacticsController < ApplicationController
           end  # end if
         end  # end each
       end  # end if
+      @previousPage = request.referer || '/'
       render :progress
     rescue
       redirect_to @tactic, notice: '文件服务器连接失败，请重试'

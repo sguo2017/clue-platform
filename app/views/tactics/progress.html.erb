@@ -24,8 +24,8 @@
       <div class="title-conponent">
         <strong class="f26"><%= @tactic.name %></strong>
         <div class="pull-right">
-          <button class="btn btn-primary">编辑战法</button>
-          <button class="btn btn-default ml10">返回</button>
+          <%= link_to "编辑战法", @tactic, :class=>'btn btn-primary' %>
+          <%= link_to "返回", @previousPage, :class=>'btn btn-default ml10' %>
         </div>
       </div>
       <div class="">
@@ -195,126 +195,128 @@
 </div>
 <!--} new wrap -->
 
-<hr>
-
-<div id="progress-container-wrap">
-  <div id="progress-left-container">
-    <div id="progress-tactic-panel" class="panel">
-      <div class="inner-panel-body">
-        <div class="panel-title">战法概览</div>
-        <hr/>
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td>
-                <i class="fa fa-user-plus" aria-hidden="true"></i>
-                执行队伍</td>
-              <td><%= @tactic.executive_team %></td>
-            </tr>
-            <tr>
-              <td>
-                <i class="fa fa-link" aria-hidden="true"></i>
-                关联案件</td>
-              <td><%= @tactic.cases.map{|x| x.name}.join(",") %></td>
-            </tr>
-            <tr>
-              <td>
-                <i class="fa fa-check-circle" aria-hidden="true"></i>
-                已办任务</td>
-              <td>
-                <span class="text-primary"><%= @tactic.finished_task_count %></span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                待办任务</td>
-              <td>
-                <span class="text-warning"><%= @tactic.unfinished_task_count %></span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                开始时间</td>
-              <td><%= @tactic.start_time%></td>
-            </tr>
-            <tr>
-              <td>
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                结束时间</td>
-              <td><%=@tactic.end_time%></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="mt5"></div>
-    <div id="progress-tactic-task-panel" class="panel">
-      <div class="inner-panel-body">
-        <div class="panel-title">
-          任务概览
+<!-- 战法流程图 {-->
+<div class="hidden">
+  <div id="progress-container-wrap">
+    <div id="progress-left-container">
+      <div id="progress-tactic-panel" class="panel">
+        <div class="inner-panel-body">
+          <div class="panel-title">战法概览</div>
+          <hr/>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>
+                  <i class="fa fa-user-plus" aria-hidden="true"></i>
+                  执行队伍</td>
+                <td><%= @tactic.executive_team %></td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="fa fa-link" aria-hidden="true"></i>
+                  关联案件</td>
+                <td><%= @tactic.cases.map{|x| x.name}.join(",") %></td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                  已办任务</td>
+                <td>
+                  <span class="text-primary"><%= @tactic.finished_task_count %></span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                  待办任务</td>
+                <td>
+                  <span class="text-warning"><%= @tactic.unfinished_task_count %></span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  开始时间</td>
+                <td><%= @tactic.start_time%></td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  结束时间</td>
+                <td><%=@tactic.end_time%></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <hr/>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>名称</th>
-              <th>类型</th>
-              <th>执行人</th>
-              <th>状态</th>
-              <th>完成时间</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @tactic.tactic_tasks.order(:status).each do |t| %>
-            <tr class="<%= t.status=='已完成' ? 'success' : 'warning'%>">
-              <td><%= t.name %></td>
-              <td><%= t.category %></td>
-              <td><%= t.user.map{|x| x.name}.join(",") %></td>
-              <td><%= t.status %></td>
-              <td><%= t.finished_time %></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
+      </div>
+      <div class="mt5"></div>
+      <div id="progress-tactic-task-panel" class="panel">
+        <div class="inner-panel-body">
+          <div class="panel-title">
+            任务概览
+          </div>
+          <hr/>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>执行人</th>
+                <th>状态</th>
+                <th>完成时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @tactic.tactic_tasks.order(:status).each do |t| %>
+              <tr class="<%= t.status=='已完成' ? 'success' : 'warning'%>">
+                <td><%= t.name %></td>
+                <td><%= t.category %></td>
+                <td><%= t.user.map{|x| x.name}.join(",") %></td>
+                <td><%= t.status %></td>
+                <td><%= t.finished_time %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+
+    <!-- 战法流程图 {-->
+    <div id="progress-right-container">
+      <div id="progress-flow-image-panel" class="panel">
+        <div class="inner-panel-body">
+          <div class="panel-title">
+            战法流程图
+          </div>
+          <hr/>
+          <div>
+            <div class="color-card-flat div-lightgreen">开始</div>
+            <div class="color-card-flat div-success">已完成</div>
+            <div class="color-card-flat div-danger">未完成</div>
+            <div class="color-card-flat div-gray">无任务</div>
+            <div class="color-card-flat div-orange">结束</div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="mt5">
+            提示：鼠标悬浮至图片之上可以局部放大
+          </div>
+          <span id="flowchart-image-wrap" class="zoom">
+            <img id="flowchart-image" alt="战法任务流程图" class="img-responsive"/>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!--} 战法流程图 -->
+
+    <div class="clearfix"></div>
   </div>
-
-  <!-- 战法流程图 {-->
-  <div id="progress-right-container">
-    <div id="progress-flow-image-panel" class="panel">
-      <div class="inner-panel-body">
-        <div class="panel-title">
-          战法流程图
-        </div>
-        <hr/>
-        <div>
-          <div class="color-card-flat div-lightgreen">开始</div>
-          <div class="color-card-flat div-success">已完成</div>
-          <div class="color-card-flat div-danger">未完成</div>
-          <div class="color-card-flat div-gray">无任务</div>
-          <div class="color-card-flat div-orange">结束</div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="mt5">
-          提示：鼠标悬浮至图片之上可以局部放大
-        </div>
-        <span id="flowchart-image-wrap" class="zoom">
-          <img id="flowchart-image" alt="战法任务流程图" class="img-responsive"/>
-        </span>
-      </div>
-    </div>
-  </div>
-  <!--} 战法流程图 -->
-
-  <div class="clearfix"></div>
 </div>
 
 <!-- 战法流程图 {-->
 <div class="hidden">
   <div id="go-model-data"><%= @go_model.to_json %></div>
   <div id="tactic-hidden-flowchart"></div>
+
 </div>
 <!--} 战法流程图 -->
