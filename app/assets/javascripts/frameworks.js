@@ -11,3 +11,4 @@
 //= require jquery-zoom
 //= require bootstrap-datepicker
 //= require jquery-labelauty
+//= require swiper

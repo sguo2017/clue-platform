@@ -92,7 +92,7 @@
               <a class="label label-primary" href="<%= extra_task_jump_to_execute_path(@tactic_task.extra_task) %>">进入<%= @tactic_task.category %></a>
               <a class="label label-warning" href="<%= extra_task_jump_to_bind_path(@tactic_task.extra_task) %>">选取分析结果</a>
               <% if @tactic_task.extra_task.result_id.present? %>
-              <a class="label label-success" href="<%= extra_task_jump_to_view_path(@tactic_task.extra_task) %>">查看分析结果</a>
+              <a class="label label-success" href="<%= extra_task_jump_to_show_path(@tactic_task.extra_task) %>">查看分析结果</a>
               <% end %>
             </div>
             <% end %>

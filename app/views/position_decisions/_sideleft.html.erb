@@ -1,7 +1,3 @@
-<% content_for :stylesheets do %>
-	<%= stylesheet_link_tag "position_decisions/index", :media => "all", "data-turbolinks-track": "reload" %>
-<% end %>
-
 <div class="panel panel-default">
 	<div class="inner-panel-heading">
 		<span class="pull-right">
@@ -14,11 +10,11 @@
 			<ul class="clearfix list-unstyled block-list">
 				<% @suspects.each do |suspect| %>
 					<li class="col-xs-3 col-sm-2 col-md-4">
-						<div class="imgWrap--chh">
-							<a class="imgWrap__a--chh" href="/suspects/<%= suspect.id %>">
-							 	<%= image_tag("#{suspect.photo}", :class => "imgWrap__img--chh")%>
+						<div class="thumbnail-card">
+							<a class="thumbnail-wrap" href="<%= suspects_path(suspect)%>">
+							 	<%= image_tag("#{suspect.photo}", {:class => "thumbnail-image"})%>
 							</a>
-							<div class="imgWrap--title-chh text-ellipsis"><%= suspect.name %></div>
+							<div class="text-ellipsis thumbnail-caption"><%= suspect.name %></div>
 						</div>
 					</li>
 				<% end %>
@@ -38,11 +34,11 @@
 			<ul class="clearfix list-unstyled block-list">
 			<% @suspects_teams.each do |suspects_team| %>
 				<li class="col-xs-4">
-					<div class="imgWrap--chh">
-						<a class="imgWrap__a--chh" href="/suspects_teams/<%= suspects_team.id %>">
-						 	<%= image_tag("#{suspects_team.photo}", :class => "imgWrap__img--chh")%>
+					<div class="thumbnail-card">
+						<a class="thumbnail-wrap" href="<%= suspects_teams_path(suspects_team) %>">
+						 	<%= image_tag("#{suspects_team.photo}", :class => "thumbnail-image")%>
 						</a>
-						<div class="imgWrap--title-chh text-ellipsis"><%= suspects_team.name %></div>
+						<div class="text-ellipsis thumbnail-caption"><%= suspects_team.name %></div>
 					</div>
 				</li>
 			<% end %>
@@ -62,11 +58,11 @@
 			<ul class="clearfix list-unstyled block-list">
 			<% @cases.each do |case_item| %>
 				<li class="col-xs-6">
-					<div class="imgWrap--chh">
-						<a class="imgWrap__a--chh" href="/cases/<%= case_item.id %>">
-						 	<%= image_tag("#{case_item.photo}", :class => "imgWrap__img--chh")%>
+					<div class="thumbnail-card">
+						<a class="thumbnail-wrap" href="<%= case_path(case_item) %>">
+						 	<%= image_tag("#{case_item.photo}", :class => "thumbnail-image")%>
 						</a>
-						<div class="imgWrap--title-chh text-ellipsis"><%= case_item.name %></div>
+						<div class="text-ellipsis thumbnail-caption"><%= case_item.name %></div>
 					</div>
 				</li>
 			<% end %>
