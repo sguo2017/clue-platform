@@ -15,7 +15,187 @@
     </li>
   </ul>
 </div>
+<!-- 路径导航 end -->
 
+<div class="wrap">
+  <div class="panel panel-default margin-20">
+
+    <div class="panel-body">
+      <div class="title-conponent">
+        <strong class="f26"><%= @tactic.name %></strong>
+        <div class="pull-right">
+          <button class="btn btn-primary">编辑战法</button>
+          <button class="btn btn-default ml10">返回</button>
+        </div>
+      </div>
+      <div class="">
+        <span class="glyphicon glyphicon-calendar text-primary"></span>
+        <%= @tactic.start_time %> ~ <%= @tactic.end_time %>
+      </div>
+    </div>
+    <hr>
+    <div class="inner-panel-heading">
+      <span class="panel-title">战法总体概述</span>
+    </div>
+
+    <div class="panel-body">
+      <div class="swiper-container swiper-container-horizontal" id="swiper-container-tactics-progress">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <a href=""><%= image_tag "anjian1.png" %></a>
+            </div>
+            <div class="swiper-slide">
+              <a href=""><%= image_tag "anjian2.png" %></a>
+            </div>
+            <div class="swiper-slide">
+              <a href=""><%= image_tag "anjian3.png" %></a>
+            </div>
+            <div class="swiper-slide">
+              <a href=""><%= image_tag "anjian4.png" %></a>
+            </div>
+            <div class="swiper-slide">
+              <a href=""><%= image_tag "anjian4.png" %></a>
+            </div>
+            <div class="swiper-slide">
+              <a href=""><%= image_tag "anjian4.png" %></a>
+            </div>
+        </div>
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <div class="equal-layout">
+        <div class="equal-item">
+          <div class="equal-heading">
+            <span class="equal-title">任务</span>
+          </div>
+          <div style="height: 220px;">
+            <%= image_tag "img-method-pre1.png", :class=>"img-responsive", :style=>"height: 220px;" %>
+          </div>
+        </div>
+        <div class="equal-space"></div>
+        <div class="equal-item">
+          <div class="equal-heading">
+            <span class="equal-title">人员</span>
+          </div>
+          <div class="menber-tree">
+            <div class="menber-head">
+              <div class="head-img">
+                <%= image_tag "img-mp1.png", :class=>"img-circle" %>
+              </div>
+              <div class="head-body">
+                <div class="head-name">威廉</div>
+                <div class="head-post">总指挥</div>
+              </div>
+            </div>
+            <div class="menber-body">
+              <% 4.times do |k1| %>
+              <div class="menber-item">
+                <div class="row">
+                  <div class="col-xs-10">
+                    <ul class="menber-list">
+                      <li><div class="menber-post">场地勘察</div></li>
+                      <% [2, 3, 4, 5, 6].each do |k2| %>
+                      <li class="list-item">
+                        <%= image_tag "img-mp2.png", :class=>"img-circle", 'data-toggle'=>"tooltip", 
+                          'data-placement'=>"top", :title=>"姓名" %>
+                      </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                  <div class="col-xs-2 menber-more js-popover" >更多</div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div> 
+        <div class="equal-space"></div>
+        <div class="equal-item">
+          <div class="equal-heading">
+            <span class="equal-title">资料</span>
+          </div>
+          <div style="height: 220px;">
+            <%= image_tag "img-method-pre2.png", :class=>"img-responsive", :style=>"height: 220px;" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-panel-heading">
+      <span class="panel-title">战法执行进度网络图</span>
+    </div>
+    <div class="panel-body">
+      <!-- 战法流程图 {-->
+      <div class="panel-title">
+        战法流程图
+      </div>
+      <hr/>
+      <div>
+        <div class="color-card-flat div-lightgreen">开始</div>
+        <div class="color-card-flat div-success">已完成</div>
+        <div class="color-card-flat div-danger">未完成</div>
+        <div class="color-card-flat div-gray">无任务</div>
+        <div class="color-card-flat div-orange">结束</div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="mt5">
+        提示：鼠标悬浮至图片之上可以局部放大
+      </div>
+      <span id="flowchart-image-wrap" class="zoom">
+        <img id="flowchart-image" alt="战法任务流程图" class="img-responsive"/>
+      </span>
+      <!--} 战法流程图 -->
+    </div>
+
+    <div class="inner-panel-heading">
+      <span class="panel-title">战法总结</span>
+    </div>
+    <div  class="panel-body">
+      <p class="paragraph-wrap">
+          总结刑事和解工作总结和解工作2011 年，我院作为全省检察机关刑事和解试点院，为了推进“检调对接”工作机制，加大对刑事和解案件社会效果的考评力度，把刑事和解这种新司法实践落到实处，我院控申、公诉部门积极开展刑事和解工作，最大限度化解了社会矛盾，取得较好的法律效果和社会效果。
+  一、领导重视 科室配合 
+ 今年以来，我院党组高度重视刑事和解工作，要求全体干警充分 认识刑事和解这一新的刑事司法实践重要性，以控申牵头，公诉部门密切配合，切实依托人民调解组织等各类矛盾纠纷调处工作平台，办理了刑事和解案件 9 件。其中交通肇事案 4 起，故意伤害案 3 起，故意毁坏财物案 1 起，挪用资金案 1 起。所有案件依法办理，已经有 5 起案件作出了不诉处理。
+  二、工作细致 以人为本 
+  在办理每件刑事和解案件过程中，我院都本着自愿、 合法、 公正、 注重效果的原则来进行， 每件案件都通知双方当事人做了详细的讯问笔录，对于有的当事人身在外省，我院也本着方便当事人的原则，特事特办，灵活采取电话讯问、网络互动等方式方法进行，既解决了法律纠纷，又妥善处理了相关当事人的各项诉求，化解了社会矛盾，最大限度增加社会和谐因素。
+   三、开展回访工作 注重社会效果     达到了防止达成刑事和解协议的案件出现反复的目的， 在案件办理完结后，我院认真开展了刑事和解回访工作。2011 年 10 月上旬， 我院为刑事和解回访工作建立了长效机制，成立了主管副检察长为组长，控申、公诉部门干警为成员的回访小组，制定回访实施方案；控申和公诉部门联合制定了《xx 县人民检察院刑事和解案件回访工作制度》 ，针对案件的不同性质，确定不同的回访重点，明确在回访中的纪律要求；同时，在回访过程中，对每起案件的嫌疑人和受害人均要制作回访笔录，所有案件按照不诉和起诉作出分类，建立了考察档案。
+      </p>
+      <div>
+        <ul class="file-upload-contaiter clearfix">
+          <% 10.times do %>
+          <li class="file-upload-cont">
+            <div class="file-upload">
+                <div class="file-media">
+                    <div class="file-media-left">
+                      <%= image_tag "img_def.png", :class=>"media-object" %>
+                    </div>
+                    <div class="file-media-right">
+                      <button class="btn btn-primary btn-xs">下载</button>
+                    </div>
+                    <div class="file-media-body">
+                        <div class="file-media-main">
+                            <div class="file-media-heading">产品详细列表清单.xls</div>
+                            <div class="upload-body">
+                                <span class="memory">1.12MB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </li>
+          <% end %>
+        </ul> 
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--} new wrap -->
+
+<hr>
 
 <div id="progress-container-wrap">
   <div id="progress-left-container">
@@ -138,4 +318,3 @@
   <div id="tactic-hidden-flowchart"></div>
 </div>
 <!--} 战法流程图 -->
-

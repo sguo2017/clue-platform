@@ -2,7 +2,7 @@ $(document).on("turbolinks:load", function() {
   if ($("#tactics-index-app").length > 0) {
     initTacticsIndexVue();
   }
-  if($(".swiper-container").length > 0){
+  if($(".swiper-container--tacticsIndex").length > 0){
     initTacticSwiper();
   }
 });
@@ -37,7 +37,7 @@ function initTacticsIndexVue() {
 }
 
 function initTacticSwiper() {
-  new Swiper('.swiper-container', {
+  new Swiper('.swiper-container--tacticsIndex', {
     effect: 'coverflow',
     slidesPerView: 3,
     centeredSlides: true,
