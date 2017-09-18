@@ -22,6 +22,7 @@
         <span>&nbsp;&nbsp;创建日期：<%= @cas.created_at %></span>
         <span>&nbsp;&nbsp;创建者：<%= current_user.email %></span>
       </div>
+      <div class="pull-right"><%= link_to "返回", request.referer || root_path, :class => "btn btn-default" %></div>
     </div>
   </div>
   <div id="cas_show_diagram" data-diagram-id="<%= @cas.id %>" data-data-url="<%= @cas.data_url%>"></div>
