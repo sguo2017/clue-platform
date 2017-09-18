@@ -58,7 +58,7 @@ class TacticTasksController < ApplicationController
             }
           }
         }
-        format.html{ redirect_to position_decisions_index_path, notice: "更新成功"}
+        format.html{ redirect_to position_decisions_path, notice: "更新成功"}
       else
         format.any { render json: {msg: "更新失败!", success: false}, status: :unprocessable_entity}
       end

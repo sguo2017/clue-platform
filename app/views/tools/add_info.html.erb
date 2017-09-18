@@ -97,10 +97,10 @@
 		<div class="inner-panel-body">
 			<ul class="sub-nav clearfix">
 				<li class="sub-nav-item">
-					<a href="<%= tools_add_manual_path %>">手工导入</a>
+					<a href="<%= add_manual_tools_path %>">手工导入</a>
 				</li>
 				<li class="sub-nav-item active">
-					<a href="<%= tools_add_info_path %>">情报资料库</a>
+					<a href="<%= add_info_tools_path %>">情报资料库</a>
 				</li>
 			</ul>
 			<div id="data-screen-app">
@@ -182,9 +182,9 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="mt20">
-					<%= link_to t('.confirm',:default => t("确定")) ,tools_index_path(:type=>:calllist,:sources=>'db'),{:class=>"btn btn-primary btn-long",:@click=>"setFilterData"} %>
+					<%= link_to t('.confirm',:default => t("确定")) ,tools_path(:type=>:calllist,:sources=>'db'),{:class=>"btn btn-primary btn-long",:@click=>"setFilterData"} %>
 					<%= link_to t('.cancel', :default => t("取消")),
-					tools_rlat_path, :class => 'btn btn-default btn-long ml10' %>
+					rlat_tools_path, :class => 'btn btn-default btn-long ml10' %>
 				</div>
 			</div>
 		</div>

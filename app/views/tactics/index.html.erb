@@ -15,7 +15,7 @@
   <div class="left-side left-side-inverse column-18" v-bind:style="leftSidebarPosition">
     <div class="left-side-heading">
       <div class="heading-title">
-        <a class="pull-right small" href="">回首页</a>
+        <a class="pull-right small" href="<%= root_path %>">回首页</a>
         分类
       </div>
       <div class="input-group">
@@ -106,7 +106,7 @@
                 <span class="text-primary"><%= tactic.finished_task_count %></span>
               </span>
               <%= link_to "战法设计", tactic, {:class=>"btn btn-primary btn-long" ,:role=>"button"} %>
-              <%= link_to "查看进度", tactic_progress_path(tactic), {:class=>"btn btn-default ml10", :role=>"button"} %>
+              <%= link_to "查看进度", progress_tactic_path(tactic), {:class=>"btn btn-default ml10", :role=>"button"} %>
             </div>
           </div>
         </div>

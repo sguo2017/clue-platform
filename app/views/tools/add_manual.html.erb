@@ -4,7 +4,7 @@
 			<a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
 		</li>
 		<li class="bread-nav-item">
-			<a class="link-item" href="<%= tools_home_path %>">分析工具</a>
+			<a class="link-item" href="<%= home_tools_path %>">分析工具</a>
 		</li>
 		<li class="bread-nav-item">
 			<a class="link-item" href="">新建分析</a>
@@ -103,10 +103,10 @@
 		<div class="inner-panel-body" id="vue-excel-app">
 			<ul class="sub-nav clearfix">
 				<li class="sub-nav-item active">
-					<a href="<%= tools_add_manual_path %>">手工导入</a>
+					<a href="<%= add_manual_tools_path %>">手工导入</a>
 				</li>
 				<li class="sub-nav-item">
-					<a href="<%= tools_add_info_path %>">情报资料库</a>
+					<a href="<%= add_info_tools_path %>">情报资料库</a>
 				</li>
 			</ul>
 			<form id = "read_from_excel" action="/calllists/process_excel" enctype="multipart/form-data" method="post">
@@ -211,7 +211,7 @@
 	<form class="form-inline" style="display:inline">
 		<input class="labelauty-small" type="checkbox" v-model="saveToDb" v-on:change="changeDataNoteStatus" data-labelauty="同时保存到数据库" />
 		<input type="text" id="data-note" disabled="disabled" v-model="dataNote" class="form-control" placeholder="起个备注">
-		<a class="btn btn-primary btn-long" v-on:click='submit' href="/tools/index?type=calllist&sources=excel">确定</a>
+		<a class="btn btn-primary btn-long" v-on:click='submit' href="<%= tools_path(type: :calllist, sources: :excel) %>">确定</a>
 		<a class="btn btn-default btn-long ml10" v-on:click='reload'>取消</a>
 	</form>
 </div>

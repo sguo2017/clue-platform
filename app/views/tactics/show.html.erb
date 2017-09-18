@@ -20,7 +20,7 @@
 			<!-- 头部 -->
 			<div class="title-conponent">
 				<div class="pull-right">
-					<%= link_to "查看进度", tactic_progress_path(@tactic), :class => "btn btn-primary ml10" %>
+					<%= link_to "查看进度", progress_tactic_path(@tactic), :class => "btn btn-primary ml10" %>
 					<a class="btn btn-default ml10" <%= "data-classic=#{@tactic.classic ? 1 : 0}" %> @click="makeTacticClassic"><%= @tactic.classic ? "从经典战法移除" : "转为经典战法" %></a>
 					<%=link_to "删除战法", tactic_path(@tactic), :method => "delete",
 					:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) },
@@ -165,6 +165,7 @@
 								<option value="资料采集">资料采集</option>
 								<option value="场地勘察">场地勘察</option>
 								<option value="实战行动">实战行动</option>
+								<option value="话单分析">话单分析</option>
 								<option value="其他任务">其他任务</option>
 							</select>
 						</div>

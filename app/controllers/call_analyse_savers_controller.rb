@@ -24,10 +24,10 @@ class CallAnalyseSaversController < ApplicationController
   def update
     respond_to do |format|
       if @cas.update(cas_params)
-        format.html { redirect_to tools_home_path, notice: '更新成功！' }
+        format.html { redirect_to home_tools_path, notice: '更新成功！' }
         format.json { render :json =>{ :msg => "更新成功！",:success => true, :data => @cas}}
       else
-        format.html { redirect_to tools_home_path, notice: '更新失败！' }
+        format.html { redirect_to home_tools_path, notice: '更新失败！' }
         format.json { render :json =>{ :msg => "更新失败！",:success => false}}
       end
     end
@@ -51,7 +51,7 @@ class CallAnalyseSaversController < ApplicationController
   def destroy
     @cas.destroy
     respond_to do |format|
-      format.html { redirect_to tools_home_path, notice: '删除成功' }
+      format.html { redirect_to home_tools_path, notice: '删除成功' }
       format.json { render :json => {:msg => "删除成功！",:success => true, :data => @cas} }
     end
   end

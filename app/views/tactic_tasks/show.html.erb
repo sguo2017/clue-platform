@@ -50,7 +50,7 @@
               <%= @tactic_task.category %>&nbsp;
               <%=
                 if @tactic_task.extra_task.present? && @tactic_task.extra_task.result_id.present?
-                  link_to "查看结果", extra_task_jump_to_show_path(@tactic_task.extra_task)
+                  link_to "查看结果", jump_to_show_extra_task_path(@tactic_task.extra_task)
                 end
               %>
               </td>
@@ -90,7 +90,7 @@
           </tbody>
         </table>
         <div class="block-mt col-sm-2 col-sm-offset-10">
-          <%= link_to "返回", position_decisions_index_path, class: "btn btn-primary" %>
+          <%= link_to "返回", position_decisions_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>

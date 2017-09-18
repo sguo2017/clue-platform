@@ -1,67 +1,79 @@
 Rails.application.routes.draw do
 
-  resources :extra_tasks do
-    get "jump_to_execute"
-    get "jump_to_show"
-    get "jump_to_bind"
-  end
-  resources :tactic_tasks
-  resources :tactics do
-    get "get_tactic_tasks"
-    post "persist_tasks"
-    get "progress"
-  end
-  resources :cases do
-    collection { get :search}
-  end
-  resources :suspects_teams
-  resources :calllists  do
-    collection { get :export }
-    collection { post :read_from_excel }
-    collection { post :save_from_json }
-    collection { get :load_note_options }
-    collection { get :load_date_options }
-    collection { get :load_batch_options }
-  end
-  resources :call_analyse_savers do
-    collection {get :default}
-  end
-
-  post "users/search", to: "users/users#search"
-
-  resources :image_views, only: [:index]
-
-
-  get 'excel/index'
-
-  #get 'suspects_teams/index'
-
-  get 'tools/index'
-
-  get 'suspects', to: 'suspects#index'
-  get 'suspects/:id',  to: 'suspects#show'
-
-  get 'position_decisions/index'
-
-  get 'resources/search', to: 'resources#search'
-
-  get 'tactics', to: 'tactics#index'
-  get '/tactics/:id', to: 'tactics#show'
-  get '/tools/home', to: 'tools#home'
-  get '/tools/add_info', to: 'tools#add_info'
-  get '/tools/add_manual', to: 'tools#add_manual'
-  get '/tools/rlat', to: 'tools#rlat'
-  get '/tools/rlat_details', to: 'tools#rlat_details'
-
-  get '/cases/:id', to: 'cases#show'
-
-
   root 'dashboard#index'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
 
+  resources :calllists  do
+    collection do
+      get :export
+      post :read_from_excel
+      post :save_from_json
+      get :load_note_options
+      get :load_date_options
+      get :load_batch_options
+    end
+  end
+
+  resources :call_analyse_savers do
+    collection do
+      get :default
+    end
+  end
+
+  resources :cases do
+    collection do
+      get :search
+    end
+  end
+
+  resources :dashboard
+
+  resources :extra_tasks do
+    member do
+      get :jump_to_execute
+      get :jump_to_show
+      get :jump_to_bind
+    end
+  end
+
+  resources :image_views, only: [:index]
+
+  resources :position_decisions
+
+  resources :resources do
+    collection do
+      get :search
+    end
+  end
+
+  resources :suspects
+
+  resources :suspects_teams
+
+  resources :tactics do
+    member do
+      get :get_tactic_tasks
+      post :persist_tasks
+      get :progress
+    end
+  end
+
+  resources :tactic_tasks
+
+  resources :tools do
+    collection do
+      get :home
+      get :add_info
+      get :add_manual
+      get :rlat
+      get :rlat_details
+    end
+  end
+
+  post 'users/search', to: 'users/users#search'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

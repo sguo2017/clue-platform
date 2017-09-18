@@ -11,7 +11,7 @@
 				<% @suspects.each do |suspect| %>
 					<li class="col-xs-3 col-sm-2 col-md-4">
 						<div class="thumbnail-card">
-							<a class="thumbnail-wrap" href="<%= suspects_path(suspect)%>">
+							<a class="thumbnail-wrap" href="<%= suspect_path(suspect)%>">
 							 	<%= image_tag("#{suspect.photo}", {:class => "thumbnail-image"})%>
 							</a>
 							<div class="text-ellipsis thumbnail-caption"><%= suspect.name %></div>
@@ -35,7 +35,7 @@
 			<% @suspects_teams.each do |suspects_team| %>
 				<li class="col-xs-4">
 					<div class="thumbnail-card">
-						<a class="thumbnail-wrap" href="<%= suspects_teams_path(suspects_team) %>">
+						<a class="thumbnail-wrap" href="<%= suspects_team_path(suspects_team) %>">
 						 	<%= image_tag("#{suspects_team.photo}", :class => "thumbnail-image")%>
 						</a>
 						<div class="text-ellipsis thumbnail-caption"><%= suspects_team.name %></div>

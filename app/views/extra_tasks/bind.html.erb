@@ -23,14 +23,14 @@
       <hr/>
     </div>
     <div class="panel-body">
-      <%= form_tag( extra_task_jump_to_bind_path(@extra_task), { :method => :get }) do %>
+      <%= form_tag( jump_to_bind_extra_task_path(@extra_task), { :method => :get }) do %>
       <div class="input-group" style="width:500px;margin:0 auto;">
         <input type="text" class="form-control" name="keyword" value="<%= params[:keyword] %>" placeholder="输入关键字进行搜索"/>
         <span class="input-group-btn">
           <button type="submit" class="btn btn-primary">
             <i class="glyphicon glyphicon-search"></i>
           </button>
-          <a type="button" href="<%= extra_task_jump_to_bind_path(@extra_task) %>" class="btn btn-default">清空</a>
+          <a type="button" href="<%= jump_to_bind_extra_task_path(@extra_task) %>" class="btn btn-default">清空</a>
         </span>
       </div>
       <% end %>

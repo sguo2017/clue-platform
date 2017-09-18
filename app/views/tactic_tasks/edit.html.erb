@@ -89,10 +89,10 @@
             <% if @tactic_task.should_do_extra_task %>
             <div class="form-group">
               <label class="control-label"><%= @tactic_task.category %>：</label>
-              <a class="label label-primary" href="<%= extra_task_jump_to_execute_path(@tactic_task.extra_task) %>">进入<%= @tactic_task.category %></a>
-              <a class="label label-warning" href="<%= extra_task_jump_to_bind_path(@tactic_task.extra_task) %>">选取分析结果</a>
+              <a class="label label-primary" href="<%= jump_to_execute_extra_task_path(@tactic_task.extra_task) %>">进入<%= @tactic_task.category %></a>
+              <a class="label label-warning" href="<%= jump_to_bind_extra_task_path(@tactic_task.extra_task) %>">选取分析结果</a>
               <% if @tactic_task.extra_task.result_id.present? %>
-              <a class="label label-success" href="<%= extra_task_jump_to_show_path(@tactic_task.extra_task) %>">查看分析结果</a>
+              <a class="label label-success" href="<%= jump_to_show_extra_task_path(@tactic_task.extra_task) %>">查看分析结果</a>
               <% end %>
             </div>
             <% end %>
@@ -111,7 +111,7 @@
             </div>
             <div class="form-group">
               <button type="button" onclick="updateTacticTask()" class="btn btn-primary">提交</button>
-              <%= link_to "返回", position_decisions_index_path, class: "btn btn-default" %>
+              <%= link_to "返回", position_decisions_path, class: "btn btn-default" %>
             </div>
           <% end %>
         </div>

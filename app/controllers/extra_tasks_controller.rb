@@ -78,7 +78,7 @@ class ExtraTasksController < ApplicationController
     end
 
     def set_special_extra_task
-      @extra_task = ExtraTask.find(params[:extra_task_id])
+      @extra_task = ExtraTask.find(params[:id])
       @target_task_class = ExtraTask::TASK_MAP[@extra_task.name.to_sym]
     end
 

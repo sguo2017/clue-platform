@@ -1,8 +1,8 @@
  <div class="left-side left-side-inverse column-18">
     <div class="left-side-heading">
       <div class="heading-title">
-        <a class="pull-right small" href="/position_decisions/index">回首页</a>
-        分类  
+        <a class="pull-right small" href="<%= root_path %>">回首页</a>
+        分类
       </div>
 <!--       <div class="input-group">
         <input type="text" class="form-control" value="搜索">
@@ -15,10 +15,10 @@
    <%= render 'comp_search_form', resource: @resource %>
     </div>
     <div class="left-side-btn-menu">
-      <a href="<%= "#{resources_search_path}?type=infomation" %>" class="btn btn-normal btn-block <% if @search_type == 'infomation' %>active<% end %>" type="button">情报资料库</a>  
-      <a href="<%= "#{resources_search_path}?type=doc" %>" class="btn btn-normal btn-block <% if @search_type == 'doc' %>active<% end %>" type="button">文档库</a> 
-      <a href="<%= "#{resources_search_path}?type=image" %>" class="btn btn-normal btn-block <% if @search_type == 'image' %>active<% end %>" type="button">图片库</a> 
-      <a href="<%= "#{resources_search_path}?type=video" %>" class="btn btn-normal btn-block <% if @search_type == 'video' %>active<% end %>" type="button">视频库</a> 
+      <a href="<%= "#{search_resources_path}?type=infomation" %>" class="btn btn-normal btn-block <% if @search_type == 'infomation' %>active<% end %>" type="button">情报资料库</a>
+      <a href="<%= "#{search_resources_path}?type=doc" %>" class="btn btn-normal btn-block <% if @search_type == 'doc' %>active<% end %>" type="button">文档库</a>
+      <a href="<%= "#{search_resources_path}?type=image" %>" class="btn btn-normal btn-block <% if @search_type == 'image' %>active<% end %>" type="button">图片库</a>
+      <a href="<%= "#{search_resources_path}?type=video" %>" class="btn btn-normal btn-block <% if @search_type == 'video' %>active<% end %>" type="button">视频库</a>
     </div>
   </div>
   <!-- left-side end -->

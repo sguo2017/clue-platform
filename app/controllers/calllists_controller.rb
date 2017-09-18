@@ -110,17 +110,17 @@ class CalllistsController < ApplicationController
   end
 
   def load_note_options
-    note = Calllist.order('created_at desc').select('DISTINCT(note)').select{|x| x.note.present?}.map{|x| x.note}
+    note = Calllist.select('DISTINCT(note), created_at').order('created_at desc').select{|x| x.note.present?}.map{|x| x.note}
     render :json =>{:msg => "数据获取成功", :success => true, :type => 'note', :data => note}
   end
 
   def load_date_options
-    date = Calllist.order('created_at desc').select('DISTINCT(created_at)').select{|x| x.created_at.present?}.map{|x| x.created_at}
+    date = Calllist.select('DISTINCT(created_at)').order('created_at desc').select{|x| x.created_at.present?}.map{|x| x.created_at}
     render :json =>{:msg => "数据获取成功", :success => true, :type => 'date', :data => date}
   end
 
   def load_batch_options
-    batch = Calllist.order('created_at desc').select('DISTINCT(batch)').select{|x| x.batch.present?}.map{|x| x.batch}
+    batch = Calllist.select('DISTINCT(batch), created_at').order('created_at desc').select{|x| x.batch.present?}.map{|x| x.batch}
     render :json =>{:msg => "数据获取成功", :success => true, :type => 'batch', :data => batch}
   end
 
