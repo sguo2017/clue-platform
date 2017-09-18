@@ -25,7 +25,7 @@ function CalllistDataReader() {
     $.ajax({
       url: url,
       async: false,
-      data: this.filters
+      data: {filters: this.filters}
     }).done(function(response) {
       outer.rawRows = response['data'];
       outer.fromColumn = "from_num";
