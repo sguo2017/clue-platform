@@ -6,11 +6,11 @@
 //= require cable
 
 
-$(document).on("turbolinks:load",function(){
+$(document).on("turbolinks:load", function() {
   initDatePicker();
 });
 
-function initDatePicker(){
+function initDatePicker() {
   $.fn.datepicker.dates['cn'] = {
     days: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
     daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
@@ -26,8 +26,8 @@ function initDatePicker(){
   $('.date-picker').datepicker({
     format: 'yyyy-mm-dd',
     language: 'cn'
-  }).on('changeDate', function(ev){
-      ev.currentTarget.dispatchEvent(new Event("input"));
-      $(this).datepicker("hide");
+  }).on('changeDate', function(ev) {
+    ev.currentTarget.dispatchEvent(new Event("input"));
+    $(this).datepicker("hide");
   });
 }
