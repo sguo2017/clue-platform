@@ -1,3 +1,4 @@
+import {DiagramTemplatesManager} from "./go_templates_manager";
 function DiagramCreator() {
   /*
    *options{
@@ -47,7 +48,7 @@ function DiagramCreator() {
       };
     }
     var $$ = go.GraphObject.make;
-    diagram = $$(go.Diagram, options["el"], settings);
+    var diagram = $$(go.Diagram, options["el"], settings);
     var tmpm = new DiagramTemplatesManager();
     diagram.nodeTemplate = options.nodeTemplate || tmpm.calllist.nodeTemplate;
     diagram.linkTemplate = options.linkTemplate || tmpm.calllist.linkTemplate;
@@ -71,3 +72,4 @@ function DiagramCreator() {
     return diagram;
   }
 }
+export {DiagramCreator};

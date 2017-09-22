@@ -35,7 +35,7 @@ class TacticsController < ApplicationController
     }
   end
 
-  #GET /tactics/1/persist_tasks
+  #POST /tactics/1/persist_tasks
   def persist_tasks
     #无论是哪种情况，只要保存成功，那么返回的json数据中必须包含当前战法的所有任务的数组(response.data.tasks)
     #因为前端需要根据这个任务数组去刷新一次前端的任务列表，即使任务列表是空数组，前端也需要依赖这个数组去进行同步

@@ -68,4 +68,4 @@ gem 'swiper-rails'  #触摸滑动插件
 gem 'httpclient'
 gem 'kaminari'
 gem 'kaminari-i18n'
-gem 'babel-transpiler' #ES6语法支持(需把js文件后缀改成.es6才生效)
+gem 'webpacker'

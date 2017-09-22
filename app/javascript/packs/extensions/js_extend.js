@@ -29,7 +29,7 @@ String.prototype.compareTo = function(another, _method_) {
   }
 }
 
-function guid() {
+ window.guid = function() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = Math.random() * 16 | 0,
       v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -37,7 +37,7 @@ function guid() {
   });
 }
 
-function shallowCopy(obj) {
+ window.shallowCopy = function(obj) {
   var newobj = {};
   for (var attr in obj) {
     newobj[attr] = obj[attr];
@@ -45,7 +45,7 @@ function shallowCopy(obj) {
   return newobj;
 }
 
-function shallowMerge(obj1, obj2) {
+ window.shallowMerge = function(obj1, obj2) {
   var newobj = {};
   for (var attr1 in obj1) {
     newobj[attr1] = obj1[attr1];
@@ -56,7 +56,7 @@ function shallowMerge(obj1, obj2) {
   return newobj;
 }
 
-function shallowAbsorb(reciver,supplier){
+ window.shallowAbsorb = function(reciver, supplier) {
   for (var attr in supplier) {
     reciver[attr] = supplier[attr];
   }
@@ -97,7 +97,7 @@ Array.prototype.allSame = function(cmp) {
   }
   if (this.length <= 0) {
     return [false, null];
-  }else{
+  } else {
     var first = cmp(this[0]);
     var same = this.filter(function(x) {
       return cmp(x) === first;

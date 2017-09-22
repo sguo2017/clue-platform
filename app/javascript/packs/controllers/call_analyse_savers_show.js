@@ -1,3 +1,5 @@
+import {DiagramCreator} from '../extensions/diagram_creator';
+import {DiagramHighlightManager} from '../extensions/go_diagram_managers';
 (function() {
   $(document).on("turbolinks:load", function() {
     if ($("#cas_show_diagram").length > 0) {
@@ -10,7 +12,7 @@
       return response.json();
     }).then(function(model){
       var diagramCreator = new DiagramCreator();
-      diagramCreator.createCalllistDiagram({
+      var diagram = diagramCreator.createCalllistDiagram({
         el: "cas_show_diagram",
         model: model
       });

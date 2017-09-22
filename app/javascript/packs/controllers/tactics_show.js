@@ -102,7 +102,6 @@ function initTacticShowVue() {
       selectedUsersTemp: []
     },
     mounted: function() {
-      initDatePicker();
       if ($("#tactics-flow-container").length > 0) {
         this.tacticFlowchart = setFlowchart();
         this.tacticFlowchart.addDiagramListener("ChangedSelection", this.changeCurrentTask);
@@ -290,7 +289,7 @@ function initTacticShowVue() {
           } else {
             alert("服务器错误，保存失败！");
           }
-        }).error(function() {
+        }).fail(function() {
           alert("未知错误，保存失败！")
         });
       },
@@ -338,7 +337,7 @@ function initTacticShowVue() {
                 $("#tactics-flow-container").data("flowDataUrl", dataUrl);
                 alert("保存成功！");
               })
-              .error(function() {
+              .fail(function() {
                 alert("服务器发生错误！");
               });
           }).catch(function() {
@@ -467,7 +466,7 @@ function initTacticShowVue() {
           var classic = response["data"]["classic"];
           $(event.target).html(classic ? "从经典战法移除" : "转为经典战法");
           $(event.target).data("classic", classic ? 1 : 0);
-        }).error(function() {
+        }).fail(function() {
           alert("操作失败！");
         });
       }
@@ -859,7 +858,7 @@ function setFlowchart() {
     tacticFlowchart.toolManager.relinkingTool.temporaryLink.routing = go.Link.Orthogonal;
     load(); // load an initial diagram from some JSON text
     // initialize the Palette that is on the left side of the page
-    myPalette =
+    var myPalette =
       $$(go.Palette, "tactics-flow-palette", // must name or refer to the DIV HTML element
         {
           "animationManager.isEnabled": false, // slightly longer than default (600ms) animation

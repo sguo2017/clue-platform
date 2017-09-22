@@ -1,0 +1,40 @@
+{
+  "dependencies": {
+    "@rails/webpacker": "^3.0.1",
+    "actioncable-modules": "^5.1.4",
+    "ajv": "^5.2.2",
+    "babel-core": "6",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "bootstrap": "^3.3.7",
+    "caniuse-lite": "^1.0.30000733",
+    "coffeescript": "^2.0.0",
+    "css-loader": "^0.28.7",
+    "expose-loader": "^0.7.3",
+    "install": "^0.10.1",
+    "jquery": "^3.2.1",
+    "jquery-ujs": "^1.2.2",
+    "moment": "^2.18.1",
+    "node-sass": "^4.0.0",
+    "swiper": "3.3.1",
+    "ts-loader": "^2.3.7",
+    "turbolinks": "^5.0.3",
+    "typescript": "^2.5.2",
+    "v-viewer": "^0.2.0",
+    "vue": "^2.4.4",
+    "vue-flatpickr-component": "^3.0.0",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.8.2"
+  },
+  "name": "clue-platform",
+  "version": "1.0.0",
+  "main": "application.js",
+  "repository": "https://github.com/sguo2017/clue-platform.git",
+  "author": "<1358073296@qq.com>",
+  "license": "MIT"
+}

@@ -1,7 +1,7 @@
 <div class="bread-nav-wrap">
 	<ul class="bread-nav clearfix">
 		<li class="bread-nav-item home">
-			<a class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
+			<a class="link-item" href="<%= root_path %>"><span class="glyphicon glyphicon-home"></span></a>
 		</li>
 		<li class="bread-nav-item">
 			<a class="link-item" href="<%= home_tools_path %>">分析工具</a>
@@ -116,7 +116,7 @@
 						<div class="input-group mt5">
 							<input id='file_name_wrap' class="form-control" type="text" readonly="readonly" placeholder="请选择文件"/>
 							<input id='upload_excel_field' class="hidden" name="excel_call_list" type="file" v-on:change="workbook.init()"/>
-							<span class="input-group-addon" onclick="$('#upload_excel_field').click();">
+							<span class="input-group-addon" @click="showFileDialog">
 								<span class="glyphicon glyphicon-folder-open text-primary"></span>
 							</span>
 						</div>

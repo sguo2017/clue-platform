@@ -176,7 +176,7 @@ function DiagramDataManager(diagram, highlightManager) {
         }
       }).done(function() {
         alert("成功更新数据！");
-      }).error(function() {
+      }).fail(function() {
         alert("保存失败");
       });
     }
@@ -194,7 +194,7 @@ function DiagramDataManager(diagram, highlightManager) {
         }
       }).done(function() {
         alert("成功保存数据到服务器！");
-      }).error(function() {
+      }).fail(function() {
         alert("保存失败");
       });
     }
@@ -611,3 +611,5 @@ function DiagramLayoutManager(diagram) {
   }
 
 }
+
+export {Manager, DiagramHighlightManager, DiagramDataManager, DiagramVisibleMnager, DiagramLayoutManager, FrequencyScreenManager}

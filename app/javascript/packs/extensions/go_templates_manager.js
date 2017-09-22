@@ -83,3 +83,4 @@ function DiagramTemplatesManager() {
     } // end calllist templates
   }
 }
+export {DiagramTemplatesManager};

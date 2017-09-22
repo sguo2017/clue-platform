@@ -1,7 +1,9 @@
 <div class="bread-nav-wrap">
 	<ul class="bread-nav clearfix">
 		<li class="bread-nav-item home">
-			<a class="link-item" class="link-item" href="/position_decisions/index"><span class="glyphicon glyphicon-home"></span></a>
+			<a class="link-item" class="link-item" href="<%= root_path %>">
+				<span class="glyphicon glyphicon-home"></span>
+			</a>
 		</li>
 		<li class="bread-nav-item">
 			<a class="link-item" href="">分析工具</a>
@@ -14,7 +16,7 @@
 <!-- 路径导航 end -->
 <%= render 'leftside', tools: @tools %>
 <!-- left-side end -->
-<div class="container-18" id='app'>
+<div class="container-18" id='tools-home-vue-app'>
 	<div class="panel panel-default clearfix">
 		<%= render 'new_analysis_part', tools: @tools %>
 		<hr>
@@ -22,399 +24,356 @@
 			<div class="panel-title">
 				<a class="more text-primary" href="">更多</a>
 				话单分析</div>
-			</div>
-			<div class="inner-panel-body">
-				<div class="img-column">
-					<ul class="clearfix list-unstyled block-list">
-						<% @cas_of_user.each do |cas|%>
-						<li class="col-xs-4 col-lg-2">
-							<div class="img-wrap img-adapt" href="#">
-								<a class="z-cell" href="<%= call_analyse_savers_path%>">
-									<%= image_tag(cas.image_url,
+		</div>
+		<div class="inner-panel-body">
+			<div class="img-column">
+				<ul class="clearfix list-unstyled block-list">
+					<% @cas_of_user.each do |cas|%>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="<%= call_analyse_savers_path%>">
+								<%= image_tag(cas.image_url,
 									:class=>"img")%>
-								</a>
-								<div class="img-title">
-									<span class="pull-right ml10 mr05">
-										<a class="text-white aliconfont icon-edit mr5"
-										@click='<%="set_cas(#{cas.id.to_s},\"#{cas.title}\")"%>'></a>
-										<%= link_to '',
-										call_analyse_saver_path(cas.id),
-										:method => 'delete',
-										:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) },
-										:class => 'text-white glyphicon glyphicon glyphicon-trash' %>
-									</span>
-									<div class="text-ellipsis"><%= cas.title %></div>
-								</div>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" @click='<%="set_cas(#{cas.id.to_s},\"#{cas.title}\")"%>'></a>
+									<%= link_to '', call_analyse_saver_path(cas.id), :method => 'delete', :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'text-white glyphicon glyphicon glyphicon-trash' %>
+								</span>
+								<div class="text-ellipsis"><%= cas.title %></div>
 							</div>
-						</li>
-						<% end %>
-					</ul>
+						</div>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+		<div class="inner-panel-heading">
+			<div class="panel-title">
+				<a class="more text-primary" href="">更多</a>
+				人际交往报告</div>
+		</div>
+		<div class="inner-panel-body">
+			<div class="img-column">
+				<ul class="clearfix list-unstyled block-list">
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="<%= rlat_details_tools_path %>">
+								<%= image_tag("relationship.png",
+										:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">张三分析报告分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("relationship.png",
+										:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">张三分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("relationship.png",
+										:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">张三分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("relationship.png",
+										:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">张三分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("relationship.png",
+										:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">张三分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("relationship.png",
+										:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">张三分析报告分析报告</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="inner-panel-heading">
+			<div class="panel-title">
+				<a class="more text-primary" href="">更多</a>
+				出行轨迹</div>
+		</div>
+		<div class="inner-panel-body">
+			<div class="img-column">
+				<ul class="clearfix list-unstyled block-list">
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+											:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">出新轨迹分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+											:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">出新轨迹分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+											:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">出新轨迹分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+											:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">出新轨迹分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+											:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">出新轨迹分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+											:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">出新轨迹分析报告</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="inner-panel-heading">
+			<div class="panel-title">
+				<a class="more text-primary" href="">更多</a>
+				资金流转分析报告</div>
+		</div>
+		<div class="inner-panel-body">
+			<div class="img-column">
+				<ul class="clearfix list-unstyled block-list">
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+												:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">资金流转分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+												:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">资金流转分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+												:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">资金流转分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+												:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">资金流转分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+												:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">资金流转分析报告</div>
+							</div>
+						</div>
+					</li>
+					<li class="col-xs-4 col-lg-2">
+						<div class="img-wrap img-adapt" href="#">
+							<a class="z-cell" href="">
+								<%= image_tag("img-analy1.png",
+												:class=>"img")%>
+							</a>
+							<div class="img-title">
+								<span class="pull-right ml10 mr05">
+									<a class="text-white aliconfont icon-edit mr5" href=""></a>
+									<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
+								</span>
+								<div class="text-ellipsis">资金流转分析报告</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+	<%= render "/vue_templates/modal" %>
+	<modal v-if="showModal" @close="showModal = false">
+		<h3 slot="header">编辑</h3>
+		<div slot="body">
+			<form id="edit-cas" class="form-horizontal" v-bind:action="action" method="POST">
+				<input type="hidden" name="_method" value="PATCH">
+				<div class="form-group">
+					<label class="control-label">标题:</label>
+					<input type="text" name="call_analyse_saver[title]" class="form-control" v-bind:value="cas_title"/>
 				</div>
 			</div>
-			<div class="inner-panel-heading">
-				<div class="panel-title">
-					<a class="more text-primary" href="">更多</a>
-					人际交往报告</div>
-				</div>
-				<div class="inner-panel-body">
-					<div class="img-column">
-						<ul class="clearfix list-unstyled block-list">
-							<li class="col-xs-4 col-lg-2">
-								<div class="img-wrap img-adapt" href="#">
-									<a class="z-cell" href="<%= rlat_details_tools_path %>">
-										<%= image_tag("relationship.png",
-										:class=>"img")%>
-									</a>
-									<div class="img-title">
-										<span class="pull-right ml10 mr05">
-											<a class="text-white aliconfont icon-edit mr5" href=""></a>
-											<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-										</span>
-										<div class="text-ellipsis">张三分析报告分析报告</div>
-									</div>
-								</div>
-							</li>
-							<li class="col-xs-4 col-lg-2">
-								<div class="img-wrap img-adapt" href="#">
-									<a class="z-cell" href="">
-										<%= image_tag("relationship.png",
-										:class=>"img")%>
-									</a>
-									<div class="img-title">
-										<span class="pull-right ml10 mr05">
-											<a class="text-white aliconfont icon-edit mr5" href=""></a>
-											<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-										</span>
-										<div class="text-ellipsis">张三分析报告</div>
-									</div>
-								</div>
-							</li>
-							<li class="col-xs-4 col-lg-2">
-								<div class="img-wrap img-adapt" href="#">
-									<a class="z-cell" href="">
-										<%= image_tag("relationship.png",
-										:class=>"img")%>
-									</a>
-									<div class="img-title">
-										<span class="pull-right ml10 mr05">
-											<a class="text-white aliconfont icon-edit mr5" href=""></a>
-											<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-										</span>
-										<div class="text-ellipsis">张三分析报告</div>
-									</div>
-								</div>
-							</li>
-							<li class="col-xs-4 col-lg-2">
-								<div class="img-wrap img-adapt" href="#">
-									<a class="z-cell" href="">
-										<%= image_tag("relationship.png",
-										:class=>"img")%>
-									</a>
-									<div class="img-title">
-										<span class="pull-right ml10 mr05">
-											<a class="text-white aliconfont icon-edit mr5" href=""></a>
-											<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-										</span>
-										<div class="text-ellipsis">张三分析报告</div>
-									</div>
-								</div>
-							</li>
-							<li class="col-xs-4 col-lg-2">
-								<div class="img-wrap img-adapt" href="#">
-									<a class="z-cell" href="">
-										<%= image_tag("relationship.png",
-										:class=>"img")%>
-									</a>
-									<div class="img-title">
-										<span class="pull-right ml10 mr05">
-											<a class="text-white aliconfont icon-edit mr5" href=""></a>
-											<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-										</span>
-										<div class="text-ellipsis">张三分析报告</div>
-									</div>
-								</div>
-							</li>
-							<li class="col-xs-4 col-lg-2">
-								<div class="img-wrap img-adapt" href="#">
-									<a class="z-cell" href="">
-										<%= image_tag("relationship.png",
-										:class=>"img")%>
-									</a>
-									<div class="img-title">
-										<span class="pull-right ml10 mr05">
-											<a class="text-white aliconfont icon-edit mr5" href=""></a>
-											<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-										</span>
-										<div class="text-ellipsis">张三分析报告分析报告</div>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="inner-panel-heading">
-					<div class="panel-title">
-						<a class="more text-primary" href="">更多</a>
-						出行轨迹</div>
-					</div>
-					<div class="inner-panel-body">
-						<div class="img-column">
-							<ul class="clearfix list-unstyled block-list">
-								<li class="col-xs-4 col-lg-2">
-									<div class="img-wrap img-adapt" href="#">
-										<a class="z-cell" href="">
-											<%= image_tag("img-analy1.png",
-											:class=>"img")%>
-										</a>
-										<div class="img-title">
-											<span class="pull-right ml10 mr05">
-												<a class="text-white aliconfont icon-edit mr5" href=""></a>
-												<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-											</span>
-											<div class="text-ellipsis">出新轨迹分析报告</div>
-										</div>
-									</div>
-								</li>
-								<li class="col-xs-4 col-lg-2">
-									<div class="img-wrap img-adapt" href="#">
-										<a class="z-cell" href="">
-											<%= image_tag("img-analy1.png",
-											:class=>"img")%>
-										</a>
-										<div class="img-title">
-											<span class="pull-right ml10 mr05">
-												<a class="text-white aliconfont icon-edit mr5" href=""></a>
-												<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-											</span>
-											<div class="text-ellipsis">出新轨迹分析报告</div>
-										</div>
-									</div>
-								</li>
-								<li class="col-xs-4 col-lg-2">
-									<div class="img-wrap img-adapt" href="#">
-										<a class="z-cell" href="">
-											<%= image_tag("img-analy1.png",
-											:class=>"img")%>
-										</a>
-										<div class="img-title">
-											<span class="pull-right ml10 mr05">
-												<a class="text-white aliconfont icon-edit mr5" href=""></a>
-												<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-											</span>
-											<div class="text-ellipsis">出新轨迹分析报告</div>
-										</div>
-									</div>
-								</li>
-								<li class="col-xs-4 col-lg-2">
-									<div class="img-wrap img-adapt" href="#">
-										<a class="z-cell" href="">
-											<%= image_tag("img-analy1.png",
-											:class=>"img")%>
-										</a>
-										<div class="img-title">
-											<span class="pull-right ml10 mr05">
-												<a class="text-white aliconfont icon-edit mr5" href=""></a>
-												<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-											</span>
-											<div class="text-ellipsis">出新轨迹分析报告</div>
-										</div>
-									</div>
-								</li>
-								<li class="col-xs-4 col-lg-2">
-									<div class="img-wrap img-adapt" href="#">
-										<a class="z-cell" href="">
-											<%= image_tag("img-analy1.png",
-											:class=>"img")%>
-										</a>
-										<div class="img-title">
-											<span class="pull-right ml10 mr05">
-												<a class="text-white aliconfont icon-edit mr5" href=""></a>
-												<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-											</span>
-											<div class="text-ellipsis">出新轨迹分析报告</div>
-										</div>
-									</div>
-								</li>
-								<li class="col-xs-4 col-lg-2">
-									<div class="img-wrap img-adapt" href="#">
-										<a class="z-cell" href="">
-											<%= image_tag("img-analy1.png",
-											:class=>"img")%>
-										</a>
-										<div class="img-title">
-											<span class="pull-right ml10 mr05">
-												<a class="text-white aliconfont icon-edit mr5" href=""></a>
-												<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-											</span>
-											<div class="text-ellipsis">出新轨迹分析报告</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="inner-panel-heading">
-						<div class="panel-title">
-							<a class="more text-primary" href="">更多</a>
-							资金流转分析报告</div>
-						</div>
-						<div class="inner-panel-body">
-							<div class="img-column">
-								<ul class="clearfix list-unstyled block-list">
-									<li class="col-xs-4 col-lg-2">
-										<div class="img-wrap img-adapt" href="#">
-											<a class="z-cell" href="">
-												<%= image_tag("img-analy1.png",
-												:class=>"img")%>
-											</a>
-											<div class="img-title">
-												<span class="pull-right ml10 mr05">
-													<a class="text-white aliconfont icon-edit mr5" href=""></a>
-													<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-												</span>
-												<div class="text-ellipsis">资金流转分析报告</div>
-											</div>
-										</div>
-									</li>
-									<li class="col-xs-4 col-lg-2">
-										<div class="img-wrap img-adapt" href="#">
-											<a class="z-cell" href="">
-												<%= image_tag("img-analy1.png",
-												:class=>"img")%>
-											</a>
-											<div class="img-title">
-												<span class="pull-right ml10 mr05">
-													<a class="text-white aliconfont icon-edit mr5" href=""></a>
-													<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-												</span>
-												<div class="text-ellipsis">资金流转分析报告</div>
-											</div>
-										</div>
-									</li>
-									<li class="col-xs-4 col-lg-2">
-										<div class="img-wrap img-adapt" href="#">
-											<a class="z-cell" href="">
-												<%= image_tag("img-analy1.png",
-												:class=>"img")%>
-											</a>
-											<div class="img-title">
-												<span class="pull-right ml10 mr05">
-													<a class="text-white aliconfont icon-edit mr5" href=""></a>
-													<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-												</span>
-												<div class="text-ellipsis">资金流转分析报告</div>
-											</div>
-										</div>
-									</li>
-									<li class="col-xs-4 col-lg-2">
-										<div class="img-wrap img-adapt" href="#">
-											<a class="z-cell" href="">
-												<%= image_tag("img-analy1.png",
-												:class=>"img")%>
-											</a>
-											<div class="img-title">
-												<span class="pull-right ml10 mr05">
-													<a class="text-white aliconfont icon-edit mr5" href=""></a>
-													<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-												</span>
-												<div class="text-ellipsis">资金流转分析报告</div>
-											</div>
-										</div>
-									</li>
-									<li class="col-xs-4 col-lg-2">
-										<div class="img-wrap img-adapt" href="#">
-											<a class="z-cell" href="">
-												<%= image_tag("img-analy1.png",
-												:class=>"img")%>
-											</a>
-											<div class="img-title">
-												<span class="pull-right ml10 mr05">
-													<a class="text-white aliconfont icon-edit mr5" href=""></a>
-													<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-												</span>
-												<div class="text-ellipsis">资金流转分析报告</div>
-											</div>
-										</div>
-									</li>
-									<li class="col-xs-4 col-lg-2">
-										<div class="img-wrap img-adapt" href="#">
-											<a class="z-cell" href="">
-												<%= image_tag("img-analy1.png",
-												:class=>"img")%>
-											</a>
-											<div class="img-title">
-												<span class="pull-right ml10 mr05">
-													<a class="text-white aliconfont icon-edit mr5" href=""></a>
-													<a class="text-white glyphicon glyphicon glyphicon-trash" href=""></a>
-												</span>
-												<div class="text-ellipsis">资金流转分析报告</div>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-
-
-
-
-					</div>
-					<%= render "/vue_templates/modal" %>
-					<modal v-if="showModal" @close="showModal = false">
-						<h3 slot="header">编辑</h3>
-						<div slot="body">
-							<form id="edit-cas" class="form-horizontal" v-bind:action="action" method="POST">
-								<input type="hidden" name="_method" value="PATCH">
-								<div class="form-group">
-									<label class="control-label">标题:</label>
-									<input type="text" name="call_analyse_saver[title]" class="form-control" v-bind:value="cas_title"/>
-								</div>
-							</div>
-						</form>
-						<div slot="footer">
-							<button type="submit" form="edit-cas" class="btn btn-primary" @click="showModal=false">
-								确定
-							</button>
-							<button class="btn btn-default" @click="showModal=false">
-								取消
-							</button>
-						</div>
-					</modal>
-				</div>
-				<script>
-				// register modal component
-				var Modal = {
-					template: '#modal-template',
-					data: function(){
-						return {
-							modalWidth: "300px"
-						};
-					}
-				};
-				// start app
-				var app = new Vue({
-					el: '#app',
-					components: {
-						'modal': Modal
-					},
-					data: {
-						showModal: false,
-						cas_id: '',
-						cas_title: ''
-					},
-					methods: {
-						set_cas: function(id,title){
-							this.cas_id = parseInt(id);
-							this.cas_title = title;
-							this.showModal  = true;
-						}
-					},
-					computed: {
-						action: function(){
-							return "/call_analyse_savers/"+this.cas_id;
-						}
-					}
-				})
-				</script>
+		</form>
+		<div slot="footer">
+			<button type="submit" form="edit-cas" class="btn btn-primary" @click="showModal=false">
+				确定
+			</button>
+			<button class="btn btn-default" @click="showModal=false">
+				取消
+			</button>
+		</div>
+	</modal>
+</div>

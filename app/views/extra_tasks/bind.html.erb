@@ -46,7 +46,7 @@
         <tbody>
           <% @selections.each do |t| %>
           <tr>
-            <td><%= radio_button("extra_task", "result_id", t.id) %></td>
+            <td><%= radio_button("extra_task", "result_id", t.id, {required: :required}) %></td>
             <% @target_task_class::COLUMNS_ON_EXTRA_TASK.keys.each do |k| %>
             <td><%= t[k] %></td>
             <% end %>

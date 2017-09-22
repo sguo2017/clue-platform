@@ -66,14 +66,14 @@
   <div class="col-sm-6">
     <%= f.label "开始时间", :class => 'control-label' %>
     <div class="">
-      <%= f.text_field :start_time, :class => 'form-control date-picker' %>
+      <flat-pickr name="tactic[start_time]" v-model='start_time' value="<%= @tactic.start_time %>"></flat-pickr>
     </div>
     <%=f.error_span(:start_time) %>
   </div>
   <div class="col-sm-6">
     <%= f.label "结束时间", :class => 'control-label' %>
     <div class="">
-      <%= f.text_field :end_time, :class => 'form-control date-picker' %>
+      <flat-pickr name="tactic[end_time]" v-model='end_time' value="<%= @tactic.end_time %>"></flat-pickr>
     </div>
     <%=f.error_span(:end_time) %>
   </div>

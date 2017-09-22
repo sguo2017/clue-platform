@@ -177,6 +177,9 @@ function initAddManualVueApp(){
   		}
   	},
   	methods: {
+      showFileDialog: function(){
+        $('#upload_excel_field').click();
+      },
   		switchSheet: function(sheetIndex){
   			this.activeTable=sheetIndex;
   		},

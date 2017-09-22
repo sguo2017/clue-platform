@@ -50,7 +50,7 @@ function initDataScreenVueApp() {
             method: "get"
           }).done(function(response) {
             outer[options] = response['data'];
-          }).error(function(err) {
+          }).fail(function(err) {
             alert("数据加载失败！");
             console.log(err);
           });

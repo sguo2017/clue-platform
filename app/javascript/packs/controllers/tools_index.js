@@ -1,3 +1,6 @@
+import {CalllistDataReader} from "../extensions/calllist_data_reader";
+import {DiagramHighlightManager, DiagramDataManager, DiagramVisibleMnager, DiagramLayoutManager, FrequencyScreenManager} from "../extensions/go_diagram_managers";
+import {DiagramTemplatesManager} from "../extensions/go_templates_manager";
 $(document).on("turbolinks:load", function() {
   if ($("#calllist-analyse-index-app").length > 0) {
     initCalllistAnalyseToolsIndexVue();
@@ -46,7 +49,7 @@ function initCalllistAnalyseToolsIndexVue() {
  *     不应该包含任何DOM操作逻辑，仅仅关心diagram逻辑。
  */
 function initCalllistAnalyseIndexDiagram() {
-  diagram = judgeCalllistDiagramTypeAndDraw();
+  var diagram = judgeCalllistDiagramTypeAndDraw();
   if(!diagram) return;
   //缩略图
   diagram.createOverview("tools_main_overview");

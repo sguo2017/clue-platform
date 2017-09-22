@@ -24,7 +24,7 @@ function CalllistDataReader() {
     var outer = this;
     $.ajax({
       url: url,
-      async: false,
+      async :false,
       data: {filters: this.filters}
     }).done(function(response) {
       outer.rawRows = response['data'];
@@ -33,7 +33,7 @@ function CalllistDataReader() {
       if (!outer.rawRows) {
         outer.rawRows = [];
       }
-    }).error(function(e) {
+    }).fail(function(e) {
       alert("数据获取失败");
       console.log(e);
     });
@@ -103,3 +103,4 @@ function CalllistDataReader() {
     }
   };
 }
+export {CalllistDataReader}

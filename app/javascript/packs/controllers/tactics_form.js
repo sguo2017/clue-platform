@@ -23,13 +23,16 @@ function initTacticsFormVue() {
       cases: [],
       showSearchModal: false,
       keyword: "",
-      results: []
+      results: [],
+      start_time: null,
+      end_time: null,
+
     },
     created: function() {
       this.loadCases();
     },
     mounted: function() {
-      initDatePicker();
+
     },
     methods: {
       loadCases: function() {

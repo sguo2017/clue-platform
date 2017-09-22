@@ -1,3 +1,5 @@
+import {DiagramCreator} from '../extensions/diagram_creator';
+import {DiagramHighlightManager} from '../extensions/go_diagram_managers';
 (function() {
   $(document).on("turbolinks:load", function() {
     if ($("#cas_index_diagram").length > 0) {
@@ -15,15 +17,15 @@
     }).then(function(response) {
       return response.json();
     }).then(function(model) {
-      var diagram
       if (model) {
-        var diagramCreator = new DiagramCreator();
-        diagram = diagramCreator.createCalllistDiagram({
+        let diagramCreator = new DiagramCreator();
+        return diagramCreator.createCalllistDiagram({
           el: "cas_index_diagram",
           model: model
         });
+      }else{
+        return null;
       }
-      return diagram;
     }).then(function(diagram) {
       var dhlm = new DiagramHighlightManager(diagram, {
         'displayMax': true
@@ -57,7 +59,7 @@
           params["title"] = response['title'];
           params["created_at"] = response['created_at'];
           resolve(params);
-        }).error(function(e) {
+        }).fail(function(e) {
           reject(e);
         });
       });
