@@ -1,8 +1,8 @@
-<script type="text/x-template" id="modal-template">
-  <transition name="modal">
+<template>
+  <transition name="vue-modal">
     <div class="vue-modal-mask">
       <div class="vue-modal-wrapper">
-        <div class="vue-modal-container" v-bind:style="{width: modalWidth}">
+        <div class="vue-modal-container" v-bind:style="modalWidth">
 
           <div class="vue-modal-header">
             <slot name="header">
@@ -12,35 +12,53 @@
 
           <div class="vue-modal-body">
             <slot name="body">
+              default body
             </slot>
           </div>
 
           <div class="vue-modal-footer">
             <slot name="footer">
+              default footer
               <button class="vue-modal-default-button" @click="$emit('close')">
                 OK
               </button>
             </slot>
           </div>
-          <div class="clearfix">
-          </div>
+          <div class='clearfix'></div>
         </div>
       </div>
     </div>
   </transition>
+</template>
+
+<script>
+export default {
+  props: ['width'],
+  data() {
+    return {
+
+    }
+  },
+  computed: {
+    modalWidth: function() {
+      return {
+        width: this.width || '300px'
+      }
+    }
+  }
+}
 </script>
-<%= content_for :stylesheets  do%>
-<style>
+<style scoped>
 .vue-modal-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 11111;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
   display: table;
-  transition: opacity .1s ease;
+  transition: opacity .3s ease;
 }
 
 .vue-modal-wrapper {
@@ -49,18 +67,14 @@
 }
 
 .vue-modal-container {
+  width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .1s ease;
+  transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
-}
-
-.vue-modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
 }
 
 .vue-modal-body {
@@ -71,14 +85,15 @@
   float: right;
 }
 
+
 /*
-* The following styles are auto-applied to elements with
-* transition="modal" when their visibility is toggled
-* by Vue.js.
-*
-* You can easily play with the modal transition by editing
-* these styles.
-*/
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
 
 .vue-modal-enter {
   opacity: 0;
@@ -94,4 +109,9 @@
   transform: scale(1.1);
 }
 </style>
-<% end %>
+<style>
+.vue-modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+</style>

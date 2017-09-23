@@ -28,19 +28,8 @@ function Task(obj) {
 }
 
 function initTacticShowVue() {
-  var Modal = {
-    template: "#modal-template",
-    data: function() {
-      return {
-        modalWidth: "600px"
-      }
-    }
-  };
   new Vue({
     el: "#tactic-app",
-    components: {
-      "modal": Modal
-    },
     data: {
       taskHeadersTranslator: {
         "name": "名称",

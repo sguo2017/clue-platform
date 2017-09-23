@@ -5,19 +5,8 @@ $(document).on("turbolinks:load", function() {
 });
 
 function initTacticsFormVue() {
-  var Modal = {
-    template: "#modal-template",
-    data: function() {
-      return {
-        modalWidth: "600px"
-      }
-    }
-  };
   new Vue({
     el: "#tactics-form-app",
-    components: {
-      "modal": Modal
-    },
     data: {
       originCase: [],
       cases: [],

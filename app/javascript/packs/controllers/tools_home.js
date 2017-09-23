@@ -5,21 +5,8 @@ $(document).on("turbolinks:load", function() {
 });
 
 function initToolsHomeVue() {
-  // register modal component
-  var Modal = {
-    template: '#modal-template',
-    data: function() {
-      return {
-        modalWidth: "300px"
-      };
-    }
-  };
-  // start app
   var app = new Vue({
     el: '#tools-home-vue-app',
-    components: {
-      'modal': Modal
-    },
     data: {
       showModal: false,
       cas_id: '',

@@ -17,19 +17,8 @@ $(document).on("turbolinks:load", function() {
  *     例如dhlm、dvm、fsm等管理，结合JQuery事件进行操作。
  */
 function initCalllistAnalyseToolsIndexVue() {
-  var Modal = {
-    template: "#modal-template",
-    data: function() {
-      return {
-        modalWidth: "600px"
-      };
-    }
-  };
   new Vue({
     el: "#calllist-analyse-index-app",
-    components: {
-      'modal': Modal
-    },
     mounted: function() {
       initCalllistAnalyseIndexDiagram();
       $(':input').labelauty();

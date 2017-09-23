@@ -355,8 +355,7 @@
 		</div>
 
 	</div>
-	<%= render "/vue_templates/modal" %>
-	<modal v-if="showModal" @close="showModal = false">
+	<modal v-if="showModal" @close="showModal = false" width="300px">
 		<h3 slot="header">编辑</h3>
 		<div slot="body">
 			<form id="edit-cas" class="form-horizontal" v-bind:action="action" method="POST">

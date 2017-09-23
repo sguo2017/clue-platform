@@ -224,7 +224,7 @@
 		</div>
 	</div>
 	<div class="search-modal-wrap">
-		<modal v-if="showSearchModal" @close="showSearchModal=false">
+		<modal v-if="showSearchModal" @close="showSearchModal=false" width="600px">
 			<div slot="header">
 				<h3>用户搜索</h3>
 			</div>
@@ -273,5 +273,3 @@
 		</modal>
 	</div>
 </div>
-
-<%= render "/vue_templates/modal" %>
