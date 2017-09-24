@@ -18,3 +18,7 @@ Vue.use(Viewer)
 // 模态框组件
 import Modal from '../components/modal'
 Vue.component('modal',Modal)
+
+// 按钮组件
+import ClosableBtn from '../components/closable_btn'
+Vue.component('closable-btn',ClosableBtn)

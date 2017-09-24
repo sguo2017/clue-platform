@@ -46,11 +46,12 @@
     </template>
   </div>
   <div id="associated-case-fields" class="col-sm-12" data-associated-cases="<%= @tactic.cases.map{|c|{id: c.id,name: c.name}}.to_json %>">
-    <div class="closable" v-for="c in cases">
-      <span class="closable-span">{{c.name}}
-        <button type="button" class="btn btn-close" @click="removeCase(c.id)">×</button>
-      </span>
-    </div>
+    <closable-btn
+    v-for="c in cases"
+    :text="c.name"
+    :key="c.name"
+     @close="removeCase(c.id)"
+    ></closable-btn>
   </div>
 </div>
 <div class="form-group col-sm-12">
@@ -116,11 +117,12 @@
           </div>
           <hr/>
           <div>已选择：</div>
-          <div class="closable" v-for="c in cases">
-            <span class="closable-span">{{c.name}}
-              <button type="button" class="btn btn-close" @click="removeCase(c.id)">×</button>
-            </span>
-          </div>
+          <closable-btn
+          v-for="c in cases"
+          :text="c.name"
+          :key="c.name"
+           @close="removeCase(c.id)"
+          ></closable-btn>
           <hr/>
           <div v-if="results.length > 0">
             <span>搜索结果：</span>

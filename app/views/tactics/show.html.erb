@@ -242,11 +242,12 @@
 						<div v-if="selectedUsersTemp.length > 0">
 							<hr/>
 							<div>已选择：</div>
-							<div class="closable" v-for="s in selectedUsersTemp">
-								<span class="closable-span">{{s.name}}
-									<button type="button" class="btn btn-close" @click="removeUser(s)">×</button>
-								</span>
-							</div>
+							<closable-btn
+							 v-for="s in selectedUsersTemp"
+							:text="s.name"
+							:key="s.name"
+							 @close="removeUser(s)"
+							></closable-btn>
 						</div>
 						<div v-if="usersSearchResult.length > 0">
 							<hr/>
@@ -254,7 +255,12 @@
 							<span class="search-result-list blk" v-for="u in usersSearchResult">
 								<span class="search-result-text il-blk">{{u.name}}({{u.email}})</span>
 								<span class="search-result-btn il-blk">
-									<button type="button" class="btn btn-primary btn-xs" @click="addUser(u)">选择</button>
+									<button type="button"
+									 class="btn btn-primary btn-xs"
+									 @click="addUser(u)" 
+									:disabled="selectedUsersTemp.filter(function(x){return x.id == u.id}).length > 0">
+										  {{selectedUsersTemp.filter(function(x){return x.id == u.id}).length > 0 ? "已选择" : "选择"}}
+									</button>
 								</span>
 							</span>
 							<span class="search-result-list blk"></span>

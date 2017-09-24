@@ -174,15 +174,6 @@
   color: white;
 }
 
-.zoom {
-  display: inline-block;
-  position: relative;
-}
-
-.zoom img {
-  display: block;
-}
-
 #progress-container-wrap {
   display: block;
   margin-top: 10px;
@@ -235,22 +226,6 @@
   margin: 10px auto 0;
 }
 
-.closable {
-  display: inline-block;
-  margin-right: 5px;
-  margin-bottom: 5px;
-}
-
-.closable-span{
-  display: block;
-  background-color: rgb(221, 221, 221);
-  margin: 2px;
-  padding-left: 12px;
-  border-radius: 3px;
-}
-.closable .btn{
-  box-shadow: none;
-}
 .tactic-thumbnail{
   background-color: white;
   border-radius: 4px;
