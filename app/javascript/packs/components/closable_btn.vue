@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class='btn-container' :style='containerStyle'>
       <div class='btn-text' :style='textStyle'>
-        <strong>{{text}}</strong>
+        <strong><slot>{{text}}</slot></strong>
       </div>
       <div class='btn-click' @click='$emit("close")' :style='clickStyle'>
         <strong>×</strong>
