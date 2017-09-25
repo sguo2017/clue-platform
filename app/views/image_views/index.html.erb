@@ -2,19 +2,14 @@
 <html>
   <head>
     <title>查看图片</title>
+    <%= javascript_include_tag "from_assets_pipeline" %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_pack_tag "application" %>
+    <%= stylesheet_pack_tag "application" %>
   </head>
-  <body onload="loadImage()">
-    <div>
-      <img id="image-tag" />
+  <body>
+    <div id='image-views-index-app' style='height:100%'>
+      <app :images='images'></app>
     </div>
   </body>
-  <script>
-    function loadImage(){
-      var src = sessionStorage.getItem("image-view-page-src");
-      if(src){
-        var imageTag = document.getElementById("image-tag");
-        imageTag.src = src;
-      }
-    }
-  </script>
-<html>
+</html>

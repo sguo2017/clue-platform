@@ -133,6 +133,7 @@ function DiagramDataManager(diagram, highlightManager) {
   this.exportImage = function() {
     var img = this.diagram.makeImageData({
       maxSize: new go.Size(Infinity, Infinity), //去掉默认最大2000*2000的限制
+      background: "white",
       scale: 1 //显示整个图片而非可见部分
     });
     sessionStorage.setItem("image-view-page-src", img);
@@ -206,6 +207,7 @@ function DiagramDataManager(diagram, highlightManager) {
       type: 'text/plain'
     });
     var imageDataUrl = this.diagram.makeImageData({
+      background: "white",
       size: new go.Size(160, 120)
     });
     var image = imageDataUrl.toBlob();

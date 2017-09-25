@@ -24,6 +24,7 @@ import './controllers/tools_add_info'
 import './controllers/tools_add_manual'
 import './controllers/tools_home'
 import './controllers/tools_index'
+import './controllers/image_views/index/app'
 var Turbolinks = require('turbolinks')
 Turbolinks.start()
 $(document).on('turbolinks:load', function () {
