@@ -1,0 +1,2 @@
+module TacticCoversHelper
+end

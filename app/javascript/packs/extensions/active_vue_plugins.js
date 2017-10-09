@@ -17,8 +17,13 @@ Vue.use(Viewer)
 
 // 模态框组件
 import Modal from '../components/modal'
-Vue.component('modal',Modal)
+Vue.component('modal', Modal)
 
 // 按钮组件
 import ClosableBtn from '../components/closable_btn'
-Vue.component('closable-btn',ClosableBtn)
+Vue.component('closable-btn', ClosableBtn)
+
+// 图片上传插件 https://github.com/zhanziyang/vue-croppa
+import 'vue-croppa/dist/vue-croppa.css'
+import Croppa from 'vue-croppa'
+Vue.use(Croppa)

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :tactic_covers
   root 'dashboard#index'
 
   devise_for :users, controllers: {
@@ -58,6 +59,7 @@ Rails.application.routes.draw do
       get :get_tactic_tasks
       post :persist_tasks
       get :progress
+      get :edit_covers
     end
   end
 

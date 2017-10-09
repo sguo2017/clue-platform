@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import './app.scss'
+
 export default {
   props: ['images'],
   data() {

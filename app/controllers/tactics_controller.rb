@@ -1,6 +1,5 @@
 class TacticsController < ApplicationController
-  before_action :set_tactic, only: [:show, :edit, :update, :destroy, :get_tactic_tasks, :persist_tasks, :progress]
-
+  before_action :set_tactic, only: [:show, :edit, :update, :destroy, :get_tactic_tasks, :persist_tasks, :progress, :edit_covers]
   # GET /tactics
   # GET /tactics.json
   def index
@@ -120,6 +119,11 @@ class TacticsController < ApplicationController
       redirect_to @tactic, notice: '文件服务器连接失败，请重试'
     end  # end rescue
   end  #end progress
+
+  #GET /tactics/1/edit_covers
+  def edit_covers
+
+  end
 
 
   # GET /tactics/new
